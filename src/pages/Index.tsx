@@ -3,6 +3,8 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { ShoppingCart, Target, Handshake, Calendar, Users } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 // Import images
 import heroImage from "@/assets/hero-mentorship.jpg";
@@ -27,32 +29,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="text-2xl font-heading font-bold text-primary">The Poised Gentlemen</div>
-          <nav className="hidden md:flex items-center gap-6">
-            <a href="#programs" className="text-sm font-medium hover:text-gold transition-colors">
-              Programs
-            </a>
-            <a href="#shop" className="text-sm font-medium hover:text-gold transition-colors">
-              Shop
-            </a>
-            <a href="#about" className="text-sm font-medium hover:text-gold transition-colors">
-              About
-            </a>
-            <a href="#contact" className="text-sm font-medium hover:text-gold transition-colors">
-              Contact
-            </a>
-          </nav>
-          <div className="flex items-center gap-4">
-            <ShoppingCart className="h-5 w-5 text-foreground cursor-pointer hover:text-gold transition-colors" />
-            <Button size="sm" variant="hero" className="hidden md:inline-flex">
-              Book a Call
-            </Button>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section
@@ -367,112 +344,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-secondary text-white py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-            {/* Quick Links */}
-            <div>
-              <h4 className="font-heading font-bold mb-4 text-gold">Quick Links</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#programs" className="hover:text-gold transition-colors">
-                    Programs
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gold transition-colors">
-                    Youth Mentorship
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gold transition-colors">
-                    Adult Coaching
-                  </a>
-                </li>
-                <li>
-                  <a href="#shop" className="hover:text-gold transition-colors">
-                    Shop
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gold transition-colors">
-                    About
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Customer Service */}
-            <div>
-              <h4 className="font-heading font-bold mb-4 text-gold">Customer Service</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="hover:text-gold transition-colors">
-                    Shipping & Returns
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gold transition-colors">
-                    FAQ
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gold transition-colors">
-                    Privacy Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gold transition-colors">
-                    Terms of Service
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Connect */}
-            <div>
-              <h4 className="font-heading font-bold mb-4 text-gold">Connect</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="hover:text-gold transition-colors">
-                    Instagram
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gold transition-colors">
-                    Facebook
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gold transition-colors">
-                    LinkedIn
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Contact */}
-            <div>
-              <h4 className="font-heading font-bold mb-4 text-gold">Contact</h4>
-              <ul className="space-y-2 text-sm">
-                <li>hello@thepoisedgentlemen.com</li>
-                <li>(504) 555-0123</li>
-                <li>New Orleans, LA</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
-            <p>© 2025 RISE TO PURPOSE LLC. All rights reserved.</p>
-            <div className="flex items-center gap-4">
-              <span className="text-gold">A B Corp in progress</span>
-              <span>•</span>
-              <span className="font-heading font-bold">Stay Poised.</span>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
