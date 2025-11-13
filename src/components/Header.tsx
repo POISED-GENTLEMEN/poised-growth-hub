@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import { ShoppingCart, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { useShop } from "@/contexts/ShopContext";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { getCartCount } = useShop();
 
   return (
     <header className="sticky top-0 z-50 bg-background border-b border-border">
@@ -36,9 +38,14 @@ const Header = () => {
 
           {/* Right Side Actions */}
           <div className="hidden md:flex items-center gap-4">
-            <button className="text-foreground hover:text-primary transition-colors" aria-label="Shopping Cart">
+            <Link to="/cart" className="relative text-foreground hover:text-primary transition-colors" aria-label="Shopping Cart">
               <ShoppingCart className="w-6 h-6" />
-            </button>
+              {getCartCount() > 0 && (
+                <span className="absolute -top-2 -right-2 bg-gold text-gold-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold animate-pulse">
+                  {getCartCount()}
+                </span>
+              )}
+            </Link>
             <Button variant="hero" size="sm">
               Book a Call
             </Button>
@@ -93,9 +100,14 @@ const Header = () => {
               Contact
             </Link>
             <div className="flex items-center gap-4 pt-2">
-              <button className="text-foreground hover:text-primary transition-colors" aria-label="Shopping Cart">
+              <Link to="/cart" className="relative text-foreground hover:text-primary transition-colors" aria-label="Shopping Cart">
                 <ShoppingCart className="w-6 h-6" />
-              </button>
+                {getCartCount() > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-gold text-gold-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                    {getCartCount()}
+                  </span>
+                )}
+              </Link>
               <Button variant="hero" size="sm" className="flex-1">
                 Book a Call
               </Button>
