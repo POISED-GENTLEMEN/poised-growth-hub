@@ -20,7 +20,7 @@ import articleLegacy from "@/assets/article-legacy.jpg";
 import articleMentorship from "@/assets/article-mentorship.jpg";
 import articleProfessional from "@/assets/article-professional.jpg";
 
-type Category = "All Articles" | "Mentorship" | "Emotional Intelligence" | "Grooming" | "Fatherhood" | "Discipline";
+type Category = "All Articles" | "Four Pillars" | "Presence & Etiquette" | "Masculinity FAQs" | "Mindfulness";
 
 interface Article {
   id: number;
@@ -38,7 +38,7 @@ const articles: Article[] = [
     id: 1,
     title: "The Four Pillars Explained: Your Framework for Modern Masculinity",
     excerpt: "Deep dive into each pillar with actionable steps. Learn how Integrity, Strength, Emotional Intelligence, and Discipline transform lives.",
-    category: "Discipline",
+    category: "Four Pillars",
     image: articleFeatured,
     readTime: 8,
     author: "David Rachal III",
@@ -48,7 +48,7 @@ const articles: Article[] = [
     id: 2,
     title: "Grooming Routines by Age: What Every Man Should Know",
     excerpt: "Age-specific skincare advice from Genesis-G to Legendary-G. Build a routine that works for your stage of life.",
-    category: "Grooming",
+    category: "Presence & Etiquette",
     image: articleGrooming,
     readTime: 6,
     pillar: "Discipline"
@@ -57,7 +57,7 @@ const articles: Article[] = [
     id: 3,
     title: "Emotional Intelligence for Men: Why EQ Matters More Than IQ",
     excerpt: "Research-backed guide to developing emotional fluency. Learn to name your feelings, regulate responses, and build stronger relationships.",
-    category: "Emotional Intelligence",
+    category: "Four Pillars",
     image: articleEq,
     readTime: 7,
     pillar: "Emotional Intelligence"
@@ -66,7 +66,7 @@ const articles: Article[] = [
     id: 4,
     title: "How to Talk to Your Son About Masculinity",
     excerpt: "Conversation starters for fathers and guardians. Bridge the generational gap and give your son tools you may not have had.",
-    category: "Fatherhood",
+    category: "Masculinity FAQs",
     image: articleFatherhood,
     readTime: 5,
     pillar: "Integrity"
@@ -75,7 +75,7 @@ const articles: Article[] = [
     id: 5,
     title: "Discipline Over Motivation: Building Systems That Last",
     excerpt: "Motivation fades. Discipline endures. Learn how to build habits, eliminate temptations, and show up consistently.",
-    category: "Discipline",
+    category: "Mindfulness",
     image: articleDiscipline,
     readTime: 6,
     pillar: "Discipline"
@@ -84,7 +84,7 @@ const articles: Article[] = [
     id: 6,
     title: "The Problem with 'Man Up': Redefining Strength for Modern Men",
     excerpt: "Why traditional masculinity narratives fail and what to do instead. Emotional suppression isn't strength—it's avoidance.",
-    category: "Emotional Intelligence",
+    category: "Four Pillars",
     image: articleStrength,
     readTime: 7,
     pillar: "Strength"
@@ -93,7 +93,7 @@ const articles: Article[] = [
     id: 7,
     title: "Skincare Ingredients Every Man Should Know",
     excerpt: "Guide to reading labels and choosing quality products. Learn what hyaluronic acid, retinol, and SPF actually do.",
-    category: "Grooming",
+    category: "Presence & Etiquette",
     image: articleIngredients,
     readTime: 5,
     pillar: "Discipline"
@@ -102,7 +102,7 @@ const articles: Article[] = [
     id: 8,
     title: "Building Your Legacy: Questions Every Man Should Ask Himself",
     excerpt: "Reflection prompts for purpose and long-term impact. What will you be remembered for?",
-    category: "Discipline",
+    category: "Mindfulness",
     image: articleLegacy,
     readTime: 8,
     pillar: "Integrity"
@@ -111,7 +111,7 @@ const articles: Article[] = [
     id: 9,
     title: "Mentorship 101: How to Be the Role Model Someone Needs",
     excerpt: "Practical guide for men who want to mentor youth. You don't need to be perfect—you need to be present.",
-    category: "Mentorship",
+    category: "Masculinity FAQs",
     image: articleMentorship,
     readTime: 6,
     pillar: "Strength"
@@ -120,7 +120,7 @@ const articles: Article[] = [
     id: 10,
     title: "From Barbershop to Boardroom: Style Tips for Professional Presence",
     excerpt: "Grooming, wardrobe, and body language for career success. Your presence precedes your words.",
-    category: "Grooming",
+    category: "Presence & Etiquette",
     image: articleProfessional,
     readTime: 7,
     pillar: "Discipline"
@@ -167,7 +167,7 @@ const Resources = () => {
   const [selectedDownload, setSelectedDownload] = useState<Download | null>(null);
   const [formData, setFormData] = useState({ name: "", email: "", newsletter: false });
 
-  const categories: Category[] = ["All Articles", "Mentorship", "Emotional Intelligence", "Grooming", "Fatherhood", "Discipline"];
+  const categories: Category[] = ["All Articles", "Four Pillars", "Presence & Etiquette", "Masculinity FAQs", "Mindfulness"];
 
   const filteredArticles = activeCategory === "All Articles" 
     ? articles 
@@ -191,13 +191,13 @@ const Resources = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative h-[30vh] bg-primary flex items-center justify-center">
+      <section className="relative h-[35vh] bg-primary flex items-center justify-center">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary-foreground mb-4">
-            Resources for Growth
+          <h1 className="text-5xl md:text-6xl font-heading font-bold text-primary-foreground mb-5">
+            The Codex
           </h1>
-          <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto">
-            Articles, guides, and tools for men building legacies and raising boys with purpose.
+          <p className="text-lg md:text-xl text-primary-foreground/90 max-w-2xl mx-auto">
+            Guides on style, emotional intelligence, etiquette, and legacy.
           </p>
         </div>
       </section>

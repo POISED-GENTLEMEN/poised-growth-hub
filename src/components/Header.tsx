@@ -28,8 +28,8 @@ const Header = () => {
             <Link to="/about" className="text-foreground hover:text-primary transition-colors font-body font-medium">
               About
             </Link>
-            <Link to="/resources" className="text-foreground hover:text-primary transition-colors font-body font-medium">
-              Resources
+            <Link to="/codex" className="text-foreground hover:text-primary transition-colors font-body font-medium">
+              The Codex
             </Link>
             <Link to="/contact" className="text-foreground hover:text-primary transition-colors font-body font-medium">
               Contact
@@ -86,11 +86,11 @@ const Header = () => {
               About
             </Link>
             <Link
-              to="/resources"
+              to="/codex"
               className="text-foreground hover:text-primary transition-colors font-body font-medium"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Resources
+              The Codex
             </Link>
             <Link
               to="/contact"
