@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { useShop } from "@/contexts/ShopContext";
 import ParentBadge from "./ParentBadge";
+import { SiteSearch } from "./SiteSearch";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -144,6 +145,7 @@ const Header = () => {
 
           {/* Right Side Actions */}
           <div className="hidden md:flex items-center gap-4">
+            <SiteSearch />
             <Link to="/cart" className="relative text-foreground hover:text-primary transition-colors" aria-label="Shopping Cart">
               <ShoppingCart className="w-6 h-6" />
               {getCartCount() > 0 && (
@@ -159,10 +161,11 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-foreground"
+            className="md:hidden flex items-center gap-2 text-foreground"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Menu"
           >
+            <SiteSearch />
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
