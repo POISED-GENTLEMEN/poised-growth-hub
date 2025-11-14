@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ParentBadge from "@/components/ParentBadge";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -31,6 +32,7 @@ interface Article {
   readTime: number;
   author?: string;
   pillar: string;
+  isParentResource?: boolean;
 }
 
 const articles: Article[] = [
@@ -51,7 +53,8 @@ const articles: Article[] = [
     category: "Presence & Etiquette",
     image: articleGrooming,
     readTime: 6,
-    pillar: "Discipline"
+    pillar: "Discipline",
+    isParentResource: true
   },
   {
     id: 3,
@@ -69,7 +72,8 @@ const articles: Article[] = [
     category: "Masculinity FAQs",
     image: articleFatherhood,
     readTime: 5,
-    pillar: "Integrity"
+    pillar: "Integrity",
+    isParentResource: true
   },
   {
     id: 5,
@@ -289,9 +293,14 @@ const Resources = () => {
                       alt={article.title}
                       className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <Badge className="absolute top-4 left-4 bg-gold text-gold-foreground">
-                      {article.pillar}
-                    </Badge>
+                    <div className="absolute top-4 left-4 flex items-center gap-2">
+                      <Badge className="bg-gold text-gold-foreground">
+                        {article.pillar}
+                      </Badge>
+                      {article.isParentResource && (
+                        <ParentBadge variant="parent-resource" />
+                      )}
+                    </div>
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-heading font-bold mb-2 text-card-foreground group-hover:text-gold transition-colors">
