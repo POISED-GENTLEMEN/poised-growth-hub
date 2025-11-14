@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { ShoppingCart, Target, Handshake, Calendar, Users } from "lucide-react";
+import { ShoppingCart, Target, Handshake, Calendar, Users, Brain, Sparkles, TrendingUp } from "lucide-react";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -52,6 +53,64 @@ const Index = () => {
             <Button size="lg" variant="hero">
               Shop Grooming
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Feel/Look/Be Sharp Section */}
+      <section className="py-20 md:py-24 bg-primary">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 max-w-6xl mx-auto">
+            {/* Feel Sharp */}
+            <div className="flex flex-col items-center text-center">
+              <Brain className="w-16 h-16 text-gold mb-6" strokeWidth={1.5} />
+              <h3 className="text-3xl md:text-4xl font-heading font-semibold text-primary-foreground mb-4">
+                Feel Sharp
+              </h3>
+              <p className="text-base text-primary-foreground/90 leading-relaxed mb-5 max-w-xs mx-auto">
+                Inner state and emotional intelligence. Master your mind, regulate your emotions, and build unshakeable confidence from within.
+              </p>
+              <Link 
+                to="/programs" 
+                className="text-sm font-semibold text-gold hover:underline hover:brightness-110 transition-all"
+              >
+                Explore Emotional Intelligence →
+              </Link>
+            </div>
+
+            {/* Look Sharp */}
+            <div className="flex flex-col items-center text-center">
+              <Sparkles className="w-16 h-16 text-gold mb-6" strokeWidth={1.5} />
+              <h3 className="text-3xl md:text-4xl font-heading font-semibold text-primary-foreground mb-4">
+                Look Sharp
+              </h3>
+              <p className="text-base text-primary-foreground/90 leading-relaxed mb-5 max-w-xs mx-auto">
+                Refined presentation and grooming. Elevate your daily rituals with premium products designed for every stage of your journey.
+              </p>
+              <Link 
+                to="/shop" 
+                className="text-sm font-semibold text-gold hover:underline hover:brightness-110 transition-all"
+              >
+                Shop Essence Collection →
+              </Link>
+            </div>
+
+            {/* Be Sharp */}
+            <div className="flex flex-col items-center text-center">
+              <TrendingUp className="w-16 h-16 text-gold mb-6" strokeWidth={1.5} />
+              <h3 className="text-3xl md:text-4xl font-heading font-semibold text-primary-foreground mb-4">
+                Be Sharp
+              </h3>
+              <p className="text-base text-primary-foreground/90 leading-relaxed mb-5 max-w-xs mx-auto">
+                Impact and legacy building. Transform yourself, lead your family, and shape the next generation through intentional action.
+              </p>
+              <Link 
+                to="/programs" 
+                className="text-sm font-semibold text-gold hover:underline hover:brightness-110 transition-all"
+              >
+                Join the Programs →
+              </Link>
+            </div>
           </div>
         </div>
       </section>
