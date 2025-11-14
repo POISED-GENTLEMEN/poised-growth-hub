@@ -7,44 +7,11 @@ import { Check, Plus, Minus, ShieldCheck, Award, Truck, Heart } from "lucide-rea
 import { Link } from "react-router-dom";
 import shopHero from "@/assets/shop-hero.jpg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-
-const ageGroups = [
-  { id: "all", label: "All Products" },
-  { id: "Genesis-G", label: "Genesis-G", age: "0-2" },
-  { id: "Big-G", label: "Big-G", age: "3-9" },
-  { id: "Young-G", label: "Young-G", age: "10-17" },
-  { id: "Graduate-G", label: "Graduate-G", age: "18-24" },
-  { id: "Modern-G", label: "Modern-G", age: "25-34" },
-  { id: "Poised-G", label: "Poised-G", age: "35-49" },
-  { id: "Distinguished-G", label: "Distinguished-G", age: "50-64" },
-  { id: "Legendary-G", label: "Legendary-G", age: "65+" },
-];
+import { GenerationsCollection } from "@/components/GenerationsCollection";
 
 const Shop = () => {
   const { products, addToCart, setSelectedProduct, setIsModalOpen, selectedProduct, isModalOpen } = useShop();
-  const [activeFilter, setActiveFilter] = useState("all");
-  const [sortBy, setSortBy] = useState("featured");
-  const [addingToCart, setAddingToCart] = useState<number | null>(null);
   const [modalQuantity, setModalQuantity] = useState(1);
-
-  const filteredProducts = activeFilter === "all" 
-    ? products 
-    : products.filter(p => p.ageGroup === activeFilter || p.ageGroup === "all");
-
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    if (sortBy === "price-low") return a.price - b.price;
-    if (sortBy === "price-high") return b.price - a.price;
-    if (sortBy === "newest") return b.id - a.id;
-    return b.featured ? 1 : -1;
-  });
-
-  const handleQuickAdd = async (product: any) => {
-    setAddingToCart(product.id);
-    setTimeout(() => {
-      addToCart(product, 1);
-      setAddingToCart(null);
-    }, 500);
-  };
 
   const handleViewDetails = (product: any) => {
     setSelectedProduct(product);
@@ -131,147 +98,8 @@ const Shop = () => {
         </div>
       </section>
 
-      {/* Age Group Filters */}
-      <section id="age-filters" className="sticky top-16 z-40 bg-background border-b border-border shadow-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-4 overflow-x-auto scrollbar-hide">
-            {ageGroups.map(group => (
-              <button
-                key={group.id}
-                onClick={() => setActiveFilter(group.id)}
-                className={`px-6 py-3 rounded-full font-body font-semibold whitespace-nowrap transition-all ${
-                  activeFilter === group.id
-                    ? 'bg-gold text-gold-foreground'
-                    : 'bg-muted text-foreground hover:bg-gold/20'
-                }`}
-              >
-                {group.label}
-                {group.age && <span className="text-xs ml-1">({group.age})</span>}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Sort & Results */}
-      <section className="container mx-auto px-4 py-8">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-          <p className="text-muted-foreground">
-            Showing <strong>{sortedProducts.length}</strong> products
-          </p>
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="border border-input rounded-lg px-4 py-2 bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-gold"
-          >
-            <option value="featured">Featured</option>
-            <option value="price-low">Price: Low to High</option>
-            <option value="price-high">Price: High to Low</option>
-            <option value="newest">Newest</option>
-          </select>
-        </div>
-
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {sortedProducts.map(product => (
-            <div
-              key={product.id}
-              className="bg-card border border-border rounded-lg overflow-hidden hover-lift"
-            >
-              <div className="relative">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-64 object-cover hover-scale"
-                />
-                <Badge className="absolute top-4 left-4 bg-gold/90 text-gold-foreground">
-                  {product.pillar}
-                </Badge>
-                {product.bestseller && (
-                  <Badge className="absolute top-4 right-4 bg-success text-success-foreground">
-                    Bestseller
-                  </Badge>
-                )}
-              </div>
-              
-              <div className="p-6">
-                <h3 className="text-xl font-heading font-bold text-card-foreground mb-2">
-                  {product.name}
-                </h3>
-                <p className="text-sm text-muted-foreground mb-3">
-                  For Ages {product.ageRange}
-                </p>
-                <div className="flex items-center gap-2 mb-3">
-                  {product.compareAtPrice ? (
-                    <>
-                      <span className="text-muted-foreground line-through">
-                        ${product.compareAtPrice}
-                      </span>
-                      <span className="text-2xl font-bold text-gold">
-                        ${product.price}
-                      </span>
-                      <Badge variant="secondary" className="text-xs">
-                        Save ${product.compareAtPrice - product.price}
-                      </Badge>
-                    </>
-                  ) : (
-                    <span className="text-2xl font-bold text-gold">
-                      ${product.price}
-                    </span>
-                  )}
-                </div>
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                  {product.shortDescription}
-                </p>
-                
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="flex-1"
-                    onClick={() => handleQuickAdd(product)}
-                    disabled={product.stock === 0 || addingToCart === product.id}
-                  >
-                    {addingToCart === product.id ? (
-                      <Check className="w-4 h-4 text-success" />
-                    ) : (
-                      'Quick Add'
-                    )}
-                  </Button>
-                  <Button
-                    variant="link"
-                    size="sm"
-                    className="text-gold"
-                    onClick={() => handleViewDetails(product)}
-                  >
-                    View Details
-                  </Button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Trust Badges */}
-        <div className="flex flex-wrap justify-center items-center gap-8 py-12 border-t border-border">
-          <div className="flex items-center gap-3">
-            <ShieldCheck className="w-10 h-10 text-gold" />
-            <span className="text-muted-foreground font-medium">Cruelty-Free</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Award className="w-10 h-10 text-gold" />
-            <span className="text-muted-foreground font-medium">Premium Ingredients</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Heart className="w-10 h-10 text-gold" />
-            <span className="text-muted-foreground font-medium">Satisfaction Guaranteed</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Truck className="w-10 h-10 text-gold" />
-            <span className="text-muted-foreground font-medium">Free Shipping Over $50</span>
-          </div>
-        </div>
-      </section>
+      {/* The Generations Collection - Tabbed Interface */}
+      <GenerationsCollection />
 
       {/* Product Detail Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
