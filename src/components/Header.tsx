@@ -154,9 +154,6 @@ const Header = () => {
                 </span>
               )}
             </Link>
-            <Button variant="hero" size="sm">
-              Book a Call
-            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -226,9 +223,6 @@ const Header = () => {
                   </span>
                 )}
               </Link>
-              <Button variant="hero" size="sm" className="flex-1">
-                Book a Call
-              </Button>
             </div>
           </nav>
         )}
