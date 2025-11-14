@@ -127,6 +127,20 @@ const Shop = () => {
                   For Ages {selectedProduct.ageRange}
                 </p>
 
+                {/* Product Badges */}
+                {selectedProduct.badges && selectedProduct.badges.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {selectedProduct.badges.map((badge, idx) => (
+                      <span
+                        key={idx}
+                        className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-gold/15 border border-gold text-gold text-[11px] font-semibold uppercase tracking-wider transition-colors hover:bg-gold hover:text-primary-foreground"
+                      >
+                        {badge}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
                 <div className="flex items-center gap-3 mb-4">
                   {selectedProduct.compareAtPrice ? (
                     <>
