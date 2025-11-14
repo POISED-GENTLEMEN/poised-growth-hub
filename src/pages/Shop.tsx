@@ -3,15 +3,19 @@ import { useShop } from "@/contexts/ShopContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Check, Plus, Minus, ShieldCheck, Award, Truck, Heart } from "lucide-react";
+import { Check, Plus, Minus, ShieldCheck, Award, Truck, Heart, Compass } from "lucide-react";
 import { Link } from "react-router-dom";
 import shopHero from "@/assets/shop-hero.jpg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { GenerationsCollection } from "@/components/GenerationsCollection";
+import { ScentQuiz } from "@/components/ScentQuiz";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const Shop = () => {
   const { products, addToCart, setSelectedProduct, setIsModalOpen, selectedProduct, isModalOpen } = useShop();
   const [modalQuantity, setModalQuantity] = useState(1);
+  const [quizOpen, setQuizOpen] = useState(false);
 
   const handleViewDetails = (product: any) => {
     setSelectedProduct(product);
@@ -55,6 +59,7 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen">
+      <Header />
       {/* Hero Banner */}
       <section 
         className="relative h-[40vh] md:h-[50vh] flex items-center justify-center bg-cover bg-center"
@@ -98,8 +103,31 @@ const Shop = () => {
         </div>
       </section>
 
+      {/* Mission Statement Section */}
+      <section className="py-12 bg-muted text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-heading font-bold mb-6 text-foreground">
+            Not Sure Where to Start?
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+            Take our quick 2-minute quiz to discover your ideal signature scent based on your lifestyle, preferences, and occasions. Get personalized product recommendations instantly.
+          </p>
+          <Button
+            onClick={() => setQuizOpen(true)}
+            size="lg"
+            className="bg-gold text-gold-foreground hover:bg-gold/90 h-14 px-8 text-lg"
+          >
+            <Compass className="w-5 h-5 mr-2" />
+            Find Your Signature Scent
+          </Button>
+        </div>
+      </section>
+
       {/* The Generations Collection - Tabbed Interface */}
       <GenerationsCollection />
+
+      {/* Scent Discovery Quiz Modal */}
+      <ScentQuiz open={quizOpen} onOpenChange={setQuizOpen} />
 
       {/* Product Detail Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -275,6 +303,8 @@ const Shop = () => {
           )}
         </DialogContent>
       </Dialog>
+
+      <Footer />
     </div>
   );
 };
