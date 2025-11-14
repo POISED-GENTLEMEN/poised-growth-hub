@@ -16,6 +16,7 @@ import {
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [shopMenuOpen, setShopMenuOpen] = useState(false);
   const { getCartCount } = useShop();
 
   return (
@@ -126,12 +127,87 @@ const Header = () => {
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors font-body font-medium bg-transparent h-auto p-0 hover:bg-transparent data-[state=open]:bg-transparent">
+                    Shop
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent className="w-[280px]">
+                    <div className="p-5 border-t-2 border-gold">
+                      <div className="space-y-3">
+                        <Link 
+                          to="/shop"
+                          className="group block p-3 rounded-lg hover:border-l-4 hover:border-gold hover:pl-[11px] transition-all"
+                        >
+                          <div className="flex items-start gap-3">
+                            <Menu className="w-[18px] h-[18px] text-gold mt-0.5 flex-shrink-0" />
+                            <div>
+                              <div className="font-medium text-foreground group-hover:text-gold transition-colors">
+                                All Products
+                              </div>
+                              <div className="text-sm text-muted-foreground mt-0.5">
+                                Browse complete catalog
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+
+                        <Link 
+                          to="/shop#essence-collection"
+                          className="group block p-3 rounded-lg hover:border-l-4 hover:border-gold hover:pl-[11px] transition-all"
+                        >
+                          <div className="flex items-start gap-3">
+                            <Heart className="w-[18px] h-[18px] text-gold mt-0.5 flex-shrink-0" />
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2">
+                                <div className="font-medium text-foreground group-hover:text-gold transition-colors">
+                                  Essence Collection
+                                </div>
+                                <span className="px-2 py-0.5 bg-gold/10 text-gold text-xs font-semibold rounded-full">
+                                  Bestseller
+                                </span>
+                              </div>
+                              <div className="text-sm text-muted-foreground mt-0.5">
+                                12 signature cologne balms
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+
+                        <Link 
+                          to="/shop#generations-collection"
+                          className="group block p-3 rounded-lg hover:border-l-4 hover:border-gold hover:pl-[11px] transition-all"
+                        >
+                          <div className="flex items-start gap-3">
+                            <Gift className="w-[18px] h-[18px] text-gold mt-0.5 flex-shrink-0" />
+                            <div>
+                              <div className="font-medium text-foreground group-hover:text-gold transition-colors">
+                                Generations Collection
+                              </div>
+                              <div className="text-sm text-muted-foreground mt-0.5">
+                                Heritage grooming essentials
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <Link 
+                          to="/shop#scent-quiz"
+                          className="group flex items-center justify-between p-3 rounded-lg bg-gold/5 hover:bg-gold/10 transition-all"
+                        >
+                          <span className="text-sm font-bold text-gold">
+                            Take Scent Quiz
+                          </span>
+                          <ChevronDown className="w-4 h-4 text-gold -rotate-90 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-
-            <Link to="/shop" className="text-foreground hover:text-primary transition-colors font-body font-medium">
-              Shop
-            </Link>
             <Link to="/about" className="text-foreground hover:text-primary transition-colors font-body font-medium">
               About
             </Link>
@@ -186,13 +262,70 @@ const Header = () => {
               <Heart className="w-5 h-5 text-gold" />
               Moms & Mentors
             </Link>
-            <Link
-              to="/shop"
-              className="text-foreground hover:text-primary transition-colors font-body font-medium"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Shop
-            </Link>
+            
+            <div className="space-y-2">
+              <button
+                className="w-full text-left text-foreground hover:text-primary transition-colors font-body font-medium flex items-center justify-between"
+                onClick={() => setShopMenuOpen(!shopMenuOpen)}
+              >
+                Shop
+                <ChevronDown className={`w-4 h-4 transition-transform ${shopMenuOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {shopMenuOpen && (
+                <div className="pl-4 space-y-2 border-l-2 border-gold/20">
+                  <Link
+                    to="/shop"
+                    className="group flex items-start gap-2 text-sm text-foreground hover:text-gold transition-colors py-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Menu className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                    <div>
+                      <div className="font-medium">All Products</div>
+                      <div className="text-xs text-muted-foreground">Browse complete catalog</div>
+                    </div>
+                  </Link>
+                  
+                  <Link
+                    to="/shop#essence-collection"
+                    className="group flex items-start gap-2 text-sm text-foreground hover:text-gold transition-colors py-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Heart className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                    <div>
+                      <div className="font-medium flex items-center gap-2">
+                        Essence Collection
+                        <span className="px-1.5 py-0.5 bg-gold/10 text-gold text-[10px] font-semibold rounded-full">
+                          Bestseller
+                        </span>
+                      </div>
+                      <div className="text-xs text-muted-foreground">12 signature cologne balms</div>
+                    </div>
+                  </Link>
+                  
+                  <Link
+                    to="/shop#generations-collection"
+                    className="group flex items-start gap-2 text-sm text-foreground hover:text-gold transition-colors py-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Gift className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                    <div>
+                      <div className="font-medium">Generations Collection</div>
+                      <div className="text-xs text-muted-foreground">Heritage grooming essentials</div>
+                    </div>
+                  </Link>
+                  
+                  <Link
+                    to="/shop#scent-quiz"
+                    className="flex items-center justify-between p-2 rounded-lg bg-gold/5 hover:bg-gold/10 transition-all mt-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className="text-sm font-bold text-gold">Take Scent Quiz</span>
+                    <ChevronDown className="w-4 h-4 text-gold -rotate-90" />
+                  </Link>
+                </div>
+              )}
+            </div>
             <Link
               to="/about"
               className="text-foreground hover:text-primary transition-colors font-body font-medium"
