@@ -13,6 +13,7 @@ import ThankYou from "./pages/ThankYou";
 import About from "./pages/About";
 import Resources from "./pages/Resources";
 import Contact from "./pages/Contact";
+import ForMomsMentors from "./pages/ForMomsMentors";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/codex" element={<Resources />} />
             <Route path="/resources" element={<Resources />} /> {/* Legacy redirect */}
             <Route path="/contact" element={<Contact />} />
+            <Route path="/for-moms-mentors" element={<ForMomsMentors />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
