@@ -15,6 +15,7 @@ import About from "./pages/About";
 import Resources from "./pages/Resources";
 import Contact from "./pages/Contact";
 import ForMomsMentors from "./pages/ForMomsMentors";
+import EssenceCollection from "./pages/EssenceCollection";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/resources" element={<Resources />} /> {/* Legacy redirect */}
             <Route path="/contact" element={<Contact />} />
             <Route path="/for-moms-mentors" element={<ForMomsMentors />} />
+            <Route path="/shop/essence-collection" element={<EssenceCollection />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
