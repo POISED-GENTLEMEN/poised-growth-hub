@@ -32,7 +32,8 @@ const App = () => (
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/thank-you" element={<ThankYou />} />
             <Route path="/about" element={<About />} />
-            <Route path="/resources" element={<Resources />} />
+            <Route path="/codex" element={<Resources />} />
+            <Route path="/resources" element={<Resources />} /> {/* Legacy redirect */}
             <Route path="/contact" element={<Contact />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
