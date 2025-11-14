@@ -309,6 +309,74 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Parents & Mentors Promotion Section */}
+      <section className="py-16 md:py-20 bg-[hsl(var(--muted))]">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
+            {/* Left Column - Content */}
+            <div className="lg:col-span-3 fade-in">
+              <h2 className="text-3xl md:text-4xl lg:text-[36px] font-heading font-bold text-primary mb-4 leading-tight">
+                Parents: Raise Poised Young Men
+              </h2>
+              <p className="text-lg md:text-[18px] text-muted-foreground mb-6 leading-relaxed">
+                Starter kits, first-shave guidance, and character-building programs for the young man in your life
+              </p>
+
+              {/* Value Bullets */}
+              <div className="space-y-3 mb-8">
+                {[
+                  "Age-appropriate grooming kits for teens 13-18",
+                  "Free downloadable guides: First shave, conversations, milestones",
+                  "Youth leadership programs that build character"
+                ].map((bullet, index) => (
+                  <div key={index} className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <div className="w-2 h-2 rounded-full bg-gold" />
+                    </div>
+                    <p className="text-base text-muted-foreground">{bullet}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button 
+                  asChild
+                  size="lg"
+                  className="bg-gold hover:bg-gold/90 text-primary font-bold"
+                >
+                  <Link to="/for-moms-mentors">
+                    Explore Parent Resources
+                  </Link>
+                </Button>
+                <Button 
+                  asChild
+                  variant="link"
+                  className="text-gold hover:text-gold/80 font-medium group"
+                >
+                  <Link to="/for-moms-mentors#first-shave">
+                    Download First Shave Guide
+                    <span className="inline-block transition-transform group-hover:translate-x-1 ml-1">→</span>
+                  </Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Right Column - Image */}
+            <div className="lg:col-span-2 fade-in">
+              <div className="relative">
+                <img
+                  src={youthImage}
+                  alt="Parent and teen building confidence together"
+                  className="w-full h-auto rounded-xl shadow-lg object-cover max-h-[400px]"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Social Proof Section */}
       <section className="py-20 md:py-32 bg-primary text-white">
         <div className="container mx-auto px-4">
