@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
-import { ShoppingCart, Menu, X, Heart } from "lucide-react";
+import { ShoppingCart, Menu, X, Heart, Gift, FileText, GraduationCap, HelpCircle, ChevronDown } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { useShop } from "@/contexts/ShopContext";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -22,9 +30,100 @@ const Header = () => {
             <Link to="/programs" className="text-foreground hover:text-primary transition-colors font-body font-medium">
               Programs
             </Link>
-            <Link to="/for-moms-mentors" className="text-foreground hover:text-primary transition-colors font-body font-medium" aria-label="Resources for Moms and Mentors">
-              Moms & Mentors
-            </Link>
+            
+            <NavigationMenu delayDuration={200}>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors font-body font-medium bg-transparent h-auto p-0 hover:bg-transparent data-[state=open]:bg-transparent">
+                    Moms & Mentors
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent className="w-[300px]">
+                    <div className="p-6 border-t-2 border-gold">
+                      <div className="space-y-4">
+                        <Link 
+                          to="/for-moms-mentors#starter-kits"
+                          className="group block p-3 rounded-lg hover:border-l-4 hover:border-gold hover:pl-[11px] transition-all"
+                        >
+                          <div className="flex items-start gap-3">
+                            <Gift className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                            <div>
+                              <div className="font-medium text-foreground group-hover:text-gold transition-colors">
+                                Teen Starter Kits
+                              </div>
+                              <div className="text-sm text-muted-foreground mt-0.5">
+                                Age-appropriate grooming collections
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+
+                        <Link 
+                          to="/for-moms-mentors#first-shave"
+                          className="group block p-3 rounded-lg hover:border-l-4 hover:border-gold hover:pl-[11px] transition-all"
+                        >
+                          <div className="flex items-start gap-3">
+                            <FileText className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                            <div>
+                              <div className="font-medium text-foreground group-hover:text-gold transition-colors">
+                                First Shave Guide
+                              </div>
+                              <div className="text-sm text-muted-foreground mt-0.5">
+                                Free downloadable PDF guide
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+
+                        <Link 
+                          to="/for-moms-mentors#programs"
+                          className="group block p-3 rounded-lg hover:border-l-4 hover:border-gold hover:pl-[11px] transition-all"
+                        >
+                          <div className="flex items-start gap-3">
+                            <GraduationCap className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                            <div>
+                              <div className="font-medium text-foreground group-hover:text-gold transition-colors">
+                                Youth Programs (PYG)
+                              </div>
+                              <div className="text-sm text-muted-foreground mt-0.5">
+                                8-week character development
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+
+                        <Link 
+                          to="/for-moms-mentors#resources"
+                          className="group block p-3 rounded-lg hover:border-l-4 hover:border-gold hover:pl-[11px] transition-all"
+                        >
+                          <div className="flex items-start gap-3">
+                            <HelpCircle className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                            <div>
+                              <div className="font-medium text-foreground group-hover:text-gold transition-colors">
+                                Parent Resources & FAQs
+                              </div>
+                              <div className="text-sm text-muted-foreground mt-0.5">
+                                Guides and conversation starters
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+                      </div>
+
+                      <div className="mt-6 pt-4 border-t border-border">
+                        <Link 
+                          to="/for-moms-mentors"
+                          className="group flex items-center gap-1 text-sm font-bold text-gold hover:gap-2 transition-all"
+                        >
+                          View All Parent Resources 
+                          <ChevronDown className="w-4 h-4 -rotate-90" />
+                        </Link>
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+
             <Link to="/shop" className="text-foreground hover:text-primary transition-colors font-body font-medium">
               Shop
             </Link>
