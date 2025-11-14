@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Download, ArrowRight, MessageCircle, Shield, Mountain, Users, Star } from "lucide-react";
+import { Download, ArrowRight, MessageCircle, Shield, Mountain, Users, Star, ChevronRight } from "lucide-react";
 
 const ForMomsMentors = () => {
   const [email, setEmail] = useState("");
@@ -32,6 +32,23 @@ const ForMomsMentors = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      
+      {/* Breadcrumb Navigation */}
+      <nav aria-label="Breadcrumb" className="container mx-auto px-4 pt-6 pb-4">
+        <ol className="flex items-center gap-2 text-sm">
+          <li>
+            <Link to="/" className="text-foreground hover:text-gold transition-colors">
+              Home
+            </Link>
+          </li>
+          <li aria-hidden="true" className="text-muted-foreground">
+            <ChevronRight className="w-4 h-4" />
+          </li>
+          <li aria-current="page" className="text-gold font-medium">
+            Moms & Mentors
+          </li>
+        </ol>
+      </nav>
       
       {/* Hero Section */}
       <section className="bg-[#F9F7F4] py-20 md:py-32">
