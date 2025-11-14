@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Download, ArrowRight, MessageCircle, Shield, Mountain, Users, Star, ChevronRight } from "lucide-react";
+import { Download, ArrowRight, MessageCircle, Shield, Mountain, Users, Star, ChevronRight, ShoppingBag, CheckSquare, GraduationCap, FolderOpen, HelpCircle } from "lucide-react";
 
 const ForMomsMentors = () => {
   const [email, setEmail] = useState("");
@@ -71,6 +71,56 @@ const ForMomsMentors = () => {
         </div>
       </section>
 
+      {/* Anchor Navigation Menu */}
+      <nav className="sticky top-16 z-40 bg-[#F9F7F4] border-b border-border shadow-sm">
+        <div className="container mx-auto px-4 py-5">
+          <div className="flex items-center justify-center gap-3 overflow-x-auto scrollbar-hide">
+            <a
+              href="#starter-kits"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
+            >
+              <ShoppingBag className="w-4 h-4" />
+              Starter Kits
+            </a>
+            <a
+              href="#first-shave"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
+            >
+              <CheckSquare className="w-4 h-4" />
+              First Shave Guide
+            </a>
+            <a
+              href="#programs"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
+            >
+              <GraduationCap className="w-4 h-4" />
+              Youth Programs
+            </a>
+            <a
+              href="#conversations"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
+            >
+              <MessageCircle className="w-4 h-4" />
+              Conversations
+            </a>
+            <a
+              href="#resources"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
+            >
+              <FolderOpen className="w-4 h-4" />
+              Resources
+            </a>
+            <a
+              href="#faqs"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
+            >
+              <HelpCircle className="w-4 h-4" />
+              FAQs
+            </a>
+          </div>
+        </div>
+      </nav>
+
       {/* Section 1: Why Grooming Matters */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
@@ -117,7 +167,7 @@ const ForMomsMentors = () => {
       </section>
 
       {/* Section 2: Starter Kits */}
-      <section className="py-20 bg-muted">
+      <section id="starter-kits" className="py-20 bg-muted scroll-mt-32">
         <div className="container mx-auto px-4">
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
             Age-Appropriate Starter Collections
@@ -193,7 +243,7 @@ const ForMomsMentors = () => {
       </section>
 
       {/* Section 3: First Shave Guide */}
-      <section className="py-20 bg-background">
+      <section id="first-shave" className="py-20 bg-background scroll-mt-32">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="aspect-square bg-muted rounded-lg overflow-hidden">
@@ -243,7 +293,7 @@ const ForMomsMentors = () => {
       </section>
 
       {/* Section 4: Conversations That Matter */}
-      <section className="py-20 bg-muted">
+      <section id="conversations" className="py-20 bg-muted scroll-mt-32">
         <div className="container mx-auto px-4">
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
             How to Talk About Masculinity & Grooming
@@ -305,7 +355,7 @@ const ForMomsMentors = () => {
       </section>
 
       {/* Section 5: Poised Young Gentlemen Program */}
-      <section className="py-20 bg-primary text-primary-foreground">
+      <section id="programs" className="py-20 bg-primary text-primary-foreground scroll-mt-32">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-5 gap-8 items-center">
             <div className="md:col-span-3">
@@ -434,7 +484,7 @@ const ForMomsMentors = () => {
       </section>
 
       {/* Section 7: Resources for Parents */}
-      <section className="py-20 bg-muted">
+      <section id="resources" className="py-20 bg-muted scroll-mt-32">
         <div className="container mx-auto px-4">
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
             Resources for Parents
@@ -546,7 +596,7 @@ const ForMomsMentors = () => {
       </section>
 
       {/* Section 8: FAQ for Parents */}
-      <section className="py-20 bg-background">
+      <section id="faqs" className="py-20 bg-background scroll-mt-32">
         <div className="container mx-auto px-4 max-w-4xl">
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
             FAQ for Parents
