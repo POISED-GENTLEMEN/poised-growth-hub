@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ShoppingCart, Menu, X } from "lucide-react";
+import { ShoppingCart, Menu, X, Heart } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { useShop } from "@/contexts/ShopContext";
@@ -76,10 +76,11 @@ const Header = () => {
             </Link>
             <Link
               to="/for-moms-mentors"
-              className="text-foreground hover:text-primary transition-colors font-body font-medium"
+              className="text-foreground hover:text-primary transition-colors font-body font-medium flex items-center gap-2"
               onClick={() => setMobileMenuOpen(false)}
               aria-label="Resources for Moms and Mentors"
             >
+              <Heart className="w-5 h-5 text-gold" />
               Moms & Mentors
             </Link>
             <Link
