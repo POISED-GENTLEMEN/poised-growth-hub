@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -166,6 +166,30 @@ const Resources = () => {
   const [downloadModalOpen, setDownloadModalOpen] = useState(false);
   const [selectedDownload, setSelectedDownload] = useState<Download | null>(null);
   const [formData, setFormData] = useState({ name: "", email: "", newsletter: false });
+
+  // SEO: Update page title and meta description
+  useEffect(() => {
+    document.title = "The Codex | The Poised Gentlemen";
+    
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        "content",
+        "The Poised Gentleman's Codex — comprehensive guides on the Four Pillars, emotional intelligence, style, etiquette, and building your legacy."
+      );
+    }
+
+    // Cleanup: Reset to default on unmount
+    return () => {
+      document.title = "The Poised Gentlemen | Mentorship & Grooming for Modern Men";
+      if (metaDescription) {
+        metaDescription.setAttribute(
+          "content",
+          "Youth mentorship, adult coaching, and premium grooming aligned with the Four Pillars: Integrity, Strength, Emotional Intelligence, Discipline. New Orleans."
+        );
+      }
+    };
+  }, []);
 
   const categories: Category[] = ["All Articles", "Four Pillars", "Presence & Etiquette", "Masculinity FAQs", "Mindfulness"];
 
