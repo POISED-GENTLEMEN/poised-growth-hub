@@ -11,6 +11,7 @@ import { GenerationsCollection } from "@/components/GenerationsCollection";
 import { ScentQuiz } from "@/components/ScentQuiz";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { ParentGuideBanner } from "@/components/ParentGuideBanner";
 
 const Shop = () => {
   const { products, addToCart, setSelectedProduct, setIsModalOpen, selectedProduct, isModalOpen } = useShop();
@@ -60,6 +61,7 @@ const Shop = () => {
   return (
     <div className="min-h-screen">
       <Header />
+      <ParentGuideBanner />
       {/* Hero Banner */}
       <section 
         className="relative h-[40vh] md:h-[50vh] flex items-center justify-center bg-cover bg-center"

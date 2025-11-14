@@ -20,6 +20,9 @@ const ForMomsMentors = () => {
         "Empower the young men in your life with confidence, discipline, and refined presence. Starter kits, guides, and programs for parents and mentors."
       );
     }
+    
+    // Mark that user has visited this page (for banner dismissal logic)
+    sessionStorage.setItem("visited-moms-mentors", "true");
   }, []);
 
   const handleEmailSubmit = (e: React.FormEvent) => {
