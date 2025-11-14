@@ -291,64 +291,131 @@ const About = () => {
 
       {/* Team Section */}
       <section className="py-20 px-6 bg-muted">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="font-heading text-3xl md:text-5xl font-bold text-center text-foreground mb-12">
-            Meet the Team
-          </h2>
+        <div className="container mx-auto max-w-7xl">
+          <div className="text-center mb-16">
+            <h2 className="font-heading text-3xl md:text-5xl font-bold text-foreground mb-4">
+              Meet the Team
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              The minds and hearts behind The Poised Gentlemen's mission to redefine masculinity 
+              through integrity, strength, emotional intelligence, and discipline.
+            </p>
+          </div>
           
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* David Rachal III */}
-            <div className="text-center">
+          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+            {/* David "DR3" Rachal III */}
+            <div className="bg-background rounded-2xl p-8 shadow-lg hover:-translate-y-1 transition-all duration-300">
               <img 
                 src={davidTeam}
-                alt="David Rachal III, Founder & Lead Coach"
-                className="w-48 h-48 rounded-full mx-auto mb-6 object-cover shadow-lg"
+                alt="David DR3 Rachal III, Founder & Chief Executive Officer"
+                className="w-48 h-48 rounded-full mx-auto mb-6 object-cover shadow-lg border-4 border-gold"
               />
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-2">
-                David Rachal III, MBA
+              <h3 className="font-heading text-2xl font-bold text-foreground mb-2 text-center">
+                David "DR3" Rachal III, MBA
               </h3>
-              <p className="text-[#D4AF37] font-semibold mb-4">
-                Founder & Lead Coach
+              <p className="text-gold font-semibold mb-4 text-center uppercase tracking-wide text-sm">
+                Founder & Chief Executive Officer
               </p>
-              <p className="text-muted-foreground max-w-md mx-auto">
-                10+ years in youth leadership. MBA. Creator of the Four Pillars Framework. 
-                Passionate about bridging generations through intentional mentorship. Based in 
-                New Orleans, David has mentored 500+ individuals and partnered with leading 
-                organizations to redefine masculinity.
-              </p>
+              <div className="space-y-4 text-muted-foreground text-left">
+                <p>
+                  For over 20 years, David "DR3" Rachal III has been driven by one mission: helping men 
+                  build lives that command respect—from within. As the founder of The Poised Gentlemen, 
+                  he leads a cultural movement that redefines modern masculinity through the Four Pillars 
+                  of Integrity, Strength, Emotional Intelligence, and Discipline. His work empowers men 
+                  and boys with the tools to lead, love, and live with purpose—because refinement isn't 
+                  just about appearances; it's about identity, impact, and legacy.
+                </p>
+                <p>
+                  Drawing from his unique background in medical fitness, executive coaching, and community 
+                  development, DR3 has built systems that serve both modern professionals seeking alignment 
+                  and leadership presence, and young men needing real-world tools to cultivate emotional 
+                  resilience and authentic masculinity. As a Certified Business Coach and CKM Level 3 
+                  Instructor, he brings strategic rigor to personal transformation, bridging the gap between 
+                  aspiration and achievement.
+                </p>
+                <p>
+                  With an MBA in Healthcare Leadership and experience as Lead Trainer for the American 
+                  Diabetes Association's Project Power, DR3 combines business acumen with boots-on-the-ground 
+                  community impact. He has personally mentored 500+ individuals, designed trademarked premium 
+                  grooming products tailored for boys and discerning men, and created curricula that reshape 
+                  how boys grow into men—with dignity, not confusion.
+                </p>
+              </div>
             </div>
 
             {/* Kimberly N. Beshears */}
-            <div className="text-center">
+            <div className="bg-background rounded-2xl p-8 shadow-lg hover:-translate-y-1 transition-all duration-300">
               <img 
                 src={kimberlyTeam}
-                alt="Kimberly N. Beshears, Trauma-Informed Curriculum Advisor"
-                className="w-48 h-48 rounded-full mx-auto mb-6 object-cover shadow-lg"
+                alt="Kimberly N. Beshears, Chief Program Officer & Director of Clinical Excellence"
+                className="w-48 h-48 rounded-full mx-auto mb-6 object-cover shadow-lg border-4 border-gold"
               />
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-2">
-                Kimberly N. Beshears
+              <h3 className="font-heading text-2xl font-bold text-foreground mb-2 text-center">
+                Kimberly N. Beshears, M.A., MBA
               </h3>
-              <p className="text-[#D4AF37] font-semibold mb-4">
-                Trauma-Informed Curriculum Advisor
+              <p className="text-gold font-semibold mb-4 text-center uppercase tracking-wide text-sm">
+                Chief Program Officer & Director of Clinical Excellence
               </p>
-              <p className="text-muted-foreground max-w-md mx-auto">
-                Expert in trauma-informed care and youth development. Ensures all programming 
-                centers healing and safety. Kimberly brings decades of experience in 
-                social-emotional learning and positive youth development.
-              </p>
+              <div className="space-y-4 text-muted-foreground text-left">
+                <p>
+                  Kimberly brings unparalleled clinical expertise to The Poised Gentlemen as our Chief 
+                  Program Officer and Director of Clinical Excellence. With a Master of Arts, MBA, and 
+                  Master of Psychology (2022), plus 18 doctoral hours toward her Ph.D. in psychology, 
+                  she provides the evidence-based foundation that makes our programs transformative, not 
+                  just motivational.
+                </p>
+                <p>
+                  As a trauma-informed youth justice expert with specialized training in forensic psychology, 
+                  Kimberly ensures every aspect of our curriculum aligns with Positive Youth Development 
+                  principles and Social-Emotional Learning best practices. She oversees all mentorship 
+                  programs, leads the development of our proprietary Poised Mentor Certification, and builds 
+                  strategic partnerships with juvenile justice systems, schools, and mental health organizations.
+                </p>
+                <p>
+                  Her work directly impacts measurable outcomes: program completion rates exceeding 85%, 
+                  documented participant improvements via clinical assessments, and the establishment of 
+                  partnerships with organizations like Son of a Saint and AmeriHealth Caritas. Kimberly 
+                  doesn't just design programs—she creates frameworks that change lives.
+                </p>
+              </div>
             </div>
-          </div>
 
-          {/* Digital Team Mention */}
-          <div className="mt-16 text-center max-w-3xl mx-auto">
-            <h4 className="font-heading text-xl font-bold text-foreground mb-4">
-              Powered by Innovation
-            </h4>
-            <p className="text-muted-foreground">
-              Our digital assistants—Penn, Buddy, Milli, and Gigi—help power personalized 
-              learning experiences and program logistics, ensuring every participant receives 
-              tailored support.
-            </p>
+            {/* Joel Chambers */}
+            <div className="bg-background rounded-2xl p-8 shadow-lg hover:-translate-y-1 transition-all duration-300">
+              <div className="w-48 h-48 rounded-full mx-auto mb-6 bg-muted flex items-center justify-center shadow-lg border-4 border-gold">
+                <div className="text-6xl font-heading font-bold text-gold">JC</div>
+              </div>
+              <h3 className="font-heading text-2xl font-bold text-foreground mb-2 text-center">
+                Joel Chambers
+              </h3>
+              <p className="text-gold font-semibold mb-4 text-center uppercase tracking-wide text-sm">
+                Chief Technology Officer & Director of Digital Innovation
+              </p>
+              <div className="space-y-4 text-muted-foreground text-left">
+                <p>
+                  Joel Chambers serves as Chief Technology Officer and Director of Digital Innovation, 
+                  bringing enterprise-level technical expertise and a rare combination of IT leadership 
+                  and customer service excellence. With proven experience managing 100+ user database 
+                  systems across Windows Azure, Microsoft 365, and LEAD SQL environments, Joel architects 
+                  the digital infrastructure that allows The Poised Gentlemen to scale our mission nationally.
+                </p>
+                <p>
+                  As an Apple Certified Macintosh Technician (ACMT) and A+ trained professional with 
+                  expertise spanning web development, multimedia production, and cross-platform systems, 
+                  Joel transforms complex technology into accessible, user-friendly experiences. His 
+                  proficiency in HTML, Adobe Creative Suite, Apple Logic Pro, and Final Cut Pro enables 
+                  in-house content creation for our educational platforms—from interactive Kahoot curriculum 
+                  to professional video content that brings the Four Pillars to life.
+                </p>
+                <p>
+                  Joel's background in customer service excellence uniquely positions him to ensure every 
+                  digital touchpoint reflects our commitment to personal connection and support. He leads 
+                  development of our AI-enhanced marketing systems, enterprise customer management platforms, 
+                  and the technical backbone of our Academy programs—all while maintaining the human-centered 
+                  approach that defines our brand.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
