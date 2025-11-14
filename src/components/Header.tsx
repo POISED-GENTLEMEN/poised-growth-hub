@@ -22,6 +22,9 @@ const Header = () => {
             <Link to="/programs" className="text-foreground hover:text-primary transition-colors font-body font-medium">
               Programs
             </Link>
+            <Link to="/for-moms-mentors" className="text-foreground hover:text-primary transition-colors font-body font-medium" aria-label="Resources for Moms and Mentors">
+              Moms & Mentors
+            </Link>
             <Link to="/shop" className="text-foreground hover:text-primary transition-colors font-body font-medium">
               Shop
             </Link>
@@ -70,6 +73,14 @@ const Header = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               Programs
+            </Link>
+            <Link
+              to="/for-moms-mentors"
+              className="text-foreground hover:text-primary transition-colors font-body font-medium"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-label="Resources for Moms and Mentors"
+            >
+              Moms & Mentors
             </Link>
             <Link
               to="/shop"
