@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { CheckCircle, Users, Target, Calendar } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ParentBadge from "@/components/ParentBadge";
 import heroImage from "@/assets/programs-hero.jpg";
 import youthImage from "@/assets/youth-program-card.jpg";
 import adultImage from "@/assets/adult-program-card.jpg";
@@ -131,11 +132,16 @@ const Programs = () => {
             {/* Youth Program Card */}
             <Card className="border-l-4 border-l-gold hover-lift">
               <CardHeader>
-                <img
-                  src={youthImage}
-                  alt="Youth mentorship session with mentor and teenage boy"
-                  className="w-full h-64 object-cover rounded-t-lg mb-4"
-                />
+                <div className="relative">
+                  <img
+                    src={youthImage}
+                    alt="Youth mentorship session with mentor and teenage boy"
+                    className="w-full h-64 object-cover rounded-t-lg mb-4"
+                  />
+                  <div className="absolute top-4 right-4">
+                    <ParentBadge variant="parent-info" />
+                  </div>
+                </div>
                 <div className="flex items-center gap-2 mb-2">
                   <Users className="w-6 h-6 text-gold" />
                   <CardTitle className="font-heading text-2xl">Poised Young Gentleman (Ages 10-17)</CardTitle>

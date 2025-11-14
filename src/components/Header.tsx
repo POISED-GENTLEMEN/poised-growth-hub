@@ -3,6 +3,7 @@ import { ShoppingCart, Menu, X, Heart, Gift, FileText, GraduationCap, HelpCircle
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { useShop } from "@/contexts/ShopContext";
+import ParentBadge from "./ParentBadge";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -35,7 +36,10 @@ const Header = () => {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors font-body font-medium bg-transparent h-auto p-0 hover:bg-transparent data-[state=open]:bg-transparent">
-                    Moms & Mentors
+                    <span className="flex items-center gap-2">
+                      Moms & Mentors
+                      <ParentBadge variant="new" className="ml-1" />
+                    </span>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="w-[300px]">
                     <div className="p-6 border-t-2 border-gold">

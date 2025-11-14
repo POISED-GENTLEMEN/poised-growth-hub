@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ParentBadge from "./ParentBadge";
 
 const generationsData = [
   {
@@ -300,11 +301,14 @@ export const GenerationsCollection = () => {
                 key={idx}
                 className="bg-card rounded-xl p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col"
               >
-                {/* Age Group Badge */}
-                <div className="inline-block mb-5">
+                {/* Age Group Badge and Parent Badge */}
+                <div className="flex items-center gap-2 mb-5 flex-wrap">
                   <span className="inline-block px-4 py-1.5 bg-gold/10 border border-gold rounded-full text-gold text-xs font-semibold uppercase tracking-wide">
                     {currentGeneration.ageGroup}
                   </span>
+                  {currentGeneration.ageGroup === "10-17" && (
+                    <ParentBadge variant="teen-friendly" />
+                  )}
                 </div>
 
                 {/* Product Name */}
