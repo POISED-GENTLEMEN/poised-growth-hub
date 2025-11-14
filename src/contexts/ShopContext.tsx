@@ -18,6 +18,7 @@ export interface Product {
   stock: number;
   featured: boolean;
   bestseller?: boolean;
+  badges?: string[];
 }
 
 export interface CartItem extends Product {
@@ -82,7 +83,8 @@ const mockProducts: Product[] = [
     ],
     stock: 12,
     featured: true,
-    bestseller: true
+    bestseller: true,
+    badges: ["Office Ready", "Year-Round"]
   },
   {
     id: 2,
@@ -108,7 +110,8 @@ const mockProducts: Product[] = [
       "Follow with moisturizer and SPF (morning)"
     ],
     stock: 8,
-    featured: true
+    featured: true,
+    badges: ["Date Night", "Bold & Confident"]
   },
   {
     id: 3,
@@ -134,7 +137,8 @@ const mockProducts: Product[] = [
       "Always follow with oil-free moisturizer"
     ],
     stock: 15,
-    featured: false
+    featured: false,
+    badges: ["Starter Friendly", "Fresh & Clean"]
   },
   {
     id: 4,
@@ -160,7 +164,8 @@ const mockProducts: Product[] = [
       "Allow to absorb before bed"
     ],
     stock: 5,
-    featured: false
+    featured: false,
+    badges: ["Year-Round", "Calming"]
   },
   {
     id: 5,
@@ -186,7 +191,8 @@ const mockProducts: Product[] = [
     ],
     stock: 20,
     featured: true,
-    bestseller: true
+    bestseller: true,
+    badges: ["Starter Friendly", "Travel"]
   },
   {
     id: 6,
@@ -200,6 +206,7 @@ const mockProducts: Product[] = [
     image: "/src/assets/product-eye-cream.jpg",
     shortDescription: "Reduces dark circles and fine lines. Show the world your experience.",
     fullDescription: "Targeted treatment for the delicate eye area. Reduces puffiness, dark circles, and fine lines. Your eyes tell your story—make sure they're well cared for.",
+    badges: ["Office Ready", "Subtle & Refined"],
     ingredients: [
       { name: "Caffeine", benefit: "Reduces puffiness" },
       { name: "Peptides", benefit: "Smooths fine lines" },
@@ -239,7 +246,8 @@ const mockProducts: Product[] = [
       "Make it fun—build the habit!"
     ],
     stock: 18,
-    featured: false
+    featured: false,
+    badges: ["Starter Friendly", "Year-Round"]
   },
   {
     id: 8,
@@ -266,7 +274,8 @@ const mockProducts: Product[] = [
       "Safe for daily use"
     ],
     stock: 14,
-    featured: false
+    featured: false,
+    badges: ["Year-Round", "Calming"]
   },
   {
     id: 9,
@@ -293,7 +302,8 @@ const mockProducts: Product[] = [
       "Never skip—discipline over motivation"
     ],
     stock: 16,
-    featured: true
+    featured: true,
+    badges: ["Weekend", "Summer"]
   },
   {
     id: 10,
@@ -320,7 +330,8 @@ const mockProducts: Product[] = [
       "Use daily for best results"
     ],
     stock: 11,
-    featured: false
+    featured: false,
+    badges: ["Signature Scent", "Year-Round"]
   },
   {
     id: 11,
@@ -347,7 +358,8 @@ const mockProducts: Product[] = [
       "Non-negotiable—use daily"
     ],
     stock: 13,
-    featured: false
+    featured: false,
+    badges: ["Summer", "Travel"]
   }
 ];
 
