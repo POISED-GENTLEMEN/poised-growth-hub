@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Download, ArrowRight, MessageCircle, Shield, Mountain, Users, Star, ChevronRight, ShoppingBag, CheckSquare, GraduationCap, FolderOpen, HelpCircle } from "lucide-react";
@@ -27,8 +28,8 @@ const ForMomsMentors = () => {
 
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle email submission
-    console.log("Email submitted:", email);
+    // Handle email submission - do not log sensitive data
+    // TODO: Send to email service or backend
     setEmail("");
   };
 
@@ -93,10 +94,17 @@ const ForMomsMentors = () => {
               First Shave Guide
             </a>
             <a
-              href="#programs"
+              href="#mentor-training"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
             >
               <GraduationCap className="w-4 h-4" />
+              Mentor Training
+            </a>
+            <a
+              href="#programs"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
+            >
+              <Users className="w-4 h-4" />
               Youth Programs
             </a>
             <a
@@ -295,13 +303,96 @@ const ForMomsMentors = () => {
         </div>
       </section>
 
+      {/* Mentor Training Callout Section */}
+      <section id="mentor-training" className="py-20 bg-navy scroll-mt-32">
+        <div className="container mx-auto px-4 md:px-16">
+          <div className="grid md:grid-cols-5 gap-12 items-center">
+            {/* Left Column - Content */}
+            <div className="md:col-span-3 text-white">
+              <Badge className="mb-4 bg-white text-navy">NEW PROGRAM</Badge>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
+                Want to Be a More Effective Mentor?
+              </h2>
+              <p className="text-xl text-white/80 mb-6">
+                Learn proven strategies for guiding tweens and teens
+              </p>
+              <p className="text-lg text-white/70 mb-8 leading-relaxed">
+                Our Youth Mentorship Training Program gives you a structured roadmap for meaningful conversations, goal-setting, and character development. Perfect for parents who want more than instinct—you want a system that works.
+              </p>
+
+              {/* Bullet Benefits */}
+              <div className="space-y-3 mb-8">
+                <div className="flex items-start">
+                  <span className="text-gold mr-3 text-xl">✓</span>
+                  <span className="text-white">18 interactive Kahoot! lessons (fun, not boring!)</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-gold mr-3 text-xl">✓</span>
+                  <span className="text-white">Conversation starters and goal-tracking templates</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-gold mr-3 text-xl">✓</span>
+                  <span className="text-white">Supportive community of fellow parents</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-gold mr-3 text-xl">✓</span>
+                  <span className="text-white">Lifetime access—learn at your own pace</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-gold mr-3 text-xl">✓</span>
+                  <span className="text-white">30-day money-back guarantee</span>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                <Button 
+                  size="lg" 
+                  className="bg-gold text-navy hover:bg-gold/90 font-bold"
+                  asChild
+                >
+                  <Link to="/programs#youth-mentorship">
+                    Enroll in Core Course - $97
+                  </Link>
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-white text-white hover:bg-white hover:text-navy"
+                  asChild
+                >
+                  <Link to="/programs#youth-mentorship">
+                    Download Free Preview
+                  </Link>
+                </Button>
+              </div>
+
+              <p className="text-sm text-white/60">
+                Join 500+ parents transforming their mentorship approach
+              </p>
+            </div>
+
+            {/* Right Column - Image */}
+            <div className="md:col-span-2">
+              <div className="aspect-square bg-muted/20 rounded-lg overflow-hidden shadow-xl">
+                <img 
+                  src="/placeholder.svg" 
+                  alt="Parent mentoring teen with structured guidance" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Section 4: Conversations That Matter */}
       <section id="conversations" className="py-20 bg-muted scroll-mt-32">
         <div className="container mx-auto px-4">
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
             How to Talk About Masculinity & Grooming
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
             <Card className="hover:shadow-lg transition-shadow">
               <CardHeader>
                 <MessageCircle className="w-12 h-12 text-gold mb-4" />
@@ -350,6 +441,22 @@ const ForMomsMentors = () => {
                 <p className="text-muted-foreground mb-4">Tools for helping him stand firm in values</p>
                 <Link to="/codex" className="text-gold hover:underline inline-flex items-center">
                   Read Article <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow border-2 border-gold">
+              <CardHeader>
+                <GraduationCap className="w-12 h-12 text-gold mb-4" />
+                <CardTitle className="text-xl">Structured Mentorship Training</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">Want a Complete System?</p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Go beyond articles—get our full mentorship training course with 18 interactive lessons, templates, and community support.
+                </p>
+                <Link to="/programs#youth-mentorship" className="text-gold hover:underline inline-flex items-center font-semibold">
+                  Explore Training Program <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </CardContent>
             </Card>
@@ -497,6 +604,31 @@ const ForMomsMentors = () => {
             <div>
               <h3 className="text-2xl font-bold text-primary mb-6">Free Resources</h3>
               <div className="space-y-4">
+                {/* New Free Course Preview */}
+                <Card className="hover:shadow-lg transition-shadow cursor-pointer border-2 border-gold">
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex-1">
+                        <Badge className="mb-2 bg-gold text-white">NEW</Badge>
+                        <h4 className="font-semibold text-primary mb-1">Try Before You Buy: Free Course Preview</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Get the first 5 Kahoot! lessons from our Youth Mentorship Training Program, plus bonus conversation starter guide.
+                        </p>
+                      </div>
+                      <Download className="w-6 h-6 text-gold shrink-0 ml-4" />
+                    </div>
+                    <Button 
+                      size="sm" 
+                      className="w-full bg-gold text-gold-foreground hover:bg-gold/90 mt-2"
+                      asChild
+                    >
+                      <Link to="/programs#youth-mentorship">
+                        Download Free Preview
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+
                 <Card className="hover:shadow-lg transition-shadow cursor-pointer">
                   <CardContent className="p-6 flex items-center justify-between">
                     <div>
