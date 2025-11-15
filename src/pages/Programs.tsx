@@ -6,14 +6,11 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, Users, Calendar, Gamepad2, FileText, MessageCircle, Heart, Briefcase, GraduationCap, Star, ChevronDown } from "lucide-react";
+import { CheckCircle, Users, Gamepad2, FileText, MessageCircle, Heart, Briefcase, GraduationCap, Star, ChevronDown } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ParentBadge from "@/components/ParentBadge";
-import heroImage from "@/assets/programs-hero.jpg";
 import youthImage from "@/assets/youth-program-card.jpg";
-import adultImage from "@/assets/adult-program-card.jpg";
-import liveImage from "@/assets/live-experiences-card.jpg";
 
 const Programs = () => {
   const [youthForm, setYouthForm] = useState({
@@ -27,28 +24,12 @@ const Programs = () => {
     referralSource: "",
   });
 
-  const [adultForm, setAdultForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    age: "",
-    location: "",
-    challenge: "",
-    success: "",
-    tier: "",
-    referralSource: "",
-  });
-
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [showAllModules, setShowAllModules] = useState(false);
   const [mentorTestimonial, setMentorTestimonial] = useState(0);
+  const [activeSection, setActiveSection] = useState("overview");
 
   const testimonials = [
-    {
-      quote:
-        "This program gave me a framework I didn't know I needed. Emotional intelligence isn't just a buzzword—it's a skill you can learn. My marriage has never been better.",
-      author: "Michael P., 42, Legacy Series",
-    },
     {
       quote:
         "My son learned more about being a man in 7 weeks than in the last 2 years. The mentors are authentic, the curriculum is practical, and the impact is real.",
@@ -57,7 +38,7 @@ const Programs = () => {
     {
       quote:
         "I thought coaching was for people with problems. Turns out, it's for people who want to level up. Worth every penny.",
-      author: "Darius L., 31, Foundation Tier",
+      author: "Darius L., 31, Mentor Training Graduate",
     },
   ];
 
@@ -73,23 +54,6 @@ const Programs = () => {
       studentAge: "",
       challenges: "",
       startDate: "",
-      referralSource: "",
-    });
-  };
-
-  const handleAdultSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Adult Program Application:", adultForm);
-    alert("Thank you! We'll review your application and schedule a call within 48 hours.");
-    setAdultForm({
-      name: "",
-      email: "",
-      phone: "",
-      age: "",
-      location: "",
-      challenge: "",
-      success: "",
-      tier: "",
       referralSource: "",
     });
   };
@@ -143,15 +107,166 @@ const Programs = () => {
         </div>
       </section>
 
+      {/* Sticky Jump-to Navigation */}
+      <div className="sticky top-0 z-40 bg-white border-b border-border shadow-sm">
+        <div className="container mx-auto px-4">
+          <div className="flex gap-2 overflow-x-auto py-4 no-scrollbar snap-x snap-mandatory">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className={`px-5 py-2 rounded-full border border-gold text-navy whitespace-nowrap transition-all hover:bg-gold hover:text-white snap-start ${
+                activeSection === "overview" ? "bg-gold text-white" : "bg-white"
+              }`}
+            >
+              Overview
+            </button>
+            <button
+              onClick={scrollToYouthProgram}
+              className={`px-5 py-2 rounded-full border border-gold text-navy whitespace-nowrap transition-all hover:bg-gold hover:text-white snap-start ${
+                activeSection === "pyg" ? "bg-gold text-white" : "bg-white"
+              }`}
+            >
+              Poised Young Gentlemen
+            </button>
+            <button
+              onClick={scrollToMentorTraining}
+              className={`px-5 py-2 rounded-full border border-gold text-navy whitespace-nowrap transition-all hover:bg-gold hover:text-white snap-start ${
+                activeSection === "mentor" ? "bg-gold text-white" : "bg-white"
+              }`}
+            >
+              Mentor Training
+            </button>
+            <button
+              onClick={() => document.getElementById("organizations")?.scrollIntoView({ behavior: "smooth" })}
+              className={`px-5 py-2 rounded-full border border-gold text-navy whitespace-nowrap transition-all hover:bg-gold hover:text-white snap-start ${
+                activeSection === "organizations" ? "bg-gold text-white" : "bg-white"
+              }`}
+            >
+              For Organizations
+            </button>
+            <button
+              onClick={() => document.getElementById("faqs")?.scrollIntoView({ behavior: "smooth" })}
+              className={`px-5 py-2 rounded-full border border-gold text-navy whitespace-nowrap transition-all hover:bg-gold hover:text-white snap-start ${
+                activeSection === "faqs" ? "bg-gold text-white" : "bg-white"
+              }`}
+            >
+              FAQs
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Program Comparison Table */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-navy mb-12">
+            Which Program is Right for You?
+          </h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Poised Young Gentlemen Column */}
+            <Card className="border-2 border-gold/30">
+              <CardHeader>
+                <CardTitle className="font-heading text-2xl text-navy">Poised Young Gentlemen</CardTitle>
+                <CardDescription className="text-gold font-semibold text-base">
+                  For Youth Ages 14-18
+                </CardDescription>
+                <p className="text-muted-foreground pt-4">
+                  8-week in-person or hybrid program focused on character development, emotional intelligence, and leadership for young men.
+                </p>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-navy mb-3">Key Features</h4>
+                  <div className="space-y-2">
+                    {[
+                      "Hands-on workshops and activities",
+                      "Group cohort experience",
+                      "Mentorship and accountability",
+                      "Certificate of completion",
+                      "Facilitated by trained instructors",
+                    ].map((feature, index) => (
+                      <div key={index} className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-gold shrink-0 mt-0.5" />
+                        <span className="text-muted-foreground">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-navy mb-3">Best For</h4>
+                  <ul className="space-y-1 text-muted-foreground list-disc list-inside">
+                    <li>Schools and youth organizations</li>
+                    <li>In-person group settings</li>
+                    <li>Structured 8-week timeline</li>
+                    <li>Ages 14-18</li>
+                  </ul>
+                </div>
+
+                <Button variant="outline" size="lg" className="w-full" onClick={scrollToYouthProgram}>
+                  Learn More About PYG
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Youth Mentorship Training Column */}
+            <Card className="border-2 border-gold/30">
+              <CardHeader>
+                <CardTitle className="font-heading text-2xl text-navy">Youth Mentorship Training</CardTitle>
+                <CardDescription className="text-gold font-semibold text-base">
+                  For Parents & Mentors
+                </CardDescription>
+                <p className="text-muted-foreground pt-4">
+                  Self-paced online course teaching proven strategies to mentor tweens and teens effectively through interactive Kahoot! lessons.
+                </p>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div>
+                  <h4 className="font-bold text-navy mb-3">Key Features</h4>
+                  <div className="space-y-2">
+                    {[
+                      "Learn at your own pace",
+                      "18 interactive modules",
+                      "Downloadable resources",
+                      "Optional certification",
+                      "Community support",
+                    ].map((feature, index) => (
+                      <div key={index} className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-gold shrink-0 mt-0.5" />
+                        <span className="text-muted-foreground">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="font-bold text-navy mb-3">Best For</h4>
+                  <ul className="space-y-1 text-muted-foreground list-disc list-inside">
+                    <li>Parents of tweens/teens (ages 10-17)</li>
+                    <li>Individual mentors and coaches</li>
+                    <li>Self-paced learning</li>
+                    <li>Online/remote access</li>
+                  </ul>
+                </div>
+
+                <Button variant="outline" size="lg" className="w-full" onClick={scrollToMentorTraining}>
+                  Enroll in Training
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Programs Overview */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-center mb-4">Choose Your Path</h2>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-center mb-4">Our Two Programs</h2>
           <p className="text-center text-muted-foreground text-lg mb-12 max-w-3xl mx-auto">
-            From youth development to adult mastery, we meet you where you are.
+            Choose the path that fits your needs: hands-on youth development or flexible mentor training.
           </p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Youth Program Card */}
             <Card className="border-l-4 border-l-gold hover-lift" id="youth-program">
               <CardHeader>
@@ -622,7 +737,7 @@ const Programs = () => {
                 </div>
 
                 {/* FAQ Accordion */}
-                <div className="mb-16">
+                <div className="mb-16" id="faqs">
                   <h3 className="font-heading text-3xl font-bold text-navy text-center mb-12">Frequently Asked Questions</h3>
                   
                   <Accordion type="single" collapsible className="max-w-3xl mx-auto">
@@ -736,77 +851,12 @@ const Programs = () => {
             </section>
 
 
-            {/* Live Experiences Card */}
-            <Card className="border-l-4 border-l-gold hover-lift">
-              <CardHeader>
-                <img
-                  src={liveImage}
-                  alt="Men's retreat and workshop experience"
-                  className="w-full h-64 object-cover rounded-t-lg mb-4"
-                />
-                <div className="flex items-center gap-2 mb-2">
-                  <Calendar className="w-6 h-6 text-gold" />
-                  <CardTitle className="font-heading text-2xl">Live Experiences</CardTitle>
-                </div>
-                <CardDescription className="text-lg font-bold text-foreground">
-                  Transform in Community. Level Up Together.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <p className="text-muted-foreground">
-                  Weekend retreats, pop-up workshops, and themed forums for men seeking immersive growth experiences.
-                </p>
-
-                <div>
-                  <h4 className="font-bold mb-4">Upcoming Events</h4>
-
-                  <div className="space-y-4">
-                    <div className="bg-muted p-4 rounded-lg">
-                      <h5 className="font-bold text-gold mb-2">Weekend Warrior Retreat</h5>
-                      <p className="text-sm text-muted-foreground mb-2">March 14-16, 2026 | Northshore, Louisiana</p>
-                      <p className="text-sm mb-2">
-                        Two days of physical challenges, emotional intelligence workshops, and brotherhood. Includes
-                        lodging, meals, and course materials.
-                      </p>
-                      <p className="font-bold mb-1">Investment: $697</p>
-                      <p className="text-sm text-success">Spots Remaining: 8 of 20</p>
-                    </div>
-
-                    <div className="bg-muted p-4 rounded-lg">
-                      <h5 className="font-bold text-gold mb-2">Fatherhood Forum</h5>
-                      <p className="text-sm text-muted-foreground mb-2">Monthly | 2nd Saturday | New Orleans</p>
-                      <p className="text-sm mb-2">
-                        Open discussion for fathers navigating modern parenting. Guest speakers, peer support, and
-                        practical tools.
-                      </p>
-                      <p className="font-bold mb-1">Investment: Free (donation-based)</p>
-                      <p className="text-sm text-muted-foreground">Next Date: December 14, 2025</p>
-                    </div>
-
-                    <div className="bg-muted p-4 rounded-lg">
-                      <h5 className="font-bold text-gold mb-2">Style & Presence Masterclass</h5>
-                      <p className="text-sm text-muted-foreground mb-2">January 25, 2026 | 9am-1pm | New Orleans</p>
-                      <p className="text-sm mb-2">
-                        Wardrobe audit, grooming tutorial, body language coaching. Walk out looking and feeling like a
-                        leader.
-                      </p>
-                      <p className="font-bold mb-1">Investment: $297</p>
-                      <p className="text-sm text-muted-foreground">Limited to: 10 men</p>
-                    </div>
-                  </div>
-                </div>
-
-                <Button variant="hero" size="lg" className="w-full">
-                  View All Events
-                </Button>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
 
       {/* Pricing Philosophy */}
-      <section className="py-20 bg-muted">
+      <section id="organizations" className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-center mb-6">
             Transparent Pricing, No Hidden Fees
@@ -834,7 +884,7 @@ const Programs = () => {
       {/* Inquiry Forms */}
       <section id="inquiry-forms" className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="max-w-2xl mx-auto">
             {/* Youth Program Inquiry Form */}
             <Card>
               <CardHeader>
@@ -966,158 +1016,6 @@ const Programs = () => {
                 </form>
               </CardContent>
             </Card>
-
-            {/* Adult Program Application Form */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="font-heading text-2xl">Apply for Legacy Series</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleAdultSubmit} className="space-y-4">
-                  <div>
-                    <Label htmlFor="adultName">
-                      Name <span className="text-destructive">*</span>
-                    </Label>
-                    <Input
-                      id="adultName"
-                      type="text"
-                      required
-                      value={adultForm.name}
-                      onChange={(e) => setAdultForm({ ...adultForm, name: e.target.value })}
-                      className="h-12"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="adultEmail">
-                      Email <span className="text-destructive">*</span>
-                    </Label>
-                    <Input
-                      id="adultEmail"
-                      type="email"
-                      required
-                      value={adultForm.email}
-                      onChange={(e) => setAdultForm({ ...adultForm, email: e.target.value })}
-                      className="h-12"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="adultPhone">
-                      Phone <span className="text-destructive">*</span>
-                    </Label>
-                    <Input
-                      id="adultPhone"
-                      type="tel"
-                      required
-                      value={adultForm.phone}
-                      onChange={(e) => setAdultForm({ ...adultForm, phone: e.target.value })}
-                      className="h-12"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="adultAge">
-                      Age <span className="text-destructive">*</span>
-                    </Label>
-                    <Input
-                      id="adultAge"
-                      type="number"
-                      min="18"
-                      required
-                      value={adultForm.age}
-                      onChange={(e) => setAdultForm({ ...adultForm, age: e.target.value })}
-                      className="h-12"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="location">
-                      Location (City, State) <span className="text-destructive">*</span>
-                    </Label>
-                    <Input
-                      id="location"
-                      type="text"
-                      required
-                      placeholder="e.g., New Orleans, LA"
-                      value={adultForm.location}
-                      onChange={(e) => setAdultForm({ ...adultForm, location: e.target.value })}
-                      className="h-12"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="challenge">
-                      Current Biggest Challenge <span className="text-destructive">*</span>
-                    </Label>
-                    <Textarea
-                      id="challenge"
-                      required
-                      rows={2}
-                      value={adultForm.challenge}
-                      onChange={(e) => setAdultForm({ ...adultForm, challenge: e.target.value })}
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="success">
-                      What does success look like for you in 6 months? <span className="text-destructive">*</span>
-                    </Label>
-                    <Textarea
-                      id="success"
-                      required
-                      rows={3}
-                      value={adultForm.success}
-                      onChange={(e) => setAdultForm({ ...adultForm, success: e.target.value })}
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="tier">
-                      Which tier interests you? <span className="text-destructive">*</span>
-                    </Label>
-                    <select
-                      id="tier"
-                      required
-                      value={adultForm.tier}
-                      onChange={(e) => setAdultForm({ ...adultForm, tier: e.target.value })}
-                      className="flex h-12 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    >
-                      <option value="">Select one</option>
-                      <option value="foundation">Foundation ($497)</option>
-                      <option value="mastery">Mastery ($1,497)</option>
-                      <option value="legacy">Legacy ($3,997/year)</option>
-                      <option value="unsure">Not Sure</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="adultReferral">How did you hear about us?</Label>
-                    <select
-                      id="adultReferral"
-                      value={adultForm.referralSource}
-                      onChange={(e) => setAdultForm({ ...adultForm, referralSource: e.target.value })}
-                      className="flex h-12 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    >
-                      <option value="">Select one</option>
-                      <option value="google">Google Search</option>
-                      <option value="social">Social Media</option>
-                      <option value="referral">Referral</option>
-                      <option value="partner">Partner Organization</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-
-                  <Button type="submit" variant="hero" size="lg" className="w-full">
-                    Submit Application
-                  </Button>
-
-                  <p className="text-sm text-muted-foreground text-center">
-                    We'll review your application and schedule a call within 48 hours.
-                  </p>
-                </form>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
@@ -1154,15 +1052,14 @@ const Programs = () => {
             Ready to Start Your Journey?
           </h2>
           <p className="text-lg text-primary mb-8 max-w-3xl mx-auto">
-            Whether you're enrolling your son or investing in your own growth, the first step is reaching out. We're
-            here to answer questions and find the right fit.
+            Whether you're enrolling your son in PYG or becoming a trained mentor yourself, the first step is reaching out. We're here to answer questions and find the right fit.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="default" size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90" onClick={scrollToForms}>
-              Enroll Your Son
+            <Button variant="default" size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90" onClick={scrollToYouthProgram}>
+              Learn About Youth Programs
             </Button>
-            <Button variant="default" size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90" onClick={scrollToForms}>
-              Apply for Coaching
+            <Button variant="default" size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90" onClick={scrollToMentorTraining}>
+              Enroll in Mentor Training
             </Button>
           </div>
         </div>
