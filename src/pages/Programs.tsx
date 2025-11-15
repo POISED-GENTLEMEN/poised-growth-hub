@@ -4,7 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle, Users, Target, Calendar } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { CheckCircle, Users, Calendar, Gamepad2, FileText, MessageCircle, Heart, Briefcase, GraduationCap, Star, ChevronDown } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ParentBadge from "@/components/ParentBadge";
@@ -38,6 +40,8 @@ const Programs = () => {
   });
 
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [showAllModules, setShowAllModules] = useState(false);
+  const [mentorTestimonial, setMentorTestimonial] = useState(0);
 
   const testimonials = [
     {
@@ -258,116 +262,479 @@ const Programs = () => {
               </CardContent>
             </Card>
 
-            {/* Adult Program Card */}
-            <Card className="border-l-4 border-l-gold hover-lift" id="adult">
-              <CardHeader>
-                <img
-                  src={adultImage}
-                  alt="Adult men's group coaching session"
-                  className="w-full h-64 object-cover rounded-t-lg mb-4"
-                />
-                <div className="flex items-center gap-2 mb-2">
-                  <Target className="w-6 h-6 text-gold" />
-                  <CardTitle className="font-heading text-2xl">Poised Legacy Series (Ages 18+)</CardTitle>
+            {/* Youth Mentorship Training Program */}
+            <section id="youth-mentorship" className="col-span-full">
+              <div className="bg-[#F9F7F4] border-t-2 border-gold rounded-lg p-8 md:p-12">
+                {/* Section Header */}
+                <div className="text-center mb-12">
+                  <Badge className="mb-4 bg-white text-navy border-gold">NEW PROGRAM</Badge>
+                  <h2 className="font-heading text-3xl md:text-[44px] font-bold text-navy mb-4">
+                    Youth Mentorship Training Program
+                  </h2>
+                  <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+                    Structured Curriculum for Parents, Mentors, and Youth Leaders
+                  </p>
+                  <p className="text-base md:text-lg text-muted-foreground max-w-[900px] mx-auto">
+                    An interactive, gamified training program that equips you with proven strategies to mentor tweens and teens effectively. Learn through engaging Kahoot! lessons, downloadable resources, and a supportive community.
+                  </p>
                 </div>
-                <CardDescription className="text-lg font-bold text-foreground">
-                  Master the Four Pillars. Lead with Purpose.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <p className="text-muted-foreground">
-                  A tiered coaching experience for men committed to growth. Group cohorts, digital courses, and optional
-                  1:1 sessions focused on emotional intelligence, legacy planning, and refined presence.
-                </p>
 
-                <div>
-                  <h4 className="font-bold mb-4">Program Tiers</h4>
-
-                  <div className="space-y-4">
-                    <div className="border-l-2 border-gold pl-4">
-                      <h5 className="font-bold text-gold mb-2">FOUNDATION (Group Coaching)</h5>
-                      <ul className="space-y-1 text-sm text-muted-foreground mb-2">
-                        <li>• 8-week cohort (12-15 men max)</li>
-                        <li>• Weekly 2-hour sessions (Zoom or in-person in New Orleans)</li>
-                        <li>• Digital course access</li>
-                        <li>• Four Pillars workbook and assessments</li>
-                        <li>• Private community forum</li>
-                      </ul>
-                      <p className="font-bold text-foreground">Investment: $497</p>
+                {/* Two-Column Content Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+                  {/* Left Column */}
+                  <div className="space-y-8">
+                    {/* Program Overview */}
+                    <div>
+                      <h3 className="font-heading text-2xl font-bold text-navy mb-6">What You'll Learn</h3>
+                      <div className="space-y-2">
+                        {[
+                          "Foundation: Understanding youth development stages",
+                          "Communication: Active listening and meaningful conversations",
+                          "Goal-Setting: SMART goals for tweens and teens",
+                          "Emotional Intelligence: Teaching self-awareness and regulation",
+                          "Conflict Resolution: Navigating difficult situations",
+                          "Identity & Values: Helping youth discover who they are",
+                        ].map((module, index) => (
+                          <div key={index} className="flex items-start gap-2">
+                            <CheckCircle className="w-5 h-5 text-gold shrink-0 mt-0.5" />
+                            <span className="text-base text-muted-foreground">{module}</span>
+                          </div>
+                        ))}
+                        
+                        {showAllModules && [
+                          "Decision-Making: Building critical thinking skills",
+                          "Academic Success: Study habits and learning strategies",
+                          "Social Skills: Building healthy relationships",
+                          "Leadership Development: Cultivating influence and responsibility",
+                          "Financial Literacy: Money management basics",
+                          "Digital Citizenship: Navigating technology responsibly",
+                          "Mental Health: Recognizing signs and providing support",
+                          "Career Exploration: Discovering interests and pathways",
+                          "Physical Wellness: Habits for lifelong health",
+                          "Spiritual Growth: Purpose and meaning",
+                          "Community Engagement: Service and giving back",
+                          "Long-Term Planning: Setting up for future success",
+                        ].map((module, index) => (
+                          <div key={index + 6} className="flex items-start gap-2">
+                            <CheckCircle className="w-5 h-5 text-gold shrink-0 mt-0.5" />
+                            <span className="text-base text-muted-foreground">{module}</span>
+                          </div>
+                        ))}
+                        
+                        <button
+                          onClick={() => setShowAllModules(!showAllModules)}
+                          className="flex items-center gap-1 text-gold hover:text-gold/80 font-medium mt-4"
+                        >
+                          {showAllModules ? "Show Less" : "Show All 18 Modules"}
+                          <ChevronDown className={`w-4 h-4 transition-transform ${showAllModules ? "rotate-180" : ""}`} />
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="border-l-2 border-gold pl-4">
-                      <h5 className="font-bold text-gold mb-2">MASTERY (Group + 1:1 Coaching)</h5>
-                      <ul className="space-y-1 text-sm text-muted-foreground mb-2">
-                        <li>• Everything in Foundation</li>
-                        <li>• 4 private 1:1 coaching sessions (60 min each)</li>
-                        <li>• Personalized legacy plan</li>
-                        <li>• Direct access to David Rachal III via Voxer</li>
-                      </ul>
-                      <p className="font-bold text-foreground">Investment: $1,497</p>
-                    </div>
+                    {/* Format & Delivery */}
+                    <div>
+                      <h3 className="font-heading text-2xl font-bold text-navy mb-6">How It Works</h3>
+                      <div className="space-y-4">
+                        <Card className="bg-white border-l-4 border-l-gold">
+                          <CardContent className="p-5">
+                            <div className="flex items-start gap-3">
+                              <Gamepad2 className="w-8 h-8 text-gold shrink-0" />
+                              <div>
+                                <h4 className="font-bold text-navy mb-2">Interactive Kahoot! Lessons</h4>
+                                <p className="text-sm text-muted-foreground">
+                                  18 engaging Kahoot! modules that youth actually enjoy. Gamified learning makes complex topics fun and memorable.
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
 
-                    <div className="border-l-2 border-gold pl-4">
-                      <h5 className="font-bold text-gold mb-2">LEGACY (Premium Immersion)</h5>
-                      <ul className="space-y-1 text-sm text-muted-foreground mb-2">
-                        <li>• Everything in Mastery</li>
-                        <li>• Quarterly in-person retreat</li>
-                        <li>• Annual 1:1 strategy session</li>
-                        <li>• Lifetime community access</li>
-                        <li>• First access to new programs and events</li>
-                      </ul>
-                      <p className="font-bold text-foreground">Investment: $3,997/year</p>
+                        <Card className="bg-white border-l-4 border-l-gold">
+                          <CardContent className="p-5">
+                            <div className="flex items-start gap-3">
+                              <FileText className="w-8 h-8 text-gold shrink-0" />
+                              <div>
+                                <h4 className="font-bold text-navy mb-2">Downloadable Resources</h4>
+                                <p className="text-sm text-muted-foreground">
+                                  Workbooks, goal-tracking templates, conversation starters, and session guides. Everything you need to implement immediately.
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+
+                        <Card className="bg-white border-l-4 border-l-gold">
+                          <CardContent className="p-5">
+                            <div className="flex items-start gap-3">
+                              <MessageCircle className="w-8 h-8 text-gold shrink-0" />
+                              <div>
+                                <h4 className="font-bold text-navy mb-2">Supportive Community</h4>
+                                <p className="text-sm text-muted-foreground">
+                                  Private online community for sharing wins, asking questions, and connecting with fellow mentors on the same journey.
+                                </p>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Column */}
+                  <div className="space-y-8">
+                    {/* Who This Is For */}
+                    <div>
+                      <h3 className="font-heading text-2xl font-bold text-navy mb-6">Perfect For</h3>
+                      <div className="space-y-5">
+                        <Card className="bg-white/50">
+                          <CardContent className="p-6">
+                            <Heart className="w-10 h-10 text-gold mb-3" />
+                            <h4 className="text-xl font-bold text-navy mb-2">Parents of Tweens & Teens</h4>
+                            <p className="text-muted-foreground mb-3">
+                              Finally, a structured roadmap to guide meaningful conversations with your 10-17 year old. Stop guessing, start mentoring with confidence.
+                            </p>
+                            <p className="text-sm italic text-muted-foreground">
+                              "Turn dinner table small talk into life-changing guidance."
+                            </p>
+                          </CardContent>
+                        </Card>
+
+                        <Card className="bg-white/50">
+                          <CardContent className="p-6">
+                            <Briefcase className="w-10 h-10 text-gold mb-3" />
+                            <h4 className="text-xl font-bold text-navy mb-2">Professional Mentors</h4>
+                            <p className="text-muted-foreground mb-3">
+                              Proven curriculum with trackable outcomes. Gain professional development credentials and ready-to-use tools that youth actually engage with.
+                            </p>
+                            <p className="text-sm italic text-muted-foreground">
+                              "Transform your mentoring impact with gamified learning."
+                            </p>
+                          </CardContent>
+                        </Card>
+
+                        <Card className="bg-white/50">
+                          <CardContent className="p-6">
+                            <GraduationCap className="w-10 h-10 text-gold mb-3" />
+                            <h4 className="text-xl font-bold text-navy mb-2">Youth Organizations</h4>
+                            <p className="text-muted-foreground mb-3">
+                              Launch a complete mentorship program in 2 weeks. Built-in tracking for grant reporting, zero curriculum development required.
+                            </p>
+                            <p className="text-sm italic text-muted-foreground">
+                              "Scalable, turnkey program-in-a-box."
+                            </p>
+                          </CardContent>
+                        </Card>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div>
-                  <h4 className="font-bold mb-3">Curriculum Topics</h4>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success shrink-0 mt-0.5" />
-                      <span>Emotional intelligence and self-regulation</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success shrink-0 mt-0.5" />
-                      <span>Communication and conflict resolution</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success shrink-0 mt-0.5" />
-                      <span>Financial discipline and legacy planning</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success shrink-0 mt-0.5" />
-                      <span>Health and fitness</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success shrink-0 mt-0.5" />
-                      <span>Style and presence</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success shrink-0 mt-0.5" />
-                      <span>Fatherhood and mentorship</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle className="w-5 h-5 text-success shrink-0 mt-0.5" />
-                      <span>Career strategy and leadership</span>
-                    </li>
-                  </ul>
-                </div>
+                {/* Pricing Tiers */}
+                <div className="mb-16">
+                  <h3 className="font-heading text-3xl font-bold text-navy text-center mb-3">Choose Your Path</h3>
+                  <p className="text-center text-muted-foreground mb-8">Flexible options for every budget and goal</p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Tier 1 - Core Course */}
+                    <Card className="border-2 border-gold relative">
+                      <Badge className="absolute -top-3 right-4 bg-gold text-white">MOST POPULAR</Badge>
+                      <CardHeader>
+                        <CardTitle className="font-heading text-2xl text-navy">Core Course</CardTitle>
+                        <div className="pt-2">
+                          <span className="text-4xl font-bold text-navy">$97</span>
+                          <p className="text-sm text-muted-foreground">One-time payment</p>
+                        </div>
+                        <CardDescription className="pt-2">
+                          Perfect for parents and individual mentors
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="space-y-2">
+                          {[
+                            "Complete 18-Kahoot course access",
+                            "Downloadable workbooks & templates",
+                            "Email support",
+                            "Private community group access",
+                            "Course completion certificate",
+                            "Lifetime access to content",
+                          ].map((feature, index) => (
+                            <div key={index} className="flex items-start gap-2">
+                              <CheckCircle className="w-5 h-5 text-success shrink-0 mt-0.5" />
+                              <span className="text-sm text-muted-foreground">{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <Button variant="hero" size="lg" className="w-full">Get Started</Button>
+                      </CardContent>
+                    </Card>
 
-                <div className="bg-muted p-4 rounded-lg">
-                  <p className="text-sm italic text-muted-foreground mb-2">
-                    "I've invested thousands in courses and coaches. The Poised Legacy Series is the only program that
-                    actually integrated everything—mindset, health, relationships, money. I'm a different man now."
+                    {/* Tier 2 - Community Access */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="font-heading text-2xl text-navy">Course + Community</CardTitle>
+                        <div className="pt-2">
+                          <span className="text-4xl font-bold text-navy">$197</span>
+                          <p className="text-sm text-muted-foreground">One-time payment</p>
+                        </div>
+                        <CardDescription className="pt-2">
+                          For mentors seeking ongoing support
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="space-y-2">
+                          {[
+                            "Everything in Core Course",
+                            "Monthly live Q&A sessions",
+                            "Peer mentorship matching",
+                            "Advanced resource library",
+                            "Priority email support",
+                            "Quarterly skill-building workshops",
+                          ].map((feature, index) => (
+                            <div key={index} className="flex items-start gap-2">
+                              <CheckCircle className="w-5 h-5 text-success shrink-0 mt-0.5" />
+                              <span className="text-sm text-muted-foreground">{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <Button variant="outline" size="lg" className="w-full">Join Community</Button>
+                      </CardContent>
+                    </Card>
+
+                    {/* Tier 3 - Certification */}
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="font-heading text-2xl text-navy">Certification Program</CardTitle>
+                        <div className="pt-2">
+                          <span className="text-4xl font-bold text-navy">$497</span>
+                          <p className="text-sm text-muted-foreground">One-time payment</p>
+                        </div>
+                        <CardDescription className="pt-2">
+                          Professional credential + personalized coaching
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="space-y-2">
+                          {[
+                            "Everything in Tier 2",
+                            "Professional Mentor Certification",
+                            "4 live group coaching calls",
+                            "One-on-one coaching session (30 min)",
+                            "Mentor toolkit with session guides",
+                            "Lifetime content updates",
+                            "Professional LinkedIn badge",
+                          ].map((feature, index) => (
+                            <div key={index} className="flex items-start gap-2">
+                              <CheckCircle className="w-5 h-5 text-success shrink-0 mt-0.5" />
+                              <span className="text-sm text-muted-foreground">{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <Button variant="outline" size="lg" className="w-full">Get Certified</Button>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  
+                  <p className="text-center text-sm text-muted-foreground mt-6">
+                    Organization & School licenses (10-50 users) starting at $997.{" "}
+                    <a href="/contact" className="text-gold hover:underline">Request Organization Quote →</a>
                   </p>
-                  <p className="text-sm font-bold">— Kevin D., 34, Business Owner</p>
                 </div>
 
-                <Button variant="hero" size="lg" className="w-full" onClick={scrollToForms}>
-                  Start Your Journey
-                </Button>
-              </CardContent>
-            </Card>
+                {/* Testimonials Section */}
+                <div className="bg-white rounded-lg p-8 md:p-12 mb-16">
+                  <h3 className="font-heading text-3xl font-bold text-navy text-center mb-12">What Mentors Are Saying</h3>
+                  
+                  <div className="max-w-3xl mx-auto">
+                    <Card className="bg-[#F9F7F4] border-0">
+                      <CardContent className="p-8">
+                        <div className="flex justify-center mb-4">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-5 h-5 fill-gold text-gold" />
+                          ))}
+                        </div>
+                        
+                        {mentorTestimonial === 0 && (
+                          <>
+                            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                              "I was struggling to connect with my 14-year-old son. This course gave me the exact conversation starters I needed. Now we have meaningful talks every week, and I can see him opening up about his goals and fears. Game-changer for our relationship."
+                            </p>
+                            <div className="flex items-center justify-center gap-4">
+                              <div className="w-20 h-20 rounded-full bg-gold/20 flex items-center justify-center">
+                                <span className="text-2xl font-bold text-gold">SM</span>
+                              </div>
+                              <div className="text-left">
+                                <p className="font-bold text-navy">Sarah M.</p>
+                                <p className="text-sm italic text-muted-foreground">Mother of teenage son, California</p>
+                              </div>
+                            </div>
+                          </>
+                        )}
+                        
+                        {mentorTestimonial === 1 && (
+                          <>
+                            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                              "As a youth coach, I've tried countless programs. The Kahoot! format is brilliant—kids actually ASK to do the lessons. The trackable outcomes help me prove my impact to the organization I work with. Worth every penny."
+                            </p>
+                            <div className="flex items-center justify-center gap-4">
+                              <div className="w-20 h-20 rounded-full bg-gold/20 flex items-center justify-center">
+                                <span className="text-2xl font-bold text-gold">MT</span>
+                              </div>
+                              <div className="text-left">
+                                <p className="font-bold text-navy">Marcus T.</p>
+                                <p className="text-sm italic text-muted-foreground">Youth Mentor, Big Brothers Big Sisters</p>
+                              </div>
+                            </div>
+                          </>
+                        )}
+                        
+                        {mentorTestimonial === 2 && (
+                          <>
+                            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                              "We launched this program across 25 mentors in our after-school program. Setup took less than a week, and the built-in tracking makes grant reporting so much easier. Our mentors love the structure, and the kids are more engaged than ever."
+                            </p>
+                            <div className="flex items-center justify-center gap-4">
+                              <div className="w-20 h-20 rounded-full bg-gold/20 flex items-center justify-center">
+                                <span className="text-2xl font-bold text-gold">JL</span>
+                              </div>
+                              <div className="text-left">
+                                <p className="font-bold text-navy">Dr. Jennifer Liu</p>
+                                <p className="text-sm italic text-muted-foreground">Director, Youth Development Center</p>
+                              </div>
+                            </div>
+                          </>
+                        )}
+                        
+                        <div className="flex justify-center gap-2 mt-8">
+                          {[0, 1, 2].map((index) => (
+                            <button
+                              key={index}
+                              onClick={() => setMentorTestimonial(index)}
+                              className={`w-2 h-2 rounded-full transition-all ${
+                                mentorTestimonial === index ? "bg-gold w-8" : "bg-gold/30"
+                              }`}
+                              aria-label={`View testimonial ${index + 1}`}
+                            />
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+
+                {/* FAQ Accordion */}
+                <div className="mb-16">
+                  <h3 className="font-heading text-3xl font-bold text-navy text-center mb-12">Frequently Asked Questions</h3>
+                  
+                  <Accordion type="single" collapsible className="max-w-3xl mx-auto">
+                    <AccordionItem value="item-1">
+                      <AccordionTrigger className="text-lg font-bold text-navy text-left">
+                        Is this only for parents, or can professional mentors use it too?
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground">
+                        Both! The curriculum works for parents mentoring their own children AND for professional mentors working with youth in schools, nonprofits, or community programs. We have pricing tiers designed for each audience.
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    <AccordionItem value="item-2">
+                      <AccordionTrigger className="text-lg font-bold text-navy text-left">
+                        What age range does this program cover?
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground">
+                        The course is designed for mentoring youth ages 10-17 (tweens and teens). The principles apply across this age range, with specific adaptations for younger vs. older adolescents included in the modules.
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    <AccordionItem value="item-3">
+                      <AccordionTrigger className="text-lg font-bold text-navy text-left">
+                        How long does it take to complete the course?
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground">
+                        At your own pace! Most parents complete it in 4-6 weeks (about 2-3 hours per week). Professional mentors often finish faster. All 18 Kahoot! modules are immediately accessible, and you have lifetime access to go back and review.
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    <AccordionItem value="item-4">
+                      <AccordionTrigger className="text-lg font-bold text-navy text-left">
+                        Do I need any special technology or Kahoot! experience?
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground">
+                        Nope! If you can click a button, you can do this course. Kahoot! is incredibly user-friendly. All you need is a computer, tablet, or smartphone with internet access. No prior Kahoot! experience required.
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    <AccordionItem value="item-5">
+                      <AccordionTrigger className="text-lg font-bold text-navy text-left">
+                        What if I'm mentoring a child with special needs or unique circumstances?
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground">
+                        While the core curriculum covers typical youth development, the community forum is a great place to get personalized advice for unique situations. Certification tier students also get 1-on-1 coaching where we can address specific challenges.
+                      </AccordionContent>
+                    </AccordionItem>
+
+                    <AccordionItem value="item-6">
+                      <AccordionTrigger className="text-lg font-bold text-navy text-left">
+                        Is there a money-back guarantee?
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground">
+                        Yes! We offer a 30-day satisfaction guarantee. If you complete the first 3 modules and feel this isn't right for you, we'll refund your purchase—no questions asked. We're confident you'll find value immediately.
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+
+                {/* Final CTA Section */}
+                <div className="bg-navy rounded-lg p-8 md:p-16 text-center text-white">
+                  <h3 className="font-heading text-3xl md:text-4xl font-bold mb-4">
+                    Ready to Transform Your Mentorship?
+                  </h3>
+                  <p className="text-xl text-white/80 mb-8">
+                    Join hundreds of parents and mentors building stronger connections with youth
+                  </p>
+                  
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                    <div className="flex items-center gap-2">
+                      <Users className="w-7 h-7 text-gold" />
+                      <div className="text-left">
+                        <p className="text-2xl font-bold text-gold">500+</p>
+                        <p className="text-sm text-white/70">Mentors Trained</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-5 h-5 fill-gold text-gold" />
+                        ))}
+                      </div>
+                      <div className="text-left">
+                        <p className="text-2xl font-bold text-gold">4.8/5</p>
+                        <p className="text-sm text-white/70">Average Rating</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                    <Button variant="hero" size="lg" className="text-lg px-8">
+                      Enroll in Core Course - $97
+                    </Button>
+                    <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-navy text-lg px-8">
+                      Download Free Course Preview
+                    </Button>
+                  </div>
+                  
+                  <div className="flex flex-wrap justify-center gap-6 text-sm text-white/70 mb-6">
+                    <span>✓ 30-Day Money-Back Guarantee</span>
+                    <span>✓ Lifetime Access Included</span>
+                    <span>✓ Trusted by 300+ Organizations</span>
+                  </div>
+                  
+                  <p className="text-sm text-white/60">
+                    Questions? Email us at info@poisedgentlemen.com or{" "}
+                    <a href="/contact" className="text-gold hover:underline">schedule a free 15-min consultation</a>
+                  </p>
+                </div>
+              </div>
+            </section>
+
 
             {/* Live Experiences Card */}
             <Card className="border-l-4 border-l-gold hover-lift">
