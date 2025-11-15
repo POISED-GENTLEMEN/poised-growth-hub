@@ -93,7 +93,7 @@ const Programs = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button variant="hero" size="lg" onClick={scrollToYouthProgram} className="w-full sm:w-auto">
-              Youth Program (Ages 14-18)
+              Youth Program (Ages 10-14)
             </Button>
             <Button 
               variant="outline" 
@@ -168,7 +168,7 @@ const Programs = () => {
               <CardHeader>
                 <CardTitle className="font-heading text-2xl text-navy">Poised Young Gentlemen</CardTitle>
                 <CardDescription className="text-gold font-semibold text-base">
-                  For Youth Ages 14-18
+                  For Youth Ages 10-14
                 </CardDescription>
                 <p className="text-muted-foreground pt-4">
                   8-week in-person or hybrid program focused on character development, emotional intelligence, and leadership for young men.
@@ -199,7 +199,7 @@ const Programs = () => {
                     <li>Schools and youth organizations</li>
                     <li>In-person group settings</li>
                     <li>Structured 8-week timeline</li>
-                    <li>Ages 14-18</li>
+                    <li>Ages 10-14</li>
                   </ul>
                 </div>
 

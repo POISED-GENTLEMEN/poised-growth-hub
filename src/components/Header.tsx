@@ -50,7 +50,7 @@ const Header = () => {
                                 Poised Young Gentlemen
                               </div>
                               <div className="text-sm text-muted-foreground mt-0.5">
-                                Ages 14-18 • Character development program
+                                Ages 10-14 • Character development program
                               </div>
                             </div>
                           </div>
@@ -332,7 +332,7 @@ const Header = () => {
                     <GraduationCap className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
                     <div>
                       <div className="font-medium">Poised Young Gentlemen</div>
-                      <div className="text-xs text-muted-foreground">Ages 14-18</div>
+                      <div className="text-xs text-muted-foreground">Ages 10-14</div>
                     </div>
                   </Link>
                   
