@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ShoppingCart, Menu, X, Heart, Gift, FileText, GraduationCap, HelpCircle, ChevronDown } from "lucide-react";
+import { ShoppingCart, Menu, X, Heart, Gift, FileText, GraduationCap, HelpCircle, ChevronDown, Users } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { useShop } from "@/contexts/ShopContext";
@@ -30,9 +30,76 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link to="/programs" className="text-foreground hover:text-primary transition-colors font-body font-medium">
-              Programs
-            </Link>
+            <NavigationMenu delayDuration={200}>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors font-body font-medium bg-transparent h-auto p-0 hover:bg-transparent data-[state=open]:bg-transparent">
+                    Programs
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent className="w-[320px]">
+                    <div className="p-6 border-t-2 border-gold">
+                      <div className="space-y-4">
+                        <Link 
+                          to="/programs#pyg"
+                          className="group block p-3 rounded-lg hover:border-l-4 hover:border-gold hover:pl-[11px] transition-all"
+                        >
+                          <div className="flex items-start gap-3">
+                            <GraduationCap className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                            <div>
+                              <div className="font-medium text-foreground group-hover:text-gold transition-colors">
+                                Poised Young Gentlemen
+                              </div>
+                              <div className="text-sm text-muted-foreground mt-0.5">
+                                Ages 14-18 • Character development program
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+
+                        <Link 
+                          to="/programs/mentor-training"
+                          className="group block p-3 rounded-lg hover:border-l-4 hover:border-gold hover:pl-[11px] transition-all"
+                        >
+                          <div className="flex items-start gap-3">
+                            <Heart className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2">
+                                <div className="font-medium text-foreground group-hover:text-gold transition-colors">
+                                  Mentor Training
+                                </div>
+                                <span className="px-2 py-0.5 bg-gold text-white text-[10px] font-bold rounded-full uppercase tracking-wide">
+                                  NEW
+                                </span>
+                              </div>
+                              <div className="text-sm text-muted-foreground mt-0.5">
+                                For parents & mentors • Online course
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+
+                        <Link 
+                          to="/programs/partners"
+                          className="group block p-3 rounded-lg hover:border-l-4 hover:border-gold hover:pl-[11px] transition-all"
+                        >
+                          <div className="flex items-start gap-3">
+                            <Users className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                            <div>
+                              <div className="font-medium text-foreground group-hover:text-gold transition-colors">
+                                For Organizations
+                              </div>
+                              <div className="text-sm text-muted-foreground mt-0.5">
+                                Bulk enrollment & partnerships
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+                      </div>
+                    </div>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
             
             <NavigationMenu delayDuration={200}>
               <NavigationMenuList>
@@ -246,13 +313,60 @@ const Header = () => {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 flex flex-col gap-4 border-t border-border pt-4">
-            <Link
-              to="/programs"
-              className="text-foreground hover:text-primary transition-colors font-body font-medium"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Programs
-            </Link>
+            <div className="space-y-2">
+              <button
+                className="w-full text-left text-foreground hover:text-primary transition-colors font-body font-medium flex items-center justify-between"
+                onClick={() => setShopMenuOpen(!shopMenuOpen)}
+              >
+                Programs
+                <ChevronDown className={`w-4 h-4 transition-transform ${shopMenuOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {shopMenuOpen && (
+                <div className="pl-4 space-y-2 border-l-2 border-gold/20">
+                  <Link
+                    to="/programs#pyg"
+                    className="group flex items-start gap-2 text-sm text-foreground hover:text-gold transition-colors py-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <GraduationCap className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                    <div>
+                      <div className="font-medium">Poised Young Gentlemen</div>
+                      <div className="text-xs text-muted-foreground">Ages 14-18</div>
+                    </div>
+                  </Link>
+                  
+                  <Link
+                    to="/programs/mentor-training"
+                    className="group flex items-start gap-2 text-sm text-foreground hover:text-gold transition-colors py-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Heart className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                    <div>
+                      <div className="font-medium flex items-center gap-2">
+                        Mentor Training
+                        <span className="px-1.5 py-0.5 bg-gold text-white text-[10px] font-bold rounded-full uppercase tracking-wide">
+                          NEW
+                        </span>
+                      </div>
+                      <div className="text-xs text-muted-foreground">For parents & mentors</div>
+                    </div>
+                  </Link>
+                  
+                  <Link
+                    to="/programs/partners"
+                    className="group flex items-start gap-2 text-sm text-foreground hover:text-gold transition-colors py-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Users className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
+                    <div>
+                      <div className="font-medium">For Organizations</div>
+                      <div className="text-xs text-muted-foreground">Bulk enrollment</div>
+                    </div>
+                  </Link>
+                </div>
+              )}
+            </div>
             <Link
               to="/for-moms-mentors"
               className="text-foreground hover:text-primary transition-colors font-body font-medium flex items-center gap-2"
@@ -266,7 +380,7 @@ const Header = () => {
             <div className="space-y-2">
               <button
                 className="w-full text-left text-foreground hover:text-primary transition-colors font-body font-medium flex items-center justify-between"
-                onClick={() => setShopMenuOpen(!shopMenuOpen)}
+                onClick={() => setShopMenuOpen(prev => !prev)}
               >
                 Shop
                 <ChevronDown className={`w-4 h-4 transition-transform ${shopMenuOpen ? 'rotate-180' : ''}`} />

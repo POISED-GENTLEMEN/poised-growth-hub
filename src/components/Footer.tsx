@@ -20,31 +20,51 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Quick Links */}
           <div>
-            <h3 className="font-heading font-bold text-lg mb-4">Quick Links</h3>
+            <h3 className="font-heading font-bold text-lg mb-4">Programs</h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/programs" className="hover:text-gold transition-colors">
-                  Programs
+                  All Programs
                 </Link>
               </li>
               <li>
-                <Link to="/programs#youth" className="hover:text-gold transition-colors">
-                  Youth Mentorship
+                <Link to="/programs#pyg" className="hover:text-gold transition-colors">
+                  Poised Young Gentlemen
                 </Link>
               </li>
               <li>
-                <Link to="/programs#adult" className="hover:text-gold transition-colors">
-                  Adult Coaching
+                <Link to="/programs/mentor-training" className="hover:text-gold transition-colors flex items-center gap-2">
+                  Mentor Training
+                  <span className="px-1.5 py-0.5 bg-gold text-white text-[10px] font-bold rounded-full uppercase tracking-wide">
+                    NEW
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link to="/programs/partners" className="hover:text-gold transition-colors">
-                  Partner With Us
+                  For Organizations
                 </Link>
               </li>
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h3 className="font-heading font-bold text-lg mb-4">Resources</h3>
+            <ul className="space-y-2">
               <li>
                 <Link to="/for-moms-mentors" className="hover:text-gold transition-colors">
                   For Moms & Mentors
+                </Link>
+              </li>
+              <li>
+                <Link to="/programs/mentor-training#pricing" className="hover:text-gold transition-colors">
+                  Free Course Preview
+                </Link>
+              </li>
+              <li>
+                <Link to="/programs/mentor-training#faqs" className="hover:text-gold transition-colors">
+                  Mentor Training FAQs
                 </Link>
               </li>
               <li>
