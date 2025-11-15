@@ -69,6 +69,14 @@ const ForMomsMentors = () => {
               Download First Shave Guide
             </Button>
             <Button size="lg" variant="outline" asChild>
+              <Link to="/programs/mentor-training" className="flex items-center gap-2">
+                Explore Mentor Training
+                <span className="px-1.5 py-0.5 bg-gold text-white text-[10px] font-bold rounded-full uppercase tracking-wide">
+                  NEW
+                </span>
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
               <Link to="/programs">Explore Youth Programs</Link>
             </Button>
           </div>

@@ -39,6 +39,10 @@ const Index = () => {
       >
         <div className="absolute inset-0 bg-primary/60" />
         <div className="relative z-10 container mx-auto px-4 text-center text-white fade-in">
+          <div className="inline-flex items-center gap-2 bg-gold text-navy px-4 py-2 rounded-full mb-4 font-semibold text-sm">
+            <span className="animate-pulse">✨</span>
+            NEW: Youth Mentorship Training for Parents & Mentors
+          </div>
           <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
             Redefine Your Masculinity. Build Your Legacy.
           </h1>
@@ -47,11 +51,11 @@ const Index = () => {
             Pillars.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="hero">
-              Explore Programs
+            <Button asChild size="lg" variant="hero">
+              <Link to="/programs">Explore Programs</Link>
             </Button>
-            <Button size="lg" variant="hero">
-              Shop Grooming
+            <Button asChild size="lg" variant="hero">
+              <Link to="/shop">Shop Grooming</Link>
             </Button>
           </div>
         </div>
@@ -351,15 +355,28 @@ const Index = () => {
                 </Button>
                 <Button 
                   asChild
-                  variant="link"
-                  className="text-gold hover:text-gold/80 font-medium group"
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-gold text-gold hover:bg-gold hover:text-primary font-bold"
                 >
-                  <Link to="/for-moms-mentors#first-shave">
-                    Download First Shave Guide
-                    <span className="inline-block transition-transform group-hover:translate-x-1 ml-1">→</span>
+                  <Link to="/programs/mentor-training" className="flex items-center gap-2">
+                    Mentor Training
+                    <span className="px-1.5 py-0.5 bg-gold text-white text-[10px] font-bold rounded-full uppercase tracking-wide">
+                      NEW
+                    </span>
                   </Link>
                 </Button>
               </div>
+              <Button 
+                asChild
+                variant="link"
+                className="text-gold hover:text-gold/80 font-medium group mt-2"
+              >
+                <Link to="/for-moms-mentors#first-shave">
+                  Download First Shave Guide
+                  <span className="inline-block transition-transform group-hover:translate-x-1 ml-1">→</span>
+                </Link>
+              </Button>
             </div>
 
             {/* Right Column - Image */}
