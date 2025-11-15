@@ -47,7 +47,7 @@ const Header = () => {
                             <GraduationCap className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
                             <div>
                               <div className="font-medium text-foreground group-hover:text-gold transition-colors">
-                                Poised Young Gentlemen
+                                Poised Young Gentlemen (Ages 10-14)
                               </div>
                               <div className="text-sm text-muted-foreground mt-0.5">
                                 Ages 10-14 • Character development program
@@ -331,8 +331,7 @@ const Header = () => {
                   >
                     <GraduationCap className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
                     <div>
-                      <div className="font-medium">Poised Young Gentlemen</div>
-                      <div className="text-xs text-muted-foreground">Ages 10-14</div>
+                      <div className="font-medium">Poised Young Gentlemen (Ages 10-14)</div>
                     </div>
                   </Link>
                   

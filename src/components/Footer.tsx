@@ -29,7 +29,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/programs#pyg" className="hover:text-gold transition-colors">
-                  Poised Young Gentlemen
+                  Poised Young Gentlemen (Ages 10-14)
                 </Link>
               </li>
               <li>
