@@ -125,7 +125,7 @@ const Programs = () => {
                 activeSection === "pyg" ? "bg-gold text-white" : "bg-white"
               }`}
             >
-              Poised Young Gentlemen
+              Poised Young Gentlemen (Ages 10-14)
             </button>
             <button
               onClick={scrollToMentorTraining}
@@ -166,7 +166,7 @@ const Programs = () => {
             {/* Poised Young Gentlemen Column */}
             <Card className="border-2 border-gold/30">
               <CardHeader>
-                <CardTitle className="font-heading text-2xl text-navy">Poised Young Gentlemen</CardTitle>
+                <CardTitle className="font-heading text-2xl text-navy">Poised Young Gentlemen (Ages 10-14)</CardTitle>
                 <CardDescription className="text-gold font-semibold text-base">
                   For Youth Ages 10-14
                 </CardDescription>

@@ -478,7 +478,7 @@ const ForMomsMentors = () => {
           <div className="grid md:grid-cols-5 gap-8 items-center">
             <div className="md:col-span-3">
               <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
-                The Poised Young Gentlemen Program
+                The Poised Young Gentlemen Program (Ages 10-14)
               </h2>
               <p className="text-xl text-primary-foreground/80 mb-6">
                 8-week character & leadership development
