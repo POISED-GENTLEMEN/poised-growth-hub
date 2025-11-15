@@ -484,7 +484,7 @@ const ForMomsMentors = () => {
                 8-week character & leadership development
               </p>
               <p className="text-lg text-primary-foreground/90 mb-8 leading-relaxed">
-                A structured program for ages 14-18 combining emotional intelligence, presence, etiquette, and legacy-building. Perfect for schools, youth organizations, and mentorship groups.
+                A structured program for ages 10-14 combining emotional intelligence, presence, etiquette, and legacy-building. Perfect for schools, youth organizations, and mentorship groups.
               </p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start">
@@ -521,7 +521,7 @@ const ForMomsMentors = () => {
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
                     <span className="font-semibold">Ages:</span>
-                    <span>14-18 Years</span>
+                    <span>10-14 Years</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
                     <span className="font-semibold">Format:</span>
