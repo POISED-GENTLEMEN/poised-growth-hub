@@ -94,29 +94,48 @@ const Programs = () => {
     document.getElementById("inquiry-forms")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToYouthProgram = () => {
+    document.getElementById("youth-program")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToMentorTraining = () => {
+    document.getElementById("youth-mentorship")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
       {/* Hero Section */}
       <section
-        className="relative h-[60vh] md:h-[70vh] flex items-center justify-center text-center"
+        className="relative h-[350px] md:h-[450px] flex items-center justify-center text-center py-24 md:py-24"
         style={{
-          backgroundImage: `linear-gradient(rgba(27, 43, 58, 0.7), rgba(27, 43, 58, 0.7)), url(${heroImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          background: "linear-gradient(135deg, #1B2B3A 0%, #2C3E50 100%)",
         }}
       >
         <div className="container mx-auto px-4">
-          <h1 className="font-heading text-4xl md:text-6xl font-bold text-white mb-6">
-            Transform Your Life. Master the Four Pillars.
+          <h1 className="font-heading text-4xl md:text-[56px] font-bold text-white mb-4">
+            Poised Gentlemen Programs
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
-            Structured mentorship and coaching for boys becoming men, and men building legacies.
+          <p className="text-xl md:text-[28px] text-white/80 mb-4 max-w-3xl mx-auto">
+            Building Character, Presence, and Purpose
           </p>
-          <Button variant="hero" size="lg" onClick={scrollToForms}>
-            Find Your Program
-          </Button>
+          <p className="text-base md:text-lg text-white/70 mb-8 max-w-[800px] mx-auto leading-relaxed">
+            Comprehensive programs for youth development and mentor training. Whether you're raising a young man or guiding the next generation, we provide the structure, curriculum, and community you need.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button variant="hero" size="lg" onClick={scrollToYouthProgram} className="w-full sm:w-auto">
+              Youth Program (Ages 14-18)
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              onClick={scrollToMentorTraining}
+              className="w-full sm:w-auto border-gold text-white hover:bg-gold hover:text-navy"
+            >
+              Mentor Training Program
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -130,7 +149,7 @@ const Programs = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Youth Program Card */}
-            <Card className="border-l-4 border-l-gold hover-lift">
+            <Card className="border-l-4 border-l-gold hover-lift" id="youth-program">
               <CardHeader>
                 <div className="relative">
                   <img
