@@ -17,6 +17,7 @@ import Contact from "./pages/Contact";
 import ForMomsMentors from "./pages/ForMomsMentors";
 import EssenceCollection from "./pages/EssenceCollection";
 import ProductDetail from "./pages/ProductDetail";
+import MentorTraining from "./pages/MentorTraining";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/programs" element={<Programs />} />
             <Route path="/programs/partners" element={<ProgramPartners />} />
+            <Route path="/programs/mentor-training" element={<MentorTraining />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
