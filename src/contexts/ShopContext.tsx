@@ -127,7 +127,8 @@ export const ShopProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
     }
     loadProducts();
-  }, [showToast]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const addToCart = (product: Product, quantity: number = 1) => {
     const existing = cartItems.find(item => item.id === product.id);
