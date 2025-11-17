@@ -98,6 +98,62 @@ const STOREFRONT_QUERY = `
   }
 `;
 
+const COLLECTION_QUERY = `
+  query GetCollectionByHandle($handle: String!, $first: Int!) {
+    collectionByHandle(handle: $handle) {
+      id
+      title
+      description
+      handle
+      products(first: $first) {
+        edges {
+          node {
+            id
+            title
+            description
+            handle
+            priceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            images(first: 5) {
+              edges {
+                node {
+                  url
+                  altText
+                }
+              }
+            }
+            variants(first: 10) {
+              edges {
+                node {
+                  id
+                  title
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  availableForSale
+                  selectedOptions {
+                    name
+                    value
+                  }
+                }
+              }
+            }
+            options {
+              name
+              values
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export async function storefrontApiRequest(query: string, variables: any = {}) {
   const response = await fetch(SHOPIFY_STOREFRONT_URL, {
     method: 'POST',
@@ -127,4 +183,18 @@ export async function storefrontApiRequest(query: string, variables: any = {}) {
 export async function fetchShopifyProducts(): Promise<ShopifyProduct[]> {
   const data = await storefrontApiRequest(STOREFRONT_QUERY, { first: 50 });
   return data.data.products.edges;
+}
+
+export async function fetchCollectionProducts(collectionHandle: string): Promise<ShopifyProduct[]> {
+  const data = await storefrontApiRequest(COLLECTION_QUERY, { 
+    handle: collectionHandle, 
+    first: 50 
+  });
+  
+  if (!data.data.collectionByHandle) {
+    console.warn(`Collection "${collectionHandle}" not found. Falling back to all products.`);
+    return fetchShopifyProducts();
+  }
+  
+  return data.data.collectionByHandle.products.edges;
 }

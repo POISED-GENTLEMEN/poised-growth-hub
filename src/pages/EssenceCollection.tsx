@@ -9,7 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { fetchShopifyProducts, ShopifyProduct } from "@/lib/shopify";
+import { fetchCollectionProducts, ShopifyProduct } from "@/lib/shopify";
 
 const fragranceCategories = [
   { id: "all", label: "All Fragrances" },
@@ -81,18 +81,12 @@ const EssenceCollection = () => {
     async function loadProducts() {
       try {
         setIsLoading(true);
-        const shopifyProducts = await fetchShopifyProducts();
-        const mappedProducts = shopifyProducts
-          .map((sp, idx) => mapShopifyToEssenceProduct(sp, idx))
-          .filter(p => 
-            p.name.toLowerCase().includes("balm") || 
-            p.fullDescription.toLowerCase().includes("cologne") ||
-            p.fullDescription.toLowerCase().includes("fragrance") ||
-            p.fullDescription.toLowerCase().includes("scent")
-          );
+        // Fetch products from the "essence-collection" Shopify collection
+        const shopifyProducts = await fetchCollectionProducts('essence-collection');
+        const mappedProducts = shopifyProducts.map((sp, idx) => mapShopifyToEssenceProduct(sp, idx));
         setProducts(mappedProducts);
       } catch (error) {
-        console.error('Error loading products:', error);
+        console.error('Error loading Essence Collection products:', error);
       } finally {
         setIsLoading(false);
       }
