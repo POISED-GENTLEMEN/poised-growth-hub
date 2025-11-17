@@ -1,42 +1,24 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ShoppingCart, Target, Handshake, Calendar, Users, Brain, Sparkles, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { getAllProducts, ShopifyProduct } from "@/lib/shopify";
-import { useCartStore } from "@/stores/cartStore";
-import { toast } from "sonner";
 
 // Import images
 import heroImage from "@/assets/hero-mentorship.jpg";
 import youthImage from "@/assets/youth-mentorship.jpg";
 import adultImage from "@/assets/adult-coaching.jpg";
 import experiencesImage from "@/assets/live-experiences.jpg";
+import productCleanser from "@/assets/product-cleanser.jpg";
+import productSerum from "@/assets/product-serum.jpg";
+import productBundle from "@/assets/product-bundle.jpg";
 
 const Index = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
-  const [featuredProducts, setFeaturedProducts] = useState<ShopifyProduct[]>([]);
-  const [loadingProducts, setLoadingProducts] = useState(true);
-  const addItem = useCartStore(state => state.addItem);
-
-  useEffect(() => {
-    const fetchFeaturedProducts = async () => {
-      try {
-        const products = await getAllProducts(3);
-        setFeaturedProducts(products);
-      } catch (error) {
-        console.error('Error fetching featured products:', error);
-      } finally {
-        setLoadingProducts(false);
-      }
-    };
-
-    fetchFeaturedProducts();
-  }, []);
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,10 +39,6 @@ const Index = () => {
       >
         <div className="absolute inset-0 bg-primary/60" />
         <div className="relative z-10 container mx-auto px-4 text-center text-white fade-in">
-          <div className="inline-flex items-center gap-2 bg-gold text-navy px-4 py-2 rounded-full mb-4 font-semibold text-sm">
-            <span className="animate-pulse">✨</span>
-            NEW: Youth Mentorship Training for Parents & Mentors
-          </div>
           <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
             Redefine Your Masculinity. Build Your Legacy.
           </h1>
@@ -69,11 +47,11 @@ const Index = () => {
             Pillars.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" variant="hero">
-              <Link to="/programs">Explore Programs</Link>
+            <Button size="lg" variant="hero">
+              Explore Programs
             </Button>
-            <Button asChild size="lg" variant="hero">
-              <Link to="/shop">Shop Grooming</Link>
+            <Button size="lg" variant="hero">
+              Shop Grooming
             </Button>
           </div>
         </div>
@@ -264,110 +242,70 @@ const Index = () => {
             </p>
           </div>
 
-          {loadingProducts ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-              {[1, 2, 3].map((i) => (
-                <Card key={i} className="overflow-hidden border animate-pulse">
-                  <div className="h-[300px] bg-muted" />
-                  <div className="p-6 space-y-3">
-                    <div className="h-4 bg-muted rounded w-1/3" />
-                    <div className="h-6 bg-muted rounded w-2/3" />
-                    <div className="h-8 bg-muted rounded w-1/4" />
-                    <div className="h-16 bg-muted rounded" />
-                    <div className="h-10 bg-muted rounded" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {[
+              {
+                image: productCleanser,
+                name: "Modern-G Hydrating Cleanser",
+                age: "For Ages 25-34",
+                price: "$28",
+                benefit: "For men building careers and character. Your skin tells your story.",
+              },
+              {
+                image: productSerum,
+                name: "Poised-G Anti-Aging Serum",
+                age: "For Ages 35-49",
+                price: "$45",
+                benefit: "Firms, brightens, protects. Because leadership shows on your face.",
+              },
+              {
+                image: productBundle,
+                name: "The Essentials Bundle",
+                age: "Any Age",
+                price: "$80",
+                originalPrice: "$95",
+                benefit: "Cleanser + Moisturizer + SPF. Everything you need to start strong.",
+              },
+            ].map((product, index) => (
+              <Card
+                key={index}
+                className="overflow-hidden border hover-lift bg-card group"
+              >
+                <div className="relative h-[300px] overflow-hidden bg-muted">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-6">
+                  <p className="text-sm text-bronze font-semibold mb-1">{product.age}</p>
+                  <h3 className="text-xl font-heading font-bold mb-2">{product.name}</h3>
+                  <div className="flex items-baseline gap-2 mb-3">
+                    <span className="text-2xl font-bold text-gold">{product.price}</span>
+                    {product.originalPrice && (
+                      <span className="text-sm text-muted-foreground line-through">{product.originalPrice}</span>
+                    )}
                   </div>
-                </Card>
-              ))}
-            </div>
-          ) : featuredProducts.length > 0 ? (
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                {featuredProducts.map((product) => {
-                  const variant = product.variants.edges[0]?.node;
-                  const price = variant?.priceV2.amount || product.priceRange.minVariantPrice.amount;
-                  const currencyCode = variant?.priceV2.currencyCode || product.priceRange.minVariantPrice.currencyCode;
+                  <p className="text-sm text-muted-foreground mb-4">{product.benefit}</p>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm" className="flex-1">
+                      Add to Cart
+                    </Button>
+                    <Button variant="link" size="sm">
+                      Details
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
 
-                  const handleAddToCart = () => {
-                    if (!variant) return;
-                    
-                    addItem({
-                      product,
-                      variantId: variant.id,
-                      variantTitle: variant.title,
-                      price: variant.priceV2,
-                      quantity: 1,
-                      selectedOptions: variant.selectedOptions,
-                      image: product.images.edges[0]?.node.url,
-                    });
-
-                    toast.success(`${product.title} added to cart`);
-                  };
-
-                  return (
-                    <Card
-                      key={product.id}
-                      className="overflow-hidden border hover-lift bg-card group"
-                    >
-                      <Link to={`/shop/${product.handle}`}>
-                        <div className="relative h-[300px] overflow-hidden bg-muted">
-                          {product.images.edges[0] ? (
-                            <img
-                              src={product.images.edges[0].node.url}
-                              alt={product.images.edges[0].node.altText || `${product.title} - Premium grooming product from Poised Gentlemen`}
-                              className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                              No image
-                            </div>
-                          )}
-                        </div>
-                      </Link>
-                      <div className="p-6">
-                        <Link to={`/shop/${product.handle}`}>
-                          <h3 className="text-xl font-heading font-bold mb-2 hover:text-gold transition-colors">
-                            {product.title}
-                          </h3>
-                        </Link>
-                        <div className="flex items-baseline gap-2 mb-3">
-                          <span className="text-2xl font-bold text-gold">
-                            {currencyCode === 'USD' ? '$' : currencyCode} {parseFloat(price).toFixed(2)}
-                          </span>
-                        </div>
-                        <p className="text-muted-foreground mb-4 text-sm leading-relaxed line-clamp-3">
-                          {product.description || "Premium grooming product designed for the modern gentleman who values quality and purpose."}
-                        </p>
-                        <Button 
-                          variant="hero" 
-                          className="w-full"
-                          onClick={handleAddToCart}
-                          disabled={!variant?.availableForSale}
-                        >
-                          <ShoppingCart className="mr-2 h-4 w-4" />
-                          {variant?.availableForSale ? 'Add to Cart' : 'Out of Stock'}
-                        </Button>
-                      </div>
-                    </Card>
-                  );
-                })}
-              </div>
-
-              <div className="text-center mt-12">
-                <Button asChild variant="hero" size="lg">
-                  <Link to="/shop">View All Products</Link>
-                </Button>
-              </div>
-            </>
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground mb-6">
-                Our premium grooming collection is coming soon. Check back shortly.
-              </p>
-              <Button asChild variant="hero">
-                <Link to="/shop">Explore Shop</Link>
-              </Button>
-            </div>
-          )}
+          <div className="text-center mt-12">
+            <Button variant="outline" size="lg">
+              View Full Collection
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -413,28 +351,15 @@ const Index = () => {
                 </Button>
                 <Button 
                   asChild
-                  size="lg"
-                  variant="outline"
-                  className="border-2 border-gold text-gold hover:bg-gold hover:text-primary font-bold"
+                  variant="link"
+                  className="text-gold hover:text-gold/80 font-medium group"
                 >
-                  <Link to="/programs/mentor-training" className="flex items-center gap-2">
-                    Mentor Training
-                    <span className="px-1.5 py-0.5 bg-gold text-white text-[10px] font-bold rounded-full uppercase tracking-wide">
-                      NEW
-                    </span>
+                  <Link to="/for-moms-mentors#first-shave">
+                    Download First Shave Guide
+                    <span className="inline-block transition-transform group-hover:translate-x-1 ml-1">→</span>
                   </Link>
                 </Button>
               </div>
-              <Button 
-                asChild
-                variant="link"
-                className="text-gold hover:text-gold/80 font-medium group mt-2"
-              >
-                <Link to="/for-moms-mentors#first-shave">
-                  Download First Shave Guide
-                  <span className="inline-block transition-transform group-hover:translate-x-1 ml-1">→</span>
-                </Link>
-              </Button>
             </div>
 
             {/* Right Column - Image */}

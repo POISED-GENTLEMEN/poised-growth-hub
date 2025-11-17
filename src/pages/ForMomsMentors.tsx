@@ -69,14 +69,6 @@ const ForMomsMentors = () => {
               Download First Shave Guide
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <Link to="/programs/mentor-training" className="flex items-center gap-2">
-                Explore Mentor Training
-                <span className="px-1.5 py-0.5 bg-gold text-white text-[10px] font-bold rounded-full uppercase tracking-wide">
-                  NEW
-                </span>
-              </Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
               <Link to="/programs">Explore Youth Programs</Link>
             </Button>
           </div>
@@ -478,13 +470,13 @@ const ForMomsMentors = () => {
           <div className="grid md:grid-cols-5 gap-8 items-center">
             <div className="md:col-span-3">
               <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
-                The Poised Young Gentlemen Program (Ages 10-14)
+                The Poised Young Gentlemen Program
               </h2>
               <p className="text-xl text-primary-foreground/80 mb-6">
                 8-week character & leadership development
               </p>
               <p className="text-lg text-primary-foreground/90 mb-8 leading-relaxed">
-                A structured program for ages 10-14 combining emotional intelligence, presence, etiquette, and legacy-building. Perfect for schools, youth organizations, and mentorship groups.
+                A structured program for ages 14-18 combining emotional intelligence, presence, etiquette, and legacy-building. Perfect for schools, youth organizations, and mentorship groups.
               </p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start">
@@ -521,7 +513,7 @@ const ForMomsMentors = () => {
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
                     <span className="font-semibold">Ages:</span>
-                    <span>10-14 Years</span>
+                    <span>14-18 Years</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
                     <span className="font-semibold">Format:</span>
