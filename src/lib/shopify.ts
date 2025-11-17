@@ -1,6 +1,6 @@
 const SHOPIFY_DOMAIN = import.meta.env.VITE_SHOPIFY_SHOP_PERMANENT_DOMAIN || '';
 const STOREFRONT_ACCESS_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN || '';
-const API_VERSION = '2025-01';
+const API_VERSION = '2025-07';
 
 export interface ShopifyProduct {
   id: string;
@@ -86,10 +86,10 @@ async function shopifyFetch<T>({ query, variables = {} }: { query: string; varia
   return json.data;
 }
 
-export async function getAllProducts(first: number = 20): Promise<ShopifyProduct[]> {
+export async function getAllProducts(first: number = 250): Promise<ShopifyProduct[]> {
   const query = `
-    query GetProducts($first: Int!) {
-      products(first: $first) {
+    query GetProducts($first: Int!, $query: String) {
+      products(first: $first, query: $query) {
         edges {
           node {
             id
@@ -140,7 +140,10 @@ export async function getAllProducts(first: number = 20): Promise<ShopifyProduct
 
   const data = await shopifyFetch<{ products: { edges: Array<{ node: ShopifyProduct }> } }>({
     query,
-    variables: { first },
+    variables: { 
+      first,
+      query: 'status:active'
+    },
   });
 
   return data.products.edges.map(edge => edge.node);
