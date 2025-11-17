@@ -83,7 +83,21 @@ const EssenceCollection = () => {
         setIsLoading(true);
         // Fetch products from the "essence-collection" Shopify collection
         const shopifyProducts = await fetchCollectionProducts('essence-collection');
-        const mappedProducts = shopifyProducts.map((sp, idx) => mapShopifyToEssenceProduct(sp, idx));
+        const mappedProducts = shopifyProducts
+          .map((sp, idx) => mapShopifyToEssenceProduct(sp, idx))
+          .filter(p => {
+            const titleLower = p.name.toLowerCase();
+            const descLower = p.fullDescription.toLowerCase();
+            // Exclude apparel items - only include fragrance products
+            const isApparel = 
+              titleLower.includes('shirt') ||
+              titleLower.includes('t-shirt') ||
+              titleLower.includes('tee') ||
+              titleLower.includes('apparel') ||
+              titleLower.includes('clothing');
+            
+            return !isApparel;
+          });
         setProducts(mappedProducts);
       } catch (error) {
         console.error('Error loading Essence Collection products:', error);
