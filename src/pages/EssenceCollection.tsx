@@ -54,7 +54,7 @@ function mapShopifyToEssenceProduct(shopifyProduct: ShopifyProduct, index: numbe
 
   return {
     id: index + 1,
-    name: node.title.split(" ")[0] || node.title,
+    name: node.title,
     family,
     category,
     color: categoryColors[category],
@@ -176,12 +176,20 @@ const EssenceCollection = () => {
               >
                 {/* Product Image */}
                 <div className="relative aspect-square mb-4 overflow-hidden rounded-md bg-muted">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div
-                      className="w-32 h-32 rounded-full opacity-20"
-                      style={{ backgroundColor: product.color }}
-                    ></div>
-                  </div>
+                  {product.image ? (
+                    <img 
+                      src={product.image} 
+                      alt={`${product.name} - Premium fragrance product from The Poised Gentlemen Essence Collection`}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div
+                        className="w-32 h-32 rounded-full opacity-20"
+                        style={{ backgroundColor: product.color }}
+                      ></div>
+                    </div>
+                  )}
                   {/* Color Badge */}
                   <div
                     className="absolute top-3 left-3 w-8 h-8 rounded-full border-2 border-white shadow-md"
