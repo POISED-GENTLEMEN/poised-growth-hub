@@ -91,7 +91,7 @@ const ShopifyShop = () => {
               </p>
               <Button asChild variant="hero">
                 <a 
-                  href={`https://${import.meta.env.VITE_SHOPIFY_SHOP_PERMANENT_DOMAIN}/admin`}
+                  href="https://poised-growth-hub-rfqhl.myshopify.com/admin"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

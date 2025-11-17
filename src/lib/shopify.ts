@@ -1,5 +1,5 @@
-const SHOPIFY_DOMAIN = import.meta.env.VITE_SHOPIFY_SHOP_PERMANENT_DOMAIN || '';
-const STOREFRONT_ACCESS_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN || '';
+const SHOPIFY_DOMAIN = 'poised-growth-hub-rfqhl.myshopify.com';
+const STOREFRONT_ACCESS_TOKEN = 'a68886fc37f05f0f157a3c8b2057d4dc';
 const API_VERSION = '2025-07';
 
 export interface ShopifyProduct {
