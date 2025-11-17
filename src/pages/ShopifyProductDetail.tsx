@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { getProductByHandle, ShopifyProduct } from "@/lib/shopify";
@@ -77,17 +78,72 @@ const ShopifyProductDetail = () => {
     toast.success(`${product.title} added to cart`);
   };
 
+  // Generate SEO-optimized content
+  const metaTitle = `${product.title} | Premium Grooming by Poised Gentlemen`;
+  const metaDescription = product.description 
+    ? `${product.description.slice(0, 155)}...` 
+    : `Shop ${product.title} - Premium grooming product designed for the modern gentleman. Quality ingredients, purposeful formulation.`;
+  
+  const productPrice = selectedVariant?.priceV2.amount || product.priceRange.minVariantPrice.amount;
+  const currencyCode = selectedVariant?.priceV2.currencyCode || product.priceRange.minVariantPrice.currencyCode;
+
+  // Structured data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.title,
+    "description": product.description,
+    "image": product.images.edges.map(edge => edge.node.url),
+    "brand": {
+      "@type": "Brand",
+      "name": "Poised Gentlemen"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": productPrice,
+      "priceCurrency": currencyCode,
+      "availability": selectedVariant?.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      "url": `${window.location.origin}/shop/${product.handle}`
+    }
+  };
+
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:type" content="product" />
+        <meta property="og:url" content={`${window.location.origin}/shop/${product.handle}`} />
+        {product.images.edges[0] && (
+          <meta property="og:image" content={product.images.edges[0].node.url} />
+        )}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={metaDescription} />
+        {product.images.edges[0] && (
+          <meta name="twitter:image" content={product.images.edges[0].node.url} />
+        )}
+        <link rel="canonical" href={`${window.location.origin}/shop/${product.handle}`} />
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      </Helmet>
+
       <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-sm mb-8">
-          <Link to="/shop" className="text-muted-foreground hover:text-gold">
+        <nav className="flex items-center gap-2 text-sm mb-8" aria-label="Breadcrumb">
+          <Link to="/" className="text-muted-foreground hover:text-foreground">
+            Home
+          </Link>
+          <span className="text-muted-foreground">/</span>
+          <Link to="/shop" className="text-muted-foreground hover:text-foreground">
             Shop
           </Link>
           <span className="text-muted-foreground">/</span>
           <span className="text-foreground">{product.title}</span>
-        </div>
+        </nav>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Images */}
@@ -96,7 +152,7 @@ const ShopifyProductDetail = () => {
               {product.images.edges[selectedImage] ? (
                 <img
                   src={product.images.edges[selectedImage].node.url}
-                  alt={product.images.edges[selectedImage].node.altText || product.title}
+                  alt={product.images.edges[selectedImage].node.altText || `${product.title} - Premium grooming product for the modern gentleman`}
                   className="w-full h-full object-cover"
                 />
               ) : (
@@ -127,13 +183,25 @@ const ShopifyProductDetail = () => {
           </div>
 
           {/* Product Info */}
-          <div>
-            <h1 className="font-heading text-4xl font-bold mb-4">{product.title}</h1>
-            <div className="text-3xl font-bold text-gold mb-6">
-              ${parseFloat(selectedVariant.priceV2.amount).toFixed(2)}
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-heading font-bold mb-3">
+                {product.title}
+              </h1>
+              <div 
+                className="text-lg text-muted-foreground leading-relaxed prose prose-sm max-w-none"
+                dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+              />
             </div>
 
-            <div className="prose prose-sm mb-8" dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
+            <div className="flex items-baseline gap-3">
+              <span className="text-3xl font-bold text-gold">
+                {currencyCode === 'USD' ? '$' : currencyCode}{parseFloat(productPrice).toFixed(2)}
+              </span>
+              {!selectedVariant?.availableForSale && (
+                <span className="text-sm text-destructive font-semibold">Out of Stock</span>
+              )}
+            </div>
 
             {/* Variants */}
             {product.options.map((option) => (
