@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Droplet, Heart, Shield, ChevronDown } from "lucide-react";
 import {
   Accordion,
@@ -9,6 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
+import { fetchShopifyProducts, ShopifyProduct } from "@/lib/shopify";
 
 const fragranceCategories = [
   { id: "all", label: "All Fragrances" },
@@ -20,191 +21,84 @@ const fragranceCategories = [
   { id: "fresh", label: "Fresh & Green" },
 ];
 
-const products = [
-  {
-    id: 1,
-    name: "Buoyant",
-    family: "Aquatic/Fresh",
-    category: "aquatic",
-    color: "#077DFE",
-    oneLiner: "Crisp marine lift with grounded cedarwood",
-    topNotes: "Marine Accord, Bergamot, Cedarwood",
-    badges: ["Office Ready", "Summer"],
-    bestFor: "Daily office wear, casual outings, spring & summer",
-    price: "$48",
-    priceRange: "$48 - $72",
-    slug: "buoyant",
-    image: "/src/assets/product-buoyant.jpg",
-  },
-  {
-    id: 2,
-    name: "Vigaros",
-    family: "Aromatic/Spicy",
-    category: "aromatic",
-    color: "#4B2E5C",
-    oneLiner: "Mint and green apple over a confident base",
-    topNotes: "Mint, Green Apple, Lemon",
-    badges: ["Date Night", "Weekend"],
-    bestFor: "Date nights, clubbing, fall & winter evenings",
-    price: "$48",
-    priceRange: "$48 - $72",
-    slug: "vigaros",
-    image: "/src/assets/product-vigaros.jpg",
-  },
-  {
-    id: 3,
-    name: "Light Breeze",
-    family: "Citrus/Bright",
-    category: "citrus",
-    color: "#D97E3A",
-    oneLiner: "Citrus-bright, coast-casual energy",
-    topNotes: "Mandarin, Grapefruit, Juniper",
-    badges: ["Weekend", "Summer"],
-    bestFor: "Summer vacations, beach outings, casual daytime",
-    price: "$48",
-    priceRange: "$48 - $72",
-    slug: "light-breeze",
-    image: "/src/assets/product-light-breeze.jpg",
-  },
-  {
-    id: 4,
-    name: "Blue Harmony",
-    family: "Woody/Earthy",
-    category: "woody",
-    color: "#CFB040",
-    oneLiner: "Sophisticated woody aromatic elegance",
-    topNotes: "Grapefruit, Cedar, Sandalwood",
-    badges: ["Office Ready", "Date Night"],
-    bestFor: "Business meetings, formal events, all-year-round",
-    price: "$48",
-    priceRange: "$48 - $72",
-    slug: "blue-harmony",
-    image: "/src/assets/product-blue-harmony.jpg",
-  },
-  {
-    id: 5,
-    name: "Urban Wisdom",
-    family: "Aromatic/Spicy",
-    category: "aromatic",
-    color: "#4B2E5C",
-    oneLiner: "Modern aromatic daily luxury",
-    topNotes: "Pear, Bergamot, Lavender",
-    badges: ["Office Ready", "Summer"],
-    bestFor: "Daily office wear, casual outings, spring & summer",
-    price: "$48",
-    priceRange: "$48 - $72",
-    slug: "urban-wisdom",
-    image: "/src/assets/product-urban-wisdom.jpg",
-  },
-  {
-    id: 6,
-    name: "Fighting Trim",
-    family: "Fresh/Green",
-    category: "fresh",
-    color: "#7ED957",
-    oneLiner: "Athletic citrus aromatic edge",
-    topNotes: "Rosemary, Pineapple, Bergamot",
-    badges: ["Weekend", "Summer"],
-    bestFor: "Post-workout, sporting events, active lifestyles",
-    price: "$48",
-    priceRange: "$48 - $72",
-    slug: "fighting-trim",
-    image: "/src/assets/product-fighting-trim.jpg",
-  },
-  {
-    id: 7,
-    name: "First Impression",
-    family: "Woody/Earthy",
-    category: "woody",
-    color: "#CFB040",
-    oneLiner: "Professional woody floral authority",
-    topNotes: "Violet Leaf, Mandarin, Cedarwood",
-    badges: ["Office Ready", "Date Night"],
-    bestFor: "Office wear, formal events, fall & winter",
-    price: "$48",
-    priceRange: "$48 - $72",
-    slug: "first-impression",
-    image: "/src/assets/product-first-impression.jpg",
-  },
-  {
-    id: 8,
-    name: "JSP",
-    family: "Woody/Earthy",
-    category: "woody",
-    color: "#CFB040",
-    oneLiner: "Sophisticated woody elegance",
-    topNotes: "Bergamot, Apple, Sage",
-    badges: ["Date Night", "Winter"],
-    bestFor: "Formal events, romantic evenings, fall & winter",
-    price: "$48",
-    priceRange: "$48 - $72",
-    slug: "jsp",
-    image: "/src/assets/product-jsp.jpg",
-  },
-  {
-    id: 9,
-    name: "Poised Sauvage",
-    family: "Aromatic/Spicy",
-    category: "aromatic",
-    color: "#4B2E5C",
-    oneLiner: "Bold woody spicy luxury",
-    topNotes: "Calabrian Bergamot, Sichuan Pepper",
-    badges: ["Date Night", "Winter"],
-    bestFor: "Date nights, evening events, year-round versatility",
-    price: "$48",
-    priceRange: "$48 - $72",
-    slug: "poised-sauvage",
-    image: "/src/assets/product-poised-sauvage.jpg",
-  },
-  {
-    id: 10,
-    name: "Seven Figures",
-    family: "Oriental/Warm",
-    category: "oriental",
-    color: "#FF0707",
-    oneLiner: "Charismatic woody spicy dominance",
-    topNotes: "Grapefruit, Mint, Blood Mandarin",
-    badges: ["Date Night", "Winter"],
-    bestFor: "Clubbing, parties, date nights, fall & winter",
-    price: "$48",
-    priceRange: "$48 - $72",
-    slug: "seven-figures",
-    image: "/src/assets/product-seven-figures.jpg",
-  },
-  {
-    id: 11,
-    name: "L.Y. Creed",
-    family: "Citrus/Bright",
-    category: "citrus",
-    color: "#D97E3A",
-    oneLiner: "Premium fruity chypre success",
-    topNotes: "Blackcurrant, Pineapple, Bergamot",
-    badges: ["Office Ready", "Summer"],
-    bestFor: "High-end events, business meetings, spring & summer",
-    price: "$48",
-    priceRange: "$48 - $72",
-    slug: "ly-creed",
-    image: "/src/assets/product-ly-creed.jpg",
-  },
-  {
-    id: 12,
-    name: "Admiral's Odyssey",
-    family: "Aquatic/Fresh",
-    category: "aquatic",
-    color: "#077DFE",
-    oneLiner: "Fresh aquatic adventure",
-    topNotes: "Green Leaf, Apple, Mimosa",
-    badges: ["Weekend", "Summer"],
-    bestFor: "Casual daytime, sports, summer adventures",
-    price: "$48",
-    priceRange: "$48 - $72",
-    slug: "admirals-odyssey",
-    image: "/src/assets/product-admirals-odyssey.jpg",
-  },
-];
+// Helper to map Shopify products to the expected format
+function mapShopifyToEssenceProduct(shopifyProduct: ShopifyProduct, index: number) {
+  const { node } = shopifyProduct;
+  const price = parseFloat(node.priceRange.minVariantPrice.amount);
+  const imageUrl = node.images.edges[0]?.node.url || '';
+  
+  // Extract category from title or description
+  const title = node.title.toLowerCase();
+  const desc = node.description.toLowerCase();
+  let category = "fresh";
+  
+  if (title.includes("aquatic") || title.includes("marine") || desc.includes("aquatic")) category = "aquatic";
+  else if (title.includes("woody") || title.includes("cedarwood") || desc.includes("woody")) category = "woody";
+  else if (title.includes("aromatic") || title.includes("spicy") || desc.includes("aromatic")) category = "aromatic";
+  else if (title.includes("citrus") || desc.includes("citrus")) category = "citrus";
+  else if (title.includes("oriental") || desc.includes("oriental")) category = "oriental";
+
+  // Color codes based on category
+  const categoryColors: Record<string, string> = {
+    aquatic: "#077DFE",
+    woody: "#CFB040",
+    aromatic: "#4B2E5C",
+    citrus: "#D97E3A",
+    oriental: "#8B0000",
+    fresh: "#7ED957",
+  };
+
+  // Extract fragrance family from title
+  const familyMatch = node.title.match(/- ([^-]+) (?:Fragrance|Body Moisturizer)/);
+  const family = familyMatch ? familyMatch[1] : "Premium";
+
+  return {
+    id: index + 1,
+    name: node.title.split(" ")[0] || node.title,
+    family,
+    category,
+    color: categoryColors[category],
+    oneLiner: node.description.substring(0, 100) || "Premium cologne balm",
+    topNotes: "Premium Fragrance Blend",
+    badges: ["Essence Collection"],
+    bestFor: "Daily wear and special occasions",
+    price: `$${Math.round(price)}`,
+    priceRange: node.variants.edges.length > 1 
+      ? `$${Math.round(price)} - $${Math.round(parseFloat(node.variants.edges[node.variants.edges.length - 1].node.price.amount))}`
+      : `$${Math.round(price)}`,
+    slug: node.handle,
+    image: imageUrl,
+    fullDescription: node.description,
+  };
+}
 
 const EssenceCollection = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [products, setProducts] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        setIsLoading(true);
+        const shopifyProducts = await fetchShopifyProducts();
+        const mappedProducts = shopifyProducts
+          .map((sp, idx) => mapShopifyToEssenceProduct(sp, idx))
+          .filter(p => 
+            p.name.toLowerCase().includes("balm") || 
+            p.fullDescription.toLowerCase().includes("cologne") ||
+            p.fullDescription.toLowerCase().includes("fragrance") ||
+            p.fullDescription.toLowerCase().includes("scent")
+          );
+        setProducts(mappedProducts);
+      } catch (error) {
+        console.error('Error loading products:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadProducts();
+  }, []);
 
   const filteredProducts =
     selectedCategory === "all"
