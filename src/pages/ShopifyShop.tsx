@@ -16,7 +16,7 @@ const ShopifyShop = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await getAllProducts(50);
+        const data = await getAllProducts(250);
         setProducts(data);
       } catch (error) {
         console.error('Error fetching products:', error);
