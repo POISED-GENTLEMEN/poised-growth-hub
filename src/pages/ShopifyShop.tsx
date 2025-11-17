@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getAllProducts, ShopifyProduct } from "@/lib/shopify";
@@ -55,6 +56,19 @@ const ShopifyShop = () => {
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <title>Premium Grooming Collection | Poised Gentlemen</title>
+        <meta name="description" content="Discover premium grooming products designed for the modern gentleman. Quality ingredients, age-appropriate formulas aligned with the Four Pillars of masculinity." />
+        <meta property="og:title" content="Premium Grooming Collection | Poised Gentlemen" />
+        <meta property="og:description" content="Elevate your grooming routine with our curated selection of premium products." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`${window.location.origin}/shop`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Premium Grooming Collection | Poised Gentlemen" />
+        <meta name="twitter:description" content="Premium grooming products for the modern gentleman." />
+        <link rel="canonical" href={`${window.location.origin}/shop`} />
+      </Helmet>
+
       {/* Hero Section */}
       <section className="relative bg-gradient-to-b from-navy to-navy/95 text-white py-20">
         <div className="container mx-auto px-4 text-center">
@@ -94,7 +108,7 @@ const ShopifyShop = () => {
                       {product.images.edges[0] ? (
                         <img
                           src={product.images.edges[0].node.url}
-                          alt={product.images.edges[0].node.altText || product.title}
+                          alt={product.images.edges[0].node.altText || `${product.title} - Premium grooming product from Poised Gentlemen`}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
