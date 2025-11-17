@@ -82,7 +82,7 @@ const ShopifyShop = () => {
       </section>
 
       {/* Products Grid */}
-      <section className="py-16">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           {products.length === 0 ? (
             <div className="text-center py-20">
@@ -100,16 +100,16 @@ const ShopifyShop = () => {
               </Button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {products.map((product) => (
-                <Card key={product.id} className="group overflow-hidden hover:shadow-lg transition-shadow">
+                <Card key={product.id} className="group overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300">
                   <Link to={`/shop/${product.handle}`}>
-                    <div className="aspect-square overflow-hidden bg-muted">
+                    <div className="aspect-[4/5] overflow-hidden bg-muted/30">
                       {product.images.edges[0] ? (
                         <img
                           src={product.images.edges[0].node.url}
                           alt={product.images.edges[0].node.altText || `${product.title} - Premium grooming product from Poised Gentlemen`}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-muted-foreground">
@@ -118,27 +118,27 @@ const ShopifyShop = () => {
                       )}
                     </div>
                   </Link>
-                  <CardContent className="p-4">
+                  <CardContent className="p-6">
                     <Link to={`/shop/${product.handle}`}>
-                      <h3 className="font-heading font-bold text-lg mb-2 hover:text-gold transition-colors">
+                      <h3 className="font-heading font-bold text-xl mb-3 hover:text-gold transition-colors line-clamp-2">
                         {product.title}
                       </h3>
                     </Link>
-                    <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
+                    <p className="text-muted-foreground mb-4 line-clamp-2 leading-relaxed">
                       {product.description}
                     </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xl font-bold text-gold">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-2xl font-bold text-gold">
                         ${parseFloat(product.priceRange.minVariantPrice.amount).toFixed(2)}
                       </span>
-                      <Button 
-                        size="sm" 
-                        variant="outline"
-                        onClick={() => handleAddToCart(product)}
-                      >
-                        Add to Cart
-                      </Button>
                     </div>
+                    <Button 
+                      className="w-full"
+                      variant="default"
+                      onClick={() => handleAddToCart(product)}
+                    >
+                      Add to Cart
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
