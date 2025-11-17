@@ -7,20 +7,19 @@ import { ScentQuiz } from "@/components/ScentQuiz";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ParentGuideBanner } from "@/components/ParentGuideBanner";
-import { essenceProducts } from "@/data/essenceProducts";
+import { useShop } from "@/contexts/ShopContext";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const Shop = () => {
   const [quizOpen, setQuizOpen] = useState(false);
+  const { products } = useShop();
 
   const scrollToCollections = () => {
     document.getElementById('collections')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // Featured products from Essence Collection
-  const featuredProducts = essenceProducts.filter(p => 
-    ['blue-harmony', 'vigaros', 'buoyant', 'light-breeze', 'first-impression', 'poised-sauvage'].includes(p.slug)
-  );
+  // Featured products from Essence Collection (first 6 products)
+  const featuredProducts = products.slice(0, 6);
 
   const occasionCategories = [
     {
@@ -251,21 +250,17 @@ const Shop = () => {
             <CarouselContent>
               {featuredProducts.map((product) => (
                 <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3">
-                  <Link to={`/products/${product.slug}`} className="block group">
+                  <Link to={`/products/${product.id}`} className="block group">
                     <div className="bg-background border border-border rounded-lg p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                       <div className="relative aspect-square mb-4 bg-muted rounded-md overflow-hidden">
-                        <div 
-                          className="absolute top-3 left-3 w-8 h-8 rounded-full border-2 border-white shadow-md"
-                          style={{ backgroundColor: product.colorCode }}
-                        ></div>
                         <img 
-                          src="/placeholder.svg" 
+                          src={product.image} 
                           alt={product.name}
                           className="w-full h-full object-cover transition-transform group-hover:scale-105"
                         />
                       </div>
                       <div className="flex gap-2 mb-3">
-                        {product.occasions.slice(0, 2).map((badge, idx) => (
+                        {product.badges?.slice(0, 2).map((badge, idx) => (
                           <Badge key={idx} variant="outline" className="text-xs bg-[#C1A36C]/10 text-[#C1A36C] border-[#C1A36C]/20">
                             {badge}
                           </Badge>
@@ -275,13 +270,13 @@ const Shop = () => {
                         {product.name}
                       </h3>
                       <p className="text-sm text-muted-foreground mb-2">
-                        {product.fragranceFamily}
+                        {product.category}
                       </p>
                       <p className="text-sm italic text-foreground mb-3 line-clamp-2">
-                        {product.oneLiner}
+                        {product.shortDescription}
                       </p>
                       <p className="text-lg font-bold text-primary mb-4">
-                        ${product.price4oz}
+                        ${product.price}
                       </p>
                       <Button className="w-full bg-[#C1A36C] text-primary hover:bg-[#C1A36C]/90">
                         View Details
