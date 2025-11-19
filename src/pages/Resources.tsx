@@ -137,6 +137,17 @@ const articles: Article[] = [
     readTime: 7,
     pillar: "Discipline",
   },
+  {
+    id: 11,
+    title: "The Poised Gentleman: The Modern Day Stoic",
+    excerpt:
+      "In today’s fast-paced and unpredictable world, the Poised Gentleman emerges as a paragon of composure, intellect, and resilience.",
+    category: "Mindfulness",
+    image: articleStoic,
+    readTime: 8,
+    author: "David Rachal III",
+    pillar: "Integrity",
+  },
 ];
 
 interface Download {
