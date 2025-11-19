@@ -21,6 +21,13 @@ import articleLegacy from "@/assets/article-legacy.jpg";
 import articleMentorship from "@/assets/article-mentorship.jpg";
 import articleProfessional from "@/assets/article-professional.jpg";
 import articleStoic from "@/assets/article-stoic.jpg";
+import articleStoic from "@/assets/article-stoic.jpg";
+import articleTeenAcne from "@/assets/article-teen-acne.jpg";
+import articleForged from "@/assets/article-forged-story.jpg";
+import articleModernMasculinity from "@/assets/article-modern-masculinity.jpg";
+import articlePoisedSteps from "@/assets/article-poised-steps.jpg";
+import articleEmotionalBlueprint from "@/assets/article-emotional-blueprint.jpg";
+import articleFathersDay from "@/assets/article-fathers-day-2025.jpg";
 
 type Category = "All Articles" | "Four Pillars" | "Presence & Etiquette" | "Masculinity FAQs" | "Mindfulness";
 
