@@ -20,6 +20,7 @@ import articleIngredients from "@/assets/article-ingredients.jpg";
 import articleLegacy from "@/assets/article-legacy.jpg";
 import articleMentorship from "@/assets/article-mentorship.jpg";
 import articleProfessional from "@/assets/article-professional.jpg";
+import articleStoic from "@/assets/article-stoic.jpg";
 
 type Category = "All Articles" | "Four Pillars" | "Presence & Etiquette" | "Masculinity FAQs" | "Mindfulness";
 
@@ -39,68 +40,75 @@ const articles: Article[] = [
   {
     id: 1,
     title: "The Four Pillars Explained: Your Framework for Modern Masculinity",
-    excerpt: "Deep dive into each pillar with actionable steps. Learn how Integrity, Strength, Emotional Intelligence, and Discipline transform lives.",
+    excerpt:
+      "Deep dive into each pillar with actionable steps. Learn how Integrity, Strength, Emotional Intelligence, and Discipline transform lives.",
     category: "Four Pillars",
     image: articleFeatured,
     readTime: 8,
     author: "David Rachal III",
-    pillar: "All Four Pillars"
+    pillar: "All Four Pillars",
   },
   {
     id: 2,
     title: "Grooming Routines by Age: What Every Man Should Know",
-    excerpt: "Age-specific skincare advice from Genesis-G to Legendary-G. Build a routine that works for your stage of life.",
+    excerpt:
+      "Age-specific skincare advice from Genesis-G to Legendary-G. Build a routine that works for your stage of life.",
     category: "Presence & Etiquette",
     image: articleGrooming,
     readTime: 6,
     pillar: "Discipline",
-    isParentResource: true
+    isParentResource: true,
   },
   {
     id: 3,
     title: "Emotional Intelligence for Men: Why EQ Matters More Than IQ",
-    excerpt: "Research-backed guide to developing emotional fluency. Learn to name your feelings, regulate responses, and build stronger relationships.",
+    excerpt:
+      "Research-backed guide to developing emotional fluency. Learn to name your feelings, regulate responses, and build stronger relationships.",
     category: "Four Pillars",
     image: articleEq,
     readTime: 7,
-    pillar: "Emotional Intelligence"
+    pillar: "Emotional Intelligence",
   },
   {
     id: 4,
     title: "How to Talk to Your Son About Masculinity",
-    excerpt: "Conversation starters for fathers and guardians. Bridge the generational gap and give your son tools you may not have had.",
+    excerpt:
+      "Conversation starters for fathers and guardians. Bridge the generational gap and give your son tools you may not have had.",
     category: "Masculinity FAQs",
     image: articleFatherhood,
     readTime: 5,
     pillar: "Integrity",
-    isParentResource: true
+    isParentResource: true,
   },
   {
     id: 5,
     title: "Discipline Over Motivation: Building Systems That Last",
-    excerpt: "Motivation fades. Discipline endures. Learn how to build habits, eliminate temptations, and show up consistently.",
+    excerpt:
+      "Motivation fades. Discipline endures. Learn how to build habits, eliminate temptations, and show up consistently.",
     category: "Mindfulness",
     image: articleDiscipline,
     readTime: 6,
-    pillar: "Discipline"
+    pillar: "Discipline",
   },
   {
     id: 6,
     title: "The Problem with 'Man Up': Redefining Strength for Modern Men",
-    excerpt: "Why traditional masculinity narratives fail and what to do instead. Emotional suppression isn't strength—it's avoidance.",
+    excerpt:
+      "Why traditional masculinity narratives fail and what to do instead. Emotional suppression isn't strength—it's avoidance.",
     category: "Four Pillars",
     image: articleStrength,
     readTime: 7,
-    pillar: "Strength"
+    pillar: "Strength",
   },
   {
     id: 7,
     title: "Skincare Ingredients Every Man Should Know",
-    excerpt: "Guide to reading labels and choosing quality products. Learn what hyaluronic acid, retinol, and SPF actually do.",
+    excerpt:
+      "Guide to reading labels and choosing quality products. Learn what hyaluronic acid, retinol, and SPF actually do.",
     category: "Presence & Etiquette",
     image: articleIngredients,
     readTime: 5,
-    pillar: "Discipline"
+    pillar: "Discipline",
   },
   {
     id: 8,
@@ -109,7 +117,7 @@ const articles: Article[] = [
     category: "Mindfulness",
     image: articleLegacy,
     readTime: 8,
-    pillar: "Integrity"
+    pillar: "Integrity",
   },
   {
     id: 9,
@@ -118,7 +126,7 @@ const articles: Article[] = [
     category: "Masculinity FAQs",
     image: articleMentorship,
     readTime: 6,
-    pillar: "Strength"
+    pillar: "Strength",
   },
   {
     id: 10,
@@ -127,8 +135,8 @@ const articles: Article[] = [
     category: "Presence & Etiquette",
     image: articleProfessional,
     readTime: 7,
-    pillar: "Discipline"
-  }
+    pillar: "Discipline",
+  },
 ];
 
 interface Download {
@@ -143,26 +151,26 @@ const downloads: Download[] = [
     id: 1,
     title: "The 4 Pillars Starter Kit",
     description: "20-page guide with self-assessment, 30-day challenge, and journal prompts.",
-    icon: <FileText className="w-8 h-8 text-gold" />
+    icon: <FileText className="w-8 h-8 text-gold" />,
   },
   {
     id: 2,
     title: "Grooming Routine by Age",
     description: "Age-specific product recommendations and morning/evening routine templates.",
-    icon: <BookOpen className="w-8 h-8 text-gold" />
+    icon: <BookOpen className="w-8 h-8 text-gold" />,
   },
   {
     id: 3,
     title: "Conversation Starters for Fathers & Sons",
     description: "50+ questions to spark meaningful dialogue and build trust.",
-    icon: <Heart className="w-8 h-8 text-gold" />
+    icon: <Heart className="w-8 h-8 text-gold" />,
   },
   {
     id: 4,
     title: "EQ Self-Assessment",
     description: "25-question assessment with scoring guide and development areas.",
-    icon: <Award className="w-8 h-8 text-gold" />
-  }
+    icon: <Award className="w-8 h-8 text-gold" />,
+  },
 ];
 
 const Resources = () => {
@@ -174,12 +182,12 @@ const Resources = () => {
   // SEO: Update page title and meta description
   useEffect(() => {
     document.title = "The Codex | The Poised Gentlemen";
-    
+
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute(
         "content",
-        "The Poised Gentleman's Codex — comprehensive guides on the Four Pillars, emotional intelligence, style, etiquette, and building your legacy."
+        "The Poised Gentleman's Codex — comprehensive guides on the Four Pillars, emotional intelligence, style, etiquette, and building your legacy.",
       );
     }
 
@@ -189,17 +197,22 @@ const Resources = () => {
       if (metaDescription) {
         metaDescription.setAttribute(
           "content",
-          "Youth mentorship, adult coaching, and premium grooming aligned with the Four Pillars: Integrity, Strength, Emotional Intelligence, Discipline. New Orleans."
+          "Youth mentorship, adult coaching, and premium grooming aligned with the Four Pillars: Integrity, Strength, Emotional Intelligence, Discipline. New Orleans.",
         );
       }
     };
   }, []);
 
-  const categories: Category[] = ["All Articles", "Four Pillars", "Presence & Etiquette", "Masculinity FAQs", "Mindfulness"];
+  const categories: Category[] = [
+    "All Articles",
+    "Four Pillars",
+    "Presence & Etiquette",
+    "Masculinity FAQs",
+    "Mindfulness",
+  ];
 
-  const filteredArticles = activeCategory === "All Articles" 
-    ? articles 
-    : articles.filter(article => article.category === activeCategory);
+  const filteredArticles =
+    activeCategory === "All Articles" ? articles : articles.filter((article) => article.category === activeCategory);
 
   const handleDownloadClick = (download: Download) => {
     setSelectedDownload(download);
@@ -217,13 +230,11 @@ const Resources = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="relative h-[35vh] bg-primary flex items-center justify-center">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-6xl font-heading font-bold text-primary-foreground mb-5">
-            The Codex
-          </h1>
+          <h1 className="text-5xl md:text-6xl font-heading font-bold text-primary-foreground mb-5">The Codex</h1>
           <p className="text-lg md:text-xl text-primary-foreground/90 max-w-2xl mx-auto">
             Guides on style, emotional intelligence, etiquette, and legacy.
           </p>
@@ -235,9 +246,9 @@ const Resources = () => {
         <div className="container mx-auto px-4">
           <Link to="#" className="block group">
             <div className="relative overflow-hidden rounded-lg hover-scale">
-              <img 
-                src={articleFeatured} 
-                alt="The Four Pillars Framework discussion" 
+              <img
+                src={articleFeatured}
+                alt="The Four Pillars Framework discussion"
                 className="w-full h-[400px] md:h-[500px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent" />
@@ -247,13 +258,13 @@ const Resources = () => {
                   The Four Pillars Explained: Your Framework for Modern Masculinity
                 </h2>
                 <p className="text-lg mb-4 text-primary-foreground/90">
-                  Deep dive into Integrity, Strength, Emotional Intelligence, and Discipline. Learn how this teachable system transforms lives.
+                  Deep dive into Integrity, Strength, Emotional Intelligence, and Discipline. Learn how this teachable
+                  system transforms lives.
                 </p>
                 <div className="flex items-center gap-4 text-sm">
                   <span>David Rachal III</span>
                   <span className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    8 min read
+                    <Clock className="w-4 h-4" />8 min read
                   </span>
                 </div>
               </div>
@@ -288,27 +299,21 @@ const Resources = () => {
               <Link key={article.id} to="#" className="block group">
                 <article className="bg-card rounded-lg border border-border overflow-hidden hover-lift">
                   <div className="relative overflow-hidden">
-                    <img 
-                      src={article.image} 
+                    <img
+                      src={article.image}
                       alt={article.title}
                       className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute top-4 left-4 flex items-center gap-2">
-                      <Badge className="bg-gold text-gold-foreground">
-                        {article.pillar}
-                      </Badge>
-                      {article.isParentResource && (
-                        <ParentBadge variant="parent-resource" />
-                      )}
+                      <Badge className="bg-gold text-gold-foreground">{article.pillar}</Badge>
+                      {article.isParentResource && <ParentBadge variant="parent-resource" />}
                     </div>
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-heading font-bold mb-2 text-card-foreground group-hover:text-gold transition-colors">
                       {article.title}
                     </h3>
-                    <p className="text-muted-foreground mb-4 line-clamp-3">
-                      {article.excerpt}
-                    </p>
+                    <p className="text-muted-foreground mb-4 line-clamp-3">{article.excerpt}</p>
                     <div className="flex items-center justify-between text-sm text-muted-foreground">
                       <span className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
@@ -333,10 +338,10 @@ const Resources = () => {
           <p className="text-center text-gold-foreground/80 mb-12 max-w-2xl mx-auto">
             Download our guides, workbooks, and tools to accelerate your journey through the Four Pillars.
           </p>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {downloads.map((download) => (
-              <div 
+              <div
                 key={download.id}
                 className="bg-primary rounded-lg p-6 text-primary-foreground hover:scale-105 transition-transform cursor-pointer"
                 onClick={() => handleDownloadClick(download)}
@@ -344,7 +349,10 @@ const Resources = () => {
                 <div className="mb-4">{download.icon}</div>
                 <h4 className="text-xl font-heading font-bold mb-2">{download.title}</h4>
                 <p className="text-primary-foreground/80 mb-4">{download.description}</p>
-                <Button variant="outline" className="w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+                <Button
+                  variant="outline"
+                  className="w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                >
                   Download Free PDF
                 </Button>
               </div>
@@ -361,20 +369,24 @@ const Resources = () => {
               Never Miss an Article
             </h2>
             <p className="text-lg text-primary-foreground/90 mb-8">
-              Get weekly insights on mentorship, emotional intelligence, grooming, and growth. Delivered every Wednesday.
+              Get weekly insights on mentorship, emotional intelligence, grooming, and growth. Delivered every
+              Wednesday.
             </p>
-            
-            <form className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto" onSubmit={(e) => {
-              e.preventDefault();
-              const email = (e.target as HTMLFormElement).email.value;
-              console.log("Newsletter signup:", email);
-              alert("Thanks for subscribing! Check your inbox for confirmation.");
-              (e.target as HTMLFormElement).reset();
-            }}>
-              <Input 
-                type="email" 
+
+            <form
+              className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const email = (e.target as HTMLFormElement).email.value;
+                console.log("Newsletter signup:", email);
+                alert("Thanks for subscribing! Check your inbox for confirmation.");
+                (e.target as HTMLFormElement).reset();
+              }}
+            >
+              <Input
+                type="email"
                 name="email"
-                placeholder="Enter your email" 
+                placeholder="Enter your email"
                 required
                 className="flex-1 bg-background text-foreground"
               />
@@ -382,10 +394,8 @@ const Resources = () => {
                 Subscribe
               </Button>
             </form>
-            
-            <p className="text-sm text-primary-foreground/70 mt-4">
-              We respect your inbox. Unsubscribe anytime.
-            </p>
+
+            <p className="text-sm text-primary-foreground/70 mt-4">We respect your inbox. Unsubscribe anytime.</p>
           </div>
         </div>
       </section>
@@ -393,9 +403,7 @@ const Resources = () => {
       {/* Final CTA */}
       <section className="py-16 bg-background border-t border-border">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-            Ready to Take Action?
-          </h2>
+          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">Ready to Take Action?</h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             Knowledge is just the beginning. Join our programs or shop our values-aligned products.
           </p>
@@ -415,15 +423,13 @@ const Resources = () => {
         <DialogContent className="bg-card">
           <DialogHeader>
             <DialogTitle>Download: {selectedDownload?.title}</DialogTitle>
-            <DialogDescription>
-              Enter your details to receive this free resource via email.
-            </DialogDescription>
+            <DialogDescription>Enter your details to receive this free resource via email.</DialogDescription>
           </DialogHeader>
-          
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <Label htmlFor="name">First Name *</Label>
-              <Input 
+              <Input
                 id="name"
                 type="text"
                 required
@@ -431,10 +437,10 @@ const Resources = () => {
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
             </div>
-            
+
             <div>
               <Label htmlFor="email">Email *</Label>
-              <Input 
+              <Input
                 id="email"
                 type="email"
                 required
@@ -442,9 +448,9 @@ const Resources = () => {
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               />
             </div>
-            
+
             <div className="flex items-center space-x-2">
-              <Checkbox 
+              <Checkbox
                 id="newsletter"
                 checked={formData.newsletter}
                 onCheckedChange={(checked) => setFormData({ ...formData, newsletter: checked as boolean })}
@@ -453,7 +459,7 @@ const Resources = () => {
                 I agree to receive The Poised Gentlemen newsletter
               </Label>
             </div>
-            
+
             <Button type="submit" className="w-full bg-gold text-gold-foreground hover:bg-gold/90">
               Send Me the Resource
             </Button>
