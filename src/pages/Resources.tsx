@@ -28,8 +28,6 @@ import articlePoisedSteps from "@/assets/article-poised-steps.jpg";
 import articleEmotionalBlueprint from "@/assets/article-emotional-blueprint.jpg";
 import articleFathersDay from "@/assets/article-fathers-day-2025.jpg";
 
-type Category = "All Articles" | "Four Pillars" | "Presence & Etiquette" | "Masculinity FAQs" | "Mindfulness";
-
 type Category =
   | "All Articles"
   | "Four Pillars"
@@ -65,7 +63,7 @@ const articles: Article[] = [
     readTime: 8,
     author: "David Rachal III",
     pillar: "Integrity",
-    url: "https://poisedgentlemen.com/blogs/news/the-poised-gentleman-the-modern-day-stoic", :contentReference[oaicite:0]{index=0}
+    url: "https://poisedgentlemen.com/blogs/news/the-poised-gentleman-the-modern-day-stoic",
   },
   {
     id: 2,
@@ -80,7 +78,7 @@ const articles: Article[] = [
     author: "David Rachal III",
     pillar: "Discipline",
     isParentResource: true,
-    url: "https://poisedgentlemen.com/blogs/news/conquering-teen-boy-acne-odor-parents-roadmap", :contentReference[oaicite:1]{index=1}
+    url: "https://poisedgentlemen.com/blogs/news/conquering-teen-boy-acne-odor-parents-roadmap",
   },
   {
     id: 3,
@@ -94,7 +92,7 @@ const articles: Article[] = [
     readTime: 7,
     author: "David Rachal III",
     pillar: "All Four Pillars",
-    url: "https://poisedgentlemen.com/blogs/news/forged-not-fabricated-my-story-behind-the-poised-gentleman", :contentReference[oaicite:2]{index=2}
+    url: "https://poisedgentlemen.com/blogs/news/forged-not-fabricated-my-story-behind-the-poised-gentleman",
   },
   {
     id: 4,
@@ -108,7 +106,7 @@ const articles: Article[] = [
     readTime: 9,
     author: "David Rachal III",
     pillar: "All Four Pillars",
-    url: "https://poisedgentlemen.com/blogs/news/poised-modern-masculinity", :contentReference[oaicite:3]{index=3}
+    url: "https://poisedgentlemen.com/blogs/news/poised-modern-masculinity",
   },
   {
     id: 5,
@@ -122,7 +120,7 @@ const articles: Article[] = [
     readTime: 11,
     author: "David Rachal III",
     pillar: "All Four Pillars",
-    url: "https://poisedgentlemen.com/blogs/news/becoming-poised-gentleman-essential", :contentReference[oaicite:4]{index=4}
+    url: "https://poisedgentlemen.com/blogs/news/becoming-poised-gentleman-essential",
   },
   {
     id: 6,
@@ -137,7 +135,7 @@ const articles: Article[] = [
     readTime: 9,
     author: "David Rachal III",
     pillar: "Emotional Intelligence",
-    url: "https://poisedgentlemen.com/blogs/news/modern-gentlemen-guide-emotional", :contentReference[oaicite:5]{index=5}
+    url: "https://poisedgentlemen.com/blogs/news/modern-gentlemen-guide-emotional",
   },
   {
     id: 7,
@@ -152,7 +150,7 @@ const articles: Article[] = [
     readTime: 5,
     author: "David Rachal III",
     pillar: "Discipline",
-    url: "https://poisedgentlemen.com/blogs/news/best-fathers-day-gift", :contentReference[oaicite:6]{index=6}
+    url: "https://poisedgentlemen.com/blogs/news/best-fathers-day-gift",
   },
 ];
 
