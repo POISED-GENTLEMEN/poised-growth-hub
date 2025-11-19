@@ -30,9 +30,18 @@ import articleFathersDay from "@/assets/article-fathers-day-2025.jpg";
 
 type Category = "All Articles" | "Four Pillars" | "Presence & Etiquette" | "Masculinity FAQs" | "Mindfulness";
 
+type Category =
+  | "All Articles"
+  | "Four Pillars"
+  | "Presence & Etiquette"
+  | "Masculinity FAQs"
+  | "Mindfulness";
+
 interface Article {
   id: number;
+  slug: string;
   title: string;
+  date: string;
   excerpt: string;
   category: Category;
   image: string;
@@ -40,119 +49,110 @@ interface Article {
   author?: string;
   pillar: string;
   isParentResource?: boolean;
+  url: string; // link back to Shopify blog
 }
 
 const articles: Article[] = [
   {
     id: 1,
-    title: "The Four Pillars Explained: Your Framework for Modern Masculinity",
-    excerpt:
-      "Deep dive into each pillar with actionable steps. Learn how Integrity, Strength, Emotional Intelligence, and Discipline transform lives.",
-    category: "Four Pillars",
-    image: articleFeatured,
-    readTime: 8,
-    author: "David Rachal III",
-    pillar: "All Four Pillars",
-  },
-  {
-    id: 2,
-    title: "Grooming Routines by Age: What Every Man Should Know",
-    excerpt:
-      "Age-specific skincare advice from Genesis-G to Legendary-G. Build a routine that works for your stage of life.",
-    category: "Presence & Etiquette",
-    image: articleGrooming,
-    readTime: 6,
-    pillar: "Discipline",
-    isParentResource: true,
-  },
-  {
-    id: 3,
-    title: "Emotional Intelligence for Men: Why EQ Matters More Than IQ",
-    excerpt:
-      "Research-backed guide to developing emotional fluency. Learn to name your feelings, regulate responses, and build stronger relationships.",
-    category: "Four Pillars",
-    image: articleEq,
-    readTime: 7,
-    pillar: "Emotional Intelligence",
-  },
-  {
-    id: 4,
-    title: "How to Talk to Your Son About Masculinity",
-    excerpt:
-      "Conversation starters for fathers and guardians. Bridge the generational gap and give your son tools you may not have had.",
-    category: "Masculinity FAQs",
-    image: articleFatherhood,
-    readTime: 5,
-    pillar: "Integrity",
-    isParentResource: true,
-  },
-  {
-    id: 5,
-    title: "Discipline Over Motivation: Building Systems That Last",
-    excerpt:
-      "Motivation fades. Discipline endures. Learn how to build habits, eliminate temptations, and show up consistently.",
-    category: "Mindfulness",
-    image: articleDiscipline,
-    readTime: 6,
-    pillar: "Discipline",
-  },
-  {
-    id: 6,
-    title: "The Problem with 'Man Up': Redefining Strength for Modern Men",
-    excerpt:
-      "Why traditional masculinity narratives fail and what to do instead. Emotional suppression isn't strength—it's avoidance.",
-    category: "Four Pillars",
-    image: articleStrength,
-    readTime: 7,
-    pillar: "Strength",
-  },
-  {
-    id: 7,
-    title: "Skincare Ingredients Every Man Should Know",
-    excerpt:
-      "Guide to reading labels and choosing quality products. Learn what hyaluronic acid, retinol, and SPF actually do.",
-    category: "Presence & Etiquette",
-    image: articleIngredients,
-    readTime: 5,
-    pillar: "Discipline",
-  },
-  {
-    id: 8,
-    title: "Building Your Legacy: Questions Every Man Should Ask Himself",
-    excerpt: "Reflection prompts for purpose and long-term impact. What will you be remembered for?",
-    category: "Mindfulness",
-    image: articleLegacy,
-    readTime: 8,
-    pillar: "Integrity",
-  },
-  {
-    id: 9,
-    title: "Mentorship 101: How to Be the Role Model Someone Needs",
-    excerpt: "Practical guide for men who want to mentor youth. You don't need to be perfect—you need to be present.",
-    category: "Masculinity FAQs",
-    image: articleMentorship,
-    readTime: 6,
-    pillar: "Strength",
-  },
-  {
-    id: 10,
-    title: "From Barbershop to Boardroom: Style Tips for Professional Presence",
-    excerpt: "Grooming, wardrobe, and body language for career success. Your presence precedes your words.",
-    category: "Presence & Etiquette",
-    image: articleProfessional,
-    readTime: 7,
-    pillar: "Discipline",
-  },
-  {
-    id: 11,
+    slug: "the-poised-gentleman-the-modern-day-stoic",
     title: "The Poised Gentleman: The Modern Day Stoic",
+    date: "August 26, 2024", // from blog
     excerpt:
-      "In today’s fast-paced and unpredictable world, the Poised Gentleman emerges as a paragon of composure, intellect, and resilience.",
+      "How modern Stoic principles like self-mastery, integrity, and emotional resilience shape the Poised Gentleman.",
     category: "Mindfulness",
     image: articleStoic,
     readTime: 8,
     author: "David Rachal III",
     pillar: "Integrity",
+    url: "https://poisedgentlemen.com/blogs/news/the-poised-gentleman-the-modern-day-stoic", :contentReference[oaicite:0]{index=0}
+  },
+  {
+    id: 2,
+    slug: "conquering-teen-boy-acne-odor-parents-roadmap",
+    title: "Conquering Teen Boy Acne & Odor: A Parent’s Roadmap",
+    date: "June 26, 2025",
+    excerpt:
+      "A practical guide to helping teen boys handle acne, body odor, and grooming in a way that protects their confidence.",
+    category: "Presence & Etiquette",
+    image: articleTeenAcne,
+    readTime: 10,
+    author: "David Rachal III",
+    pillar: "Discipline",
+    isParentResource: true,
+    url: "https://poisedgentlemen.com/blogs/news/conquering-teen-boy-acne-odor-parents-roadmap", :contentReference[oaicite:1]{index=1}
+  },
+  {
+    id: 3,
+    slug: "forged-not-fabricated-my-story-behind-the-poised-gentleman",
+    title: "Forged, Not Fabricated: My Story Behind The Poised Gentleman",
+    date: "June 17, 2025",
+    excerpt:
+      "David’s personal story of how hardship, not comfort, forged the standards behind The Poised Gentleman.",
+    category: "Four Pillars",
+    image: articleForged,
+    readTime: 7,
+    author: "David Rachal III",
+    pillar: "All Four Pillars",
+    url: "https://poisedgentlemen.com/blogs/news/forged-not-fabricated-my-story-behind-the-poised-gentleman", :contentReference[oaicite:2]{index=2}
+  },
+  {
+    id: 4,
+    slug: "poised-modern-masculinity",
+    title: "Modern Masculinity: How to Become a Poised Gentleman Today",
+    date: "May 14, 2025",
+    excerpt:
+      "An eight-dimension framework for style, discipline, emotional intelligence, and influence in modern masculinity.",
+    category: "Masculinity FAQs",
+    image: articleModernMasculinity,
+    readTime: 9,
+    author: "David Rachal III",
+    pillar: "All Four Pillars",
+    url: "https://poisedgentlemen.com/blogs/news/poised-modern-masculinity", :contentReference[oaicite:3]{index=3}
+  },
+  {
+    id: 5,
+    slug: "becoming-poised-gentleman-essential",
+    title: "Becoming a Poised Gentleman: Essential Steps to Refinement",
+    date: "August 25, 2024",
+    excerpt:
+      "Ten essential steps—from emotional intelligence to culture and contribution—for men serious about refinement.",
+    category: "Four Pillars",
+    image: articlePoisedSteps,
+    readTime: 11,
+    author: "David Rachal III",
+    pillar: "All Four Pillars",
+    url: "https://poisedgentlemen.com/blogs/news/becoming-poised-gentleman-essential", :contentReference[oaicite:4]{index=4}
+  },
+  {
+    id: 6,
+    slug: "modern-gentlemen-guide-emotional",
+    title:
+      "The Modern Gentleman’s Blueprint to Emotional Mastery: Why Vulnerability is a Strength, Not a Setback",
+    date: "November 5, 2025",
+    excerpt:
+      "Men’s Mental Health Month deep dive on why emotional command—not suppression—is the new standard for strength.",
+    category: "Mindfulness",
+    image: articleEmotionalBlueprint,
+    readTime: 9,
+    author: "David Rachal III",
+    pillar: "Emotional Intelligence",
+    url: "https://poisedgentlemen.com/blogs/news/modern-gentlemen-guide-emotional", :contentReference[oaicite:5]{index=5}
+  },
+  {
+    id: 7,
+    slug: "best-fathers-day-gift",
+    title:
+      "The Best Father’s Day Gift Bundles for 2025: A Gift He'll Never Forget",
+    date: "June 1, 2025",
+    excerpt:
+      "Limited-run Father’s Day bundles pairing bold moisturizers with premium tees for the men who always show up.",
+    category: "Presence & Etiquette",
+    image: articleFathersDay,
+    readTime: 5,
+    author: "David Rachal III",
+    pillar: "Discipline",
+    url: "https://poisedgentlemen.com/blogs/news/best-fathers-day-gift", :contentReference[oaicite:6]{index=6}
   },
 ];
 
