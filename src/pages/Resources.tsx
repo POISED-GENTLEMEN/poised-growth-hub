@@ -11,22 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Clock, FileText, BookOpen, Award, Heart } from "lucide-react";
 import articleFeatured from "@/assets/article-featured.jpg";
-import articleGrooming from "@/assets/article-grooming.jpg";
-import articleEq from "@/assets/article-eq.jpg";
-import articleFatherhood from "@/assets/article-fatherhood.jpg";
-import articleDiscipline from "@/assets/article-discipline.jpg";
-import articleStrength from "@/assets/article-strength.jpg";
-import articleIngredients from "@/assets/article-ingredients.jpg";
-import articleLegacy from "@/assets/article-legacy.jpg";
-import articleMentorship from "@/assets/article-mentorship.jpg";
-import articleProfessional from "@/assets/article-professional.jpg";
-import articleStoic from "@/assets/article-stoic.jpg";
-import articleTeenAcne from "@/assets/article-teen-acne.jpg";
-import articleForged from "@/assets/article-forged-story.jpg";
-import articleModernMasculinity from "@/assets/article-modern-masculinity.jpg";
-import articlePoisedSteps from "@/assets/article-poised-steps.jpg";
-import articleEmotionalBlueprint from "@/assets/article-emotional-blueprint.jpg";
-import articleFathersDay from "@/assets/article-fathers-day-2025.jpg";
+import { articles, type Article } from "@/data/articles";
 
 type Category =
   | "All Articles"
@@ -34,125 +19,6 @@ type Category =
   | "Presence & Etiquette"
   | "Masculinity FAQs"
   | "Mindfulness";
-
-interface Article {
-  id: number;
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  category: Category;
-  image: string;
-  readTime: number;
-  author?: string;
-  pillar: string;
-  isParentResource?: boolean;
-  url: string; // link back to Shopify blog
-}
-
-const articles: Article[] = [
-  {
-    id: 1,
-    slug: "the-poised-gentleman-the-modern-day-stoic",
-    title: "The Poised Gentleman: The Modern Day Stoic",
-    date: "August 26, 2024", // from blog
-    excerpt:
-      "How modern Stoic principles like self-mastery, integrity, and emotional resilience shape the Poised Gentleman.",
-    category: "Mindfulness",
-    image: articleStoic,
-    readTime: 8,
-    author: "David Rachal III",
-    pillar: "Integrity",
-    url: "https://poisedgentlemen.com/blogs/news/the-poised-gentleman-the-modern-day-stoic",
-  },
-  {
-    id: 2,
-    slug: "conquering-teen-boy-acne-odor-parents-roadmap",
-    title: "Conquering Teen Boy Acne & Odor: A Parent’s Roadmap",
-    date: "June 26, 2025",
-    excerpt:
-      "A practical guide to helping teen boys handle acne, body odor, and grooming in a way that protects their confidence.",
-    category: "Presence & Etiquette",
-    image: articleTeenAcne,
-    readTime: 10,
-    author: "David Rachal III",
-    pillar: "Discipline",
-    isParentResource: true,
-    url: "https://poisedgentlemen.com/blogs/news/conquering-teen-boy-acne-odor-parents-roadmap",
-  },
-  {
-    id: 3,
-    slug: "forged-not-fabricated-my-story-behind-the-poised-gentleman",
-    title: "Forged, Not Fabricated: My Story Behind The Poised Gentleman",
-    date: "June 17, 2025",
-    excerpt:
-      "David’s personal story of how hardship, not comfort, forged the standards behind The Poised Gentleman.",
-    category: "Four Pillars",
-    image: articleForged,
-    readTime: 7,
-    author: "David Rachal III",
-    pillar: "All Four Pillars",
-    url: "https://poisedgentlemen.com/blogs/news/forged-not-fabricated-my-story-behind-the-poised-gentleman",
-  },
-  {
-    id: 4,
-    slug: "poised-modern-masculinity",
-    title: "Modern Masculinity: How to Become a Poised Gentleman Today",
-    date: "May 14, 2025",
-    excerpt:
-      "An eight-dimension framework for style, discipline, emotional intelligence, and influence in modern masculinity.",
-    category: "Masculinity FAQs",
-    image: articleModernMasculinity,
-    readTime: 9,
-    author: "David Rachal III",
-    pillar: "All Four Pillars",
-    url: "https://poisedgentlemen.com/blogs/news/poised-modern-masculinity",
-  },
-  {
-    id: 5,
-    slug: "becoming-poised-gentleman-essential",
-    title: "Becoming a Poised Gentleman: Essential Steps to Refinement",
-    date: "August 25, 2024",
-    excerpt:
-      "Ten essential steps—from emotional intelligence to culture and contribution—for men serious about refinement.",
-    category: "Four Pillars",
-    image: articlePoisedSteps,
-    readTime: 11,
-    author: "David Rachal III",
-    pillar: "All Four Pillars",
-    url: "https://poisedgentlemen.com/blogs/news/becoming-poised-gentleman-essential",
-  },
-  {
-    id: 6,
-    slug: "modern-gentlemen-guide-emotional",
-    title:
-      "The Modern Gentleman’s Blueprint to Emotional Mastery: Why Vulnerability is a Strength, Not a Setback",
-    date: "November 5, 2025",
-    excerpt:
-      "Men’s Mental Health Month deep dive on why emotional command—not suppression—is the new standard for strength.",
-    category: "Mindfulness",
-    image: articleEmotionalBlueprint,
-    readTime: 9,
-    author: "David Rachal III",
-    pillar: "Emotional Intelligence",
-    url: "https://poisedgentlemen.com/blogs/news/modern-gentlemen-guide-emotional",
-  },
-  {
-    id: 7,
-    slug: "best-fathers-day-gift",
-    title:
-      "The Best Father’s Day Gift Bundles for 2025: A Gift He'll Never Forget",
-    date: "June 1, 2025",
-    excerpt:
-      "Limited-run Father’s Day bundles pairing bold moisturizers with premium tees for the men who always show up.",
-    category: "Presence & Etiquette",
-    image: articleFathersDay,
-    readTime: 5,
-    author: "David Rachal III",
-    pillar: "Discipline",
-    url: "https://poisedgentlemen.com/blogs/news/best-fathers-day-gift",
-  },
-];
 
 interface Download {
   id: number;
@@ -311,7 +177,7 @@ const Resources = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredArticles.map((article) => (
-              <Link key={article.id} to="#" className="block group">
+              <Link key={article.id} to={`/codex/${article.slug}`} className="block group">
                 <article className="bg-card rounded-lg border border-border overflow-hidden hover-lift">
                   <div className="relative overflow-hidden">
                     <img

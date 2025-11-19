@@ -17,6 +17,7 @@ import Contact from "./pages/Contact";
 import ForMomsMentors from "./pages/ForMomsMentors";
 import EssenceCollection from "./pages/EssenceCollection";
 import ProductDetail from "./pages/ProductDetail";
+import ArticleDetail from "./pages/ArticleDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
             <Route path="/thank-you" element={<ThankYou />} />
             <Route path="/about" element={<About />} />
             <Route path="/codex" element={<Resources />} />
+            <Route path="/codex/:slug" element={<ArticleDetail />} />
             <Route path="/resources" element={<Resources />} /> {/* Legacy redirect */}
             <Route path="/contact" element={<Contact />} />
             <Route path="/for-moms-mentors" element={<ForMomsMentors />} />
