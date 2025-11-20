@@ -47,11 +47,11 @@ const Index = () => {
             Pillars.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="hero">
-              Explore Programs
+            <Button size="lg" variant="hero" asChild>
+              <Link to="/programs">Explore Programs</Link>
             </Button>
-            <Button size="lg" variant="hero">
-              Shop Grooming
+            <Button size="lg" variant="hero" asChild>
+              <Link to="/shop">Shop Grooming</Link>
             </Button>
           </div>
         </div>
@@ -302,8 +302,8 @@ const Index = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Button variant="outline" size="lg">
-              View Full Collection
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/shop">View Full Collection</Link>
             </Button>
           </div>
         </div>
