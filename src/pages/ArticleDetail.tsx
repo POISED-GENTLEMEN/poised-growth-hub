@@ -37,33 +37,31 @@ const ArticleDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="relative h-[60vh] min-h-[500px] flex items-end">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${article.image})` }}
-        >
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${article.image})` }}>
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
         </div>
-        
+
         <div className="container mx-auto px-4 pb-12 relative z-10">
           <div className="max-w-4xl">
-            <Link to="/codex" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors">
+            <Link
+              to="/codex"
+              className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
+            >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Codex
             </Link>
-            
+
             <div className="flex flex-wrap gap-2 mb-4">
               <Badge variant="secondary">{article.category}</Badge>
               <Badge variant="outline">{article.pillar}</Badge>
               {article.isParentResource && <ParentBadge />}
             </div>
-            
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground">
-              {article.title}
-            </h1>
-            
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground">{article.title}</h1>
+
             <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <User className="h-4 w-4" />
@@ -86,33 +84,12 @@ const ArticleDetail = () => {
       <main className="container mx-auto px-4 py-16">
         <div className="max-w-3xl mx-auto">
           {/* Excerpt */}
-          <div className="text-xl text-muted-foreground mb-12 pb-8 border-b">
-            {article.excerpt}
-          </div>
+          <div className="text-xl text-muted-foreground mb-12 pb-8 border-b">{article.excerpt}</div>
 
           {/* Body Content */}
           <article className="prose prose-lg prose-slate dark:prose-invert max-w-none">
-            <div className="whitespace-pre-wrap leading-relaxed">
-              {article.body}
-            </div>
+            <div className="whitespace-pre-wrap leading-relaxed">{article.body}</div>
           </article>
-
-          {/* Read Original Link */}
-          {article.url && (
-            <div className="mt-12 pt-8 border-t">
-              <a 
-                href={article.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block"
-              >
-                <Button variant="outline" size="lg">
-                  Read Original Article on Shopify
-                  <ExternalLink className="ml-2 h-4 w-4" />
-                </Button>
-              </a>
-            </div>
-          )}
 
           {/* Back to Codex */}
           <div className="mt-12">
