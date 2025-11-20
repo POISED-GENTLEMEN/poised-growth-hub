@@ -54,7 +54,6 @@ const Contact = () => {
 
   const handleGeneralSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("General inquiry submitted:", generalForm);
     setGeneralSubmitted(true);
     setTimeout(() => setGeneralSubmitted(false), 5000);
     setGeneralForm({
@@ -69,7 +68,6 @@ const Contact = () => {
 
   const handlePartnershipSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Partnership inquiry submitted:", partnershipForm);
     setPartnershipSubmitted(true);
     setTimeout(() => setPartnershipSubmitted(false), 5000);
     setPartnershipForm({

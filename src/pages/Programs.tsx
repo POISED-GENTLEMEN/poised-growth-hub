@@ -44,7 +44,6 @@ const Programs = () => {
 
   const handleYouthSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Youth Program Inquiry:", youthForm);
     alert("Thank you! We'll respond within 24 hours to discuss next steps.");
     setYouthForm({
       parentName: "",

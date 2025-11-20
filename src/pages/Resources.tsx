@@ -102,7 +102,6 @@ const Resources = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Download requested:", { ...formData, resource: selectedDownload?.title });
     alert(`Check your inbox! "${selectedDownload?.title}" is on the way.`);
     setDownloadModalOpen(false);
     setFormData({ name: "", email: "", newsletter: false });
@@ -258,8 +257,6 @@ const Resources = () => {
               className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto"
               onSubmit={(e) => {
                 e.preventDefault();
-                const email = (e.target as HTMLFormElement).email.value;
-                console.log("Newsletter signup:", email);
                 alert("Thanks for subscribing! Check your inbox for confirmation.");
                 (e.target as HTMLFormElement).reset();
               }}
