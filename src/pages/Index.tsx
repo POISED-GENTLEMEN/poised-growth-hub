@@ -22,7 +22,6 @@ const Index = () => {
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Newsletter signup:", { email, firstName });
     // TODO: Client will integrate with email platform
     setEmail("");
     setFirstName("");

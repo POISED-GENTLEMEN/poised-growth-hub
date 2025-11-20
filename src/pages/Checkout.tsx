@@ -16,7 +16,6 @@ const Checkout = () => {
     setIsProcessing(true);
     await new Promise(resolve => setTimeout(resolve, 2000));
     const orderNumber = `TPG-${Math.floor(10000 + Math.random() * 90000)}`;
-    console.log('Order:', { orderNumber, customer: formData, items: cartItems, total: getFinalTotal() });
     clearCart();
     navigate('/thank-you', { state: { orderNumber, email: formData.email } });
   };

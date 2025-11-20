@@ -25,7 +25,6 @@ const ProgramPartners = () => {
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Partnership Inquiry:", partnerForm);
     alert("Thank you! We'll respond within 2 business days to discuss your partnership opportunity.");
     setPartnerForm({
       organizationName: "",
