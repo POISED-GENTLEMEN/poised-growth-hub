@@ -113,6 +113,12 @@ const EssenceCollection = () => {
       ? products
       : products.filter((product) => product.category === selectedCategory);
 
+  // Only show categories that have products
+  const availableCategories = fragranceCategories.filter(category => {
+    if (category.id === "all") return true;
+    return products.some(product => product.category === category.id);
+  });
+
   const scrollToGrid = () => {
     document.getElementById("product-grid")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -166,7 +172,7 @@ const EssenceCollection = () => {
 
           {/* Filter Tabs */}
           <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {fragranceCategories.map((category) => (
+            {availableCategories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
