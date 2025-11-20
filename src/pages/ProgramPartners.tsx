@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Building2, Users, Briefcase, CheckCircle, Download, Calendar, Phone } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { programPartnerSchema } from "@/lib/validations";
 
 const ProgramPartners = () => {
   const [partnerForm, setPartnerForm] = useState({
@@ -22,9 +23,24 @@ const ProgramPartners = () => {
     timeline: "",
     additionalInfo: "",
   });
+  const [partnerErrors, setPartnerErrors] = useState<Record<string, string>>({});
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const result = programPartnerSchema.safeParse(partnerForm);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      result.error.issues.forEach((issue) => {
+        if (issue.path[0]) {
+          fieldErrors[issue.path[0] as string] = issue.message;
+        }
+      });
+      setPartnerErrors(fieldErrors);
+      return;
+    }
+    
+    setPartnerErrors({});
     alert("Thank you! We'll respond within 2 business days to discuss your partnership opportunity.");
     setPartnerForm({
       organizationName: "",

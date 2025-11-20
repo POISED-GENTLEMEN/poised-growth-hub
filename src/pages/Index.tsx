@@ -6,6 +6,7 @@ import { ShoppingCart, Target, Handshake, Calendar, Users, Brain, Sparkles, Tren
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { newsletterSchema } from "@/lib/validations";
 
 // Import images
 import heroImage from "@/assets/hero-mentorship.jpg";
@@ -19,9 +20,24 @@ import productBundle from "@/assets/product-bundle.jpg";
 const Index = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [errors, setErrors] = useState<{ email?: string; firstName?: string }>({});
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const result = newsletterSchema.safeParse({ email, firstName });
+    if (!result.success) {
+      const fieldErrors: { email?: string; firstName?: string } = {};
+      result.error.issues.forEach((issue) => {
+        if (issue.path[0]) {
+          fieldErrors[issue.path[0] as "email" | "firstName"] = issue.message;
+        }
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+    
+    setErrors({});
     // TODO: Client will integrate with email platform
     setEmail("");
     setFirstName("");
@@ -445,21 +461,37 @@ const Index = () => {
             </p>
 
             <form onSubmit={handleNewsletterSubmit} className="space-y-4">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="h-12 bg-white text-primary border-primary/20"
-              />
-              <Input
-                type="text"
-                placeholder="First name (optional)"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                className="h-12 bg-white text-primary border-primary/20"
-              />
+              <div>
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
+                  }}
+                  required
+                  className={`h-12 bg-white text-primary border-primary/20 ${errors.email ? 'border-destructive' : ''}`}
+                />
+                {errors.email && (
+                  <p className="text-xs text-destructive mt-1 text-left">{errors.email}</p>
+                )}
+              </div>
+              <div>
+                <Input
+                  type="text"
+                  placeholder="First name (optional)"
+                  value={firstName}
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                    if (errors.firstName) setErrors((prev) => ({ ...prev, firstName: undefined }));
+                  }}
+                  className={`h-12 bg-white text-primary border-primary/20 ${errors.firstName ? 'border-destructive' : ''}`}
+                />
+                {errors.firstName && (
+                  <p className="text-xs text-destructive mt-1 text-left">{errors.firstName}</p>
+                )}
+              </div>
               <Button type="submit" size="lg" variant="default" className="w-full bg-primary text-white hover:bg-primary/90">
                 Get the Starter Kit
               </Button>

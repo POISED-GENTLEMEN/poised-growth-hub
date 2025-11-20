@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import partnershipSonOfSaint from "@/assets/partnership-son-of-saint.jpg";
 import partnershipAmeriHealth from "@/assets/partnership-amerihealth.jpg";
+import { contactGeneralSchema, contactPartnershipSchema } from "@/lib/validations";
 
 const Contact = () => {
   const [generalForm, setGeneralForm] = useState({
@@ -51,9 +52,25 @@ const Contact = () => {
 
   const [generalSubmitted, setGeneralSubmitted] = useState(false);
   const [partnershipSubmitted, setPartnershipSubmitted] = useState(false);
+  const [generalErrors, setGeneralErrors] = useState<Record<string, string>>({});
+  const [partnershipErrors, setPartnershipErrors] = useState<Record<string, string>>({});
 
   const handleGeneralSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const result = contactGeneralSchema.safeParse(generalForm);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      result.error.issues.forEach((issue) => {
+        if (issue.path[0]) {
+          fieldErrors[issue.path[0] as string] = issue.message;
+        }
+      });
+      setGeneralErrors(fieldErrors);
+      return;
+    }
+    
+    setGeneralErrors({});
     setGeneralSubmitted(true);
     setTimeout(() => setGeneralSubmitted(false), 5000);
     setGeneralForm({
@@ -68,6 +85,20 @@ const Contact = () => {
 
   const handlePartnershipSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const result = contactPartnershipSchema.safeParse(partnershipForm);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      result.error.issues.forEach((issue) => {
+        if (issue.path[0]) {
+          fieldErrors[issue.path[0] as string] = issue.message;
+        }
+      });
+      setPartnershipErrors(fieldErrors);
+      return;
+    }
+    
+    setPartnershipErrors({});
     setPartnershipSubmitted(true);
     setTimeout(() => setPartnershipSubmitted(false), 5000);
     setPartnershipForm({
@@ -186,9 +217,15 @@ const Contact = () => {
                     type="text"
                     required
                     value={generalForm.name}
-                    onChange={(e) => setGeneralForm({ ...generalForm, name: e.target.value })}
-                    className="h-12"
+                    onChange={(e) => {
+                      setGeneralForm({ ...generalForm, name: e.target.value });
+                      if (generalErrors.name) setGeneralErrors({ ...generalErrors, name: "" });
+                    }}
+                    className={`h-12 ${generalErrors.name ? 'border-destructive' : ''}`}
                   />
+                  {generalErrors.name && (
+                    <p className="text-xs text-destructive mt-1">{generalErrors.name}</p>
+                  )}
                 </div>
 
                 <div>
@@ -200,9 +237,15 @@ const Contact = () => {
                     type="email"
                     required
                     value={generalForm.email}
-                    onChange={(e) => setGeneralForm({ ...generalForm, email: e.target.value })}
-                    className="h-12"
+                    onChange={(e) => {
+                      setGeneralForm({ ...generalForm, email: e.target.value });
+                      if (generalErrors.email) setGeneralErrors({ ...generalErrors, email: "" });
+                    }}
+                    className={`h-12 ${generalErrors.email ? 'border-destructive' : ''}`}
                   />
+                  {generalErrors.email && (
+                    <p className="text-xs text-destructive mt-1">{generalErrors.email}</p>
+                  )}
                 </div>
 
                 <div>
@@ -211,9 +254,15 @@ const Contact = () => {
                     id="phone"
                     type="tel"
                     value={generalForm.phone}
-                    onChange={(e) => setGeneralForm({ ...generalForm, phone: e.target.value })}
-                    className="h-12"
+                    onChange={(e) => {
+                      setGeneralForm({ ...generalForm, phone: e.target.value });
+                      if (generalErrors.phone) setGeneralErrors({ ...generalErrors, phone: "" });
+                    }}
+                    className={`h-12 ${generalErrors.phone ? 'border-destructive' : ''}`}
                   />
+                  {generalErrors.phone && (
+                    <p className="text-xs text-destructive mt-1">{generalErrors.phone}</p>
+                  )}
                 </div>
 
                 <div>
@@ -223,9 +272,12 @@ const Contact = () => {
                   <Select
                     required
                     value={generalForm.inquiryType}
-                    onValueChange={(value) => setGeneralForm({ ...generalForm, inquiryType: value })}
+                    onValueChange={(value) => {
+                      setGeneralForm({ ...generalForm, inquiryType: value });
+                      if (generalErrors.inquiryType) setGeneralErrors({ ...generalErrors, inquiryType: "" });
+                    }}
                   >
-                    <SelectTrigger className="h-12">
+                    <SelectTrigger className={`h-12 ${generalErrors.inquiryType ? 'border-destructive' : ''}`}>
                       <SelectValue placeholder="Select inquiry type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -237,6 +289,9 @@ const Contact = () => {
                       <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                   </Select>
+                  {generalErrors.inquiryType && (
+                    <p className="text-xs text-destructive mt-1">{generalErrors.inquiryType}</p>
+                  )}
                 </div>
 
                 <div>
@@ -248,8 +303,15 @@ const Contact = () => {
                     required
                     rows={5}
                     value={generalForm.message}
-                    onChange={(e) => setGeneralForm({ ...generalForm, message: e.target.value })}
+                    onChange={(e) => {
+                      setGeneralForm({ ...generalForm, message: e.target.value });
+                      if (generalErrors.message) setGeneralErrors({ ...generalErrors, message: "" });
+                    }}
+                    className={generalErrors.message ? 'border-destructive' : ''}
                   />
+                  {generalErrors.message && (
+                    <p className="text-xs text-destructive mt-1">{generalErrors.message}</p>
+                  )}
                 </div>
 
                 <div className="flex items-center space-x-2">
@@ -487,9 +549,15 @@ const Contact = () => {
                     type="text"
                     required
                     value={partnershipForm.orgName}
-                    onChange={(e) => setPartnershipForm({ ...partnershipForm, orgName: e.target.value })}
-                    className="h-12"
+                    onChange={(e) => {
+                      setPartnershipForm({ ...partnershipForm, orgName: e.target.value });
+                      if (partnershipErrors.orgName) setPartnershipErrors({ ...partnershipErrors, orgName: "" });
+                    }}
+                    className={`h-12 ${partnershipErrors.orgName ? 'border-destructive' : ''}`}
                   />
+                  {partnershipErrors.orgName && (
+                    <p className="text-xs text-destructive mt-1">{partnershipErrors.orgName}</p>
+                  )}
                 </div>
 
                 <div>
@@ -501,9 +569,15 @@ const Contact = () => {
                     type="text"
                     required
                     value={partnershipForm.contactPerson}
-                    onChange={(e) => setPartnershipForm({ ...partnershipForm, contactPerson: e.target.value })}
-                    className="h-12"
+                    onChange={(e) => {
+                      setPartnershipForm({ ...partnershipForm, contactPerson: e.target.value });
+                      if (partnershipErrors.contactPerson) setPartnershipErrors({ ...partnershipErrors, contactPerson: "" });
+                    }}
+                    className={`h-12 ${partnershipErrors.contactPerson ? 'border-destructive' : ''}`}
                   />
+                  {partnershipErrors.contactPerson && (
+                    <p className="text-xs text-destructive mt-1">{partnershipErrors.contactPerson}</p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -516,9 +590,15 @@ const Contact = () => {
                       type="email"
                       required
                       value={partnershipForm.email}
-                      onChange={(e) => setPartnershipForm({ ...partnershipForm, email: e.target.value })}
-                      className="h-12"
+                      onChange={(e) => {
+                        setPartnershipForm({ ...partnershipForm, email: e.target.value });
+                        if (partnershipErrors.email) setPartnershipErrors({ ...partnershipErrors, email: "" });
+                      }}
+                      className={`h-12 ${partnershipErrors.email ? 'border-destructive' : ''}`}
                     />
+                    {partnershipErrors.email && (
+                      <p className="text-xs text-destructive mt-1">{partnershipErrors.email}</p>
+                    )}
                   </div>
 
                   <div>
@@ -530,9 +610,15 @@ const Contact = () => {
                       type="tel"
                       required
                       value={partnershipForm.phone}
-                      onChange={(e) => setPartnershipForm({ ...partnershipForm, phone: e.target.value })}
-                      className="h-12"
+                      onChange={(e) => {
+                        setPartnershipForm({ ...partnershipForm, phone: e.target.value });
+                        if (partnershipErrors.phone) setPartnershipErrors({ ...partnershipErrors, phone: "" });
+                      }}
+                      className={`h-12 ${partnershipErrors.phone ? 'border-destructive' : ''}`}
                     />
+                    {partnershipErrors.phone && (
+                      <p className="text-xs text-destructive mt-1">{partnershipErrors.phone}</p>
+                    )}
                   </div>
                 </div>
 
@@ -543,103 +629,157 @@ const Contact = () => {
                   <Select
                     required
                     value={partnershipForm.orgType}
-                    onValueChange={(value) => setPartnershipForm({ ...partnershipForm, orgType: value })}
+                    onValueChange={(value) => {
+                      setPartnershipForm({ ...partnershipForm, orgType: value });
+                      if (partnershipErrors.orgType) setPartnershipErrors({ ...partnershipErrors, orgType: "" });
+                    }}
                   >
-                    <SelectTrigger className="h-12">
+                    <SelectTrigger className={`h-12 ${partnershipErrors.orgType ? 'border-destructive' : ''}`}>
                       <SelectValue placeholder="Select organization type" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="school">School/Educational Institution</SelectItem>
-                      <SelectItem value="nonprofit">Nonprofit/Community Organization</SelectItem>
-                      <SelectItem value="healthcare">Healthcare/Wellness Provider</SelectItem>
-                      <SelectItem value="corporate">Corporate/Business</SelectItem>
-                      <SelectItem value="brand">Brand/Retailer</SelectItem>
+                      <SelectItem value="school">School / University</SelectItem>
+                      <SelectItem value="nonprofit">Nonprofit / Youth Organization</SelectItem>
+                      <SelectItem value="wellness">Wellness Center / Therapy Practice</SelectItem>
+                      <SelectItem value="brand">Brand / Business</SelectItem>
+                      <SelectItem value="community">Community Organization</SelectItem>
                       <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                   </Select>
+                  {partnershipErrors.orgType && (
+                    <p className="text-xs text-destructive mt-1">{partnershipErrors.orgType}</p>
+                  )}
                 </div>
 
                 <div>
-                  <Label htmlFor="participants">Number of participants/employees</Label>
-                  <Input
-                    id="participants"
-                    type="text"
+                  <Label htmlFor="participants">
+                    Number of Participants <span className="text-destructive">*</span>
+                  </Label>
+                  <Select
+                    required
                     value={partnershipForm.participants}
-                    onChange={(e) => setPartnershipForm({ ...partnershipForm, participants: e.target.value })}
-                    className="h-12"
-                  />
+                    onValueChange={(value) => {
+                      setPartnershipForm({ ...partnershipForm, participants: value });
+                      if (partnershipErrors.participants) setPartnershipErrors({ ...partnershipErrors, participants: "" });
+                    }}
+                  >
+                    <SelectTrigger className={`h-12 ${partnershipErrors.participants ? 'border-destructive' : ''}`}>
+                      <SelectValue placeholder="Expected participant count" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="10-25">10-25</SelectItem>
+                      <SelectItem value="25-50">25-50</SelectItem>
+                      <SelectItem value="50-100">50-100</SelectItem>
+                      <SelectItem value="100+">100+</SelectItem>
+                      <SelectItem value="unsure">Unsure</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {partnershipErrors.participants && (
+                    <p className="text-xs text-destructive mt-1">{partnershipErrors.participants}</p>
+                  )}
                 </div>
 
                 <div>
                   <Label htmlFor="challenge">
-                    What challenge are you trying to solve? <span className="text-destructive">*</span>
+                    What Challenge Are You Trying to Address? <span className="text-destructive">*</span>
                   </Label>
                   <Textarea
                     id="challenge"
                     required
                     rows={4}
                     value={partnershipForm.challenge}
-                    onChange={(e) => setPartnershipForm({ ...partnershipForm, challenge: e.target.value })}
+                    onChange={(e) => {
+                      setPartnershipForm({ ...partnershipForm, challenge: e.target.value });
+                      if (partnershipErrors.challenge) setPartnershipErrors({ ...partnershipErrors, challenge: "" });
+                    }}
+                    placeholder="Tell us about the challenges or goals you're hoping to address with programming"
+                    className={partnershipErrors.challenge ? 'border-destructive' : ''}
                   />
+                  {partnershipErrors.challenge && (
+                    <p className="text-xs text-destructive mt-1">{partnershipErrors.challenge}</p>
+                  )}
                 </div>
 
-                <div>
-                  <Label htmlFor="timeline">Timeline for implementation</Label>
-                  <Input
-                    id="timeline"
-                    type="text"
-                    placeholder="e.g., Fall 2025, Q2 2026"
-                    value={partnershipForm.timeline}
-                    onChange={(e) => setPartnershipForm({ ...partnershipForm, timeline: e.target.value })}
-                    className="h-12"
-                  />
-                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="timeline">
+                      Desired Timeline <span className="text-destructive">*</span>
+                    </Label>
+                    <Select
+                      required
+                      value={partnershipForm.timeline}
+                      onValueChange={(value) => {
+                        setPartnershipForm({ ...partnershipForm, timeline: value });
+                        if (partnershipErrors.timeline) setPartnershipErrors({ ...partnershipErrors, timeline: "" });
+                      }}
+                    >
+                      <SelectTrigger className={`h-12 ${partnershipErrors.timeline ? 'border-destructive' : ''}`}>
+                        <SelectValue placeholder="Select timeline" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="immediate">Immediate (within 30 days)</SelectItem>
+                        <SelectItem value="next-quarter">Next Quarter</SelectItem>
+                        <SelectItem value="next-semester">Next Semester</SelectItem>
+                        <SelectItem value="flexible">Flexible</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {partnershipErrors.timeline && (
+                      <p className="text-xs text-destructive mt-1">{partnershipErrors.timeline}</p>
+                    )}
+                  </div>
 
-                <div>
-                  <Label htmlFor="budget">Budget range</Label>
-                  <Select
-                    value={partnershipForm.budget}
-                    onValueChange={(value) => setPartnershipForm({ ...partnershipForm, budget: value })}
-                  >
-                    <SelectTrigger className="h-12">
-                      <SelectValue placeholder="Select budget range" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="under5k">Under $5,000</SelectItem>
-                      <SelectItem value="5k-15k">$5,000-$15,000</SelectItem>
-                      <SelectItem value="15k-50k">$15,000-$50,000</SelectItem>
-                      <SelectItem value="50k+">$50,000+</SelectItem>
-                      <SelectItem value="unsure">Not sure yet</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div>
+                    <Label htmlFor="budget">
+                      Budget Range <span className="text-destructive">*</span>
+                    </Label>
+                    <Select
+                      required
+                      value={partnershipForm.budget}
+                      onValueChange={(value) => {
+                        setPartnershipForm({ ...partnershipForm, budget: value });
+                        if (partnershipErrors.budget) setPartnershipErrors({ ...partnershipErrors, budget: "" });
+                      }}
+                    >
+                      <SelectTrigger className={`h-12 ${partnershipErrors.budget ? 'border-destructive' : ''}`}>
+                        <SelectValue placeholder="Select budget range" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="under-2000">Under $2,000</SelectItem>
+                        <SelectItem value="2000-5000">$2,000 - $5,000</SelectItem>
+                        <SelectItem value="5000-10000">$5,000 - $10,000</SelectItem>
+                        <SelectItem value="10000+">$10,000+</SelectItem>
+                        <SelectItem value="grant">Grant-funded</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {partnershipErrors.budget && (
+                      <p className="text-xs text-destructive mt-1">{partnershipErrors.budget}</p>
+                    )}
+                  </div>
                 </div>
 
                 <div>
                   <Label htmlFor="hearAbout">How did you hear about us?</Label>
-                  <Select
+                  <Input
+                    id="hearAbout"
+                    type="text"
                     value={partnershipForm.hearAbout}
-                    onValueChange={(value) => setPartnershipForm({ ...partnershipForm, hearAbout: value })}
-                  >
-                    <SelectTrigger className="h-12">
-                      <SelectValue placeholder="Select option" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="google">Google Search</SelectItem>
-                      <SelectItem value="social">Social Media</SelectItem>
-                      <SelectItem value="referral">Referral</SelectItem>
-                      <SelectItem value="event">Event/Conference</SelectItem>
-                      <SelectItem value="press">Press/Article</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
+                    onChange={(e) => {
+                      setPartnershipForm({ ...partnershipForm, hearAbout: e.target.value });
+                      if (partnershipErrors.hearAbout) setPartnershipErrors({ ...partnershipErrors, hearAbout: "" });
+                    }}
+                    className={`h-12 ${partnershipErrors.hearAbout ? 'border-destructive' : ''}`}
+                  />
+                  {partnershipErrors.hearAbout && (
+                    <p className="text-xs text-destructive mt-1">{partnershipErrors.hearAbout}</p>
+                  )}
                 </div>
 
                 <Button type="submit" className="w-full h-12 bg-gold text-gold-foreground hover:bg-gold/90">
-                  Request Partnership Info
+                  Submit Partnership Inquiry
                 </Button>
 
                 <p className="text-sm text-muted-foreground text-center">
-                  We'll review your inquiry and schedule a discovery call within 3 business days.
+                  We'll respond within 2 business days to discuss your needs.
                 </p>
               </form>
             )}
@@ -647,7 +787,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Case Studies */}
+      {/* Success Stories */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12">
@@ -656,107 +796,36 @@ const Contact = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Son of a Saint */}
-            <Card className="overflow-hidden hover-lift">
+            <Card className="overflow-hidden">
               <img 
-                src={partnershipSonOfSaint} 
-                alt="Son of a Saint youth mentorship program in action"
+                src={partnershipSonOfSaint}
+                alt="Son of a Saint mentorship partnership"
                 className="w-full h-64 object-cover"
               />
               <div className="p-6">
-                <h3 className="text-2xl font-heading font-bold mb-2">Son of a Saint</h3>
-                <div className="space-y-3 mb-4">
-                  <p><strong>Challenge:</strong> Fatherless boys needing male mentorship and life skills</p>
-                  <p><strong>Solution:</strong> 8-week PYG cohort, modified curriculum</p>
-                  <p><strong>Outcome:</strong> 15 boys graduated, improved emotional regulation, increased academic engagement</p>
-                </div>
-                <blockquote className="border-l-4 border-gold pl-4 italic text-muted-foreground">
-                  "The Poised Gentlemen program gave our boys tools they'll use for life. David and his team brought integrity and intention to every session."
-                  <footer className="mt-2 text-sm font-semibold text-foreground">
-                    — Program Director, Son of a Saint
-                  </footer>
-                </blockquote>
+                <h3 className="text-xl font-heading font-bold mb-2">Son of a Saint</h3>
+                <p className="text-muted-foreground mb-4">
+                  Partnered to provide mentorship to 50+ fatherless young men through our 7-week PYG curriculum. 85% of participants reported improved emotional regulation and confidence.
+                </p>
+                <div className="text-sm text-gold font-semibold">New Orleans, LA</div>
               </div>
             </Card>
 
             {/* AmeriHealth Caritas */}
-            <Card className="overflow-hidden hover-lift">
+            <Card className="overflow-hidden">
               <img 
-                src={partnershipAmeriHealth} 
-                alt="AmeriHealth Caritas wellness program participants"
+                src={partnershipAmeriHealth}
+                alt="AmeriHealth Caritas wellness partnership"
                 className="w-full h-64 object-cover"
               />
               <div className="p-6">
-                <h3 className="text-2xl font-heading font-bold mb-2">AmeriHealth Caritas</h3>
-                <div className="space-y-3 mb-4">
-                  <p><strong>Challenge:</strong> Community wellness initiative for underserved men</p>
-                  <p><strong>Solution:</strong> Adult coaching cohort + live workshops</p>
-                  <p><strong>Outcome:</strong> 25 participants, 95% completion rate, measurable improvement in emotional intelligence</p>
-                </div>
-                <blockquote className="border-l-4 border-gold pl-4 italic text-muted-foreground">
-                  "This partnership aligned perfectly with our mission. The Four Pillars Framework is practical, measurable, and transformative."
-                  <footer className="mt-2 text-sm font-semibold text-foreground">
-                    — Community Outreach Manager
-                  </footer>
-                </blockquote>
+                <h3 className="text-xl font-heading font-bold mb-2">AmeriHealth Caritas</h3>
+                <p className="text-muted-foreground mb-4">
+                  Collaborated on community wellness initiatives focused on young male mental health. Reached 200+ families through workshops and parent education sessions.
+                </p>
+                <div className="text-sm text-gold font-semibold">Louisiana</div>
               </div>
             </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Press Kit */}
-      <section className="py-16 bg-muted">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-              Press & Media
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Interested in featuring The Poised Gentlemen? Download our press kit for logos, founder headshots, brand fact sheet, and media contact info.
-            </p>
-            
-            <div className="bg-card border border-border rounded-lg p-6 mb-6">
-              <h3 className="text-xl font-heading font-bold mb-4">Downloadable Assets</h3>
-              <ul className="space-y-2 text-left max-w-md mx-auto mb-6">
-                <li>• High-res logo (PNG, white background and transparent)</li>
-                <li>• Founder headshot (David Rachal III)</li>
-                <li>• Brand fact sheet (PDF with company overview, mission/vision, key statistics)</li>
-              </ul>
-              
-              <div className="border-t border-border pt-4 mb-4">
-                <h4 className="font-semibold mb-2">Media Contact</h4>
-                <p>
-                  <strong>Email:</strong>{" "}
-                  <a href="mailto:press@thepoisedgentlemen.com" className="text-gold hover:text-gold/80">
-                    press@thepoisedgentlemen.com
-                  </a>
-                </p>
-              </div>
-              
-              <Button className="bg-gold text-gold-foreground hover:bg-gold/90">
-                Download Press Kit
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-16 bg-background border-t border-border">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
-            Not Ready to Partner Yet?
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Explore our programs or shop our values-aligned grooming products.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-gold text-gold-foreground hover:bg-gold/90">
-              <Link to="/programs">Explore Programs</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link to="/shop">Shop Grooming</Link>
-            </Button>
           </div>
         </div>
       </section>
