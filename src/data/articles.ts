@@ -9,6 +9,12 @@ import articleFathersDay from "@/assets/article-fathers-day-2025.jpg";
 
 // Import markdown files
 import becomingPoisedGentleman from "@/data/posts/becoming-poised-gentleman-essential.md?raw";
+import modernGentlemanGuideEmotional from "@/data/posts/modern-gentleman-guide-emotional.md?raw";
+import fathersDayGift from "@/data/posts/fathers-day-gift.md?raw";
+import thePoisedGentlemanModernDayStoic from "@/data/posts/the-poised-gentleman-the-modern-day-stoic.md?raw";
+import poisedModernMasculinity from "@/data/posts/poised-modern-masculinity.md?raw";
+import teenBoyAcneRoadmap from "@/data/posts/teen-boy-acne-roadmap.md?raw";
+import forgedNotFabricated from "@/data/posts/forged-not-fabricated.md?raw";
 
 type Category =
   | "All Articles"
@@ -132,104 +138,17 @@ function parseMarkdownArticle(content: string, id: number): Article {
 // Parse all markdown files
 const markdownArticles = [
   parseMarkdownArticle(becomingPoisedGentleman, 1),
+  parseMarkdownArticle(modernGentlemanGuideEmotional, 2),
+  parseMarkdownArticle(fathersDayGift, 3),
+  parseMarkdownArticle(thePoisedGentlemanModernDayStoic, 4),
+  parseMarkdownArticle(poisedModernMasculinity, 5),
+  parseMarkdownArticle(teenBoyAcneRoadmap, 6),
+  parseMarkdownArticle(forgedNotFabricated, 7),
 ];
 
-// Existing hardcoded articles that don't have markdown files yet
-const legacyArticles: Article[] = [
-  {
-    id: 100,
-    slug: "the-poised-gentleman-the-modern-day-stoic",
-    title: "The Poised Gentleman: The Modern Day Stoic",
-    date: "August 26, 2024",
-    excerpt: "How modern Stoic principles like self-mastery, integrity, and emotional resilience shape the Poised Gentleman.",
-    category: "Mindfulness",
-    image: articleStoic,
-    readTime: 8,
-    author: "David Rachal III",
-    pillar: "Integrity",
-    url: "https://poisedgentlemen.com/blogs/news/the-poised-gentleman-the-modern-day-stoic",
-    body: "",
-    isParentResource: false,
-  },
-  {
-    id: 101,
-    slug: "conquering-teen-boy-acne-odor-parents-roadmap",
-    title: "Conquering Teen Boy Acne & Odor: A Parent's Roadmap",
-    date: "June 26, 2025",
-    excerpt: "A practical guide to helping teen boys handle acne, body odor, and grooming in a way that protects their confidence.",
-    category: "Presence & Etiquette",
-    image: articleTeenAcne,
-    readTime: 10,
-    author: "David Rachal III",
-    pillar: "Discipline",
-    isParentResource: true,
-    url: "https://poisedgentlemen.com/blogs/news/conquering-teen-boy-acne-odor-parents-roadmap",
-    body: "",
-  },
-  {
-    id: 102,
-    slug: "forged-not-fabricated-my-story-behind-the-poised-gentleman",
-    title: "Forged, Not Fabricated: My Story Behind The Poised Gentleman",
-    date: "June 17, 2025",
-    excerpt: "David's personal story of how hardship, not comfort, forged the standards behind The Poised Gentleman.",
-    category: "Four Pillars",
-    image: articleForged,
-    readTime: 7,
-    author: "David Rachal III",
-    pillar: "All Four Pillars",
-    url: "https://poisedgentlemen.com/blogs/news/forged-not-fabricated-my-story-behind-the-poised-gentleman",
-    body: "",
-    isParentResource: false,
-  },
-  {
-    id: 103,
-    slug: "poised-modern-masculinity",
-    title: "Modern Masculinity: How to Become a Poised Gentleman Today",
-    date: "May 14, 2025",
-    excerpt: "The evolution of masculinity through the lens of discipline, integrity, emotional intelligence, and social grace.",
-    category: "Masculinity FAQs",
-    image: articleModernMasculinity,
-    readTime: 9,
-    author: "David Rachal III",
-    pillar: "All Four Pillars",
-    url: "https://poisedgentlemen.com/blogs/news/poised-modern-masculinity",
-    body: "",
-    isParentResource: false,
-  },
-  {
-    id: 104,
-    slug: "modern-gentlemen-guide-emotional",
-    title: "The Modern Gentleman's Guide to Emotional Intelligence",
-    date: "April 8, 2025",
-    excerpt: "How emotional mastery separates refined men from the rest.",
-    category: "Four Pillars",
-    image: articleEmotionalBlueprint,
-    readTime: 9,
-    author: "David Rachal III",
-    pillar: "Emotional Intelligence",
-    url: "https://poisedgentlemen.com/blogs/news/modern-gentlemen-guide-emotional",
-    body: "",
-    isParentResource: false,
-  },
-  {
-    id: 105,
-    slug: "best-fathers-day-gift",
-    title: "The Best Father's Day Gift: Teaching Young Men to Become Poised Gentlemen",
-    date: "March 12, 2025",
-    excerpt: "Why investing in your son's character is the most valuable gift a father can give.",
-    category: "Presence & Etiquette",
-    image: articleFathersDay,
-    readTime: 5,
-    author: "David Rachal III",
-    pillar: "Discipline",
-    url: "https://poisedgentlemen.com/blogs/news/best-fathers-day-gift",
-    body: "",
-    isParentResource: false,
-  },
-];
-
-// Combine markdown articles with legacy articles
-export const articles: Article[] = [...markdownArticles, ...legacyArticles].sort((a, b) => {
+// Combine markdown articles (no legacy articles needed anymore)
+// All articles are now loaded from markdown files
+export const articles: Article[] = markdownArticles.sort((a, b) => {
   const dateA = new Date(a.date);
   const dateB = new Date(b.date);
   return dateB.getTime() - dateA.getTime();
