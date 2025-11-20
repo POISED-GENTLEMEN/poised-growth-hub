@@ -12,6 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Clock, FileText, BookOpen, Award, Heart } from "lucide-react";
 import articleFeatured from "@/assets/article-featured.jpg";
 import { articles, type Article } from "@/data/articles";
+import { resourceDownloadSchema, newsletterSchema } from "@/lib/validations";
 
 type Category =
   | "All Articles"
@@ -59,6 +60,7 @@ const Resources = () => {
   const [downloadModalOpen, setDownloadModalOpen] = useState(false);
   const [selectedDownload, setSelectedDownload] = useState<Download | null>(null);
   const [formData, setFormData] = useState({ name: "", email: "", newsletter: false });
+  const [downloadErrors, setDownloadErrors] = useState<Record<string, string>>({});
 
   // SEO: Update page title and meta description
   useEffect(() => {
@@ -102,6 +104,20 @@ const Resources = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const result = resourceDownloadSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      result.error.issues.forEach((issue) => {
+        if (issue.path[0]) {
+          fieldErrors[issue.path[0] as string] = issue.message;
+        }
+      });
+      setDownloadErrors(fieldErrors);
+      return;
+    }
+    
+    setDownloadErrors({});
     alert(`Check your inbox! "${selectedDownload?.title}" is on the way.`);
     setDownloadModalOpen(false);
     setFormData({ name: "", email: "", newsletter: false });
@@ -312,8 +328,15 @@ const Resources = () => {
                 type="text"
                 required
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) => {
+                  setFormData({ ...formData, name: e.target.value });
+                  if (downloadErrors.name) setDownloadErrors({...downloadErrors, name: ""});
+                }}
+                className={downloadErrors.name ? 'border-destructive' : ''}
               />
+              {downloadErrors.name && (
+                <p className="text-xs text-destructive mt-1">{downloadErrors.name}</p>
+              )}
             </div>
 
             <div>
@@ -323,8 +346,15 @@ const Resources = () => {
                 type="email"
                 required
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) => {
+                  setFormData({ ...formData, email: e.target.value });
+                  if (downloadErrors.email) setDownloadErrors({...downloadErrors, email: ""});
+                }}
+                className={downloadErrors.email ? 'border-destructive' : ''}
               />
+              {downloadErrors.email && (
+                <p className="text-xs text-destructive mt-1">{downloadErrors.email}</p>
+              )}
             </div>
 
             <div className="flex items-center space-x-2">

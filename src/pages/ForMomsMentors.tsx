@@ -8,9 +8,11 @@ import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Download, ArrowRight, MessageCircle, Shield, Mountain, Users, Star, ChevronRight, ShoppingBag, CheckSquare, GraduationCap, FolderOpen, HelpCircle } from "lucide-react";
+import { newsletterSchema } from "@/lib/validations";
 
 const ForMomsMentors = () => {
   const [email, setEmail] = useState("");
+  const [errors, setErrors] = useState<{ email?: string }>({});
 
   useEffect(() => {
     document.title = "For Moms & Mentors | The Poised Gentlemen";
@@ -28,7 +30,21 @@ const ForMomsMentors = () => {
 
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle email submission - do not log sensitive data
+    
+    const result = newsletterSchema.safeParse({ email });
+    if (!result.success) {
+      const fieldErrors: { email?: string } = {};
+      result.error.issues.forEach((issue) => {
+        if (issue.path[0]) {
+          fieldErrors[issue.path[0] as "email"] = issue.message;
+        }
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+    
+    setErrors({});
+    // Handle email submission
     // TODO: Send to email service or backend
     setEmail("");
   };

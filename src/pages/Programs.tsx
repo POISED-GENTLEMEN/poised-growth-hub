@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,6 +12,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ParentBadge from "@/components/ParentBadge";
 import youthImage from "@/assets/youth-program-card.jpg";
+import { youthProgramSchema, programPartnerSchema } from "@/lib/validations";
 
 const Programs = () => {
   const [youthForm, setYouthForm] = useState({
@@ -23,7 +25,7 @@ const Programs = () => {
     startDate: "",
     referralSource: "",
   });
-
+  const [youthErrors, setYouthErrors] = useState<Record<string, string>>({});
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [showAllModules, setShowAllModules] = useState(false);
   const [mentorTestimonial, setMentorTestimonial] = useState(0);
@@ -31,19 +33,31 @@ const Programs = () => {
 
   const testimonials = [
     {
-      quote:
-        "My son learned more about being a man in 7 weeks than in the last 2 years. The mentors are authentic, the curriculum is practical, and the impact is real.",
+      quote: "My son learned more about being a man in 7 weeks than in the last 2 years. The mentors are authentic, the curriculum is practical, and the impact is real.",
       author: "Jennifer K., Parent",
     },
     {
-      quote:
-        "I thought coaching was for people with problems. Turns out, it's for people who want to level up. Worth every penny.",
+      quote: "I thought coaching was for people with problems. Turns out, it's for people who want to level up. Worth every penny.",
       author: "Darius L., 31, Mentor Training Graduate",
     },
   ];
 
   const handleYouthSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const result = youthProgramSchema.safeParse(youthForm);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      result.error.issues.forEach((issue) => {
+        if (issue.path[0]) {
+          fieldErrors[issue.path[0] as string] = issue.message;
+        }
+      });
+      setYouthErrors(fieldErrors);
+      return;
+    }
+    
+    setYouthErrors({});
     alert("Thank you! We'll respond within 24 hours to discuss next steps.");
     setYouthForm({
       parentName: "",

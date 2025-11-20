@@ -3,12 +3,28 @@ import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { newsletterSchema } from "@/lib/validations";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
+  const [errors, setErrors] = useState<{ email?: string }>({});
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const result = newsletterSchema.safeParse({ email });
+    if (!result.success) {
+      const fieldErrors: { email?: string } = {};
+      result.error.issues.forEach((issue) => {
+        if (issue.path[0]) {
+          fieldErrors[issue.path[0] as "email"] = issue.message;
+        }
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+    
+    setErrors({});
     setEmail("");
     alert("Thank you for subscribing!");
   };
@@ -109,15 +125,23 @@ const Footer = () => {
                 Subscribe to our newsletter
               </label>
               <div className="flex gap-2">
-                <Input
-                  id="footer-email"
-                  type="email"
-                  placeholder="Your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="bg-background text-foreground"
-                />
+                <div className="flex-1">
+                  <Input
+                    id="footer-email"
+                    type="email"
+                    placeholder="Your email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (errors.email) setErrors({});
+                    }}
+                    required
+                    className={`bg-background text-foreground ${errors.email ? 'border-destructive' : ''}`}
+                  />
+                  {errors.email && (
+                    <p className="text-xs text-destructive mt-1">{errors.email}</p>
+                  )}
+                </div>
                 <Button type="submit" variant="secondary" size="sm">
                   Join
                 </Button>
