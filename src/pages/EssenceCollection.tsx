@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { fetchCollectionProducts, ShopifyProduct } from "@/lib/shopify";
+import { ScentQuiz } from "@/components/ScentQuiz";
 
 const fragranceCategories = [
   { id: "all", label: "All Fragrances" },
@@ -76,6 +77,7 @@ const EssenceCollection = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [products, setProducts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [quizOpen, setQuizOpen] = useState(false);
 
   useEffect(() => {
     async function loadProducts() {
@@ -144,7 +146,11 @@ const EssenceCollection = () => {
             butter, and vitamin E.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="bg-gold hover:bg-gold/90 text-navy font-semibold">
+            <Button 
+              size="lg" 
+              className="bg-gold hover:bg-gold/90 text-navy font-semibold"
+              onClick={() => setQuizOpen(true)}
+            >
               Take Scent Quiz
             </Button>
             <button
@@ -314,7 +320,11 @@ const EssenceCollection = () => {
             Take our 2-minute scent quiz and get personalized recommendations
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-gold hover:bg-gold/90 text-navy font-semibold">
+            <Button 
+              size="lg" 
+              className="bg-gold hover:bg-gold/90 text-navy font-semibold"
+              onClick={() => setQuizOpen(true)}
+            >
               Take the Scent Quiz
             </Button>
           </div>
@@ -399,12 +409,15 @@ const EssenceCollection = () => {
               size="lg"
               variant="outline"
               className="border-2 border-gold text-navy hover:bg-gold/5 font-semibold"
+              onClick={() => setQuizOpen(true)}
             >
               Take Scent Quiz
             </Button>
           </div>
         </div>
       </section>
+
+      <ScentQuiz open={quizOpen} onOpenChange={setQuizOpen} />
     </div>
   );
 };
