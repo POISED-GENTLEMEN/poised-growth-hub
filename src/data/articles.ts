@@ -111,8 +111,17 @@ function parseMarkdownArticle(content: string, id: number): Article {
         data[currentField] = trimmed;
       }
     } else if (bodyStarted) {
-      bodyLines.push(line);
+      // Filter out lines containing "Read original", "Read original on Shopify", or "View original"
+      const lowerLine = line.toLowerCase();
+      if (!lowerLine.includes('read original') && !lowerLine.includes('view original')) {
+        bodyLines.push(line);
+      }
     }
+  }
+
+  // Trim empty lines from the bottom
+  while (bodyLines.length > 0 && bodyLines[bodyLines.length - 1].trim() === '') {
+    bodyLines.pop();
   }
 
   data.body = bodyLines.join('\n').trim();
