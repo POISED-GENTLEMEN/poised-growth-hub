@@ -7,20 +7,26 @@ import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { newsletterSchema } from "@/lib/validations";
+import { useShop } from "@/contexts/ShopContext";
 
 // Import images
 import heroImage from "@/assets/hero-mentorship.jpg";
 import youthImage from "@/assets/youth-mentorship.jpg";
 import adultImage from "@/assets/adult-coaching.jpg";
 import experiencesImage from "@/assets/live-experiences.jpg";
-import productCleanser from "@/assets/product-cleanser.jpg";
-import productSerum from "@/assets/product-serum.jpg";
-import productBundle from "@/assets/product-bundle.jpg";
 
 const Index = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [errors, setErrors] = useState<{ email?: string; firstName?: string }>({});
+  const { products, addToCart } = useShop();
+
+  // Filter for specific products to display
+  const featuredProducts = products.filter(p => 
+    p.name.toLowerCase().includes("fresh start") || 
+    p.name.toLowerCase().includes("rsg lotion") ||
+    p.name.toLowerCase().includes("essence collection bundle")
+  ).slice(0, 3);
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -227,65 +233,65 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {[
-              {
-                image: productCleanser,
-                name: "Modern-G Hydrating Cleanser",
-                age: "For Ages 25-34",
-                price: "$28",
-                benefit: "For men building careers and character. Your skin tells your story.",
-              },
-              {
-                image: productSerum,
-                name: "Poised-G Anti-Aging Serum",
-                age: "For Ages 35-49",
-                price: "$45",
-                benefit: "Firms, brightens, protects. Because leadership shows on your face.",
-              },
-              {
-                image: productBundle,
-                name: "The Essentials Bundle",
-                age: "Any Age",
-                price: "$80",
-                originalPrice: "$95",
-                benefit: "Cleanser + Moisturizer + SPF. Everything you need to start strong.",
-              },
-            ].map((product, index) => (
-              <Card key={index} className="overflow-hidden border hover-lift bg-card group">
+            {featuredProducts.length > 0 ? featuredProducts.map((product) => (
+              <Card key={product.id} className="overflow-hidden border hover-lift bg-card group">
                 <div className="relative h-[300px] overflow-hidden bg-muted">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                 </div>
                 <div className="p-6">
-                  <p className="text-sm text-bronze font-semibold mb-1">{product.age}</p>
+                  <p className="text-sm text-bronze font-semibold mb-1">{product.ageRange}</p>
                   <h3 className="text-xl font-heading font-bold mb-2">{product.name}</h3>
                   <div className="flex items-baseline gap-2 mb-3">
-                    <span className="text-2xl font-bold text-gold">{product.price}</span>
-                    {product.originalPrice && (
-                      <span className="text-sm text-muted-foreground line-through">{product.originalPrice}</span>
+                    <span className="text-2xl font-bold text-gold">${product.price}</span>
+                    {product.compareAtPrice && (
+                      <span className="text-sm text-muted-foreground line-through">${product.compareAtPrice}</span>
                     )}
                   </div>
-                  <p className="text-sm text-muted-foreground mb-4">{product.benefit}</p>
+                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{product.shortDescription}</p>
                   <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="flex-1">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="flex-1"
+                      onClick={() => addToCart(product)}
+                    >
                       Add to Cart
                     </Button>
-                    <Button variant="link" size="sm">
-                      Details
+                    <Button variant="link" size="sm" asChild>
+                      <Link to={`/products/${product.id}`}>Details</Link>
                     </Button>
                   </div>
                 </div>
               </Card>
-            ))}
+            )) : (
+              // Fallback if products not loaded yet
+              <div className="col-span-3 text-center text-muted-foreground py-12">
+                Loading products...
+              </div>
+            )}
           </div>
 
-          <div className="text-center mt-12">
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/shop">View Full Collection</Link>
-            </Button>
+          {/* Full-width Call to Action Card */}
+          <div className="mt-8 max-w-7xl mx-auto">
+            <Link to="/shop">
+              <Card className="overflow-hidden border-2 border-gold hover-lift bg-gradient-to-br from-primary via-primary to-gold/20 group cursor-pointer">
+                <div className="p-12 md:p-16 text-center">
+                  <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4 group-hover:scale-105 transition-transform">
+                    View Full Collection
+                  </h3>
+                  <p className="text-lg text-white/90 mb-6 max-w-2xl mx-auto">
+                    Explore our complete range of premium grooming essentials designed for the modern gentleman
+                  </p>
+                  <Button size="lg" variant="hero" className="bg-gold text-primary hover:bg-gold/90">
+                    Shop All Products →
+                  </Button>
+                </div>
+              </Card>
+            </Link>
           </div>
         </div>
       </section>
