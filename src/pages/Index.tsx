@@ -184,27 +184,12 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {[
               {
-                image: youthImage,
-                icon: Handshake,
-                title: "Youth Mentorship (Ages 10-17)",
-                description:
-                  "7-10 week cohorts teaching boys integrity, strength, emotional intelligence, and discipline. Give your son the role model he deserves.",
-                cta: "Learn About Youth Programs",
-              },
-              {
                 image: adultImage,
                 icon: Target,
                 title: "Adult Coaching (Ages 18+)",
                 description:
                   "Group coaching + digital courses. Master emotional intelligence, build your legacy, lead with purpose.",
                 cta: "Explore Adult Programs",
-              },
-              {
-                image: experiencesImage,
-                icon: Calendar,
-                title: "Live Experiences",
-                description: "Weekend retreats. Pop-up workshops. Fatherhood forums. Transform in community.",
-                cta: "View Upcoming Events",
               },
             ].map((program, index) => (
               <Card key={index} className="overflow-hidden hover-lift bg-card group">
