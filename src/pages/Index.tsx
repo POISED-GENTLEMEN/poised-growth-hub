@@ -220,7 +220,7 @@ const Index = () => {
             )}
 
             {/* FULL WIDTH CTA CARD */}
-            <Link to="/shop" className="col-span-1 md:col-span-3">
+            <Link to="/shop/essence-collection" className="col-span-1 md:col-span-3">
               <Card className="overflow-hidden border-2 border-gold bg-gradient-to-br from-primary via-primary to-gold/20">
                 <div className="p-12 md:p-16 text-center">
                   <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">View Full Collection</h3>
