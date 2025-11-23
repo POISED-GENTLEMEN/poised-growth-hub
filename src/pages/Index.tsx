@@ -24,8 +24,8 @@ const Index = () => {
   // Filter for specific products to display
   const featuredProducts = products.filter(p => 
     p.name.toLowerCase().includes("fresh start") || 
-    p.name.toLowerCase().includes("rsg lotion") ||
-    p.name.toLowerCase().includes("essence collection bundle")
+    p.name.toLowerCase().includes("buoyant") ||
+    p.name.toLowerCase().includes("blue harmony")
   ).slice(0, 3);
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
