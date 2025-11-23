@@ -289,7 +289,7 @@ const Programs = () => {
             Choose the path that fits your needs: hands-on youth development or flexible mentor training.
           </p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-1 gap-8 max-w-3xl mx-auto place-items-center">
             {/* Youth Program Card */}
             <Card className="border-l-4 border-l-gold hover-lift" id="youth-program">
               <CardHeader>
