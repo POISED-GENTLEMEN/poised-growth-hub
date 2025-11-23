@@ -25,7 +25,7 @@ const Index = () => {
   const featuredProducts = products.filter(p => 
     p.name.toLowerCase().includes("fresh start") || 
     p.name.toLowerCase().includes("buoyant") ||
-    p.name.toLowerCase().includes("blue harmony")
+    p.name.toLowerCase().includes("body wash")
   ).slice(0, 3);
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
