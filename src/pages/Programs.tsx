@@ -876,11 +876,11 @@ const Programs = () => {
                 </div>
 
                 {/* Final CTA Section */}
-                <div className="bg-navy rounded-2xl p-8 md:p-16 text-center text-white shadow-xl border border-gold/40">
+                <div className="bg-primary rounded-2xl p-8 md:p-16 text-center text-primary-foreground shadow-xl border border-gold/40">
                   <h3 className="font-heading text-3xl md:text-4xl font-bold mb-4">
                     Ready to Transform Your Mentorship?
                   </h3>
-                  <p className="text-xl text-white/80 mb-8">
+                  <p className="text-xl text-primary-foreground/80 mb-8">
                     Join hundreds of parents and mentors building stronger connections with youth
                   </p>
 
@@ -912,19 +912,19 @@ const Programs = () => {
                     <Button
                       variant="outline"
                       size="lg"
-                      className="border-white text-white hover:bg-white hover:text-navy text-lg px-8"
+                      className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary text-lg px-8"
                     >
                       Download Free Course Preview
                     </Button>
                   </div>
 
-                  <div className="flex flex-wrap justify-center gap-6 text-sm text-white/70 mb-6">
+                  <div className="flex flex-wrap justify-center gap-6 text-sm text-primary-foreground/70 mb-6">
                     <span>✓ 30-Day Money-Back Guarantee</span>
                     <span>✓ Lifetime Access Included</span>
                     <span>✓ Trusted by 300+ Organizations</span>
                   </div>
 
-                  <p className="text-sm text-white/60">
+                  <p className="text-sm text-primary-foreground/60">
                     Questions? Email us at info@poisedgentlemen.com or{" "}
                     <a href="/contact" className="text-gold hover:underline">
                       schedule a free 15-min consultation
