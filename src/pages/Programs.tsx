@@ -7,7 +7,18 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, Users, Gamepad2, FileText, MessageCircle, Heart, Briefcase, GraduationCap, Star, ChevronDown } from "lucide-react";
+import {
+  CheckCircle,
+  Users,
+  Gamepad2,
+  FileText,
+  MessageCircle,
+  Heart,
+  Briefcase,
+  GraduationCap,
+  Star,
+  ChevronDown,
+} from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ParentBadge from "@/components/ParentBadge";
@@ -33,18 +44,20 @@ const Programs = () => {
 
   const testimonials = [
     {
-      quote: "My son learned more about being a man in 7 weeks than in the last 2 years. The mentors are authentic, the curriculum is practical, and the impact is real.",
+      quote:
+        "My son learned more about being a man in 7 weeks than in the last 2 years. The mentors are authentic, the curriculum is practical, and the impact is real.",
       author: "Jennifer K., Parent",
     },
     {
-      quote: "I thought coaching was for people with problems. Turns out, it's for people who want to level up. Worth every penny.",
+      quote:
+        "I thought coaching was for people with problems. Turns out, it's for people who want to level up. Worth every penny.",
       author: "Darius L., 31, Mentor Training Graduate",
     },
   ];
 
   const handleYouthSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const result = youthProgramSchema.safeParse(youthForm);
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
@@ -56,7 +69,7 @@ const Programs = () => {
       setYouthErrors(fieldErrors);
       return;
     }
-    
+
     setYouthErrors({});
     alert("Thank you! We'll respond within 24 hours to discuss next steps.");
     setYouthForm({
@@ -95,22 +108,21 @@ const Programs = () => {
         }}
       >
         <div className="container mx-auto px-4">
-          <h1 className="font-heading text-4xl md:text-[56px] font-bold text-white mb-4">
-            Poised Gentlemen Programs
-          </h1>
+          <h1 className="font-heading text-4xl md:text-[56px] font-bold text-white mb-4">Poised Gentlemen Programs</h1>
           <p className="text-xl md:text-[28px] text-white/80 mb-4 max-w-3xl mx-auto">
             Building Character, Presence, and Purpose
           </p>
           <p className="text-base md:text-lg text-white/70 mb-8 max-w-[800px] mx-auto leading-relaxed">
-            Comprehensive programs for youth development and mentor training. Whether you're raising a young man or guiding the next generation, we provide the structure, curriculum, and community you need.
+            Comprehensive programs for youth development and mentor training. Whether you're raising a young man or
+            guiding the next generation, we provide the structure, curriculum, and community you need.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button variant="hero" size="lg" onClick={scrollToYouthProgram} className="w-full sm:w-auto">
-              Youth Program (Ages 14-18)
+            <Button variant="hero" size="lg" onClick={scrollToYouthProgram}>
+              Youth Program (Ages 10–17)
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
+            <Button
+              variant="outline"
+              size="lg"
               onClick={scrollToMentorTraining}
               className="w-full sm:w-auto border-gold text-white hover:bg-gold hover:text-navy"
             >
@@ -174,17 +186,16 @@ const Programs = () => {
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-center text-navy mb-12">
             Which Program is Right for You?
           </h2>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Poised Young Gentlemen Column */}
             <Card className="border-2 border-gold/30">
               <CardHeader>
                 <CardTitle className="font-heading text-2xl text-navy">Poised Young Gentlemen</CardTitle>
-                <CardDescription className="text-gold font-semibold text-base">
-                  For Youth Ages 14-18
-                </CardDescription>
+                <CardDescription className="text-gold font-semibold text-base">For Youth Ages 10–17</CardDescription>
                 <p className="text-muted-foreground pt-4">
-                  8-week in-person or hybrid program focused on character development, emotional intelligence, and leadership for young men.
+                  8-week in-person or hybrid program focused on character development, emotional intelligence, and
+                  leadership for young men.
                 </p>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -212,7 +223,7 @@ const Programs = () => {
                     <li>Schools and youth organizations</li>
                     <li>In-person group settings</li>
                     <li>Structured 8-week timeline</li>
-                    <li>Ages 14-18</li>
+                    <li>Ages 10-17</li>
                   </ul>
                 </div>
 
@@ -225,12 +236,11 @@ const Programs = () => {
             {/* Youth Mentorship Training Column */}
             <Card className="border-2 border-gold/30">
               <CardHeader>
-                <CardTitle className="font-heading text-2xl text-navy">Youth Mentorship Training</CardTitle>
-                <CardDescription className="text-gold font-semibold text-base">
-                  For Parents & Mentors
-                </CardDescription>
+                <CardTitle className="font-heading text-2xl text-navy">PYG Mentorship Training</CardTitle>
+                <CardDescription className="text-gold font-semibold text-base">For Parents & Mentors</CardDescription>
                 <p className="text-muted-foreground pt-4">
-                  Self-paced online course teaching proven strategies to mentor tweens and teens effectively through interactive Kahoot! lessons.
+                  Self-paced online course teaching proven strategies to mentor tweens and teens effectively through
+                  interactive Kahoot! lessons.
                 </p>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -303,8 +313,8 @@ const Programs = () => {
               </CardHeader>
               <CardContent className="space-y-6">
                 <p className="text-muted-foreground">
-                  The Poised Young Gentleman (PYG) program is a 7-10 week cohort-based mentorship experience teaching
-                  boys the Four Pillars through hands-on activities, emotional intelligence exercises, and real-world
+                  The Poised Young Gentleman (PYG) program is an 8–12 week cohort-based mentorship experience teaching
+                  the Four Pillars through hands-on activities, emotional intelligence training, and real-world
                   challenges.
                 </p>
 
@@ -372,20 +382,14 @@ const Programs = () => {
                   <h4 className="font-bold mb-3">Investment</h4>
                   <ul className="space-y-1 text-muted-foreground">
                     <li>
-                      <span className="font-bold text-foreground">Group Cohort:</span> $350 per student (7-week session)
-                    </li>
-                    <li>
-                      <span className="font-bold text-foreground">Private 1:1 Mentorship:</span> $125/session (limited
-                      availability)
-                    </li>
-                    <li>
-                      <span className="font-bold text-foreground">Guardian Coaching Add-On:</span> $100 (3 sessions)
+                      <span className="font-bold text-foreground">Group Cohort:</span>
+                      $350 per student (8-week session, minimum 10 participants)
                     </li>
                   </ul>
                 </div>
 
-                <Button variant="hero" size="lg" className="w-full" onClick={scrollToForms}>
-                  Enroll Your Son
+                <Button variant="hero" size="lg" className="w-full" asChild>
+                  <Link to="/contact">Bring to My City</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -403,7 +407,9 @@ const Programs = () => {
                     Structured Curriculum for Parents, Mentors, and Youth Leaders
                   </p>
                   <p className="text-base md:text-lg text-muted-foreground max-w-[900px] mx-auto">
-                    An interactive, gamified training program that equips you with proven strategies to mentor tweens and teens effectively. Learn through engaging Kahoot! lessons, downloadable resources, and a supportive community.
+                    An interactive, gamified training program that equips you with proven strategies to mentor tweens
+                    and teens effectively. Learn through engaging Kahoot! lessons, downloadable resources, and a
+                    supportive community.
                   </p>
                 </div>
 
@@ -428,33 +434,36 @@ const Programs = () => {
                             <span className="text-base text-muted-foreground">{module}</span>
                           </div>
                         ))}
-                        
-                        {showAllModules && [
-                          "Decision-Making: Building critical thinking skills",
-                          "Academic Success: Study habits and learning strategies",
-                          "Social Skills: Building healthy relationships",
-                          "Leadership Development: Cultivating influence and responsibility",
-                          "Financial Literacy: Money management basics",
-                          "Digital Citizenship: Navigating technology responsibly",
-                          "Mental Health: Recognizing signs and providing support",
-                          "Career Exploration: Discovering interests and pathways",
-                          "Physical Wellness: Habits for lifelong health",
-                          "Spiritual Growth: Purpose and meaning",
-                          "Community Engagement: Service and giving back",
-                          "Long-Term Planning: Setting up for future success",
-                        ].map((module, index) => (
-                          <div key={index + 6} className="flex items-start gap-2">
-                            <CheckCircle className="w-5 h-5 text-gold shrink-0 mt-0.5" />
-                            <span className="text-base text-muted-foreground">{module}</span>
-                          </div>
-                        ))}
-                        
+
+                        {showAllModules &&
+                          [
+                            "Decision-Making: Building critical thinking skills",
+                            "Academic Success: Study habits and learning strategies",
+                            "Social Skills: Building healthy relationships",
+                            "Leadership Development: Cultivating influence and responsibility",
+                            "Financial Literacy: Money management basics",
+                            "Digital Citizenship: Navigating technology responsibly",
+                            "Mental Health: Recognizing signs and providing support",
+                            "Career Exploration: Discovering interests and pathways",
+                            "Physical Wellness: Habits for lifelong health",
+                            "Spiritual Growth: Purpose and meaning",
+                            "Community Engagement: Service and giving back",
+                            "Long-Term Planning: Setting up for future success",
+                          ].map((module, index) => (
+                            <div key={index + 6} className="flex items-start gap-2">
+                              <CheckCircle className="w-5 h-5 text-gold shrink-0 mt-0.5" />
+                              <span className="text-base text-muted-foreground">{module}</span>
+                            </div>
+                          ))}
+
                         <button
                           onClick={() => setShowAllModules(!showAllModules)}
                           className="flex items-center gap-1 text-gold hover:text-gold/80 font-medium mt-4"
                         >
                           {showAllModules ? "Show Less" : "Show All 18 Modules"}
-                          <ChevronDown className={`w-4 h-4 transition-transform ${showAllModules ? "rotate-180" : ""}`} />
+                          <ChevronDown
+                            className={`w-4 h-4 transition-transform ${showAllModules ? "rotate-180" : ""}`}
+                          />
                         </button>
                       </div>
                     </div>
@@ -470,7 +479,8 @@ const Programs = () => {
                               <div>
                                 <h4 className="font-bold text-navy mb-2">Interactive Kahoot! Lessons</h4>
                                 <p className="text-sm text-muted-foreground">
-                                  18 engaging Kahoot! modules that youth actually enjoy. Gamified learning makes complex topics fun and memorable.
+                                  18 engaging Kahoot! modules that youth actually enjoy. Gamified learning makes complex
+                                  topics fun and memorable.
                                 </p>
                               </div>
                             </div>
@@ -484,7 +494,8 @@ const Programs = () => {
                               <div>
                                 <h4 className="font-bold text-navy mb-2">Downloadable Resources</h4>
                                 <p className="text-sm text-muted-foreground">
-                                  Workbooks, goal-tracking templates, conversation starters, and session guides. Everything you need to implement immediately.
+                                  Workbooks, goal-tracking templates, conversation starters, and session guides.
+                                  Everything you need to implement immediately.
                                 </p>
                               </div>
                             </div>
@@ -498,7 +509,8 @@ const Programs = () => {
                               <div>
                                 <h4 className="font-bold text-navy mb-2">Supportive Community</h4>
                                 <p className="text-sm text-muted-foreground">
-                                  Private online community for sharing wins, asking questions, and connecting with fellow mentors on the same journey.
+                                  Private online community for sharing wins, asking questions, and connecting with
+                                  fellow mentors on the same journey.
                                 </p>
                               </div>
                             </div>
@@ -519,7 +531,8 @@ const Programs = () => {
                             <Heart className="w-10 h-10 text-gold mb-3" />
                             <h4 className="text-xl font-bold text-navy mb-2">Parents of Tweens & Teens</h4>
                             <p className="text-muted-foreground mb-3">
-                              Finally, a structured roadmap to guide meaningful conversations with your 10-17 year old. Stop guessing, start mentoring with confidence.
+                              Finally, a structured roadmap to guide meaningful conversations with your 10-17 year old.
+                              Stop guessing, start mentoring with confidence.
                             </p>
                             <p className="text-sm italic text-muted-foreground">
                               "Turn dinner table small talk into life-changing guidance."
@@ -532,7 +545,8 @@ const Programs = () => {
                             <Briefcase className="w-10 h-10 text-gold mb-3" />
                             <h4 className="text-xl font-bold text-navy mb-2">Professional Mentors</h4>
                             <p className="text-muted-foreground mb-3">
-                              Proven curriculum with trackable outcomes. Gain professional development credentials and ready-to-use tools that youth actually engage with.
+                              Proven curriculum with trackable outcomes. Gain professional development credentials and
+                              ready-to-use tools that youth actually engage with.
                             </p>
                             <p className="text-sm italic text-muted-foreground">
                               "Transform your mentoring impact with gamified learning."
@@ -545,7 +559,8 @@ const Programs = () => {
                             <GraduationCap className="w-10 h-10 text-gold mb-3" />
                             <h4 className="text-xl font-bold text-navy mb-2">Youth Organizations</h4>
                             <p className="text-muted-foreground mb-3">
-                              Launch a complete mentorship program in 2 weeks. Built-in tracking for grant reporting, zero curriculum development required.
+                              Launch a complete mentorship program in 2 weeks. Built-in tracking for grant reporting,
+                              zero curriculum development required.
                             </p>
                             <p className="text-sm italic text-muted-foreground">
                               "Scalable, turnkey program-in-a-box."
@@ -561,7 +576,7 @@ const Programs = () => {
                 <div className="mb-16">
                   <h3 className="font-heading text-3xl font-bold text-navy text-center mb-3">Choose Your Path</h3>
                   <p className="text-center text-muted-foreground mb-8">Flexible options for every budget and goal</p>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Tier 1 - Core Course */}
                     <Card className="border-2 border-gold relative">
@@ -572,9 +587,7 @@ const Programs = () => {
                           <span className="text-4xl font-bold text-navy">$97</span>
                           <p className="text-sm text-muted-foreground">One-time payment</p>
                         </div>
-                        <CardDescription className="pt-2">
-                          Perfect for parents and individual mentors
-                        </CardDescription>
+                        <CardDescription className="pt-2">Perfect for parents and individual mentors</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-2">
@@ -592,7 +605,9 @@ const Programs = () => {
                             </div>
                           ))}
                         </div>
-                        <Button variant="hero" size="lg" className="w-full">Get Started</Button>
+                        <Button variant="hero" size="lg" className="w-full">
+                          Get Started
+                        </Button>
                       </CardContent>
                     </Card>
 
@@ -604,9 +619,7 @@ const Programs = () => {
                           <span className="text-4xl font-bold text-navy">$197</span>
                           <p className="text-sm text-muted-foreground">One-time payment</p>
                         </div>
-                        <CardDescription className="pt-2">
-                          For mentors seeking ongoing support
-                        </CardDescription>
+                        <CardDescription className="pt-2">For mentors seeking ongoing support</CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
                         <div className="space-y-2">
@@ -624,7 +637,9 @@ const Programs = () => {
                             </div>
                           ))}
                         </div>
-                        <Button variant="outline" size="lg" className="w-full">Join Community</Button>
+                        <Button variant="outline" size="lg" className="w-full">
+                          Join Community
+                        </Button>
                       </CardContent>
                     </Card>
 
@@ -657,21 +672,27 @@ const Programs = () => {
                             </div>
                           ))}
                         </div>
-                        <Button variant="outline" size="lg" className="w-full">Get Certified</Button>
+                        <Button variant="outline" size="lg" className="w-full">
+                          Get Certified
+                        </Button>
                       </CardContent>
                     </Card>
                   </div>
-                  
+
                   <p className="text-center text-sm text-muted-foreground mt-6">
                     Organization & School licenses (10-50 users) starting at $997.{" "}
-                    <a href="/contact" className="text-gold hover:underline">Request Organization Quote →</a>
+                    <a href="/contact" className="text-gold hover:underline">
+                      Request Organization Quote →
+                    </a>
                   </p>
                 </div>
 
                 {/* Testimonials Section */}
                 <div className="bg-white rounded-lg p-8 md:p-12 mb-16">
-                  <h3 className="font-heading text-3xl font-bold text-navy text-center mb-12">What Mentors Are Saying</h3>
-                  
+                  <h3 className="font-heading text-3xl font-bold text-navy text-center mb-12">
+                    What Mentors Are Saying
+                  </h3>
+
                   <div className="max-w-3xl mx-auto">
                     <Card className="bg-[#F9F7F4] border-0">
                       <CardContent className="p-8">
@@ -680,11 +701,13 @@ const Programs = () => {
                             <Star key={i} className="w-5 h-5 fill-gold text-gold" />
                           ))}
                         </div>
-                        
+
                         {mentorTestimonial === 0 && (
                           <>
                             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                              "I was struggling to connect with my 14-year-old son. This course gave me the exact conversation starters I needed. Now we have meaningful talks every week, and I can see him opening up about his goals and fears. Game-changer for our relationship."
+                              "I was struggling to connect with my 14-year-old son. This course gave me the exact
+                              conversation starters I needed. Now we have meaningful talks every week, and I can see him
+                              opening up about his goals and fears. Game-changer for our relationship."
                             </p>
                             <div className="flex items-center justify-center gap-4">
                               <div className="w-20 h-20 rounded-full bg-gold/20 flex items-center justify-center">
@@ -692,16 +715,20 @@ const Programs = () => {
                               </div>
                               <div className="text-left">
                                 <p className="font-bold text-navy">Sarah M.</p>
-                                <p className="text-sm italic text-muted-foreground">Mother of teenage son, California</p>
+                                <p className="text-sm italic text-muted-foreground">
+                                  Mother of teenage son, California
+                                </p>
                               </div>
                             </div>
                           </>
                         )}
-                        
+
                         {mentorTestimonial === 1 && (
                           <>
                             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                              "As a youth coach, I've tried countless programs. The Kahoot! format is brilliant—kids actually ASK to do the lessons. The trackable outcomes help me prove my impact to the organization I work with. Worth every penny."
+                              "As a youth coach, I've tried countless programs. The Kahoot! format is brilliant—kids
+                              actually ASK to do the lessons. The trackable outcomes help me prove my impact to the
+                              organization I work with. Worth every penny."
                             </p>
                             <div className="flex items-center justify-center gap-4">
                               <div className="w-20 h-20 rounded-full bg-gold/20 flex items-center justify-center">
@@ -709,16 +736,20 @@ const Programs = () => {
                               </div>
                               <div className="text-left">
                                 <p className="font-bold text-navy">Marcus T.</p>
-                                <p className="text-sm italic text-muted-foreground">Youth Mentor, Big Brothers Big Sisters</p>
+                                <p className="text-sm italic text-muted-foreground">
+                                  Youth Mentor, Big Brothers Big Sisters
+                                </p>
                               </div>
                             </div>
                           </>
                         )}
-                        
+
                         {mentorTestimonial === 2 && (
                           <>
                             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                              "We launched this program across 25 mentors in our after-school program. Setup took less than a week, and the built-in tracking makes grant reporting so much easier. Our mentors love the structure, and the kids are more engaged than ever."
+                              "We launched this program across 25 mentors in our after-school program. Setup took less
+                              than a week, and the built-in tracking makes grant reporting so much easier. Our mentors
+                              love the structure, and the kids are more engaged than ever."
                             </p>
                             <div className="flex items-center justify-center gap-4">
                               <div className="w-20 h-20 rounded-full bg-gold/20 flex items-center justify-center">
@@ -726,12 +757,14 @@ const Programs = () => {
                               </div>
                               <div className="text-left">
                                 <p className="font-bold text-navy">Dr. Jennifer Liu</p>
-                                <p className="text-sm italic text-muted-foreground">Director, Youth Development Center</p>
+                                <p className="text-sm italic text-muted-foreground">
+                                  Director, Youth Development Center
+                                </p>
                               </div>
                             </div>
                           </>
                         )}
-                        
+
                         <div className="flex justify-center gap-2 mt-8">
                           {[0, 1, 2].map((index) => (
                             <button
@@ -751,15 +784,19 @@ const Programs = () => {
 
                 {/* FAQ Accordion */}
                 <div className="mb-16" id="faqs">
-                  <h3 className="font-heading text-3xl font-bold text-navy text-center mb-12">Frequently Asked Questions</h3>
-                  
+                  <h3 className="font-heading text-3xl font-bold text-navy text-center mb-12">
+                    Frequently Asked Questions
+                  </h3>
+
                   <Accordion type="single" collapsible className="max-w-3xl mx-auto">
                     <AccordionItem value="item-1">
                       <AccordionTrigger className="text-lg font-bold text-navy text-left">
                         Is this only for parents, or can professional mentors use it too?
                       </AccordionTrigger>
                       <AccordionContent className="text-muted-foreground">
-                        Both! The curriculum works for parents mentoring their own children AND for professional mentors working with youth in schools, nonprofits, or community programs. We have pricing tiers designed for each audience.
+                        Both! The curriculum works for parents mentoring their own children AND for professional mentors
+                        working with youth in schools, nonprofits, or community programs. We have pricing tiers designed
+                        for each audience.
                       </AccordionContent>
                     </AccordionItem>
 
@@ -768,7 +805,9 @@ const Programs = () => {
                         What age range does this program cover?
                       </AccordionTrigger>
                       <AccordionContent className="text-muted-foreground">
-                        The course is designed for mentoring youth ages 10-17 (tweens and teens). The principles apply across this age range, with specific adaptations for younger vs. older adolescents included in the modules.
+                        The course is designed for mentoring youth ages 10-17 (tweens and teens). The principles apply
+                        across this age range, with specific adaptations for younger vs. older adolescents included in
+                        the modules.
                       </AccordionContent>
                     </AccordionItem>
 
@@ -777,7 +816,9 @@ const Programs = () => {
                         How long does it take to complete the course?
                       </AccordionTrigger>
                       <AccordionContent className="text-muted-foreground">
-                        At your own pace! Most parents complete it in 4-6 weeks (about 2-3 hours per week). Professional mentors often finish faster. All 18 Kahoot! modules are immediately accessible, and you have lifetime access to go back and review.
+                        At your own pace! Most parents complete it in 4-6 weeks (about 2-3 hours per week). Professional
+                        mentors often finish faster. All 18 Kahoot! modules are immediately accessible, and you have
+                        lifetime access to go back and review.
                       </AccordionContent>
                     </AccordionItem>
 
@@ -786,7 +827,9 @@ const Programs = () => {
                         Do I need any special technology or Kahoot! experience?
                       </AccordionTrigger>
                       <AccordionContent className="text-muted-foreground">
-                        Nope! If you can click a button, you can do this course. Kahoot! is incredibly user-friendly. All you need is a computer, tablet, or smartphone with internet access. No prior Kahoot! experience required.
+                        Nope! If you can click a button, you can do this course. Kahoot! is incredibly user-friendly.
+                        All you need is a computer, tablet, or smartphone with internet access. No prior Kahoot!
+                        experience required.
                       </AccordionContent>
                     </AccordionItem>
 
@@ -795,7 +838,9 @@ const Programs = () => {
                         What if I'm mentoring a child with special needs or unique circumstances?
                       </AccordionTrigger>
                       <AccordionContent className="text-muted-foreground">
-                        While the core curriculum covers typical youth development, the community forum is a great place to get personalized advice for unique situations. Certification tier students also get 1-on-1 coaching where we can address specific challenges.
+                        While the core curriculum covers typical youth development, the community forum is a great place
+                        to get personalized advice for unique situations. Certification tier students also get 1-on-1
+                        coaching where we can address specific challenges.
                       </AccordionContent>
                     </AccordionItem>
 
@@ -804,7 +849,9 @@ const Programs = () => {
                         Is there a money-back guarantee?
                       </AccordionTrigger>
                       <AccordionContent className="text-muted-foreground">
-                        Yes! We offer a 30-day satisfaction guarantee. If you complete the first 3 modules and feel this isn't right for you, we'll refund your purchase—no questions asked. We're confident you'll find value immediately.
+                        Yes! We offer a 30-day satisfaction guarantee. If you complete the first 3 modules and feel this
+                        isn't right for you, we'll refund your purchase—no questions asked. We're confident you'll find
+                        value immediately.
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
@@ -818,7 +865,7 @@ const Programs = () => {
                   <p className="text-xl text-white/80 mb-8">
                     Join hundreds of parents and mentors building stronger connections with youth
                   </p>
-                  
+
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
                     <div className="flex items-center gap-2">
                       <Users className="w-7 h-7 text-gold" />
@@ -839,31 +886,35 @@ const Programs = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                     <Button variant="hero" size="lg" className="text-lg px-8">
                       Enroll in Core Course - $97
                     </Button>
-                    <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-navy text-lg px-8">
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      className="border-white text-white hover:bg-white hover:text-navy text-lg px-8"
+                    >
                       Download Free Course Preview
                     </Button>
                   </div>
-                  
+
                   <div className="flex flex-wrap justify-center gap-6 text-sm text-white/70 mb-6">
                     <span>✓ 30-Day Money-Back Guarantee</span>
                     <span>✓ Lifetime Access Included</span>
                     <span>✓ Trusted by 300+ Organizations</span>
                   </div>
-                  
+
                   <p className="text-sm text-white/60">
                     Questions? Email us at info@poisedgentlemen.com or{" "}
-                    <a href="/contact" className="text-gold hover:underline">schedule a free 15-min consultation</a>
+                    <a href="/contact" className="text-gold hover:underline">
+                      schedule a free 15-min consultation
+                    </a>
                   </p>
                 </div>
               </div>
             </section>
-
-
           </div>
         </div>
       </section>
@@ -1065,13 +1116,24 @@ const Programs = () => {
             Ready to Start Your Journey?
           </h2>
           <p className="text-lg text-primary mb-8 max-w-3xl mx-auto">
-            Whether you're enrolling your son in PYG or becoming a trained mentor yourself, the first step is reaching out. We're here to answer questions and find the right fit.
+            Whether you're enrolling your son in PYG or becoming a trained mentor yourself, the first step is reaching
+            out. We're here to answer questions and find the right fit.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="default" size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90" onClick={scrollToYouthProgram}>
+            <Button
+              variant="default"
+              size="lg"
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              onClick={scrollToYouthProgram}
+            >
               Learn About Youth Programs
             </Button>
-            <Button variant="default" size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90" onClick={scrollToMentorTraining}>
+            <Button
+              variant="default"
+              size="lg"
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              onClick={scrollToMentorTraining}
+            >
               Enroll in Mentor Training
             </Button>
           </div>
