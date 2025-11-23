@@ -24,7 +24,7 @@ const Index = () => {
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const result = newsletterSchema.safeParse({ email, firstName });
     if (!result.success) {
       const fieldErrors: { email?: string; firstName?: string } = {};
@@ -36,7 +36,7 @@ const Index = () => {
       setErrors(fieldErrors);
       return;
     }
-    
+
     setErrors({});
     // TODO: Client will integrate with email platform
     setEmail("");
@@ -58,8 +58,7 @@ const Index = () => {
             Redefine Your Masculinity. Build Your Legacy.
           </h1>
           <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
-            Principled mentorship, emotional intelligence coaching, and premium grooming aligned with the Four
-            Pillars.
+            Principled mentorship, emotional intelligence coaching, and premium grooming aligned with the Four Pillars.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="hero" asChild>
@@ -83,10 +82,11 @@ const Index = () => {
                 Feel Sharp
               </h3>
               <p className="text-base text-primary-foreground/90 leading-relaxed mb-5 max-w-xs mx-auto">
-                Inner state and emotional intelligence. Master your mind, regulate your emotions, and build unshakeable confidence from within.
+                Inner state and emotional intelligence. Master your mind, regulate your emotions, and build unshakeable
+                confidence from within.
               </p>
-              <Link 
-                to="/programs" 
+              <Link
+                to="/programs"
                 className="text-sm font-semibold text-gold hover:underline hover:brightness-110 transition-all"
               >
                 Explore Emotional Intelligence →
@@ -100,10 +100,11 @@ const Index = () => {
                 Look Sharp
               </h3>
               <p className="text-base text-primary-foreground/90 leading-relaxed mb-5 max-w-xs mx-auto">
-                Refined presentation and grooming. Elevate your daily rituals with premium products designed for every stage of your journey.
+                Refined presentation and grooming. Elevate your daily rituals with premium products designed for every
+                stage of your journey.
               </p>
-              <Link 
-                to="/shop" 
+              <Link
+                to="/shop"
                 className="text-sm font-semibold text-gold hover:underline hover:brightness-110 transition-all"
               >
                 Shop Essence Collection →
@@ -113,14 +114,13 @@ const Index = () => {
             {/* Be Sharp */}
             <div className="flex flex-col items-center text-center">
               <TrendingUp className="w-16 h-16 text-gold mb-6" strokeWidth={1.5} />
-              <h3 className="text-3xl md:text-4xl font-heading font-semibold text-primary-foreground mb-4">
-                Be Sharp
-              </h3>
+              <h3 className="text-3xl md:text-4xl font-heading font-semibold text-primary-foreground mb-4">Be Sharp</h3>
               <p className="text-base text-primary-foreground/90 leading-relaxed mb-5 max-w-xs mx-auto">
-                Impact and legacy building. Transform yourself, lead your family, and shape the next generation through intentional action.
+                Impact and legacy building. Transform yourself, lead your family, and shape the next generation through
+                intentional action.
               </p>
-              <Link 
-                to="/programs" 
+              <Link
+                to="/programs"
                 className="text-sm font-semibold text-gold hover:underline hover:brightness-110 transition-all"
               >
                 Join the Programs →
@@ -159,10 +159,7 @@ const Index = () => {
                   "Consistent action, delayed gratification. Motivation fades. Discipline endures. Wake up early. Show up daily. Small actions compound into legacy.",
               },
             ].map((pillar, index) => (
-              <Card
-                key={index}
-                className="p-8 border-2 hover-lift hover-scale cursor-default bg-card"
-              >
+              <Card key={index} className="p-8 border-2 hover-lift hover-scale cursor-default bg-card">
                 <div className="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center mb-4">
                   <div className="w-6 h-6 rounded-full bg-gold" />
                 </div>
@@ -171,11 +168,6 @@ const Index = () => {
               </Card>
             ))}
           </div>
-          <div className="text-center mt-12">
-            <Button variant="outline" size="lg">
-              Discover the Framework
-            </Button>
-          </div>
         </div>
       </section>
 
@@ -183,9 +175,7 @@ const Index = () => {
       <section className="py-20 md:py-32 bg-muted" id="programs">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 fade-in">
-            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">
-              Growth Through Mentorship & Coaching
-            </h2>
+            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">Growth Through Mentorship & Coaching</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Structured programs teaching the Four Pillars. For boys becoming men, and men building legacies.
             </p>
@@ -213,15 +203,11 @@ const Index = () => {
                 image: experiencesImage,
                 icon: Calendar,
                 title: "Live Experiences",
-                description:
-                  "Weekend retreats. Pop-up workshops. Fatherhood forums. Transform in community.",
+                description: "Weekend retreats. Pop-up workshops. Fatherhood forums. Transform in community.",
                 cta: "View Upcoming Events",
               },
             ].map((program, index) => (
-              <Card
-                key={index}
-                className="overflow-hidden hover-lift bg-card group"
-              >
+              <Card key={index} className="overflow-hidden hover-lift bg-card group">
                 <div className="relative h-[300px] overflow-hidden">
                   <img
                     src={program.image}
@@ -249,9 +235,7 @@ const Index = () => {
       <section className="py-20 md:py-32 bg-background" id="shop">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 fade-in">
-            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">
-              Grooming That Aligns With Your Values
-            </h2>
+            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">Grooming That Aligns With Your Values</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Premium ingredients. Age-appropriate formulas. Every product reinforces the Four Pillars.
             </p>
@@ -282,10 +266,7 @@ const Index = () => {
                 benefit: "Cleanser + Moisturizer + SPF. Everything you need to start strong.",
               },
             ].map((product, index) => (
-              <Card
-                key={index}
-                className="overflow-hidden border hover-lift bg-card group"
-              >
+              <Card key={index} className="overflow-hidden border hover-lift bg-card group">
                 <div className="relative h-[300px] overflow-hidden bg-muted">
                   <img
                     src={product.image}
@@ -342,7 +323,7 @@ const Index = () => {
                 {[
                   "Age-appropriate grooming kits for teens 13-18",
                   "Free downloadable guides: First shave, conversations, milestones",
-                  "Youth leadership programs that build character"
+                  "Youth leadership programs that build character",
                 ].map((bullet, index) => (
                   <div key={index} className="flex items-start gap-3">
                     <div className="w-5 h-5 rounded-full bg-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -355,20 +336,10 @@ const Index = () => {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  asChild
-                  size="lg"
-                  className="bg-gold hover:bg-gold/90 text-primary font-bold"
-                >
-                  <Link to="/for-moms-mentors">
-                    Explore Parent Resources
-                  </Link>
+                <Button asChild size="lg" className="bg-gold hover:bg-gold/90 text-primary font-bold">
+                  <Link to="/for-moms-mentors">Explore Parent Resources</Link>
                 </Button>
-                <Button 
-                  asChild
-                  variant="link"
-                  className="text-gold hover:text-gold/80 font-medium group"
-                >
+                <Button asChild variant="link" className="text-gold hover:text-gold/80 font-medium group">
                   <Link to="/for-moms-mentors#first-shave">
                     Download First Shave Guide
                     <span className="inline-block transition-transform group-hover:translate-x-1 ml-1">→</span>
@@ -471,11 +442,9 @@ const Index = () => {
                     if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
                   }}
                   required
-                  className={`h-12 bg-white text-primary border-primary/20 ${errors.email ? 'border-destructive' : ''}`}
+                  className={`h-12 bg-white text-primary border-primary/20 ${errors.email ? "border-destructive" : ""}`}
                 />
-                {errors.email && (
-                  <p className="text-xs text-destructive mt-1 text-left">{errors.email}</p>
-                )}
+                {errors.email && <p className="text-xs text-destructive mt-1 text-left">{errors.email}</p>}
               </div>
               <div>
                 <Input
@@ -486,13 +455,16 @@ const Index = () => {
                     setFirstName(e.target.value);
                     if (errors.firstName) setErrors((prev) => ({ ...prev, firstName: undefined }));
                   }}
-                  className={`h-12 bg-white text-primary border-primary/20 ${errors.firstName ? 'border-destructive' : ''}`}
+                  className={`h-12 bg-white text-primary border-primary/20 ${errors.firstName ? "border-destructive" : ""}`}
                 />
-                {errors.firstName && (
-                  <p className="text-xs text-destructive mt-1 text-left">{errors.firstName}</p>
-                )}
+                {errors.firstName && <p className="text-xs text-destructive mt-1 text-left">{errors.firstName}</p>}
               </div>
-              <Button type="submit" size="lg" variant="default" className="w-full bg-primary text-white hover:bg-primary/90">
+              <Button
+                type="submit"
+                size="lg"
+                variant="default"
+                className="w-full bg-primary text-white hover:bg-primary/90"
+              >
                 Get the Starter Kit
               </Button>
             </form>
