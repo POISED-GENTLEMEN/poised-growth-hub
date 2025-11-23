@@ -322,7 +322,7 @@ const Index = () => {
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild size="lg" className="bg-gold hover:bg-gold/90 text-primary font-bold">
-                  <Link to="/for-moms-mentors">Explore Parent Resources</Link>
+                  <Link to="/for-moms-mentors#resources">Explore Parent Resources</Link>
                 </Button>
                 <Button asChild variant="link" className="text-gold hover:text-gold/80 font-medium group">
                   <Link to="/for-moms-mentors#first-shave">
