@@ -22,11 +22,14 @@ const Index = () => {
   const { products, addToCart } = useShop();
 
   // Filter for specific products to display
-  const featuredProducts = products.filter(p => 
-    p.name.toLowerCase().includes("fresh start") || 
-    p.name.toLowerCase().includes("buoyant") ||
-    p.name.toLowerCase().includes("body wash")
-  ).slice(0, 3);
+  const featuredProducts = products
+    .filter(
+      (p) =>
+        p.name.toLowerCase().includes("fresh start") ||
+        p.name.toLowerCase().includes("buoyant") ||
+        p.name.toLowerCase().includes("body wash"),
+    )
+    .slice(0, 3);
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,7 +47,6 @@ const Index = () => {
     }
 
     setErrors({});
-    // TODO: Client will integrate with email platform
     setEmail("");
     setFirstName("");
   };
@@ -53,7 +55,7 @@ const Index = () => {
     <div className="min-h-screen">
       <Header />
 
-      {/* Hero Section */}
+      {/* ---------------- HERO SECTION ---------------- */}
       <section
         className="relative min-h-[70vh] md:min-h-screen flex items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: `url(${heroImage})` }}
@@ -77,58 +79,39 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Feel/Look/Be Sharp Section */}
+      {/* ---------------- FEEL / LOOK / BE SHARP ---------------- */}
       <section className="py-20 md:py-24 bg-primary">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 max-w-6xl mx-auto">
-            {/* Feel Sharp */}
             <div className="flex flex-col items-center text-center">
               <Brain className="w-16 h-16 text-gold mb-6" strokeWidth={1.5} />
-              <h3 className="text-3xl md:text-4xl font-heading font-semibold text-primary-foreground mb-4">
-                Feel Sharp
-              </h3>
-              <p className="text-base text-primary-foreground/90 leading-relaxed mb-5 max-w-xs mx-auto">
-                Inner state and emotional intelligence. Master your mind, regulate your emotions, and build unshakeable
-                confidence from within.
+              <h3 className="text-3xl md:text-4xl font-heading text-primary-foreground mb-4">Feel Sharp</h3>
+              <p className="text-base text-primary-foreground/90 mb-5 max-w-xs mx-auto">
+                Inner state and emotional intelligence. Master your mind and build unshakeable confidence.
               </p>
-              <Link
-                to="/programs"
-                className="text-sm font-semibold text-gold hover:underline hover:brightness-110 transition-all"
-              >
+              <Link to="/programs" className="text-sm font-semibold text-gold hover:underline">
                 Explore Emotional Intelligence →
               </Link>
             </div>
 
-            {/* Look Sharp */}
             <div className="flex flex-col items-center text-center">
               <Sparkles className="w-16 h-16 text-gold mb-6" strokeWidth={1.5} />
-              <h3 className="text-3xl md:text-4xl font-heading font-semibold text-primary-foreground mb-4">
-                Look Sharp
-              </h3>
-              <p className="text-base text-primary-foreground/90 leading-relaxed mb-5 max-w-xs mx-auto">
-                Refined presentation and grooming. Elevate your daily rituals with premium products designed for every
-                stage of your journey.
+              <h3 className="text-3xl md:text-4xl font-heading text-primary-foreground mb-4">Look Sharp</h3>
+              <p className="text-base text-primary-foreground/90 mb-5 max-w-xs mx-auto">
+                Refined presentation and grooming. Elevate your daily rituals with premium products.
               </p>
-              <Link
-                to="/shop"
-                className="text-sm font-semibold text-gold hover:underline hover:brightness-110 transition-all"
-              >
+              <Link to="/shop" className="text-sm font-semibold text-gold hover:underline">
                 Shop Essence Collection →
               </Link>
             </div>
 
-            {/* Be Sharp */}
             <div className="flex flex-col items-center text-center">
               <TrendingUp className="w-16 h-16 text-gold mb-6" strokeWidth={1.5} />
-              <h3 className="text-3xl md:text-4xl font-heading font-semibold text-primary-foreground mb-4">Be Sharp</h3>
-              <p className="text-base text-primary-foreground/90 leading-relaxed mb-5 max-w-xs mx-auto">
-                Impact and legacy building. Transform yourself, lead your family, and shape the next generation through
-                intentional action.
+              <h3 className="text-3xl md:text-4xl font-heading text-primary-foreground mb-4">Be Sharp</h3>
+              <p className="text-base text-primary-foreground/90 mb-5 max-w-xs mx-auto">
+                Impact and legacy. Transform yourself and lead the next generation.
               </p>
-              <Link
-                to="/programs"
-                className="text-sm font-semibold text-gold hover:underline hover:brightness-110 transition-all"
-              >
+              <Link to="/programs" className="text-sm font-semibold text-gold hover:underline">
                 Join the Programs →
               </Link>
             </div>
@@ -136,7 +119,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Four Pillars Section */}
+      {/* ---------------- FOUR PILLARS ---------------- */}
       <section className="py-20 md:py-32 bg-background" id="pillars">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-heading font-bold text-center mb-16 fade-in">
@@ -146,145 +129,125 @@ const Index = () => {
             {[
               {
                 title: "INTEGRITY",
-                description:
-                  "Character over convenience. Your word is your bond. Build trust through consistent action. Choose principle over popularity, even when no one's watching.",
+                description: "Character over convenience. Build trust through consistent action and principle.",
               },
               {
                 title: "STRENGTH",
-                description:
-                  "Physical, mental, emotional resilience. True strength isn't domination—it's discipline. Train your body, fortify your mind, regulate your emotions.",
+                description: "Physical, mental, emotional resilience. Strength is discipline, not domination.",
               },
               {
                 title: "EMOTIONAL INTELLIGENCE",
-                description:
-                  "Self-awareness, empathy, regulation. Modern masculinity requires emotional fluency. Understand your triggers. Communicate your needs. Read the room.",
+                description: "Self-awareness, regulation, empathy. Understand your triggers and communicate clearly.",
               },
               {
                 title: "DISCIPLINE",
-                description:
-                  "Consistent action, delayed gratification. Motivation fades. Discipline endures. Wake up early. Show up daily. Small actions compound into legacy.",
+                description: "Daily consistency and delayed gratification. Small actions compound into legacy.",
               },
             ].map((pillar, index) => (
-              <Card key={index} className="p-8 border-2 hover-lift hover-scale cursor-default bg-card">
+              <Card key={index} className="p-8 border-2 hover-lift bg-card">
                 <div className="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center mb-4">
                   <div className="w-6 h-6 rounded-full bg-gold" />
                 </div>
                 <h3 className="text-2xl font-heading font-bold mb-4">{pillar.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{pillar.description}</p>
+                <p className="text-muted-foreground">{pillar.description}</p>
               </Card>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Programs Overview Section - BEFORE PRODUCTS */}
+      {/* ---------------- PROGRAMS ---------------- */}
       <section className="py-20 md:py-32 bg-muted" id="programs">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 fade-in">
             <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">Growth Through Mentorship & Coaching</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Structured programs teaching the Four Pillars. For boys becoming men, and men building legacies.
+              Structured programs teaching the Four Pillars for youth and adults.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-8 max-w-7xl mx-auto">
-            {[
-              {
-                image: adultImage,
-                icon: Target,
-                title: "Adult Coaching (Ages 18+)",
-                description:
-                  "Group coaching + digital courses. Master emotional intelligence, build your legacy, lead with purpose.",
-                cta: "Explore Adult Programs",
-              },
-            ].map((program, index) => (
-              <Card key={index} className="overflow-hidden hover-lift bg-card group">
-                <div className="relative h-[300px] overflow-hidden">
-                  <img
-                    src={program.image}
-                    alt={program.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 left-4 w-12 h-12 rounded-full bg-gold/90 flex items-center justify-center">
-                    <program.icon className="h-6 w-6 text-primary" />
-                  </div>
+          <div className="grid grid-cols-1 gap-8 max-w-7xl mx-auto">
+            <Card className="overflow-hidden hover-lift bg-card group">
+              <div className="relative h-[300px] overflow-hidden">
+                <img
+                  src={adultImage}
+                  alt="Adult Coaching"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute top-4 left-4 w-12 h-12 rounded-full bg-gold/90 flex items-center justify-center">
+                  <Target className="h-6 w-6 text-primary" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-heading font-bold mb-3">{program.title}</h3>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">{program.description}</p>
-                  <Button variant="hero" className="w-full">
-                    {program.cta}
-                  </Button>
-                </div>
-              </Card>
-            ))}
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-heading font-bold mb-3">Adult Coaching (Ages 18+)</h3>
+                <p className="text-muted-foreground mb-6">
+                  Group coaching and digital courses to master emotional intelligence and purpose.
+                </p>
+                <Button variant="hero" className="w-full">
+                  Explore Adult Programs
+                </Button>
+              </div>
+            </Card>
           </div>
         </div>
       </section>
 
-      {/* Product Showcase Section - AFTER PROGRAMS */}
+      {/* ---------------- PRODUCT SHOWCASE ---------------- */}
       <section className="py-20 md:py-32 bg-background" id="shop">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 fade-in">
             <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">Grooming That Aligns With Your Values</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Premium ingredients. Age-appropriate formulas. Every product reinforces the Four Pillars.
+              Premium ingredients. Age-appropriate formulas. Reinforce the Four Pillars.
             </p>
           </div>
 
+          {/* *** Fixed grid with 3 cards + 1 full-width CTA *** */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {featuredProducts.length > 0 ? featuredProducts.map((product) => (
-              <Card key={product.id} className="overflow-hidden border hover-lift bg-card group">
-                <div className="relative h-[300px] overflow-hidden bg-muted">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-6">
-                  <p className="text-sm text-bronze font-semibold mb-1">{product.ageRange}</p>
-                  <h3 className="text-xl font-heading font-bold mb-2">{product.name}</h3>
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className="text-2xl font-bold text-gold">${product.price}</span>
-                    {product.compareAtPrice && (
-                      <span className="text-sm text-muted-foreground line-through">${product.compareAtPrice}</span>
-                    )}
+            {featuredProducts.length > 0 ? (
+              featuredProducts.map((product) => (
+                <Card key={product.id} className="overflow-hidden border hover-lift bg-card group">
+                  <div className="relative h-[300px] overflow-hidden bg-muted">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
                   </div>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{product.shortDescription}</p>
-                  <div className="flex gap-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="flex-1"
-                      onClick={() => addToCart(product)}
-                    >
-                      Add to Cart
-                    </Button>
-                    <Button variant="link" size="sm" asChild>
-                      <Link to={`/products/${product.id}`}>Details</Link>
-                    </Button>
+                  <div className="p-6">
+                    <p className="text-sm text-bronze font-semibold mb-1">{product.ageRange}</p>
+                    <h3 className="text-xl font-heading font-bold mb-2">{product.name}</h3>
+                    <div className="flex items-baseline gap-2 mb-3">
+                      <span className="text-2xl font-bold text-gold">${product.price}</span>
+                      {product.compareAtPrice && (
+                        <span className="text-sm text-muted-foreground line-through">${product.compareAtPrice}</span>
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{product.shortDescription}</p>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" className="flex-1" onClick={() => addToCart(product)}>
+                        Add to Cart
+                      </Button>
+                      <Button variant="link" size="sm" asChild>
+                        <Link to={`/products/${product.id}`}>Details</Link>
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </Card>
-            )) : (
-              // Fallback if products not loaded yet
-              <div className="col-span-3 text-center text-muted-foreground py-12">
-                Loading products...
-              </div>
+                </Card>
+              ))
+            ) : (
+              <div className="col-span-3 text-center text-muted-foreground py-12">Loading products...</div>
             )}
-          </div>
 
-          {/* Full-width Call to Action Card */}
-          <div className="mt-8 max-w-7xl mx-auto">
-            <Link to="/shop">
+            {/* Full-width CTA card */}
+            <Link to="/shop" className="col-span-1 md:col-span-3">
               <Card className="overflow-hidden border-2 border-gold hover-lift bg-gradient-to-br from-primary via-primary to-gold/20 group cursor-pointer">
                 <div className="p-12 md:p-16 text-center">
                   <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4 group-hover:scale-105 transition-transform">
                     View Full Collection
                   </h3>
                   <p className="text-lg text-white/90 mb-6 max-w-2xl mx-auto">
-                    Explore our complete range of premium grooming essentials designed for the modern gentleman
+                    Explore our complete range of premium grooming essentials designed for the modern gentleman.
                   </p>
                   <Button size="lg" variant="hero" className="bg-gold text-primary hover:bg-gold/90">
                     Shop All Products →
@@ -296,23 +259,21 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Parents & Mentors Promotion Section */}
+      {/* ---------------- PARENTS SECTION ---------------- */}
       <section className="py-16 md:py-20 bg-[hsl(var(--muted))]">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
-            {/* Left Column - Content */}
             <div className="lg:col-span-3 fade-in">
               <h2 className="text-3xl md:text-4xl lg:text-[36px] font-heading font-bold text-primary mb-4 leading-tight">
                 Parents: Raise Poised Young Men
               </h2>
               <p className="text-lg md:text-[18px] text-muted-foreground mb-6 leading-relaxed">
-                Starter kits, first-shave guidance, and character-building programs for the young man in your life
+                Starter kits, first-shave guidance, and character-building programs for the young man in your life.
               </p>
 
-              {/* Value Bullets */}
               <div className="space-y-3 mb-8">
                 {[
-                  "Age-appropriate grooming kits for teens 13-18",
+                  "Age-appropriate grooming kits for teens 13–18",
                   "Free downloadable guides: First shave, conversations, milestones",
                   "Youth leadership programs that build character",
                 ].map((bullet, index) => (
@@ -325,7 +286,6 @@ const Index = () => {
                 ))}
               </div>
 
-              {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild size="lg" className="bg-gold hover:bg-gold/90 text-primary font-bold">
                   <Link to="/for-moms-mentors#resources">Explore Parent Resources</Link>
@@ -333,52 +293,44 @@ const Index = () => {
                 <Button asChild variant="link" className="text-gold hover:text-gold/80 font-medium group">
                   <Link to="/for-moms-mentors#first-shave">
                     Download First Shave Guide
-                    <span className="inline-block transition-transform group-hover:translate-x-1 ml-1">→</span>
+                    <span className="inline-block ml-1 group-hover:translate-x-1 transition-transform">→</span>
                   </Link>
                 </Button>
               </div>
             </div>
 
-            {/* Right Column - Image */}
             <div className="lg:col-span-2 fade-in">
-              <div className="relative">
-                <img
-                  src={youthImage}
-                  alt="Parent and teen building confidence together"
-                  className="w-full h-auto rounded-xl shadow-lg object-cover max-h-[400px]"
-                  loading="lazy"
-                />
-              </div>
+              <img
+                src={youthImage}
+                alt="Parent and teen building confidence together"
+                className="w-full h-auto rounded-xl shadow-lg object-cover max-h-[400px]"
+                loading="lazy"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Social Proof Section */}
+      {/* ---------------- SOCIAL PROOF ---------------- */}
       <section className="py-20 md:py-32 bg-primary text-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
-            {/* Testimonial 1 */}
             <div className="fade-in">
               <div className="text-6xl text-gold mb-4">"</div>
-              <p className="italic mb-4 text-lg">
-                The Poised Young Gentleman program changed my son's life. He went from reactive to reflective. From
-                isolated to connected. Worth every penny.
+              <p className="italic text-lg mb-4">
+                The Poised Young Gentleman program changed my son's life. Worth every penny.
               </p>
-              <p className="text-sm text-gold">— Marcus T., Parent, New Orleans</p>
+              <p className="text-sm text-gold">— Marcus T., Parent</p>
             </div>
 
-            {/* Testimonial 2 */}
             <div className="fade-in">
               <div className="text-6xl text-gold mb-4">"</div>
-              <p className="italic mb-4 text-lg">
-                David's coaching gave me tools I never learned growing up. Emotional intelligence isn't weakness—it's
-                strategy. My relationships and career have transformed.
+              <p className="italic text-lg mb-4">
+                Emotional intelligence isn’t weakness — it’s strategy. My career and relationships transformed.
               </p>
-              <p className="text-sm text-gold">— Andre W., 29, Legacy Series Participant</p>
+              <p className="text-sm text-gold">— Andre W., Legacy Participant</p>
             </div>
 
-            {/* Metrics */}
             <div className="flex flex-col justify-center gap-6 fade-in">
               <div>
                 <div className="text-4xl font-heading font-bold text-gold mb-1">500+</div>
@@ -410,17 +362,14 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Newsletter Signup Section */}
+      {/* ---------------- NEWSLETTER ---------------- */}
       <section className="py-20 md:py-24 bg-gold" id="contact">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-heading font-bold text-primary mb-4 fade-in">
+            <h2 className="text-3xl md:text-5xl font-heading font-bold text-primary mb-4">
               Join the Movement. Stay Poised.
             </h2>
-            <p className="text-lg text-primary/90 mb-8">
-              Weekly insights on mentorship, emotional intelligence, grooming, and growth. Plus, get The 4 Pillars
-              Starter Kit (free PDF).
-            </p>
+            <p className="text-lg text-primary/90 mb-8">Weekly insights plus The 4 Pillars Starter Kit (free PDF).</p>
 
             <form onSubmit={handleNewsletterSubmit} className="space-y-4">
               <div>
@@ -435,7 +384,7 @@ const Index = () => {
                   required
                   className={`h-12 bg-white text-primary border-primary/20 ${errors.email ? "border-destructive" : ""}`}
                 />
-                {errors.email && <p className="text-xs text-destructive mt-1 text-left">{errors.email}</p>}
+                {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
               </div>
               <div>
                 <Input
@@ -446,16 +395,14 @@ const Index = () => {
                     setFirstName(e.target.value);
                     if (errors.firstName) setErrors((prev) => ({ ...prev, firstName: undefined }));
                   }}
-                  className={`h-12 bg-white text-primary border-primary/20 ${errors.firstName ? "border-destructive" : ""}`}
+                  className={`h-12 bg-white text-primary border-primary/20 ${
+                    errors.firstName ? "border-destructive" : ""
+                  }`}
                 />
-                {errors.firstName && <p className="text-xs text-destructive mt-1 text-left">{errors.firstName}</p>}
+                {errors.firstName && <p className="text-xs text-destructive mt-1">{errors.firstName}</p>}
               </div>
-              <Button
-                type="submit"
-                size="lg"
-                variant="default"
-                className="w-full bg-primary text-white hover:bg-primary/90"
-              >
+
+              <Button type="submit" size="lg" className="w-full bg-primary text-white hover:bg-primary/90">
                 Get the Starter Kit
               </Button>
             </form>
