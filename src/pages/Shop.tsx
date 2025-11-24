@@ -173,7 +173,7 @@ const Shop = () => {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <Button size="lg" className="bg-gold hover:bg-gold/90 text-navy font-semibold" asChild>
+                  <Button size="lg" className="bg-gold hover:bg-gold/90 text-navy font-semibold px-8" asChild>
                     <a
                       href="https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=WXDprR"
                       target="_blank"
