@@ -250,33 +250,23 @@ const Resources = () => {
             ))}
             
             {/* EQ Assessment Card */}
-            <Card className="group hover:border-gold transition-colors duration-300 overflow-hidden col-span-1 md:col-span-2">
-              <div className="flex flex-col md:flex-row">
-                <div className="w-full md:w-1/3 bg-gradient-to-br from-primary/10 to-gold/10 flex items-center justify-center p-8">
-                  <div className="text-7xl">🧠</div>
+            <Link to="/eq-assessment" className="block">
+              <div className="bg-primary rounded-lg p-6 text-primary-foreground hover:scale-105 transition-transform cursor-pointer">
+                <div className="mb-4">
+                  <Award className="w-8 h-8 text-gold" />
                 </div>
-                <div className="flex-1 p-6">
-                  <CardHeader className="p-0 mb-4">
-                    <CardTitle className="text-2xl font-bold group-hover:text-gold transition-colors">
-                      EQ Self-Assessment
-                    </CardTitle>
-                    <CardDescription className="text-base">
-                      Measure your emotional intelligence across 5 key dimensions and receive a personalized development roadmap to become a Poised Gentleman. Complete 25-question assessment with detailed insights.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="p-0">
-                    <Button 
-                      className="w-full bg-gold text-gold-foreground hover:bg-gold/90" 
-                      asChild
-                    >
-                      <Link to="/eq-assessment">
-                        Take Assessment
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </div>
+                <h4 className="text-xl font-heading font-bold mb-2">EQ Self-Assessment</h4>
+                <p className="text-primary-foreground/80 mb-4">
+                  Measure your emotional intelligence across 5 key dimensions and receive a personalized development roadmap. Complete 25-question assessment with detailed insights.
+                </p>
+                <Button
+                  variant="outline"
+                  className="w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                >
+                  Take Assessment
+                </Button>
               </div>
-            </Card>
+            </Link>
           </div>
         </div>
       </section>
