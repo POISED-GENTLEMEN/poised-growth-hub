@@ -1153,22 +1153,9 @@ const Programs = () => {
             Whether you're bringing PYG to your city or becoming a trained mentor yourself, the first step is reaching
             out. We're here to answer questions and find the right fit.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              variant="default"
-              size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
-              onClick={scrollToYouthProgram}
-            >
-              Learn About Youth Programs
-            </Button>
-            <Button
-              variant="default"
-              size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
-              onClick={scrollToMentorTraining}
-            >
-              Enroll in Mentor Training
+          <div className="flex justify-center">
+            <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-10">
+              <Link to="/contact">Let’s Talk</Link>
             </Button>
           </div>
         </div>
