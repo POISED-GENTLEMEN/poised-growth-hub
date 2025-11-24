@@ -361,7 +361,7 @@ const ForMomsMentors = () => {
         <div className="container mx-auto px-4 md:px-16">
           <div className="grid md:grid-cols-5 gap-12 items-center">
             {/* Left Column - Content */}
-            <div className="md:col-span-3 text-primary-foreground">
+            <div className="md:col-span-3 text-navy">
               <Badge className="mb-4 bg-white text-navy">NEW PROGRAM</Badge>
               <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Want to Be a More Effective Mentor?</h2>
               <p className="text-xl text-primary-foreground/80 mb-6">
