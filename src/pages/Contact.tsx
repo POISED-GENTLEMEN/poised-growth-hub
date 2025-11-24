@@ -168,7 +168,8 @@ const Contact = () => {
               >
                 504-484-9037
               </a>
-              <Button className="bg-gold text-gold-foreground hover:bg-gold/90">Schedule a Call</Button>
+              {/*}
+              <Button className="bg-gold text-gold-foreground hover:bg-gold/90">Schedule a Call</Button>*/}
             </div>
 
             {/* Partnerships */}
