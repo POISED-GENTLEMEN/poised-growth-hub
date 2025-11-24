@@ -225,88 +225,88 @@ const ForMomsMentors = () => {
           </div>
         </div>
       </section>
-      {/*
-      {/* Section 2: Starter Kits */}
-      <section id="starter-kits" className="py-20 bg-muted scroll-mt-32">
-        <div className="container mx-auto px-4">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-navy text-center mb-12">
-            Age-Appropriate Starter Collections
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* Kit 1: Ages 13-15 */}
-            <Card className="hover:shadow-md transition-shadow bg-white">
-              <CardHeader>
-                <div className="aspect-square bg-muted rounded-lg overflow-hidden mb-4">
-                  <img src="/placeholder.svg" alt="Fresh Start Kit" className="w-full h-full object-cover" />
-                </div>
-                <CardTitle className="text-2xl text-navy">Ages 13-15</CardTitle>
-                <CardDescription className="text-lg font-bold text-gold">The Fresh Start Kit - $35</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
-                  <li>• Light Breeze mini fragrance</li>
-                  <li>• Basic face wash</li>
-                  <li>• Gentle moisturizer</li>
-                  <li>• Beginner&apos;s grooming guide</li>
-                </ul>
-                <Button className="w-full" variant="outline" asChild>
-                  <Link to="/shop">Shop Fresh Start Kit</Link>
-                </Button>
-              </CardContent>
-            </Card>
 
-            {/* Kit 2: Ages 16-18 */}
-            <Card className="hover:shadow-md transition-shadow border-2 border-gold bg-white">
-              <CardHeader>
-                <div className="aspect-square bg-muted rounded-lg overflow-hidden mb-4">
-                  <img src="/placeholder.svg" alt="Confidence Builder" className="w-full h-full object-cover" />
-                </div>
-                <CardTitle className="text-2xl text-navy">Ages 16-18</CardTitle>
-                <CardDescription className="text-lg font-bold text-gold">The Confidence Builder - $68</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
-                  <li>• Buoyant 50ml fragrance</li>
-                  <li>• Premium face care</li>
-                  <li>• First shave tools</li>
-                  <li>• First shave guide + video access</li>
-                </ul>
-                <Button className="w-full bg-gold text-gold-foreground hover:bg-gold/90" asChild>
-                  <Link to="/shop">Shop Confidence Builder</Link>
-                </Button>
-              </CardContent>
-            </Card>
+      {/* 
+----------------------------------------------
+SECTION 2: Starter Kits (Muted / Disabled)
+----------------------------------------------
 
-            {/* Kit 3: Ages 18+ */}
-            <Card className="hover:shadow-md transition-shadow bg-white">
-              <CardHeader>
-                <div className="aspect-square bg-muted rounded-lg overflow-hidden mb-4">
-                  <img
-                    src="/placeholder.svg"
-                    alt="Young Gentleman's Collection"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <CardTitle className="text-2xl text-navy">Ages 18+</CardTitle>
-                <CardDescription className="text-lg font-bold text-gold">
-                  The Young Gentleman&apos;s Collection - $125
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
-                  <li>• Choice of signature scent</li>
-                  <li>• Full grooming set</li>
-                  <li>• Poised Starter Kit PDF</li>
-                  <li>• 1-month Codex access</li>
-                </ul>
-                <Button className="w-full" variant="outline" asChild>
-                  <Link to="/shop">Shop Young Gentleman</Link>
-                </Button>
-              </CardContent>
-            </Card>
+<section id="starter-kits" className="py-20 bg-muted scroll-mt-32">
+  <div className="container mx-auto px-4">
+    <h2 className="font-heading text-3xl md:text-4xl font-bold text-navy text-center mb-12">
+      Age-Appropriate Starter Collections
+    </h2>
+    <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+
+      <Card className="hover:shadow-md transition-shadow bg-white">
+        <CardHeader>
+          <div className="aspect-square bg-muted rounded-lg overflow-hidden mb-4">
+            <img src="/placeholder.svg" alt="Fresh Start Kit" className="w-full h-full object-cover" />
           </div>
-        </div>
-      </section>
+          <CardTitle className="text-2xl text-navy">Ages 13-15</CardTitle>
+          <CardDescription className="text-lg font-bold text-gold">The Fresh Start Kit - $35</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
+            <li>• Light Breeze mini fragrance</li>
+            <li>• Basic face wash</li>
+            <li>• Gentle moisturizer</li>
+            <li>• Beginner's grooming guide</li>
+          </ul>
+          <Button className="w-full" variant="outline" asChild>
+            <Link to="/shop">Shop Fresh Start Kit</Link>
+          </Button>
+        </CardContent>
+      </Card>
+
+      <Card className="hover:shadow-md transition-shadow border-2 border-gold bg-white">
+        <CardHeader>
+          <div className="aspect-square bg-muted rounded-lg overflow-hidden mb-4">
+            <img src="/placeholder.svg" alt="Confidence Builder" className="w-full h-full object-cover" />
+          </div>
+          <CardTitle className="text-2xl text-navy">Ages 16-18</CardTitle>
+          <CardDescription className="text-lg font-bold text-gold">The Confidence Builder - $68</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
+            <li>• Buoyant 50ml fragrance</li>
+            <li>• Premium face care</li>
+            <li>• First shave tools</li>
+            <li>• First shave guide + video access</li>
+          </ul>
+          <Button className="w-full bg-gold text-gold-foreground hover:bg-gold/90" asChild>
+            <Link to="/shop">Shop Confidence Builder</Link>
+          </Button>
+        </CardContent>
+      </Card>
+
+      <Card className="hover:shadow-md transition-shadow bg-white">
+        <CardHeader>
+          <div className="aspect-square bg-muted rounded-lg overflow-hidden mb-4">
+            <img src="/placeholder.svg" alt="Young Gentleman's Collection" className="w-full h-full object-cover" />
+          </div>
+          <CardTitle className="text-2xl text-navy">Ages 18+</CardTitle>
+          <CardDescription className="text-lg font-bold text-gold">
+            The Young Gentleman's Collection - $125
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
+            <li>• Choice of signature scent</li>
+            <li>• Full grooming set</li>
+            <li>• Poised Starter Kit PDF</li>
+            <li>• 1-month Codex access</li>
+          </ul>
+          <Button className="w-full" variant="outline" asChild>
+            <Link to="/shop">Shop Young Gentleman</Link>
+          </Button>
+        </CardContent>
+      </Card>
+
+    </div>
+  </div>
+</section>
+
 */}
       {/* Section 3: First Shave Guide */}
       <section id="first-shave" className="py-20 bg-background scroll-mt-32">
