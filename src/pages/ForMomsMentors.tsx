@@ -7,6 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import teenGroomingRoutine from "@/assets/teen-grooming-routine.png";
 import {
   Download,
   ArrowRight,
@@ -194,8 +195,8 @@ const ForMomsMentors = () => {
             <div className="space-y-6">
               <div className="aspect-video bg-muted rounded-lg overflow-hidden">
                 <img
-                  src="/placeholder.svg"
-                  alt="Teen practicing grooming routine"
+                  src={teenGroomingRoutine}
+                  alt="Teen practicing grooming routine with mentors in barbershop"
                   className="w-full h-full object-cover"
                 />
               </div>
