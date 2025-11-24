@@ -7,7 +7,21 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Download, ArrowRight, MessageCircle, Shield, Mountain, Users, Star, ChevronRight, ShoppingBag, CheckSquare, GraduationCap, FolderOpen, HelpCircle } from "lucide-react";
+import {
+  Download,
+  ArrowRight,
+  MessageCircle,
+  Shield,
+  Mountain,
+  Users,
+  Star,
+  ChevronRight,
+  ShoppingBag,
+  CheckSquare,
+  GraduationCap,
+  FolderOpen,
+  HelpCircle,
+} from "lucide-react";
 import { newsletterSchema } from "@/lib/validations";
 
 const ForMomsMentors = () => {
@@ -20,17 +34,17 @@ const ForMomsMentors = () => {
     if (metaDescription) {
       metaDescription.setAttribute(
         "content",
-        "Empower the young men in your life with confidence, discipline, and refined presence. Starter kits, guides, and programs for parents and mentors."
+        "Empower the young men in your life with confidence, discipline, and refined presence. Starter kits, guides, and programs for parents and mentors.",
       );
     }
-    
+
     // Mark that user has visited this page (for banner dismissal logic)
     sessionStorage.setItem("visited-moms-mentors", "true");
   }, []);
 
   const handleEmailSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const result = newsletterSchema.safeParse({ email });
     if (!result.success) {
       const fieldErrors: { email?: string } = {};
@@ -42,9 +56,8 @@ const ForMomsMentors = () => {
       setErrors(fieldErrors);
       return;
     }
-    
+
     setErrors({});
-    // Handle email submission
     // TODO: Send to email service or backend
     setEmail("");
   };
@@ -52,7 +65,7 @@ const ForMomsMentors = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Breadcrumb Navigation */}
       <nav aria-label="Breadcrumb" className="container mx-auto px-4 pt-6 pb-4">
         <ol className="flex items-center gap-2 text-sm">
@@ -69,81 +82,93 @@ const ForMomsMentors = () => {
           </li>
         </ol>
       </nav>
-      
-      {/* Hero Section */}
-      <section className="bg-[#F9F7F4] py-20 md:py-32">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-6">
-            For Moms & Mentors
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10">
+
+      {/* Hero Section – match Programs gradient style */}
+      <section
+        className="relative h-[350px] md:h-[450px] flex items-center justify-center text-center py-20 md:py-24 overflow-hidden"
+        style={{
+          background: "linear-gradient(135deg, #111827 0%, #1F2937 50%, #111827 100%)",
+        }}
+      >
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top,_#FBBF24_0,_transparent_60%)]" />
+        <div className="container mx-auto px-4 relative z-10">
+          <h1 className="font-heading text-4xl md:text-[56px] font-bold text-white mb-4">For Moms &amp; Mentors</h1>
+          <p className="text-xl md:text-[28px] text-white/80 mb-4 max-w-3xl mx-auto">
             Empower the young men in your life with confidence, discipline, and refined presence
           </p>
+          <p className="text-base md:text-lg text-white/70 mb-8 max-w-[800px] mx-auto leading-relaxed">
+            Starter kits, milestone guides, and structured programs designed for the adults guiding boys into manhood.
+          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="bg-gold text-gold-foreground hover:bg-gold/90" asChild>
+            <Button variant="hero" size="lg" asChild className="w-full sm:w-auto">
               <a href="/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf" target="_blank" rel="noopener noreferrer">
                 <Download className="w-5 h-5 mr-2" />
                 Download First Shave Guide
               </a>
             </Button>
-            <Button size="lg" variant="outline" asChild>
+            <Button
+              variant="outline"
+              size="lg"
+              asChild
+              className="w-full sm:w-auto border-gold text-white hover:bg-gold hover:text-navy"
+            >
               <Link to="/programs">Explore Youth Programs</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Anchor Navigation Menu */}
-      <nav className="sticky top-16 z-40 bg-[#F9F7F4] border-b border-border shadow-sm">
+      {/* Anchor Navigation Menu – styled like Programs sticky nav */}
+      <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-border shadow-sm">
         <div className="container mx-auto px-4 py-5">
-          <div className="flex items-center justify-center gap-3 overflow-x-auto scrollbar-hide">
+          <div className="flex items-center justify-center gap-3 overflow-x-auto no-scrollbar">
             <a
               href="#starter-kits"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gold text-navy whitespace-nowrap transition-all hover:bg-gold hover:text-white bg-white"
             >
-              <ShoppingBag className="w-4 h-4" />
+              <ShoppingBag className="w-4 h-4 text-gold" />
               Starter Kits
             </a>
             <a
               href="#first-shave"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gold text-navy whitespace-nowrap transition-all hover:bg-gold hover:text-white bg-white"
             >
-              <CheckSquare className="w-4 h-4" />
+              <CheckSquare className="w-4 h-4 text-gold" />
               First Shave Guide
             </a>
             <a
               href="#mentor-training"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gold text-navy whitespace-nowrap transition-all hover:bg-gold hover:text-white bg-white"
             >
-              <GraduationCap className="w-4 h-4" />
+              <GraduationCap className="w-4 h-4 text-gold" />
               Mentor Training
             </a>
             <a
               href="#programs"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gold text-navy whitespace-nowrap transition-all hover:bg-gold hover:text-white bg-white"
             >
-              <Users className="w-4 h-4" />
+              <Users className="w-4 h-4 text-gold" />
               Youth Programs
             </a>
             <a
               href="#conversations"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gold text-navy whitespace-nowrap transition-all hover:bg-gold hover:text-white bg-white"
             >
-              <MessageCircle className="w-4 h-4" />
+              <MessageCircle className="w-4 h-4 text-gold" />
               Conversations
             </a>
             <a
               href="#resources"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gold text-navy whitespace-nowrap transition-all hover:bg-gold hover:text-white bg-white"
             >
-              <FolderOpen className="w-4 h-4" />
+              <FolderOpen className="w-4 h-4 text-gold" />
               Resources
             </a>
             <a
               href="#faqs"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-gold/30 rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-all duration-200 whitespace-nowrap"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gold text-navy whitespace-nowrap transition-all hover:bg-gold hover:text-white bg-white"
             >
-              <HelpCircle className="w-4 h-4" />
+              <HelpCircle className="w-4 h-4 text-gold" />
               FAQs
             </a>
           </div>
@@ -155,38 +180,41 @@ const ForMomsMentors = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary mb-6">
-                More Than Grooming—It's Character Building
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-navy mb-6">
+                More Than Grooming—It&apos;s Character Building
               </h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                Teaching young men to care for their appearance builds discipline, self-respect, and confidence that extends far beyond the mirror. The habits they form today shape the leaders they become tomorrow.
+                Teaching young men to care for their appearance builds discipline, self-respect, and confidence that
+                extends far beyond the mirror. The habits they form today shape the leaders they become tomorrow.
               </p>
-              <blockquote className="border-l-4 border-gold pl-6 italic text-xl text-primary font-medium">
-                "Grooming isn't vanity—it's self-respect made visible."
+              <blockquote className="border-l-4 border-gold pl-6 italic text-xl text-navy font-medium">
+                &quot;Grooming isn&apos;t vanity—it&apos;s self-respect made visible.&quot;
               </blockquote>
             </div>
             <div className="space-y-6">
               <div className="aspect-video bg-muted rounded-lg overflow-hidden">
-                <img 
-                  src="/placeholder.svg" 
-                  alt="Teen practicing grooming routine" 
+                <img
+                  src="/placeholder.svg"
+                  alt="Teen practicing grooming routine"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="grid grid-cols-1 gap-4">
-                <Card>
+                <Card className="bg-white">
                   <CardContent className="p-4">
-                    <p className="text-sm font-semibold text-primary">78% of teens report increased confidence after establishing grooming routine</p>
+                    <p className="text-sm font-semibold text-navy">
+                      78% of teens report increased confidence after establishing grooming routine
+                    </p>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="bg-white">
                   <CardContent className="p-4">
-                    <p className="text-sm font-semibold text-primary">First impressions form in 7 seconds</p>
+                    <p className="text-sm font-semibold text-navy">First impressions form in 7 seconds</p>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="bg-white">
                   <CardContent className="p-4">
-                    <p className="text-sm font-semibold text-primary">Daily rituals build consistency and discipline</p>
+                    <p className="text-sm font-semibold text-navy">Daily rituals build consistency and discipline</p>
                   </CardContent>
                 </Card>
               </div>
@@ -198,17 +226,17 @@ const ForMomsMentors = () => {
       {/* Section 2: Starter Kits */}
       <section id="starter-kits" className="py-20 bg-muted scroll-mt-32">
         <div className="container mx-auto px-4">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-navy text-center mb-12">
             Age-Appropriate Starter Collections
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Kit 1: Ages 13-15 */}
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="hover:shadow-md transition-shadow bg-white">
               <CardHeader>
                 <div className="aspect-square bg-muted rounded-lg overflow-hidden mb-4">
                   <img src="/placeholder.svg" alt="Fresh Start Kit" className="w-full h-full object-cover" />
                 </div>
-                <CardTitle className="text-2xl">Ages 13-15</CardTitle>
+                <CardTitle className="text-2xl text-navy">Ages 13-15</CardTitle>
                 <CardDescription className="text-lg font-bold text-gold">The Fresh Start Kit - $35</CardDescription>
               </CardHeader>
               <CardContent>
@@ -216,7 +244,7 @@ const ForMomsMentors = () => {
                   <li>• Light Breeze mini fragrance</li>
                   <li>• Basic face wash</li>
                   <li>• Gentle moisturizer</li>
-                  <li>• Beginner's grooming guide</li>
+                  <li>• Beginner&apos;s grooming guide</li>
                 </ul>
                 <Button className="w-full" variant="outline" asChild>
                   <Link to="/shop">Shop Fresh Start Kit</Link>
@@ -225,12 +253,12 @@ const ForMomsMentors = () => {
             </Card>
 
             {/* Kit 2: Ages 16-18 */}
-            <Card className="hover:shadow-lg transition-shadow border-gold border-2">
+            <Card className="hover:shadow-md transition-shadow border-2 border-gold bg-white">
               <CardHeader>
                 <div className="aspect-square bg-muted rounded-lg overflow-hidden mb-4">
                   <img src="/placeholder.svg" alt="Confidence Builder" className="w-full h-full object-cover" />
                 </div>
-                <CardTitle className="text-2xl">Ages 16-18</CardTitle>
+                <CardTitle className="text-2xl text-navy">Ages 16-18</CardTitle>
                 <CardDescription className="text-lg font-bold text-gold">The Confidence Builder - $68</CardDescription>
               </CardHeader>
               <CardContent>
@@ -247,13 +275,19 @@ const ForMomsMentors = () => {
             </Card>
 
             {/* Kit 3: Ages 18+ */}
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="hover:shadow-md transition-shadow bg-white">
               <CardHeader>
                 <div className="aspect-square bg-muted rounded-lg overflow-hidden mb-4">
-                  <img src="/placeholder.svg" alt="Young Gentleman's Collection" className="w-full h-full object-cover" />
+                  <img
+                    src="/placeholder.svg"
+                    alt="Young Gentleman's Collection"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <CardTitle className="text-2xl">Ages 18+</CardTitle>
-                <CardDescription className="text-lg font-bold text-gold">The Young Gentleman's Collection - $125</CardDescription>
+                <CardTitle className="text-2xl text-navy">Ages 18+</CardTitle>
+                <CardDescription className="text-lg font-bold text-gold">
+                  The Young Gentleman&apos;s Collection - $125
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
@@ -279,12 +313,10 @@ const ForMomsMentors = () => {
               <img src="/placeholder.svg" alt="First shave supplies" className="w-full h-full object-cover" />
             </div>
             <div>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary mb-6">
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-navy mb-6">
                 Guide Him Through His First Shave
               </h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                This milestone doesn't have to be intimidating
-              </p>
+              <p className="text-lg text-muted-foreground mb-6">This milestone doesn&apos;t have to be intimidating.</p>
               <ul className="space-y-3 mb-8 text-muted-foreground">
                 <li className="flex items-start">
                   <span className="text-gold mr-2">✓</span>
@@ -307,14 +339,14 @@ const ForMomsMentors = () => {
                   <span>Building the habit</span>
                 </li>
               </ul>
-              <div className="space-y-4">
+              <div className="flex flex-col md:flex-row gap-4">
                 <Button size="lg" className="w-full md:w-auto bg-gold text-gold-foreground hover:bg-gold/90" asChild>
                   <a href="/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf" target="_blank" rel="noopener noreferrer">
                     <Download className="w-5 h-5 mr-2" />
                     Download Free First Shave Guide
                   </a>
                 </Button>
-                <Button size="lg" variant="outline" className="w-full md:w-auto md:ml-4" asChild>
+                <Button size="lg" variant="outline" className="w-full md:w-auto" asChild>
                   <Link to="/shop">Shop First Shave Kits</Link>
                 </Button>
               </div>
@@ -324,70 +356,62 @@ const ForMomsMentors = () => {
       </section>
 
       {/* Mentor Training Callout Section */}
-      <section id="mentor-training" className="py-20 bg-navy scroll-mt-32">
+      <section id="mentor-training" className="py-20 bg-primary scroll-mt-32">
         <div className="container mx-auto px-4 md:px-16">
           <div className="grid md:grid-cols-5 gap-12 items-center">
             {/* Left Column - Content */}
-            <div className="md:col-span-3 text-white">
+            <div className="md:col-span-3 text-primary-foreground">
               <Badge className="mb-4 bg-white text-navy">NEW PROGRAM</Badge>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
-                Want to Be a More Effective Mentor?
-              </h2>
-              <p className="text-xl text-white/80 mb-6">
+              <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Want to Be a More Effective Mentor?</h2>
+              <p className="text-xl text-primary-foreground/80 mb-6">
                 Learn proven strategies for guiding tweens and teens
               </p>
-              <p className="text-lg text-white/70 mb-8 leading-relaxed">
-                Our Youth Mentorship Training Program gives you a structured roadmap for meaningful conversations, goal-setting, and character development. Perfect for parents who want more than instinct—you want a system that works.
+              <p className="text-lg text-primary-foreground/80 mb-8 leading-relaxed">
+                Our Youth Mentorship Training Program gives you a structured roadmap for meaningful conversations,
+                goal-setting, and character development. Perfect for parents who want more than instinct—you want a
+                system that works.
               </p>
 
               {/* Bullet Benefits */}
               <div className="space-y-3 mb-8">
                 <div className="flex items-start">
                   <span className="text-gold mr-3 text-xl">✓</span>
-                  <span className="text-white">18 interactive Kahoot! lessons (fun, not boring!)</span>
+                  <span className="text-primary-foreground">18 interactive Kahoot! lessons (fun, not boring!)</span>
                 </div>
                 <div className="flex items-start">
                   <span className="text-gold mr-3 text-xl">✓</span>
-                  <span className="text-white">Conversation starters and goal-tracking templates</span>
+                  <span className="text-primary-foreground">Conversation starters and goal-tracking templates</span>
                 </div>
                 <div className="flex items-start">
                   <span className="text-gold mr-3 text-xl">✓</span>
-                  <span className="text-white">Supportive community of fellow parents</span>
+                  <span className="text-primary-foreground">Supportive community of fellow parents</span>
                 </div>
                 <div className="flex items-start">
                   <span className="text-gold mr-3 text-xl">✓</span>
-                  <span className="text-white">Lifetime access—learn at your own pace</span>
+                  <span className="text-primary-foreground">Lifetime access—learn at your own pace</span>
                 </div>
                 <div className="flex items-start">
                   <span className="text-gold mr-3 text-xl">✓</span>
-                  <span className="text-white">30-day money-back guarantee</span>
+                  <span className="text-primary-foreground">30-day money-back guarantee</span>
                 </div>
               </div>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <Button 
-                  size="lg" 
-                  className="bg-gold text-navy hover:bg-gold/90 font-bold"
-                  asChild
-                >
-                  <Link to="/programs#youth-mentorship">
-                    Enroll in Core Course - $97
-                  </Link>
+                <Button size="lg" className="bg-gold text-navy hover:bg-gold/90 font-bold" asChild>
+                  <Link to="/programs#youth-mentorship">Enroll in Core Course - $97</Link>
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-white text-white hover:bg-white hover:text-navy"
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
                   asChild
                 >
-                  <Link to="/programs#youth-mentorship">
-                    Download Free Preview
-                  </Link>
+                  <Link to="/programs#youth-mentorship">Download Free Preview</Link>
                 </Button>
               </div>
 
-              <p className="text-sm text-white/60">
+              <p className="text-sm text-primary-foreground/70">
                 Join 500+ parents transforming their mentorship approach
               </p>
             </div>
@@ -395,9 +419,9 @@ const ForMomsMentors = () => {
             {/* Right Column - Image */}
             <div className="md:col-span-2">
               <div className="aspect-square bg-muted/20 rounded-lg overflow-hidden shadow-xl">
-                <img 
-                  src="/placeholder.svg" 
-                  alt="Parent mentoring teen with structured guidance" 
+                <img
+                  src="/placeholder.svg"
+                  alt="Parent mentoring teen with structured guidance"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -409,14 +433,14 @@ const ForMomsMentors = () => {
       {/* Section 4: Conversations That Matter */}
       <section id="conversations" className="py-20 bg-muted scroll-mt-32">
         <div className="container mx-auto px-4">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
-            How to Talk About Masculinity & Grooming
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-navy text-center mb-12">
+            How to Talk About Masculinity &amp; Grooming
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="hover:shadow-md transition-shadow bg-white">
               <CardHeader>
                 <MessageCircle className="w-12 h-12 text-gold mb-4" />
-                <CardTitle className="text-xl">Starting the Conversation</CardTitle>
+                <CardTitle className="text-xl text-navy">Starting the Conversation</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-4">Scripts for introducing grooming without embarrassment</p>
@@ -426,10 +450,10 @@ const ForMomsMentors = () => {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="hover:shadow-md transition-shadow bg-white">
               <CardHeader>
                 <Shield className="w-12 h-12 text-gold mb-4" />
-                <CardTitle className="text-xl">Modern Masculinity</CardTitle>
+                <CardTitle className="text-xl text-navy">Modern Masculinity</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-4">Helping him understand strength, kindness, and discipline</p>
@@ -439,10 +463,10 @@ const ForMomsMentors = () => {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="hover:shadow-md transition-shadow bg-white">
               <CardHeader>
                 <Mountain className="w-12 h-12 text-gold mb-4" />
-                <CardTitle className="text-xl">Building Confidence</CardTitle>
+                <CardTitle className="text-xl text-navy">Building Confidence</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-4">From awkward to assured: the transformation timeline</p>
@@ -452,10 +476,10 @@ const ForMomsMentors = () => {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="hover:shadow-md transition-shadow bg-white">
               <CardHeader>
                 <Users className="w-12 h-12 text-gold mb-4" />
-                <CardTitle className="text-xl">Navigating Peer Pressure</CardTitle>
+                <CardTitle className="text-xl text-navy">Navigating Peer Pressure</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-4">Tools for helping him stand firm in values</p>
@@ -465,17 +489,21 @@ const ForMomsMentors = () => {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow border-2 border-gold">
+            <Card className="hover:shadow-md transition-shadow border-2 border-gold bg-white">
               <CardHeader>
                 <GraduationCap className="w-12 h-12 text-gold mb-4" />
-                <CardTitle className="text-xl">Structured Mentorship Training</CardTitle>
+                <CardTitle className="text-xl text-navy">Structured Mentorship Training</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground mb-4">Want a Complete System?</p>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Go beyond articles—get our full mentorship training course with 18 interactive lessons, templates, and community support.
+                  Go beyond articles—get our full mentorship training course with 18 interactive lessons, templates, and
+                  community support.
                 </p>
-                <Link to="/programs#youth-mentorship" className="text-gold hover:underline inline-flex items-center font-semibold">
+                <Link
+                  to="/programs#youth-mentorship"
+                  className="text-gold hover:underline inline-flex items-center font-semibold"
+                >
                   Explore Training Program <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </CardContent>
@@ -489,14 +517,11 @@ const ForMomsMentors = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-5 gap-8 items-center">
             <div className="md:col-span-3">
-              <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
-                The Poised Young Gentlemen Program
-              </h2>
-              <p className="text-xl text-primary-foreground/80 mb-6">
-                8-week character & leadership development
-              </p>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">The Poised Young Gentlemen Program</h2>
+              <p className="text-xl text-primary-foreground/80 mb-6">8-week character &amp; leadership development</p>
               <p className="text-lg text-primary-foreground/90 mb-8 leading-relaxed">
-                A structured program for ages 14-18 combining emotional intelligence, presence, etiquette, and legacy-building. Perfect for schools, youth organizations, and mentorship groups.
+                A structured program for ages 14-18 combining emotional intelligence, presence, etiquette, and
+                legacy-building. Perfect for schools, youth organizations, and mentorship groups.
               </p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-start">
@@ -505,7 +530,7 @@ const ForMomsMentors = () => {
                 </li>
                 <li className="flex items-start">
                   <span className="text-gold mr-3">✓</span>
-                  <span>Builds confidence & social skills</span>
+                  <span>Builds confidence &amp; social skills</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-gold mr-3">✓</span>
@@ -524,23 +549,23 @@ const ForMomsMentors = () => {
             <div className="md:col-span-2">
               <Card className="bg-background text-foreground">
                 <CardHeader>
-                  <CardTitle className="text-2xl">Program Snapshot</CardTitle>
+                  <CardTitle className="text-2xl text-navy">Program Snapshot</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="font-semibold">Duration:</span>
-                    <span>8 Weeks</span>
+                    <span className="font-semibold text-navy">Duration:</span>
+                    <span className="text-muted-foreground">8 Weeks</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="font-semibold">Ages:</span>
-                    <span>14-18 Years</span>
+                    <span className="font-semibold text-navy">Ages:</span>
+                    <span className="text-muted-foreground">14-18 Years</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b">
-                    <span className="font-semibold">Format:</span>
-                    <span>Group or Individual</span>
+                    <span className="font-semibold text-navy">Format:</span>
+                    <span className="text-muted-foreground">Group or Individual</span>
                   </div>
                   <div className="flex justify-between items-center py-2">
-                    <span className="font-semibold">Price:</span>
+                    <span className="font-semibold text-navy">Price:</span>
                     <span className="text-gold font-bold">Inquire for details</span>
                   </div>
                   <div className="space-y-3 pt-4">
@@ -561,11 +586,11 @@ const ForMomsMentors = () => {
       {/* Section 6: Parent Testimonials */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
-            What Parents & Mentors Say
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-navy text-center mb-12">
+            What Parents &amp; Mentors Say
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <Card>
+            <Card className="bg-white">
               <CardContent className="pt-6">
                 <div className="flex mb-4">
                   {[...Array(5)].map((_, i) => (
@@ -573,14 +598,16 @@ const ForMomsMentors = () => {
                   ))}
                 </div>
                 <p className="text-muted-foreground italic mb-4">
-                  "I was skeptical about the 'grooming = character' connection, but after seeing my son's transformation—not just appearance but confidence and responsibility—I'm a believer."
+                  &quot;I was skeptical about the &apos;grooming = character&apos; connection, but after seeing my
+                  son&apos;s transformation—not just appearance but confidence and responsibility—I&apos;m a
+                  believer.&quot;
                 </p>
-                <p className="font-semibold text-primary">Sarah M.</p>
+                <p className="font-semibold text-navy">Sarah M.</p>
                 <p className="text-sm text-muted-foreground">Mother of 16-year-old</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-white">
               <CardContent className="pt-6">
                 <div className="flex mb-4">
                   {[...Array(5)].map((_, i) => (
@@ -588,14 +615,15 @@ const ForMomsMentors = () => {
                   ))}
                 </div>
                 <p className="text-muted-foreground italic mb-4">
-                  "The Poised Young Gentlemen program gave my nephew tools he'll use for life. The grooming aspect was just the entry point to deeper conversations about respect and self-worth."
+                  &quot;The Poised Young Gentlemen program gave my nephew tools he&apos;ll use for life. The grooming
+                  aspect was just the entry point to deeper conversations about respect and self-worth.&quot;
                 </p>
-                <p className="font-semibold text-primary">Marcus T.</p>
-                <p className="text-sm text-muted-foreground">Mentor & Uncle</p>
+                <p className="font-semibold text-navy">Marcus T.</p>
+                <p className="text-sm text-muted-foreground">Mentor &amp; Uncle</p>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-white">
               <CardContent className="pt-6">
                 <div className="flex mb-4">
                   {[...Array(5)].map((_, i) => (
@@ -603,9 +631,10 @@ const ForMomsMentors = () => {
                   ))}
                 </div>
                 <p className="text-muted-foreground italic mb-4">
-                  "As a single mom raising boys, I felt overwhelmed by the 'guy stuff.' The First Shave Guide and starter kits made this milestone beautiful instead of stressful."
+                  &quot;As a single mom raising boys, I felt overwhelmed by the &apos;guy stuff.&apos; The First Shave
+                  Guide and starter kits made this milestone beautiful instead of stressful.&quot;
                 </p>
-                <p className="font-semibold text-primary">Jennifer L.</p>
+                <p className="font-semibold text-navy">Jennifer L.</p>
                 <p className="text-sm text-muted-foreground">Mother of two sons</p>
               </CardContent>
             </Card>
@@ -616,44 +645,39 @@ const ForMomsMentors = () => {
       {/* Section 7: Resources for Parents */}
       <section id="resources" className="py-20 bg-muted scroll-mt-32">
         <div className="container mx-auto px-4">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-navy text-center mb-12">
             Resources for Parents
           </h2>
           <div className="grid md:grid-cols-2 gap-12">
             {/* Free Resources */}
             <div>
-              <h3 className="text-2xl font-bold text-primary mb-6">Free Resources</h3>
+              <h3 className="text-2xl font-bold text-navy mb-6">Free Resources</h3>
               <div className="space-y-4">
                 {/* New Free Course Preview */}
-                <Card className="hover:shadow-lg transition-shadow cursor-pointer border-2 border-gold">
+                <Card className="hover:shadow-md transition-shadow cursor-pointer border-2 border-gold bg-white">
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
                         <Badge className="mb-2 bg-gold text-white">NEW</Badge>
-                        <h4 className="font-semibold text-primary mb-1">Try Before You Buy: Free Course Preview</h4>
+                        <h4 className="font-semibold text-navy mb-1">Try Before You Buy: Free Course Preview</h4>
                         <p className="text-sm text-muted-foreground">
-                          Get the first 5 Kahoot! lessons from our Youth Mentorship Training Program, plus bonus conversation starter guide.
+                          Get the first 5 Kahoot! lessons from our Youth Mentorship Training Program, plus bonus
+                          conversation starter guide.
                         </p>
                       </div>
                       <Download className="w-6 h-6 text-gold shrink-0 ml-4" />
                     </div>
-                    <Button 
-                      size="sm" 
-                      className="w-full bg-gold text-gold-foreground hover:bg-gold/90 mt-2"
-                      asChild
-                    >
-                      <Link to="/programs#youth-mentorship">
-                        Download Free Preview
-                      </Link>
+                    <Button size="sm" className="w-full bg-gold text-gold-foreground hover:bg-gold/90 mt-2" asChild>
+                      <Link to="/programs#youth-mentorship">Download Free Preview</Link>
                     </Button>
                   </CardContent>
                 </Card>
 
                 <a href="/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf" target="_blank" rel="noopener noreferrer">
-                  <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+                  <Card className="hover:shadow-md transition-shadow cursor-pointer bg-white">
                     <CardContent className="p-6 flex items-center justify-between">
                       <div>
-                        <h4 className="font-semibold text-primary mb-1">First Shave Kit Guide</h4>
+                        <h4 className="font-semibold text-navy mb-1">First Shave Kit Guide</h4>
                         <p className="text-sm text-muted-foreground">Complete guide with checklist</p>
                       </div>
                       <Download className="w-6 h-6 text-gold" />
@@ -661,10 +685,10 @@ const ForMomsMentors = () => {
                   </Card>
                 </a>
 
-                <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+                <Card className="hover:shadow-md transition-shadow cursor-pointer bg-white">
                   <CardContent className="p-6 flex items-center justify-between">
                     <div>
-                      <h4 className="font-semibold text-primary mb-1">Age-Appropriate Grooming Milestones</h4>
+                      <h4 className="font-semibold text-navy mb-1">Age-Appropriate Grooming Milestones</h4>
                       <p className="text-sm text-muted-foreground">Comprehensive guide</p>
                     </div>
                     <Download className="w-6 h-6 text-gold" />
@@ -672,10 +696,10 @@ const ForMomsMentors = () => {
                 </Card>
 
                 <Link to="/codex">
-                  <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+                  <Card className="hover:shadow-md transition-shadow cursor-pointer bg-white">
                     <CardContent className="p-6 flex items-center justify-between">
                       <div>
-                        <h4 className="font-semibold text-primary mb-1">Toxic Masculinity vs. Disciplined Strength</h4>
+                        <h4 className="font-semibold text-navy mb-1">Toxic Masculinity vs. Disciplined Strength</h4>
                         <p className="text-sm text-muted-foreground">Article from The Codex</p>
                       </div>
                       <ArrowRight className="w-6 h-6 text-gold" />
@@ -683,10 +707,12 @@ const ForMomsMentors = () => {
                   </Card>
                 </Link>
 
-                <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+                <Card className="hover:shadow-md transition-shadow cursor-pointer bg-white">
                   <CardContent className="p-6 flex items-center justify-between">
                     <div>
-                      <h4 className="font-semibold text-primary mb-1">How to Set Up a Young Man's Grooming Station</h4>
+                      <h4 className="font-semibold text-navy mb-1">
+                        How to Set Up a Young Man&apos;s Grooming Station
+                      </h4>
                       <p className="text-sm text-muted-foreground">Video tutorial</p>
                     </div>
                     <ArrowRight className="w-6 h-6 text-gold" />
@@ -697,13 +723,15 @@ const ForMomsMentors = () => {
 
             {/* Recommended Products */}
             <div>
-              <h3 className="text-2xl font-bold text-primary mb-6">Recommended Products</h3>
+              <h3 className="text-2xl font-bold text-navy mb-6">Recommended Products</h3>
               <div className="space-y-4">
                 <Link to="/shop">
-                  <Card className="hover:shadow-lg transition-shadow">
+                  <Card className="hover:shadow-md transition-shadow bg-white">
                     <CardContent className="p-6">
-                      <h4 className="font-semibold text-primary mb-2">Face care for sensitive/young skin</h4>
-                      <p className="text-sm text-muted-foreground mb-3">Gentle, non-irritating formulas perfect for beginners</p>
+                      <h4 className="font-semibold text-navy mb-2">Face care for sensitive/young skin</h4>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        Gentle, non-irritating formulas perfect for beginners
+                      </p>
                       <span className="text-gold font-semibold inline-flex items-center">
                         Shop Now <ArrowRight className="w-4 h-4 ml-2" />
                       </span>
@@ -712,10 +740,12 @@ const ForMomsMentors = () => {
                 </Link>
 
                 <Link to="/shop">
-                  <Card className="hover:shadow-lg transition-shadow">
+                  <Card className="hover:shadow-md transition-shadow bg-white">
                     <CardContent className="p-6">
-                      <h4 className="font-semibold text-primary mb-2">Beginner-friendly fragrances</h4>
-                      <p className="text-sm text-muted-foreground mb-3">Light, age-appropriate scents that build confidence</p>
+                      <h4 className="font-semibold text-navy mb-2">Beginner-friendly fragrances</h4>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        Light, age-appropriate scents that build confidence
+                      </p>
                       <span className="text-gold font-semibold inline-flex items-center">
                         Shop Now <ArrowRight className="w-4 h-4 ml-2" />
                       </span>
@@ -724,9 +754,9 @@ const ForMomsMentors = () => {
                 </Link>
 
                 <Link to="/shop">
-                  <Card className="hover:shadow-lg transition-shadow">
+                  <Card className="hover:shadow-md transition-shadow bg-white">
                     <CardContent className="p-6">
-                      <h4 className="font-semibold text-primary mb-2">First shave safety razor kit</h4>
+                      <h4 className="font-semibold text-navy mb-2">First shave safety razor kit</h4>
                       <p className="text-sm text-muted-foreground mb-3">Everything needed for that milestone moment</p>
                       <span className="text-gold font-semibold inline-flex items-center">
                         Shop Now <ArrowRight className="w-4 h-4 ml-2" />
@@ -736,9 +766,9 @@ const ForMomsMentors = () => {
                 </Link>
 
                 <Link to="/shop">
-                  <Card className="hover:shadow-lg transition-shadow">
+                  <Card className="hover:shadow-md transition-shadow bg-white">
                     <CardContent className="p-6">
-                      <h4 className="font-semibold text-primary mb-2">Grooming organizer/caddy</h4>
+                      <h4 className="font-semibold text-navy mb-2">Grooming organizer/caddy</h4>
                       <p className="text-sm text-muted-foreground mb-3">Keep his grooming station tidy and organized</p>
                       <span className="text-gold font-semibold inline-flex items-center">
                         Shop Now <ArrowRight className="w-4 h-4 ml-2" />
@@ -755,82 +785,107 @@ const ForMomsMentors = () => {
       {/* Section 8: FAQ for Parents */}
       <section id="faqs" className="py-20 bg-background scroll-mt-32">
         <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary text-center mb-12">
-            FAQ for Parents
-          </h2>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-navy text-center mb-12">FAQ for Parents</h2>
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
-              <AccordionTrigger className="text-left">What age should I start teaching grooming?</AccordionTrigger>
+              <AccordionTrigger className="text-left text-navy font-semibold">
+                What age should I start teaching grooming?
+              </AccordionTrigger>
               <AccordionContent className="text-muted-foreground">
-                Basic hygiene habits can begin around age 10-12, with more advanced grooming (facial hair management, cologne use) typically starting around 13-15. The key is to watch for natural developmental milestones and introduce concepts gradually, making them feel natural rather than forced.
+                Basic hygiene habits can begin around age 10-12, with more advanced grooming (facial hair management,
+                cologne use) typically starting around 13-15. The key is to watch for natural developmental milestones
+                and introduce concepts gradually, making them feel natural rather than forced.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-2">
-              <AccordionTrigger className="text-left">How do I make it 'cool' not embarrassing?</AccordionTrigger>
+              <AccordionTrigger className="text-left text-navy font-semibold">
+                How do I make it &apos;cool&apos; not embarrassing?
+              </AccordionTrigger>
               <AccordionContent className="text-muted-foreground">
-                Frame grooming as a sign of maturity and self-respect, not vanity. Connect it to things he cares about—confidence in social situations, making good impressions, or even athletic performance. Use role models he admires and emphasize that the most successful men take pride in their presentation.
+                Frame grooming as a sign of maturity and self-respect, not vanity. Connect it to things he cares
+                about—confidence in social situations, making good impressions, or even athletic performance. Use role
+                models he admires and emphasize that the most successful men take pride in their presentation.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-3">
-              <AccordionTrigger className="text-left">What if he resists or thinks it's unnecessary?</AccordionTrigger>
+              <AccordionTrigger className="text-left text-navy font-semibold">
+                What if he resists or thinks it&apos;s unnecessary?
+              </AccordionTrigger>
               <AccordionContent className="text-muted-foreground">
-                Start small with one simple habit (like face washing) and connect it to something he values. Avoid nagging or making it a power struggle. Sometimes peer influence or seeing results in others can be more effective than parental pressure. Our program materials include conversation starters that help make the case without pressure.
+                Start small with one simple habit (like face washing) and connect it to something he values. Avoid
+                nagging or making it a power struggle. Sometimes peer influence or seeing results in others can be more
+                effective than parental pressure. Our program materials include conversation starters that help make the
+                case without pressure.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4">
-              <AccordionTrigger className="text-left">Which products are safe for teen skin?</AccordionTrigger>
+              <AccordionTrigger className="text-left text-navy font-semibold">
+                Which products are safe for teen skin?
+              </AccordionTrigger>
               <AccordionContent className="text-muted-foreground">
-                Teen skin tends to be more sensitive and prone to breakouts, so look for non-comedogenic, fragrance-free, or gentle formulas. Our Young-G line is specifically designed for younger skin, avoiding harsh chemicals while still being effective. Start with basics: cleanser, moisturizer, and sunscreen.
+                Teen skin tends to be more sensitive and prone to breakouts, so look for non-comedogenic,
+                fragrance-free, or gentle formulas. Our Young-G line is specifically designed for younger skin, avoiding
+                harsh chemicals while still being effective. Start with basics: cleanser, moisturizer, and sunscreen.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-5">
-              <AccordionTrigger className="text-left">How does grooming connect to character?</AccordionTrigger>
+              <AccordionTrigger className="text-left text-navy font-semibold">
+                How does grooming connect to character?
+              </AccordionTrigger>
               <AccordionContent className="text-muted-foreground">
-                Grooming routines teach discipline, consistency, delayed gratification, and self-respect—all foundational character traits. When a young man learns to care for his appearance, he's practicing the same skills needed for any long-term goal: showing up daily, paying attention to details, and taking pride in outcomes. It's a gateway to broader life discipline.
+                Grooming routines teach discipline, consistency, delayed gratification, and self-respect—all
+                foundational character traits. When a young man learns to care for his appearance, he&apos;s practicing
+                the same skills needed for any long-term goal: showing up daily, paying attention to details, and taking
+                pride in outcomes. It&apos;s a gateway to broader life discipline.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-6">
-              <AccordionTrigger className="text-left">Can mothers effectively teach grooming to sons?</AccordionTrigger>
+              <AccordionTrigger className="text-left text-navy font-semibold">
+                Can mothers effectively teach grooming to sons?
+              </AccordionTrigger>
               <AccordionContent className="text-muted-foreground">
-                Absolutely. While having male role models is valuable, mothers can effectively teach grooming fundamentals—especially when equipped with good resources and guidance. Our materials are designed to help parents of any gender navigate these conversations confidently. What matters most is consistency, encouragement, and leading by example with your own self-care habits.
+                Absolutely. While having male role models is valuable, mothers can effectively teach grooming
+                fundamentals—especially when equipped with good resources and guidance. Our materials are designed to
+                help parents of any gender navigate these conversations confidently. What matters most is consistency,
+                encouragement, and leading by example with your own self-care habits.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="py-20 bg-[#F9F7F4]">
+      {/* Final CTA Section – match Programs gold CTA */}
+      <section className="py-20 bg-gold">
         <div className="container mx-auto px-4 text-center max-w-3xl">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary mb-6">
-            Start His Journey Today
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8">
-            Whether you're looking for the right starter kit, guidance on milestone moments, or a comprehensive program, we're here to help.
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary mb-6">Start His Journey Today</h2>
+          <p className="text-lg text-primary mb-8">
+            Whether you&apos;re looking for the right starter kit, guidance on milestone moments, or a comprehensive
+            program, we&apos;re here to help.
           </p>
-          <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto mb-4">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="flex-1"
-            />
-            <Button type="submit" size="lg" className="bg-gold text-gold-foreground hover:bg-gold/90" asChild>
+          <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto mb-2">
+            <div className="w-full">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="flex-1 bg-background"
+              />
+              {errors.email && <p className="text-xs text-destructive mt-1 text-left">{errors.email}</p>}
+            </div>
+            <Button type="submit" size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90" asChild>
               <a href="/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf" target="_blank" rel="noopener noreferrer">
                 Get the Guide
               </a>
             </Button>
           </form>
-          <p className="text-sm text-muted-foreground">
-            PDF guide + monthly parenting tips from The Codex
-          </p>
+          <p className="text-sm text-primary/80">PDF guide + monthly parenting tips from The Codex</p>
         </div>
       </section>
 
