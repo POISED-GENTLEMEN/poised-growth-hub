@@ -623,8 +623,14 @@ const Programs = () => {
                             </div>
                           ))}
                         </div>
-                        <Button variant="hero" size="lg" className="w-full">
-                          Get Started
+                        <Button asChild variant="hero" size="lg" className="w-full">
+                          <a
+                            href="https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=SaNybt"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Get Started
+                          </a>
                         </Button>
                       </CardContent>
                     </Card>
