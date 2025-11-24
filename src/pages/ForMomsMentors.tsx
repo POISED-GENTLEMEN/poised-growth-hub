@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import teenGroomingRoutine from "@/assets/teen-grooming-routine.png";
+import firstShaveGuide from "@/assets/first-shave-guide.png";
 import {
   Download,
   ArrowRight,
@@ -311,7 +312,7 @@ const ForMomsMentors = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="aspect-square bg-muted rounded-lg overflow-hidden">
-              <img src="/placeholder.svg" alt="First shave supplies" className="w-full h-full object-cover" />
+              <img src={firstShaveGuide} alt="Father teaching son first shave in bathroom" className="w-full h-full object-cover" />
             </div>
             <div>
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-navy mb-6">
@@ -340,17 +341,12 @@ const ForMomsMentors = () => {
                   <span>Building the habit</span>
                 </li>
               </ul>
-              <div className="flex flex-col md:flex-row gap-4">
-                <Button size="lg" className="w-full md:w-auto bg-gold text-gold-foreground hover:bg-gold/90" asChild>
-                  <a href="/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf" target="_blank" rel="noopener noreferrer">
-                    <Download className="w-5 h-5 mr-2" />
-                    Download Free First Shave Guide
-                  </a>
-                </Button>
-                <Button size="lg" variant="outline" className="w-full md:w-auto" asChild>
-                  <Link to="/shop">Shop First Shave Kits</Link>
-                </Button>
-              </div>
+              <Button size="lg" className="w-full md:w-auto bg-gold text-gold-foreground hover:bg-gold/90" asChild>
+                <a href="/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf" target="_blank" rel="noopener noreferrer">
+                  <Download className="w-5 h-5 mr-2" />
+                  Download Free First Shave Guide
+                </a>
+              </Button>
             </div>
           </div>
         </div>
