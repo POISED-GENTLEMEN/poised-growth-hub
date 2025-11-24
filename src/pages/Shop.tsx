@@ -173,15 +173,18 @@ const Shop = () => {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <Button size="lg" className="bg-gold hover:bg-gold/90 text-navy font-semibold px-8" asChild>
-                    <a
-                      href="https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=WXDprR"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Join Waitlist
-                    </a>
-                  </Button>
+                  <button
+                    className="w-full bg-[#C9A56D] hover:bg-[#C9A56D]/90 text-navy font-semibold py-3 px-4 rounded-md transition-colors"
+                    onClick={() => {
+                      window.open(
+                        "https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=WXDprR",
+                        "_blank",
+                        "noopener,noreferrer",
+                      );
+                    }}
+                  >
+                    JOIN WAITLIST
+                  </button>
                   <Link
                     to="/programs"
                     className="block w-full text-white hover:text-[#C1A36C] transition-colors text-center"
