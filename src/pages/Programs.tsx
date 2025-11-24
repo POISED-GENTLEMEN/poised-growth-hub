@@ -744,19 +744,18 @@ const Programs = () => {
                         {mentorTestimonial === 1 && (
                           <>
                             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                              "As a youth coach, I've tried countless programs. The Kahoot! format is brilliant—kids
-                              actually ASK to do the lessons. The trackable outcomes help me prove my impact to the
-                              organization I work with. Worth every penny."
+                              “As a mentor for several years, I’ve never encountered a program that sharpened my
+                              perspective like the Poised Young Gentleman experience. Observing it gave me powerful
+                              insights that will make me a better mentor—and I’m now actively seeking certification to
+                              carry this mission forward.”
                             </p>
                             <div className="flex items-center justify-center gap-4">
                               <div className="w-20 h-20 rounded-full bg-gold/20 flex items-center justify-center">
                                 <span className="text-2xl font-bold text-gold">MT</span>
                               </div>
                               <div className="text-left">
-                                <p className="font-bold text-navy">Marcus T.</p>
-                                <p className="text-sm italic text-muted-foreground">
-                                  Youth Mentor, Big Brothers Big Sisters
-                                </p>
+                                <p className="font-bold text-navy">Adam S.</p>
+                                <p className="text-sm italic text-muted-foreground">Son of a Saint Mentor</p>
                               </div>
                             </div>
                           </>
