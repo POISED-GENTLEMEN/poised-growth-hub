@@ -655,8 +655,14 @@ const Programs = () => {
                             </div>
                           ))}
                         </div>
-                        <Button variant="outline" size="lg" className="w-full">
-                          Join Community
+                        <Button asChild variant="outline" size="lg" className="w-full">
+                          <a
+                            href="https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=VEySmX"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Join Community
+                          </a>
                         </Button>
                       </CardContent>
                     </Card>
