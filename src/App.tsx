@@ -15,6 +15,7 @@ import About from "./pages/About";
 import Resources from "./pages/Resources";
 import Contact from "./pages/Contact";
 import ForMomsMentors from "./pages/ForMomsMentors";
+import EQAssessment from "./pages/EQAssessment";
 import EssenceCollection from "./pages/EssenceCollection";
 import ProductDetail from "./pages/ProductDetail";
 import ArticleDetail from "./pages/ArticleDetail";
@@ -43,6 +44,7 @@ const App = () => (
             <Route path="/resources" element={<Resources />} /> {/* Legacy redirect */}
             <Route path="/contact" element={<Contact />} />
             <Route path="/for-moms-mentors" element={<ForMomsMentors />} />
+            <Route path="/eq-assessment" element={<EQAssessment />} />
             <Route path="/shop/essence-collection" element={<EssenceCollection />} />
             <Route path="/products/:slug" element={<ProductDetail />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

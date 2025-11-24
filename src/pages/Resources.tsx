@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import ParentBadge from "@/components/ParentBadge";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -46,12 +47,6 @@ const downloads: Download[] = [
     title: "Conversation Starters for Fathers & Sons",
     description: "50+ questions to spark meaningful dialogue and build trust.",
     icon: <Heart className="w-8 h-8 text-gold" />,
-  },
-  {
-    id: 4,
-    title: "EQ Self-Assessment",
-    description: "25-question assessment with scoring guide and development areas.",
-    icon: <Award className="w-8 h-8 text-gold" />,
   },
 ];
 
@@ -253,6 +248,35 @@ const Resources = () => {
                 </Button>
               </div>
             ))}
+            
+            {/* EQ Assessment Card */}
+            <Card className="group hover:border-gold transition-colors duration-300 overflow-hidden col-span-1 md:col-span-2">
+              <div className="flex flex-col md:flex-row">
+                <div className="w-full md:w-1/3 bg-gradient-to-br from-primary/10 to-gold/10 flex items-center justify-center p-8">
+                  <div className="text-7xl">🧠</div>
+                </div>
+                <div className="flex-1 p-6">
+                  <CardHeader className="p-0 mb-4">
+                    <CardTitle className="text-2xl font-bold group-hover:text-gold transition-colors">
+                      EQ Self-Assessment
+                    </CardTitle>
+                    <CardDescription className="text-base">
+                      Measure your emotional intelligence across 5 key dimensions and receive a personalized development roadmap to become a Poised Gentleman. Complete 25-question assessment with detailed insights.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <Button 
+                      className="w-full bg-gold text-gold-foreground hover:bg-gold/90" 
+                      asChild
+                    >
+                      <Link to="/eq-assessment">
+                        Take Assessment
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </div>
+              </div>
+            </Card>
           </div>
         </div>
       </section>
