@@ -25,8 +25,9 @@ const Footer = () => {
     }
     
     setErrors({});
+    const klaviyoUrl = `https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=TbsAZp&email=${encodeURIComponent(email)}`;
+    window.open(klaviyoUrl, '_blank');
     setEmail("");
-    alert("Thank you for subscribing!");
   };
 
   return (
