@@ -180,7 +180,7 @@ const Index = () => {
               Premium ingredients. Purpose-driven formulas.
             </p>
           </div>
-
+          {/
           {/* FIXED GRID — 3 PRODUCTS + 1 CTA */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {featuredProducts.length > 0 ? (
@@ -218,7 +218,7 @@ const Index = () => {
             ) : (
               <div className="col-span-3 text-center text-muted-foreground py-12">Loading products...</div>
             )}
-
+/}
             {/* FULL WIDTH CTA CARD */}
             <Link to="/shop/essence-collection" className="col-span-1 md:col-span-3">
               <Card className="overflow-hidden border-2 border-gold bg-gradient-to-br from-primary via-primary to-gold/20">
