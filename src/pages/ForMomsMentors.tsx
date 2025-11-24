@@ -225,7 +225,7 @@ const ForMomsMentors = () => {
           </div>
         </div>
       </section>
-<!--
+      {/*
       {/* Section 2: Starter Kits */}
       <section id="starter-kits" className="py-20 bg-muted scroll-mt-32">
         <div className="container mx-auto px-4">
@@ -307,7 +307,7 @@ const ForMomsMentors = () => {
           </div>
         </div>
       </section>
---!>
+*/}
       {/* Section 3: First Shave Guide */}
       <section id="first-shave" className="py-20 bg-background scroll-mt-32">
         <div className="container mx-auto px-4">
