@@ -80,9 +80,11 @@ const ForMomsMentors = () => {
             Empower the young men in your life with confidence, discipline, and refined presence
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="bg-gold text-gold-foreground hover:bg-gold/90">
-              <Download className="w-5 h-5 mr-2" />
-              Download First Shave Guide
+            <Button size="lg" className="bg-gold text-gold-foreground hover:bg-gold/90" asChild>
+              <a href="/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf" target="_blank" rel="noopener noreferrer">
+                <Download className="w-5 h-5 mr-2" />
+                Download First Shave Guide
+              </a>
             </Button>
             <Button size="lg" variant="outline" asChild>
               <Link to="/programs">Explore Youth Programs</Link>
@@ -306,9 +308,11 @@ const ForMomsMentors = () => {
                 </li>
               </ul>
               <div className="space-y-4">
-                <Button size="lg" className="w-full md:w-auto bg-gold text-gold-foreground hover:bg-gold/90">
-                  <Download className="w-5 h-5 mr-2" />
-                  Download Free First Shave Guide
+                <Button size="lg" className="w-full md:w-auto bg-gold text-gold-foreground hover:bg-gold/90" asChild>
+                  <a href="/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf" target="_blank" rel="noopener noreferrer">
+                    <Download className="w-5 h-5 mr-2" />
+                    Download Free First Shave Guide
+                  </a>
                 </Button>
                 <Button size="lg" variant="outline" className="w-full md:w-auto md:ml-4" asChild>
                   <Link to="/shop">Shop First Shave Kits</Link>
@@ -645,15 +649,17 @@ const ForMomsMentors = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-                  <CardContent className="p-6 flex items-center justify-between">
-                    <div>
-                      <h4 className="font-semibold text-primary mb-1">Signs Your Son Is Ready for His First Shave</h4>
-                      <p className="text-sm text-muted-foreground">Downloadable checklist</p>
-                    </div>
-                    <Download className="w-6 h-6 text-gold" />
-                  </CardContent>
-                </Card>
+                <a href="/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf" target="_blank" rel="noopener noreferrer">
+                  <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+                    <CardContent className="p-6 flex items-center justify-between">
+                      <div>
+                        <h4 className="font-semibold text-primary mb-1">First Shave Kit Guide</h4>
+                        <p className="text-sm text-muted-foreground">Complete guide with checklist</p>
+                      </div>
+                      <Download className="w-6 h-6 text-gold" />
+                    </CardContent>
+                  </Card>
+                </a>
 
                 <Card className="hover:shadow-lg transition-shadow cursor-pointer">
                   <CardContent className="p-6 flex items-center justify-between">
@@ -816,8 +822,10 @@ const ForMomsMentors = () => {
               required
               className="flex-1"
             />
-            <Button type="submit" size="lg" className="bg-gold text-gold-foreground hover:bg-gold/90">
-              Get the Guide
+            <Button type="submit" size="lg" className="bg-gold text-gold-foreground hover:bg-gold/90" asChild>
+              <a href="/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf" target="_blank" rel="noopener noreferrer">
+                Get the Guide
+              </a>
             </Button>
           </form>
           <p className="text-sm text-muted-foreground">

@@ -113,9 +113,9 @@ export const SiteSearch = () => {
     // Resources
     {
       id: "first-shave-guide",
-      title: "First Shave Guide (Free Download)",
-      description: "Step-by-step guide for teaching your son how to shave",
-      url: "/for-moms-mentors#first-shave",
+      title: "First Shave Kit Guide (Free Download)",
+      description: "Complete step-by-step guide for your son's first shave",
+      url: "/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf",
       category: "Resources",
       isParentRelated: true,
     },
@@ -213,7 +213,12 @@ export const SiteSearch = () => {
   const handleSelect = (url: string) => {
     setOpen(false);
     setQuery("");
-    navigate(url);
+    // If it's a PDF, open in new tab
+    if (url.endsWith('.pdf')) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } else {
+      navigate(url);
+    }
   };
 
   return (
