@@ -197,8 +197,8 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="tel:+15041234567" className="hover:text-gold transition-colors">
-                  (504) 123-4567
+                <a href="tel:+15044849037" className="hover:text-gold transition-colors">
+                  504-484-9037
                 </a>
               </li>
               <li className="pt-2">
