@@ -9,6 +9,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import teenGroomingRoutine from "@/assets/teen-grooming-routine.png";
 import firstShaveGuide from "@/assets/first-shave-guide.png";
+import mentorTrainingClassroom from "@/assets/mentor-training-classroom.png";
 import {
   Download,
   ArrowRight,
@@ -421,8 +422,8 @@ const ForMomsMentors = () => {
             <div className="md:col-span-2">
               <div className="aspect-square bg-muted/20 rounded-lg overflow-hidden shadow-xl">
                 <img
-                  src="/placeholder.svg"
-                  alt="Parent mentoring teen with structured guidance"
+                  src={mentorTrainingClassroom}
+                  alt="Interactive classroom session with mentor teaching young men"
                   className="w-full h-full object-cover"
                 />
               </div>
