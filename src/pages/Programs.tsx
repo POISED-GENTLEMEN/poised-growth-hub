@@ -954,8 +954,8 @@ const Programs = () => {
                 Schools, nonprofits, and organizations can request custom quotes for group programming. Volume discounts
                 available.
               </p>
-              <Button variant="outline" size="lg">
-                Request Partnership Quote
+              <Button variant="outline" size="lg" asChild>
+                <Link to="/contact">Request Partnership Quote</Link>
               </Button>
             </div>
           </div>
