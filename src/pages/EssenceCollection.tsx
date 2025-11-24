@@ -11,6 +11,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { fetchCollectionProducts, ShopifyProduct } from "@/lib/shopify";
 import { ScentQuiz } from "@/components/ScentQuiz";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const fragranceCategories = [
   { id: "all", label: "All Fragrances" },
@@ -127,6 +129,8 @@ const EssenceCollection = () => {
 
   return (
     <div className="min-h-screen">
+      <Header />
+      
       {/* Hero Section */}
       <section className="relative h-[400px] md:h-[500px] flex items-center justify-center bg-gradient-to-br from-[#1B2B3A] to-[#2C3E50] overflow-hidden">
         <div className="absolute inset-0 bg-black/50 z-10"></div>
@@ -418,6 +422,8 @@ const EssenceCollection = () => {
       </section>
 
       <ScentQuiz open={quizOpen} onOpenChange={setQuizOpen} />
+      
+      <Footer />
     </div>
   );
 };
