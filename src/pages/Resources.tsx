@@ -273,8 +273,10 @@ const Resources = () => {
               className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto"
               onSubmit={(e) => {
                 e.preventDefault();
-                alert("Thanks for subscribing! Check your inbox for confirmation.");
-                (e.target as HTMLFormElement).reset();
+                const formData = new FormData(e.target as HTMLFormElement);
+                const email = formData.get("email") as string;
+                const klaviyoUrl = `https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=TbsAZp&email=${encodeURIComponent(email)}`;
+                window.open(klaviyoUrl, '_blank');
               }}
             >
               <Input
