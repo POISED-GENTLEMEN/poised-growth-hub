@@ -955,7 +955,7 @@ const Programs = () => {
                 available.
               </p>
               <Button variant="outline" size="lg" asChild>
-                <Link to="/contact">Request Partnership Quote</Link>
+                <Link to="/contact#partnership-form">Request Partnership Quote</Link>
               </Button>
             </div>
           </div>
