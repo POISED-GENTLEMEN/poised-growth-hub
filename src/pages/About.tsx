@@ -14,6 +14,7 @@ import heroImage from "@/assets/about-hero.jpg";
 import davidProfessional from "@/assets/david-rachal-professional.jpg";
 import davidTeam from "@/assets/team-david.jpg";
 import kimberlyTeam from "@/assets/team-kimberly.jpg";
+import joelTeam from "@/assets/team-joel.jpg";
 
 const About = () => {
   return (
@@ -382,9 +383,11 @@ const About = () => {
 
             {/* Joel Chambers */}
             <div className="bg-background rounded-2xl p-8 shadow-lg hover:-translate-y-1 transition-all duration-300">
-              <div className="w-48 h-48 rounded-full mx-auto mb-6 bg-muted flex items-center justify-center shadow-lg border-4 border-gold">
-                <div className="text-6xl font-heading font-bold text-gold">JC</div>
-              </div>
+              <img 
+                src={joelTeam}
+                alt="Joel Chambers, Chief Technology Officer & Director of Digital Innovation"
+                className="w-48 h-48 rounded-full mx-auto mb-6 object-cover shadow-lg border-4 border-gold"
+              />
               <h3 className="font-heading text-2xl font-bold text-foreground mb-2 text-center">
                 Joel Chambers
               </h3>
