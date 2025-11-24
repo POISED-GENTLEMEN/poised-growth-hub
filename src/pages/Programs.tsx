@@ -299,7 +299,7 @@ const Programs = () => {
       {/* Programs Overview */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-center mb-4">Our Two Programs</h2>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-center mb-4">Our Program</h2>
           <p className="text-center text-muted-foreground text-lg mb-12 max-w-3xl mx-auto">
             Choose the path that fits your needs: hands-on youth development or flexible mentor training.
           </p>
