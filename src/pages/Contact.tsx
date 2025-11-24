@@ -163,10 +163,10 @@ const Contact = () => {
                 Questions about youth mentorship or adult coaching? Let's schedule a call to discuss your needs.
               </p>
               <a
-                href="tel:+15040000000"
+                href="tel:+15044849037"
                 className="text-gold hover:text-gold/80 font-semibold transition-colors block mb-2"
               >
-                (504) XXX-XXXX
+                504-484-9037
               </a>
               <Button className="bg-gold text-gold-foreground hover:bg-gold/90">Schedule a Call</Button>
             </div>
@@ -340,8 +340,8 @@ const Contact = () => {
               </p>
               <p className="text-lg">
                 <strong>Phone:</strong>{" "}
-                <a href="tel:+15040000000" className="text-gold hover:text-gold/80">
-                  (504) XXX-XXXX
+                <a href="tel:+15044849037" className="text-gold hover:text-gold/80">
+                  504-484-9037
                 </a>
               </p>
               <p className="text-lg">
