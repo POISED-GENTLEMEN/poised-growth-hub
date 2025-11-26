@@ -18,7 +18,6 @@ const Shop = () => {
     document.getElementById("collections")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Featured products from Essence Collection (first 6 products)
   const featuredProducts = products.slice(0, 6);
 
   const occasionCategories = [
@@ -76,25 +75,28 @@ const Shop = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Header />
       <ParentGuideBanner />
 
-      {/* Hero Section */}
-      <section className="relative h-[300px] md:h-[400px] flex items-center justify-center overflow-hidden">
+      {/* ------------------------- HERO SECTION ------------------------- */}
+      <section className="relative min-h-[60svh] md:min-h-[60dvh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[#C1A36C]"></div>
-        <div className="relative z-10 text-center px-4 py-[60px]">
+
+        <div className="relative z-10 text-center px-4 py-20 md:py-24">
           <h1 className="text-3xl md:text-5xl font-heading font-bold text-white mb-4">The Poised Gentlemen Shop</h1>
+
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
             Premium grooming essentials for the modern gentleman
           </p>
+
           <Button variant="hero" size="lg" onClick={scrollToCollections}>
             Explore Collections ↓
           </Button>
         </div>
       </section>
 
-      {/* Collection Cards Section */}
+      {/* ------------------------- COLLECTION CARDS ------------------------- */}
       <section id="collections" className="py-20 px-4 md:px-8 bg-background">
         <div className="container mx-auto">
           <h2 className="text-4xl font-heading font-bold text-primary text-center mb-12">Explore Our Collections</h2>
@@ -106,14 +108,17 @@ const Shop = () => {
               className="group relative overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-[#C1A36C]"></div>
+
               <div className="relative z-10 p-12 md:p-16 min-h-[500px] flex flex-col justify-between">
                 <div>
                   <Badge className="mb-4 bg-[#C1A36C] text-primary border-0">12 SIGNATURE FRAGRANCES</Badge>
+
                   <h3 className="text-4xl font-heading font-bold text-white mb-4">Essence Collection</h3>
+
                   <p className="text-white/90 text-lg mb-6">
-                    Designer-inspired cologne balms that combine lasting fragrance with therapeutic skincare. Find your
-                    signature scent across 12 unique profiles.
+                    Designer-inspired cologne balms that combine lasting fragrance with therapeutic skincare.
                   </p>
+
                   <div className="space-y-2 mb-8">
                     <div className="flex items-center gap-2 text-white">
                       <span className="text-[#C1A36C]">✓</span>
@@ -129,10 +134,12 @@ const Shop = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="space-y-3">
                   <Button className="w-full bg-[#C1A36C] text-primary hover:bg-[#C1A36C]/90 font-semibold transition-transform group-hover:scale-105">
                     Shop Essence Collection
                   </Button>
+
                   <button
                     onClick={(e) => {
                       e.preventDefault();
@@ -149,14 +156,17 @@ const Shop = () => {
             {/* Generations Collection Card */}
             <div className="group relative overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
               <div className="absolute inset-0 bg-gradient-to-br from-[#5C4B3A] via-[#8B7355] to-[#A0826D]"></div>
+
               <div className="relative z-10 p-12 md:p-16 min-h-[500px] flex flex-col justify-between">
                 <div>
                   <Badge className="mb-4 bg-[#C1A36C] text-primary border-0">COMING SOON</Badge>
+
                   <h3 className="text-4xl font-heading font-bold text-white mb-4">Generations Collection</h3>
+
                   <p className="text-white/90 text-lg mb-6">
-                    Heritage grooming products designed for father-son bonding and building legacy. Premium tools and
-                    experiences for teaching the next generation.
+                    Heritage grooming products designed for father-son bonding and building legacy.
                   </p>
+
                   <div className="space-y-2 mb-8">
                     <div className="flex items-center gap-2 text-white">
                       <span className="text-[#C1A36C]">✓</span>
@@ -172,6 +182,7 @@ const Shop = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="space-y-3">
                   <button
                     className="w-full bg-[#C9A56D] hover:bg-[#C9A56D]/90 text-navy font-semibold py-3 px-4 rounded-md transition-colors"
@@ -185,6 +196,7 @@ const Shop = () => {
                   >
                     JOIN WAITLIST
                   </button>
+
                   <Link
                     to="/programs"
                     className="block w-full text-white hover:text-[#C1A36C] transition-colors text-center"
@@ -198,7 +210,7 @@ const Shop = () => {
         </div>
       </section>
 
-      {/* Shop by Occasion Section */}
+      {/* ------------------------- SHOP BY OCCASION ------------------------- */}
       <section className="py-20 px-4 md:px-8 bg-[#F9F7F4]">
         <div className="container mx-auto">
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary text-center mb-12">
@@ -213,8 +225,11 @@ const Shop = () => {
                 className="group bg-background border border-border rounded-lg p-6 transition-all duration-300 hover:border-[#C1A36C] hover:shadow-lg hover:-translate-y-1"
               >
                 <category.icon className="w-12 h-12 text-[#C1A36C] mb-4" />
+
                 <h3 className="text-xl font-heading font-bold text-primary mb-3">{category.title}</h3>
+
                 <p className="text-sm text-muted-foreground mb-4">{category.products.join(", ")}</p>
+
                 <span className="text-[#C1A36C] group-hover:underline">
                   Shop {category.title.split("&")[0].trim()} Scents →
                 </span>
@@ -224,7 +239,7 @@ const Shop = () => {
         </div>
       </section>
 
-      {/* Featured Products Section */}
+      {/* ------------------------- FEATURED PRODUCTS ------------------------- */}
       <section className="py-20 px-4 md:px-8 bg-background">
         <div className="container mx-auto">
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary text-center mb-12">
@@ -244,6 +259,7 @@ const Shop = () => {
                           className="w-full h-full object-cover transition-transform group-hover:scale-105"
                         />
                       </div>
+
                       <div className="flex gap-2 mb-3">
                         {product.badges?.slice(0, 2).map((badge, idx) => (
                           <Badge
@@ -255,27 +271,35 @@ const Shop = () => {
                           </Badge>
                         ))}
                       </div>
+
                       <h3 className="text-xl font-heading font-bold text-primary mb-2">{product.name}</h3>
+
                       <p className="text-sm text-muted-foreground mb-2">{product.category}</p>
+
                       <p className="text-sm italic text-foreground mb-3 line-clamp-2">{product.shortDescription}</p>
+
                       <p className="text-lg font-bold text-primary mb-4">${product.price}</p>
+
                       <Button className="w-full bg-[#C1A36C] text-primary hover:bg-[#C1A36C]/90">View Details</Button>
                     </div>
                   </Link>
                 </CarouselItem>
               ))}
             </CarouselContent>
+
             <CarouselPrevious className="hidden md:flex" />
             <CarouselNext className="hidden md:flex" />
           </Carousel>
         </div>
       </section>
 
-      {/* Quiz CTA Section */}
+      {/* ------------------------- QUIZ CTA ------------------------- */}
       <section className="py-16 px-4 md:px-8 bg-primary text-white text-center">
         <div className="container mx-auto max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">Not Sure Which Scent is Right for You?</h2>
+
           <p className="text-lg text-white/90 mb-8">Take our 2-minute scent quiz for personalized recommendations</p>
+
           <Button
             size="lg"
             className="bg-[#C1A36C] text-primary hover:bg-[#C1A36C]/90 font-semibold"
@@ -286,7 +310,7 @@ const Shop = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* ------------------------- TESTIMONIALS ------------------------- */}
       <section className="py-20 px-4 md:px-8 bg-background">
         <div className="container mx-auto">
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary text-center mb-12">
@@ -301,12 +325,16 @@ const Shop = () => {
                     <Star key={i} className="w-5 h-5 fill-[#C1A36C] text-[#C1A36C]" />
                   ))}
                 </div>
+
                 <p className="text-foreground italic mb-6">"{testimonial.quote}"</p>
+
                 <div className="border-t border-border pt-4">
                   <p className="font-semibold text-primary">
                     {testimonial.name}, {testimonial.age}
                   </p>
+
                   <p className="text-sm text-muted-foreground mb-2">{testimonial.location}</p>
+
                   <p className="text-sm text-[#C1A36C]">Using: {testimonial.product}</p>
                 </div>
               </div>
@@ -315,22 +343,39 @@ const Shop = () => {
         </div>
       </section>
 
-      {/* Footer CTA */}
+      {/* ------------------------- FOOTER CTA ------------------------- */}
       <section className="py-16 px-4 md:px-8 bg-primary text-white text-center">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-8">Ready to Elevate Your Grooming?</h2>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-[#C1A36C] text-primary hover:bg-[#C1A36C]/90 font-semibold">
+            <Button
+              asChild
+              size="lg"
+              className="w-full sm:w-auto bg-[#C1A36C] text-primary hover:bg-[#C1A36C]/90 font-semibold"
+            >
               <Link to="/shop/essence-collection">Shop Essence Collection</Link>
             </Button>
-            <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary">
+
+            <Button
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-primary"
+              onClick={() => {
+                window.open(
+                  "https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=WXDprR",
+                  "_blank",
+                  "noopener,noreferrer",
+                );
+              }}
+            >
               Join Generations Waitlist
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Scent Quiz Modal */}
+      {/* QUIZ MODAL */}
       <ScentQuiz open={quizOpen} onOpenChange={setQuizOpen} />
 
       <Footer />
