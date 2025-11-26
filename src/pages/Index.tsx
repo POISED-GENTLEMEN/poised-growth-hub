@@ -20,7 +20,6 @@ const Index = () => {
   const [errors, setErrors] = useState<{ email?: string; firstName?: string }>({});
   const { products, addToCart } = useShop();
 
-  // ---------------- FIXED PRODUCT FILTER ----------------
   const featuredProducts = products
     .filter((p) => {
       const name = p.name.toLowerCase().trim();
@@ -28,7 +27,6 @@ const Index = () => {
     })
     .slice(0, 3);
 
-  // Newsletter submit
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const result = newsletterSchema.safeParse({ email, firstName });
@@ -68,10 +66,11 @@ const Index = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="hero" asChild>
+            <Button size="lg" variant="hero" className="w-full max-w-full whitespace-nowrap text-center" asChild>
               <Link to="/programs">Explore Programs</Link>
             </Button>
-            <Button size="lg" variant="hero" asChild>
+
+            <Button size="lg" variant="hero" className="w-full max-w-full whitespace-nowrap text-center" asChild>
               <Link to="/shop">Shop Grooming</Link>
             </Button>
           </div>
@@ -149,7 +148,7 @@ const Index = () => {
             </p>
           </div>
 
-          <Card className="overflow-hidden bg-card max-w-7xl mx-auto">
+          <Card className="overflow-visible bg-card max-w-7xl mx-auto">
             <div className="relative h-[300px] overflow-hidden">
               <img src={adultImage} alt="Adult Coaching" className="w-full h-full object-cover" />
               <div className="absolute top-4 left-4 w-12 h-12 rounded-full bg-gold/90 flex items-center justify-center">
@@ -163,7 +162,7 @@ const Index = () => {
                 Group coaching + digital courses to master emotional intelligence.
               </p>
 
-              <Button variant="hero" className="w-full">
+              <Button variant="hero" className="w-full max-w-full whitespace-nowrap text-center">
                 Explore Adult Programs
               </Button>
             </div>
@@ -181,7 +180,6 @@ const Index = () => {
             </p>
           </div>
 
-          {/* FIXED GRID — 3 PRODUCTS + 1 CTA */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {featuredProducts.length > 0 ? (
               featuredProducts.map((product) => (
@@ -221,15 +219,16 @@ const Index = () => {
 
             {/* FULL WIDTH CTA CARD */}
             <Link to="/shop/essence-collection" className="col-span-1 md:col-span-3">
-              <Card className="overflow-hidden border-2 border-gold bg-gradient-to-br from-primary via-primary to-gold/20">
+              <Card className="overflow-visible border-2 border-gold bg-gradient-to-br from-primary via-primary to-gold/20">
                 <div className="p-12 md:p-16 text-center">
                   <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">View Full Collection</h3>
                   <p className="text-lg text-white/90 mb-6 max-w-2xl mx-auto">
                     Explore our complete range of premium grooming essentials.
                   </p>
+
                   <Button
                     size="lg"
-                    className="w-full whitespace-nowrap text-center bg-gold text-primary hover:bg-gold/90"
+                    className="w-full max-w-full whitespace-nowrap text-center bg-gold text-primary hover:bg-gold/90"
                   >
                     Shop All Products →
                   </Button>
@@ -268,7 +267,11 @@ const Index = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="bg-gold text-primary hover:bg-gold/90">
+                <Button
+                  asChild
+                  size="lg"
+                  className="w-full max-w-full whitespace-nowrap bg-gold text-primary hover:bg-gold/90"
+                >
                   <Link to="/for-moms-mentors#resources">Explore Parent Resources</Link>
                 </Button>
 
