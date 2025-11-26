@@ -313,9 +313,11 @@ const Contact = () => {
                   </Label>
                 </div>
 
-                <Button type="submit" className="w-full h-12 bg-gold text-gold-foreground hover:bg-gold/90">
-                  Send Message
-                </Button>
+                <div className="w-full">
+                  <Button type="submit" className="w-full whitespace-nowrap text-center h-12 bg-gold text-gold-foreground hover:bg-gold/90">
+                    Send Message
+                  </Button>
+                </div>
 
                 <p className="text-sm text-muted-foreground text-center">
                   We typically respond within 24 hours during business hours.

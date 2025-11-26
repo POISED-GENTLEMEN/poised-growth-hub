@@ -240,12 +240,14 @@ const Resources = () => {
                 <div className="mb-4">{download.icon}</div>
                 <h4 className="text-xl font-heading font-bold mb-2">{download.title}</h4>
                 <p className="text-primary-foreground/80 mb-4">{download.description}</p>
-                <Button
-                  variant="outline"
-                  className="w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
-                >
-                  Download Free PDF
-                </Button>
+                <div className="w-full">
+                  <Button
+                    variant="outline"
+                    className="w-full whitespace-nowrap text-center border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                  >
+                    Download Free PDF
+                  </Button>
+                </div>
               </div>
             ))}
             
@@ -259,12 +261,14 @@ const Resources = () => {
                 <p className="text-primary-foreground/80 mb-4">
                   Measure your emotional intelligence across 5 key dimensions and receive a personalized development roadmap. Complete 25-question assessment with detailed insights.
                 </p>
-                <Button
-                  variant="outline"
-                  className="w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
-                >
-                  Take Assessment
-                </Button>
+                <div className="w-full">
+                  <Button
+                    variant="outline"
+                    className="w-full whitespace-nowrap text-center border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                  >
+                    Take Assessment
+                  </Button>
+                </div>
               </div>
             </Link>
           </div>
@@ -384,9 +388,11 @@ const Resources = () => {
               </Label>
             </div>
 
-            <Button type="submit" className="w-full bg-gold text-gold-foreground hover:bg-gold/90">
-              Send Me the Resource
-            </Button>
+            <div className="w-full">
+              <Button type="submit" className="w-full whitespace-nowrap text-center bg-gold text-gold-foreground hover:bg-gold/90">
+                Send Me the Resource
+              </Button>
+            </div>
           </form>
         </DialogContent>
       </Dialog>

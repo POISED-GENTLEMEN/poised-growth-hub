@@ -229,25 +229,29 @@ const ProductDetail = () => {
             </div>
 
             {/* Add to Cart Button */}
-            <Button 
-              onClick={handleAddToCart}
-              className="w-full mb-4 h-14 text-lg"
-              variant="hero"
-              disabled={!selectedVariantData?.availableForSale}
-            >
-              <ShoppingCart className="w-5 h-5 mr-2" />
-              {selectedVariantData?.availableForSale ? "Add to Cart" : "Out of Stock"}
-            </Button>
+            <div className="w-full">
+              <Button 
+                onClick={handleAddToCart}
+                className="w-full whitespace-nowrap text-center mb-4 h-14 text-lg"
+                variant="hero"
+                disabled={!selectedVariantData?.availableForSale}
+              >
+                <ShoppingCart className="w-5 h-5 mr-2" />
+                {selectedVariantData?.availableForSale ? "Add to Cart" : "Out of Stock"}
+              </Button>
+            </div>
 
             {/* Share Button */}
-            <Button
-              onClick={handleShare}
-              variant="outline"
-              className="w-full mb-6"
-            >
-              <Share2 className="w-4 h-4 mr-2" />
-              Share
-            </Button>
+            <div className="w-full">
+              <Button
+                onClick={handleShare}
+                variant="outline"
+                className="w-full whitespace-nowrap text-center mb-6"
+              >
+                <Share2 className="w-4 h-4 mr-2" />
+                Share
+              </Button>
+            </div>
 
             {/* Purchase Benefits */}
             <div className="space-y-3 text-sm">

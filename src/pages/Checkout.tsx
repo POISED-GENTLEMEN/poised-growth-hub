@@ -197,9 +197,11 @@ const Checkout = () => {
               <h2 className="text-xl font-heading font-bold mb-4">Payment</h2>
               <p className="text-muted-foreground mb-4">Payment processing coming soon. We'll contact you to arrange payment after your order is confirmed.</p>
             </div>
-            <Button variant="hero" size="lg" className="w-full" type="submit" disabled={isProcessing}>
-              {isProcessing ? 'Processing...' : `Place Order — $${getFinalTotal().toFixed(2)}`}
-            </Button>
+            <div className="w-full">
+              <Button variant="hero" size="lg" className="w-full whitespace-nowrap text-center" type="submit" disabled={isProcessing}>
+                {isProcessing ? 'Processing...' : `Place Order — $${getFinalTotal().toFixed(2)}`}
+              </Button>
+            </div>
           </form>
           <div className="lg:sticky lg:top-24 h-fit bg-card border rounded-lg p-6">
             <h2 className="text-xl font-heading font-bold mb-4">Order Summary</h2>

@@ -136,9 +136,11 @@ const Shop = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <Button className="w-full bg-[#C1A36C] text-primary hover:bg-[#C1A36C]/90 font-semibold transition-transform group-hover:scale-105">
-                    Shop Essence Collection
-                  </Button>
+                  <div className="w-full">
+                    <Button className="w-full whitespace-nowrap text-center bg-[#C1A36C] text-primary hover:bg-[#C1A36C]/90 font-semibold transition-transform group-hover:scale-105">
+                      Shop Essence Collection
+                    </Button>
+                  </div>
 
                   <button
                     onClick={(e) => {
@@ -349,13 +351,17 @@ const Shop = () => {
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-8">Ready to Elevate Your Grooming?</h2>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="w-full whitespace-nowrap text-center bg-[#C1A36C] text-primary hover:bg-[#C1A36C]/90">
-              SHOP ESSENCE COLLECTION
-            </Button>
+            <div className="w-full">
+              <Button className="w-full whitespace-nowrap text-center bg-[#C1A36C] text-primary hover:bg-[#C1A36C]/90">
+                SHOP ESSENCE COLLECTION
+              </Button>
+            </div>
 
-            <Button className="w-full whitespace-nowrap text-center border-white text-white hover:bg-white hover:text-primary">
-              JOIN GENERATIONS WAITLIST
-            </Button>
+            <div className="w-full">
+              <Button className="w-full whitespace-nowrap text-center border-white text-white hover:bg-white hover:text-primary">
+                JOIN GENERATIONS WAITLIST
+              </Button>
+            </div>
           </div>
         </div>
       </section>

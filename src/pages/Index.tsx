@@ -162,9 +162,11 @@ const Index = () => {
                 Group coaching + digital courses to master emotional intelligence.
               </p>
 
-              <Button variant="hero" className="w-full max-w-full whitespace-nowrap text-center">
-                Explore Adult Programs
-              </Button>
+              <div className="w-full">
+                <Button variant="hero" className="w-full whitespace-nowrap text-center">
+                  Explore Adult Programs
+                </Button>
+              </div>
             </div>
           </Card>
         </div>
@@ -226,12 +228,14 @@ const Index = () => {
                     Explore our complete range of premium grooming essentials.
                   </p>
 
-                  <Button
-                    size="lg"
-                    className="w-full whitespace-nowrap text-center bg-gold text-primary hover:bg-gold/90"
-                  >
-                    Shop All Products →
-                  </Button>
+                  <div className="w-full">
+                    <Button
+                      size="lg"
+                      className="w-full whitespace-nowrap text-center bg-gold text-primary hover:bg-gold/90"
+                    >
+                      Shop All Products →
+                    </Button>
+                  </div>
                 </div>
               </Card>
             </Link>
@@ -267,13 +271,15 @@ const Index = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="w-full max-w-full whitespace-nowrap bg-gold text-primary hover:bg-gold/90"
-                >
-                  <Link to="/for-moms-mentors#resources">Explore Parent Resources</Link>
-                </Button>
+                <div className="w-full">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="w-full whitespace-nowrap text-center bg-gold text-primary hover:bg-gold/90"
+                  >
+                    <Link to="/for-moms-mentors#resources">Explore Parent Resources</Link>
+                  </Button>
+                </div>
 
                 <Button asChild variant="link" className="text-gold group">
                   <Link to="/for-moms-mentors#first-shave">
@@ -382,9 +388,11 @@ const Index = () => {
                 {errors.firstName && <p className="text-xs text-destructive mt-1 text-left">{errors.firstName}</p>}
               </div>
 
-              <Button type="submit" size="lg" className="w-full bg-primary text-white hover:bg-primary/90">
-                Get the Starter Kit
-              </Button>
+              <div className="w-full">
+                <Button type="submit" size="lg" className="w-full whitespace-nowrap text-center bg-primary text-white hover:bg-primary/90">
+                  Get the Starter Kit
+                </Button>
+              </div>
             </form>
 
             <p className="text-xs text-primary/70 mt-4">Unsubscribe anytime.</p>
