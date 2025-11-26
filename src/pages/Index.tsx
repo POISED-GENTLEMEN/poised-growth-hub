@@ -220,7 +220,7 @@ const Index = () => {
             {/* FULL WIDTH CTA CARD */}
             <Link to="/shop/essence-collection" className="col-span-1 md:col-span-3">
               <Card className="overflow-visible border-2 border-gold bg-gradient-to-br from-primary via-primary to-gold/20">
-                <div className="p-12 md:p-16 text-center">
+                <div className="w-full">
                   <h3 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">View Full Collection</h3>
                   <p className="text-lg text-white/90 mb-6 max-w-2xl mx-auto">
                     Explore our complete range of premium grooming essentials.
@@ -228,7 +228,7 @@ const Index = () => {
 
                   <Button
                     size="lg"
-                    className="w-full max-w-full whitespace-nowrap text-center bg-gold text-primary hover:bg-gold/90"
+                    className="w-full whitespace-nowrap text-center bg-gold text-primary hover:bg-gold/90"
                   >
                     Shop All Products →
                   </Button>
