@@ -1,15 +1,59 @@
 import { useParams, Link } from "react-router-dom";
+import { useEffect } from "react";
 import { ArrowLeft, Clock, Calendar, User, ExternalLink } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ParentBadge from "@/components/ParentBadge";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { getArticleBySlug } from "@/data/articles";
+import { getArticleBySlug } from "@/lib/content";
 
 const ArticleDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const article = slug ? getArticleBySlug(slug) : undefined;
+
+  // SEO: Update meta tags for each article
+  useEffect(() => {
+    if (!article) return;
+
+    // Update document title
+    document.title = `${article.title} | The Poised Gentlemen`;
+
+    // Helper function to set or create meta tag
+    const setMetaTag = (name: string, content: string, property?: boolean) => {
+      const attribute = property ? 'property' : 'name';
+      let meta = document.querySelector(`meta[${attribute}="${name}"]`);
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute(attribute, name);
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute('content', content);
+    };
+
+    // Standard meta tags
+    setMetaTag('description', article.excerpt);
+    setMetaTag('author', article.author);
+
+    // OpenGraph tags
+    setMetaTag('og:title', article.title, true);
+    setMetaTag('og:description', article.excerpt, true);
+    setMetaTag('og:image', article.image, true);
+    setMetaTag('og:type', 'article', true);
+    setMetaTag('og:url', window.location.href, true);
+
+    // Twitter Card tags
+    setMetaTag('twitter:card', 'summary_large_image');
+    setMetaTag('twitter:title', article.title);
+    setMetaTag('twitter:description', article.excerpt);
+    setMetaTag('twitter:image', article.image);
+
+    // Cleanup: Reset to default on unmount
+    return () => {
+      document.title = "The Poised Gentlemen | Mentorship & Grooming for Modern Men";
+      setMetaTag('description', 'Youth mentorship, adult coaching, and premium grooming aligned with the Four Pillars: Integrity, Strength, Emotional Intelligence, Discipline. New Orleans.');
+    };
+  }, [article]);
 
   if (!article) {
     return (

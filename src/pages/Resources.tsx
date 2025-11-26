@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Clock, FileText, BookOpen, Award, Heart } from "lucide-react";
 import articleFeatured from "@/assets/article-featured.jpg";
-import { articles, type Article } from "@/data/articles";
+import { articles, type BlogPost as Article } from "@/lib/content";
 import { resourceDownloadSchema, newsletterSchema } from "@/lib/validations";
 
 type Category =
