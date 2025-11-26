@@ -352,12 +352,14 @@ export const GenerationsCollection = () => {
                 </div>
 
                 {/* View Product Button */}
-                <button
-                  onClick={() => handleViewProduct(product.name)}
-                  className="mt-auto w-full py-3 px-6 border-2 border-gold text-gold font-semibold text-sm uppercase tracking-wide rounded-lg transition-all duration-300 hover:bg-gold hover:text-gold-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2"
-                >
-                  View Product
-                </button>
+                <div className="w-full">
+                  <button
+                    onClick={() => handleViewProduct(product.name)}
+                    className="mt-auto w-full whitespace-nowrap text-center py-3 px-6 border-2 border-gold text-gold font-semibold text-sm uppercase tracking-wide rounded-lg transition-all duration-300 hover:bg-gold hover:text-gold-foreground focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2"
+                  >
+                    View Product
+                  </button>
+                </div>
               </div>
             ))}
           </div>

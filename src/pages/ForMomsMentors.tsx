@@ -253,9 +253,11 @@ SECTION 2: Starter Kits (Muted / Disabled)
             <li>• Gentle moisturizer</li>
             <li>• Beginner's grooming guide</li>
           </ul>
-          <Button className="w-full" variant="outline" asChild>
-            <Link to="/shop">Shop Fresh Start Kit</Link>
-          </Button>
+          <div className="w-full">
+            <Button className="w-full whitespace-nowrap text-center" variant="outline" asChild>
+              <Link to="/shop">Shop Fresh Start Kit</Link>
+            </Button>
+          </div>
         </CardContent>
       </Card>
 
@@ -274,9 +276,11 @@ SECTION 2: Starter Kits (Muted / Disabled)
             <li>• First shave tools</li>
             <li>• First shave guide + video access</li>
           </ul>
-          <Button className="w-full bg-gold text-gold-foreground hover:bg-gold/90" asChild>
-            <Link to="/shop">Shop Confidence Builder</Link>
-          </Button>
+          <div className="w-full">
+            <Button className="w-full whitespace-nowrap text-center bg-gold text-gold-foreground hover:bg-gold/90" asChild>
+              <Link to="/shop">Shop Confidence Builder</Link>
+            </Button>
+          </div>
         </CardContent>
       </Card>
 
@@ -297,9 +301,11 @@ SECTION 2: Starter Kits (Muted / Disabled)
             <li>• Poised Starter Kit PDF</li>
             <li>• 1-month Codex access</li>
           </ul>
-          <Button className="w-full" variant="outline" asChild>
-            <Link to="/shop">Shop Young Gentleman</Link>
-          </Button>
+          <div className="w-full">
+            <Button className="w-full whitespace-nowrap text-center" variant="outline" asChild>
+              <Link to="/shop">Shop Young Gentleman</Link>
+            </Button>
+          </div>
         </CardContent>
       </Card>
 
@@ -346,12 +352,14 @@ SECTION 2: Starter Kits (Muted / Disabled)
                   <span>Building the habit</span>
                 </li>
               </ul>
-              <Button size="lg" className="w-full md:w-auto bg-gold text-gold-foreground hover:bg-gold/90" asChild>
-                <a href="/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf" target="_blank" rel="noopener noreferrer">
-                  <Download className="w-5 h-5 mr-2" />
-                  Download Free First Shave Guide
-                </a>
-              </Button>
+              <div className="w-full md:w-auto">
+                <Button size="lg" className="w-full whitespace-nowrap text-center bg-gold text-gold-foreground hover:bg-gold/90" asChild>
+                  <a href="/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf" target="_blank" rel="noopener noreferrer">
+                    <Download className="w-5 h-5 mr-2" />
+                    Download Free First Shave Guide
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -571,12 +579,16 @@ SECTION 2: Starter Kits (Muted / Disabled)
                     <span className="text-gold font-bold">Inquire for details</span>
                   </div>
                   <div className="space-y-3 pt-4">
-                    <Button size="lg" className="w-full bg-gold text-gold-foreground hover:bg-gold/90" asChild>
-                      <Link to="/programs">Learn About Programs</Link>
-                    </Button>
-                    <Button size="lg" variant="outline" className="w-full" asChild>
-                      <Link to="/contact">Request Info</Link>
-                    </Button>
+                    <div className="w-full">
+                      <Button size="lg" className="w-full whitespace-nowrap text-center bg-gold text-gold-foreground hover:bg-gold/90" asChild>
+                        <Link to="/programs">Learn About Programs</Link>
+                      </Button>
+                    </div>
+                    <div className="w-full">
+                      <Button size="lg" variant="outline" className="w-full whitespace-nowrap text-center" asChild>
+                        <Link to="/contact">Request Info</Link>
+                      </Button>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -669,9 +681,11 @@ SECTION 2: Starter Kits (Muted / Disabled)
                       </div>
                       <Download className="w-6 h-6 text-gold shrink-0 ml-4" />
                     </div>
-                    <Button size="sm" className="w-full bg-gold text-gold-foreground hover:bg-gold/90 mt-2" asChild>
-                      <Link to="/programs#youth-mentorship">Download Free Preview</Link>
-                    </Button>
+                    <div className="w-full">
+                      <Button size="sm" className="w-full whitespace-nowrap text-center bg-gold text-gold-foreground hover:bg-gold/90 mt-2" asChild>
+                        <Link to="/programs#youth-mentorship">Download Free Preview</Link>
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
 

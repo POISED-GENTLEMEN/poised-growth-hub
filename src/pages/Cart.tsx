@@ -143,9 +143,11 @@ const Cart = () => {
                 )}
               </div>
 
-              <Button variant="hero" size="lg" className="w-full mb-4" onClick={() => navigate('/checkout')}>
-                Proceed to Checkout
-              </Button>
+              <div className="w-full">
+                <Button variant="hero" size="lg" className="w-full whitespace-nowrap text-center mb-4" onClick={() => navigate('/checkout')}>
+                  Proceed to Checkout
+                </Button>
+              </div>
               <Link to="/shop" className="block text-center text-gold hover:underline text-sm">
                 ← Continue Shopping
               </Link>

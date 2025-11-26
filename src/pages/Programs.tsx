@@ -242,9 +242,11 @@ const Programs = () => {
                   </ul>
                 </div>
 
-                <Button variant="outline" size="lg" className="w-full" onClick={scrollToYouthProgram}>
-                  Learn More About PYG
-                </Button>
+                <div className="w-full">
+                  <Button variant="outline" size="lg" className="w-full whitespace-nowrap text-center" onClick={scrollToYouthProgram}>
+                    Learn More About PYG
+                  </Button>
+                </div>
               </CardContent>
             </Card>
 
@@ -287,9 +289,11 @@ const Programs = () => {
                   </ul>
                 </div>
 
-                <Button variant="outline" size="lg" className="w-full" onClick={scrollToMentorTraining}>
-                  Enroll in Training
-                </Button>
+                <div className="w-full">
+                  <Button variant="outline" size="lg" className="w-full whitespace-nowrap text-center" onClick={scrollToMentorTraining}>
+                    Enroll in Training
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -406,9 +410,11 @@ const Programs = () => {
                   </ul>
                 </div>
 
-                <Button variant="hero" size="lg" className="w-full" asChild>
-                  <Link to="/contact">Bring to My City</Link>
-                </Button>
+                <div className="w-full">
+                  <Button variant="hero" size="lg" className="w-full whitespace-nowrap text-center" asChild>
+                    <Link to="/contact">Bring to My City</Link>
+                  </Button>
+                </div>
               </CardContent>
             </Card>
 
@@ -702,15 +708,17 @@ const Programs = () => {
                             </div>
                           ))}
                         </div>
-                        <Button asChild variant="outline" size="lg" className="w-full">
-                          <a
-                            href="https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=U54fJp"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Get Certified
-                          </a>
-                        </Button>
+                        <div className="w-full">
+                          <Button asChild variant="outline" size="lg" className="w-full whitespace-nowrap text-center">
+                            <a
+                              href="https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=U54fJp"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Get Certified
+                            </a>
+                          </Button>
+                        </div>
                       </CardContent>
                     </Card>
                   </div>
