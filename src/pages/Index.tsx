@@ -227,7 +227,10 @@ const Index = () => {
                   <p className="text-lg text-white/90 mb-6 max-w-2xl mx-auto">
                     Explore our complete range of premium grooming essentials.
                   </p>
-                  <Button size="lg" className="bg-gold text-primary hover:bg-gold/90">
+                  <Button
+                    size="lg"
+                    className="w-full whitespace-nowrap text-center bg-gold text-primary hover:bg-gold/90"
+                  >
                     Shop All Products →
                   </Button>
                 </div>
