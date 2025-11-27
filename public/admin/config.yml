@@ -2,7 +2,9 @@ backend:
   name: github
   repo: davidrachal3/poised-growth-hub
   branch: main
-  auth_scope: repo
+  auth_type: implicit
+  app_id: Ov23liMVQPXkcV2uI2Rm
+  api_root: https://api.github.com
   open_authoring: false
 
 media_folder: "public/uploads"
