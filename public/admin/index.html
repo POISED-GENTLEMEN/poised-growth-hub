@@ -1,27 +1,14 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="robots" content="noindex" />
-    <title>Decap CMS</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex" />
+  <title>Decap CMS</title>
 
-    <!-- Force Decap CMS to load your config file -->
-    <script>
-      window.CMS_MANUAL_CONFIG = "/admin/config.yml";
-    </script>
-
-    <!-- Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
-
-    <!-- Initialize CMS with your config -->
-    <script>
-      CMS.init({
-        config: window.CMS_MANUAL_CONFIG
-      });
-    </script>
-  </head>
-
-  <body>
-    <!-- CMS loads after initialization -->
-  </body>
+  <!-- Load Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
+</head>
+<body>
+  <!-- CMS auto-mounts. No CMS.init() needed. -->
+</body>
 </html>
