@@ -1,6 +1,16 @@
 {
   "routes": [
-    { "src": "^/admin/?$", "dest": "/admin/index.html" },
-    { "src": "^/admin/(.*)$", "dest": "/admin/index.html" }
+    {
+      "src": "^/admin/config\\.yml$",
+      "dest": "/admin/config.yml"
+    },
+    {
+      "src": "^/admin/?$",
+      "dest": "/admin/index.html"
+    },
+    {
+      "src": "^/admin/(.*)$",
+      "dest": "/admin/index.html"
+    }
   ]
 }
