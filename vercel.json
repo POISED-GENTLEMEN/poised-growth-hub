@@ -1,9 +1,19 @@
 {
-  "routes": [
+  "rewrites": [
     {
-      "src": "^/admin/config\\.yml$",
-      "dest": "/admin/config.yml"
+      "source": "/admin/config.yml",
+      "destination": "/admin/config.yml"
     },
+    {
+      "source": "/admin/config.yml/",
+      "destination": "/admin/config.yml"
+    },
+    {
+      "source": "/admin/config.yml:match*",
+      "destination": "/admin/config.yml"
+    }
+  ],
+  "routes": [
     {
       "src": "^/admin/?$",
       "dest": "/admin/index.html"
