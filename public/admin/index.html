@@ -1,11 +1,22 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta name="robots" content="noindex" />
     <title>Decap CMS</title>
 
+    <!-- Load Decap CMS -->
     <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
   </head>
-  <body></body>
+  <body>
+    <!-- MOUNT POINT REQUIRED -->
+    <div id="nc-root"></div>
+
+    <script>
+      window.CMS_MANUAL_INIT = false;
+
+      // optional: useful for seeing config load errors earlier
+      console.log("Decap CMS loaded");
+    </script>
+  </body>
 </html>
