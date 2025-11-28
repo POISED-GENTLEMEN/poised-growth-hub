@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="robots" content="noindex" />
-    <title>Decap CMS</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex" />
+  <title>Decap CMS</title>
 
-    <script>
-      // Prevent auto-initialization
-      window.CMS_MANUAL_INIT = true;
-    </script>
+  <!-- Load Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
 
-    <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
-  </head>
+  <!-- Force correct config location -->
+  <script>
+    window.CMS_MANUAL_INIT = true;
+  </script>
+</head>
 
-  <body>
-    <div id="nc-root"></div>
+<body>
+  <!-- REQUIRED: CMS mount point -->
+  <div id="nc-root"></div>
 
-    <script>
-      // Manually initialize only once
-      window.initCMS && window.initCMS();
+  <script>
+    // Manually initialize CMS AFTER root exists
+    window.addEventListener("DOMContentLoaded", function () {
+      CMS.init({
+        config: '/admin/config.yml'
+      });
       console.log("Decap CMS manually initialized.");
-    </script>
-  </body>
+    });
+  </script>
+</body>
 </html>
