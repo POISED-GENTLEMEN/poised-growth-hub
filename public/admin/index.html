@@ -12,18 +12,18 @@
     <div id="nc-root"></div>
 
     <script>
-      window.CMS_MANUAL_INIT = true;
+  window.CMS_MANUAL_INIT = true;
 
-      window.addEventListener("load", function () {
-        if (!window.CMS) {
-          console.error("Decap CMS failed to load.");
-          return;
-        }
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!window.CMS) {
+      console.error("Decap CMS failed to load.");
+      return;
+    }
 
-        CMS.init({
-          config: "/admin/config.yml",
-        });
-      });
+    CMS.init({
+      config: "/admin/config.yml",
+    });
+  });
     </script>
   </body>
 </html>
