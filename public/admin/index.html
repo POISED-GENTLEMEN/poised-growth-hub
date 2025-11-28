@@ -5,9 +5,22 @@
     <meta name="robots" content="noindex" />
     <title>Decap CMS</title>
 
+    <!-- Load Decap CMS -->
     <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
   </head>
+
   <body>
     <div id="nc-root"></div>
+
+    <script>
+      // manual init allows us to force correct config path
+      window.CMS_MANUAL_INIT = true;
+
+      window.addEventListener("load", function () {
+        CMS.init({
+          config: "/admin/config.yml"
+        });
+      });
+    </script>
   </body>
 </html>
