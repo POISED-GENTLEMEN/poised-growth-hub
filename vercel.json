@@ -1,9 +1,6 @@
 {
   "routes": [
-    {
-      "src": "/admin/config.yml",
-      "dest": "/admin/config.yml"
-    },
+    { "handle": "filesystem" },
     {
       "src": "/admin/?",
       "dest": "/admin/index.html"
