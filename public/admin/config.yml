@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: davidrachal3/poised-growth-hub
+  repo: POISED-GENTLEMEN/poised-growth-hub
   branch: main
   auth_type: implicit
   app_id: Ov23liMVQPXkcV2uI2Rm
@@ -12,9 +12,11 @@ public_folder: "/uploads"
 
 collections:
   - name: "posts"
-    label: "Blog Posts"
+    label: "Posts"
     folder: "src/content/posts"
     create: true
+    format: "frontmatter"
+    extension: "md"
     slug: "{{slug}}"
     extension: "mdx"
     format: "frontmatter"
