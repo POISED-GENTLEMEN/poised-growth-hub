@@ -1,3 +1,7 @@
+local_backend: true
+load_config_file: false
+config_path: "admin/config.yml"
+
 backend:
   name: github
   repo: POISED-GENTLEMEN/poised-growth-hub
@@ -6,10 +10,6 @@ backend:
   app_id: Ov23liMVQPXkcV2uI2Rrn
   api_root: https://api.github.com
   open_authoring: false
-
-local_backend: true
-load_config_file: false
-config_path: "admin/config.yml"
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
