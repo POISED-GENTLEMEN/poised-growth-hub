@@ -8,15 +8,15 @@
     <!-- Load Decap CMS -->
     <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
   </head>
+
   <body>
-    <!-- MOUNT POINT REQUIRED -->
+    <!-- REQUIRED CMS MOUNT POINT -->
     <div id="nc-root"></div>
 
     <script>
+      // ensures CMS auto-initializes correctly
       window.CMS_MANUAL_INIT = false;
-
-      // optional: useful for seeing config load errors earlier
-      console.log("Decap CMS loaded");
+      console.log("Decap CMS loaded.");
     </script>
   </body>
 </html>
