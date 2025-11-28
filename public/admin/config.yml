@@ -1,13 +1,9 @@
-local_backend: true
-load_config_file: false
-config_path: "admin/config.yml"
-
 backend:
   name: github
   repo: POISED-GENTLEMEN/poised-growth-hub
   branch: main
   auth_type: implicit
-  app_id: Ov23liMVQPXkcV2uI2Rrn
+  app_id: Ov231lWQPVXkcV2uI2Rrn
   api_root: https://api.github.com
   open_authoring: false
 
@@ -19,9 +15,9 @@ collections:
     label: "Posts"
     folder: "src/content/posts"
     create: true
-    extension: "md"
-    format: "frontmatter"
     slug: "{{slug}}"
+    format: "frontmatter"
+    extension: "md"
     editor:
       preview: false
     fields:
