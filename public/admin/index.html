@@ -4,13 +4,17 @@
     <meta charset="utf-8" />
     <meta name="robots" content="noindex" />
     <title>Decap CMS</title>
+
+    <!-- Force Decap to load the right config path -->
+    <script>
+      window.CMS_CONFIG_PATH = '/admin/config.yml';
+    </script>
+
+    <!-- Decap CMS Script -->
+    <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
   </head>
 
   <body>
-    <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
-
-    <script>
-      window.CMS_CONFIG_PATH = "admin/config.yml";
-    </script>
+    <!-- CMS mounts automatically -->
   </body>
 </html>
