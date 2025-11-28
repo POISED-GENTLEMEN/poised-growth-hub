@@ -3,22 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="noindex" />
-    <title>Decap CMS</title>
+    <title>Poised CMS</title>
 
     <!-- Load Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </head>
-
   <body>
     <div id="nc-root"></div>
 
     <script>
-      // manual init allows us to force correct config path
       window.CMS_MANUAL_INIT = true;
 
       window.addEventListener("load", function () {
+        if (!window.CMS) {
+          console.error("Decap CMS failed to load.");
+          return;
+        }
+
         CMS.init({
-          config: "/admin/config.yml"
+          config: "/admin/config.yml",
         });
       });
     </script>
