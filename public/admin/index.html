@@ -5,18 +5,21 @@
     <meta name="robots" content="noindex" />
     <title>Decap CMS</title>
 
-    <!-- Load Decap CMS -->
+    <script>
+      // Prevent auto-initialization
+      window.CMS_MANUAL_INIT = true;
+    </script>
+
     <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
   </head>
 
   <body>
-    <!-- REQUIRED CMS MOUNT POINT -->
     <div id="nc-root"></div>
 
     <script>
-      // ensures CMS auto-initializes correctly
-      window.CMS_MANUAL_INIT = false;
-      console.log("Decap CMS loaded.");
+      // Manually initialize only once
+      window.initCMS && window.initCMS();
+      console.log("Decap CMS manually initialized.");
     </script>
   </body>
 </html>
