@@ -7,6 +7,10 @@ backend:
   api_root: https://api.github.com
   open_authoring: false
 
+local_backend: true
+load_config_file: false
+config_path: "admin/config.yml"
+
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
