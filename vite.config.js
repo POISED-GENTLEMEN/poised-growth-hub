@@ -14,5 +14,5 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  publicDir: "public", // <– ensures /public is copied fully
+  publicDir: "public", // <<< REQUIRED
 }));
