@@ -1,7 +1,11 @@
 backend:
   name: github
-  repo: POISED-GENTLEMEN/poised-growth-hub
+  repo: POISED-GENTLEMEN/poised-growth-hub  # your repo name
   branch: main
+  auth_scope: repo
+  base_url: https://site.poisedgentlemen.com
+  auth_endpoint: api/auth
+
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
