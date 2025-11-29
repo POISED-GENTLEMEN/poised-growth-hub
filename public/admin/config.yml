@@ -1,14 +1,13 @@
 backend:
   name: git-gateway
-  repo: POISED-GENTLEMEN/poised-growth-hub  # your repo name
   branch: main
-  auth_scope: repo
-  base_url: https://site.poisedgentlemen.com
-  auth_endpoint: api/auth
 
+media_folder: "public/uploads" # Path to store uploaded files
+public_folder: "/uploads"      # URL path for the files
 
-media_folder: "public/uploads"
-public_folder: "/uploads"
+media_library:
+  name: default
+  config:
 
 collections:
   - name: "posts"
