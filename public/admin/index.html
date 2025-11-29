@@ -4,27 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="robots" content="noindex" />
     <title>Poised CMS</title>
-
-    <!-- Load Decap CMS script -->
     <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
   </head>
   <body>
     <div id="nc-root"></div>
-
     <script>
-  window.CMS_MANUAL_INIT = true;
+      window.CMS_MANUAL_INIT = true;
 
-  document.addEventListener("DOMContentLoaded", () => {
-    if (!window.CMS) {
-      console.error("Decap CMS failed to load.");
-      return;
-    }
+      document.addEventListener("DOMContentLoaded", () => {
+        if (!window.CMS) {
+          console.error("Decap CMS failed to load.");
+          return;
+        }
 
-CMS.init({
-  config: "https://site.poisedgentlemen.com/admin/config.yml"
-});
-
-  });
+        CMS.init({
+          config: "/admin/config.yml",
+        });
+      });
     </script>
   </body>
 </html>
