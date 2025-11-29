@@ -11,7 +11,7 @@
     <script>
       window.CMS_MANUAL_INIT = true;
 
-      document.addEventListener("DOMContentLoaded", () => {
+    window.onload = () => {
         if (!window.CMS) {
           console.error("Decap CMS failed to load.");
           return;
