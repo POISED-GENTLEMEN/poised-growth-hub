@@ -2,7 +2,6 @@ backend:
   name: github
   repo: POISED-GENTLEMEN/poised-growth-hub
   branch: main
-  auth_scope: repo
   base_url: https://site.poisedgentlemen.com
   auth_endpoint: /admin/callback
   open_authoring: false
