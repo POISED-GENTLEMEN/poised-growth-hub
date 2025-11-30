@@ -1,5 +1,5 @@
 ---
-title: 'Conquering Teen Boy Acne & Odor: A Parent''s Roadmap'
+title: 'Conquering Teen-Boy Acne & Odor: A Parent''s Roadmap'
 slug: teen-boy-acne-roadmap
 date: 2025-01-20T00:00:00Z
 author: David Rachal III
@@ -30,28 +30,30 @@ The teenage years are formative. How boys navigate these challenges can shape th
 Most grooming products available today aren't designed with teen boys in mind:
 
 1. **Formulation Misalignment**: Many products are either too harsh (adult acne treatments) or too gentle (children's products), neither addressing the unique needs of teen skin.
-
 2. **Lack of "First Shave" Solutions**: The transition to shaving is a rite of passage, yet few brands offer comprehensive kits or education for this milestone.
-
 3. **Inconvenience**: Teens won't stick with complicated routines. Products need to be simple, fast, and effective.
-
 4. **Accessibility**: Premium grooming products are often expensive and marketed toward adults, leaving teens with limited options.
 
 ## The Path Forward
 
-### 1. Start Early with Education
+### 1\. Start Early with Education
+
 Don't wait for a crisis. Introduce basic hygiene and skincare habits before puberty hits. Normalize conversations about body changes, acne, and grooming.
 
-### 2. Build Age-Appropriate Routines
-Keep it simple:
-- **Morning**: Gentle cleanser, moisturizer with SPF
-- **Evening**: Cleanser, spot treatment (if needed), moisturizer
-- **Daily**: Deodorant, body wash
+### 2\. Build Age-Appropriate Routines
 
-### 3. Champion Multi-Tasking Formulas
+Keep it simple:
+
+* **Morning**: Gentle cleanser, moisturizer with SPF
+* **Evening**: Cleanser, spot treatment (if needed), moisturizer
+* **Daily**: Deodorant, body wash
+
+### 3\. Champion Multi-Tasking Formulas
+
 Look for products that combine effectiveness with simplicity. Teen boys need solutions that work without requiring 10 steps.
 
-### 4. Support Accessible Brands
+### 4\. Support Accessible Brands
+
 Invest in brands that prioritize teen-specific needs and offer education alongside products. The Poised Gentleman's youth-focused line, for example, is designed to build confidence through grooming.
 
 ## The Bigger Picture
