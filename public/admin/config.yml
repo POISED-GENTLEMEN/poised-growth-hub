@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: POISED-GENTLEMEN/poised-growth-hub
   branch: main
+  auth_type: implicit
+  app_id: 0v23L19B0J4OJg4mlwHeo
 
 local_backend: true
 
