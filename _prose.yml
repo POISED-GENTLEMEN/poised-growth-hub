@@ -1,59 +1,76 @@
 prose:
-  # The folder where your blog posts live
+  # Folder you want editors to see when they open Prose
   rooturl: "src/content/posts"
 
-  # Where images uploaded via Prose should go
+  # Where image uploads go (inside the repo)
   media: "src/assets"
 
+  # Optional but nice: hide junk
+  ignore:
+    - "node_modules"
+    - "dist"
+    - "public"
+
+  # Configure the blog collection to match your existing front matter
   metadata:
-    title:
-      type: text
-      label: "Post Title"
+    src/content/posts:
+      - name: "title"
+        field:
+          element: "text"
+          label: "Title"
 
-    slug:
-      type: text
-      label: "Slug"
+      - name: "slug"
+        field:
+          element: "text"
+          label: "Slug"
 
-    date:
-      type: datetime
-      label: "Publish Date"
+      - name: "date"
+        field:
+          element: "text"
+          label: "Date"
 
-    author:
-      type: text
-      label: "Author"
+      - name: "author"
+        field:
+          element: "text"
+          label: "Author"
 
-    description:
-      type: textarea
-      label: "Description"
+      - name: "description"
+        field:
+          element: "textarea"
+          label: "Description"
 
-    coverImage:
-      type: file
-      label: "Cover Image"
+      - name: "coverImage"
+        field:
+          element: "text"
+          label: "Cover image filename or URL"
+          placeholder: "article-poised-steps.jpg"
 
-    tags:
-      type: list
-      label: "Tags"
+      - name: "tags"
+        field:
+          element: "list"
+          label: "Tags"
 
-    category:
-      type: text
-      label: "Category"
+      - name: "category"
+        field:
+          element: "text"
+          label: "Category"
 
-    pillar:
-      type: text
-      label: "Pillar"
+      - name: "pillar"
+        field:
+          element: "text"
+          label: "Pillar"
 
-    readTime:
-      type: number
-      label: "Read Time (minutes)"
+      - name: "readTime"
+        field:
+          element: "number"
+          label: "Read time (minutes)"
 
-    isParentResource:
-      type: boolean
-      label: "Is Parent Resource?"
+      - name: "isParentResource"
+        field:
+          element: "checkbox"
+          label: "Is parent resource?"
 
-    url:
-      type: text
-      label: "Original URL"
-
-    body:
-      type: markdown
-      label: "Content"
+      - name: "url"
+        field:
+          element: "text"
+          label: "Canonical URL"
