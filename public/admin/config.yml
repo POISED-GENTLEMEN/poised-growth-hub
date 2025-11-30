@@ -1,26 +1,24 @@
 backend:
-  name: github
-  repo: POISED-GENTLEMEN/poised-growth-hub
+  name: git-gateway
   branch: main
-  auth_type: implicit
-  app_id: Ov23l1MvQPXkcV2uI2RRn
-  api_root: https://api.github.com
-  open_authoring: false
+
+local_backend: true
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
 media_library:
-  name: uploadcare
-  config: {}
+  name: 
+  config:
+    publicKey: ""
 
 collections:
   - name: "posts"
     label: "Posts"
     folder: "src/content/posts"
     create: true
+    extension: "md"
     format: "frontmatter"
-    extension: "mdx"
     slug: "{{slug}}"
     editor:
       preview: false
