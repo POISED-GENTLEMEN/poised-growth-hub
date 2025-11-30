@@ -3,7 +3,8 @@ backend:
   repo: POISED-GENTLEMEN/poised-growth-hub
   branch: main
   auth_type: implicit
-  app_id: 0v23L19B0J4OJg4mlwHeo
+  app_id: 0v231l9e0U40Jg4mWHeo
+  api_root: https://api.github.com
 
 local_backend: true
 
