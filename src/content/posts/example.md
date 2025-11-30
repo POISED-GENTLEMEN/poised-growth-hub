@@ -2,7 +2,7 @@
 title: Example Post with Cloud Cannon
 slug: example-post
 date: 2025-01-01T00:00:00Z
-coverImage: /public/uploads/screenshot-2025-11-30-at-2-39-13-pm.png
+coverImage: /src/assets/adult-coaching.jpg
 description: This is a sample blog post.
 tags:
   - sample
