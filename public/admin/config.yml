@@ -7,8 +7,8 @@ local_backend: true
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
-media_library: uploadcare
-  name: 
+media_library:
+  name: uploadcare
   config:
     publicKey: ""
 
