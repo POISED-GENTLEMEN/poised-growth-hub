@@ -1,18 +1,22 @@
 ---
-title: "Conquering Teen Boy Acne & Odor: A Parent's Roadmap"
-slug: "teen-boy-acne-roadmap"
-date: "January 20, 2025"
-author: "David Rachal III"
-description: "Your guide to helping teen boys handle acne, odor, and grooming to protect their confidence."
-coverImage: "article-teen-acne.jpg"
-tags: ["Teen Grooming", "Parenting", "Self-Care"]
-category: "Presence & Etiquette"
-pillar: "Discipline"
+title: 'Conquering Teen-Boy Acne & Odor: A Parent''s Roadmap'
+slug: teen-boy-acne-roadmap
+date: 2025-01-20T00:00:00Z
+author: David Rachal III
+description: >-
+  Your guide to helping teen boys handle acne, odor, and grooming to protect
+  their confidence.
+coverImage: article-teen-acne.jpg
+tags:
+  - Teen Grooming
+  - Parenting
+  - Self-Care
+category: Presence & Etiquette
+pillar: Discipline
 readTime: 7
 isParentResource: true
-url: "https://poisedgentlemen.com/blogs/news/teen-boy-acne-roadmap"
+url: https://poisedgentlemen.com/blogs/news/teen-boy-acne-roadmap
 ---
-
 Adolescence is hard enough without the added stress of acne and body odor. For teen boys, these challenges can significantly impact self-esteem, social interactions, and overall confidence. As parents and mentors, we have the power to guide them through this phase with education, support, and the right tools.
 
 ## The Reality: It's More Than Skin Deep

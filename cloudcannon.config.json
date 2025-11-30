@@ -1,4 +1,18 @@
 {
+  "paths": {
+    "uploads": "public/uploads"
+  },
+  "collections_config": {
+    "src_content_posts": {
+      "path": "src/content/posts",
+      "icon": "content_paste",
+      "disable_url": false,
+      "disable_add": false,
+      "disable_add_folder": false,
+      "disable_file_actions": false
+    }
+  },
+  "timezone": "Etc/UTC",
   "collections": {
     "posts": {
       "path": "src/content/posts",
@@ -26,8 +40,5 @@
         "body": "markdown"
       }
     }
-  },
-  "paths": {
-    "uploads": "public/uploads"
   }
 }
