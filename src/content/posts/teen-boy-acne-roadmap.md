@@ -15,7 +15,7 @@ category: Presence & Etiquette
 pillar: Discipline
 readTime: 7
 isParentResource: true
-url: https://poisedgentlemen.com/blogs/news/teen-boy-acne-roadmap
+url: https://poisedgentlemen.com/codex/teen-boy-acne-roadmap
 ---
 Adolescence is hard enough without the added stress of acne and body odor. For teen boys, these challenges can significantly impact self-esteem, social interactions, and overall confidence. As parents and mentors, we have the power to guide them through this phase with education, support, and the right tools.
 
