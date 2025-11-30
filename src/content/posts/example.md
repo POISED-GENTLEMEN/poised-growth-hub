@@ -9,7 +9,7 @@ tags: sample
 readTime: 0
 isParentResource: false
 ---
-![adult-coaching.jpg]({{site.baseurl}})
+![adult-coaching.jpg]
 
 Welcome. This is a sample post.
 Blah blah!
