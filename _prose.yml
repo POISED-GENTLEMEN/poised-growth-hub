@@ -1,0 +1,30 @@
+prose:
+  # Folder where Prose will show/edit blog posts
+  rooturl: "src/content/posts"
+
+  # Where images will be uploaded
+  media: "src/assets"
+
+  # Editing options for each post
+  metadata:
+    title:
+      type: text
+      label: "Post Title"
+    slug:
+      type: text
+      label: "URL Slug"
+    date:
+      type: datetime
+      label: "Publish Date"
+    coverImage:
+      type: file
+      label: "Cover Image"
+    description:
+      type: text
+      label: "Short Description / SEO Description"
+    tags:
+      type: list
+      label: "Tags"
+    body:
+      type: markdown
+      label: "Post Content"
