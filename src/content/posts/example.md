@@ -7,7 +7,7 @@ coverImage: >-
 description: This is a sample blog post.
 tags: sample
 ---
-[Screenshot 2025-11-30 at 2.39.13 PM.png]({{site.baseurl}}/src/assets/Screenshot 2025-11-30 at 2.39.13 PM.png)
+![Screenshot 2025-11-30 at 2.39.13 PM.png]({{site.baseurl}}/src/assets/Screenshot 2025-11-30 at 2.39.13 PM.png)
 
 Welcome. This is a sample post.
 Blah blah!
