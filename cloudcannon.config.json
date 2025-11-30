@@ -5,6 +5,7 @@
   "collections_config": {
     "src_content_posts": {
       "path": "src/content/posts",
+      "name": "Blog Posts",
       "icon": "content_paste",
       "disable_url": false,
       "disable_add": false,
