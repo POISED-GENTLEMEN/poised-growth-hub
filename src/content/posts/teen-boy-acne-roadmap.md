@@ -1,5 +1,5 @@
 ---
-title: 'Conquering Teen-Boy Acne & Odor: A Parent''s Roadmap'
+title: 'Conquering Teen Boy Acne & Odor: A Parent''s Roadmap'
 slug: teen-boy-acne-roadmap
 date: 2025-01-20T00:00:00Z
 author: David Rachal III
