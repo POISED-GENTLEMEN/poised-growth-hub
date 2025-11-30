@@ -1,30 +1,59 @@
 prose:
-  # Folder where Prose will show/edit blog posts
+  # The folder where your blog posts live
   rooturl: "src/content/posts"
 
-  # Where images will be uploaded
+  # Where images uploaded via Prose should go
   media: "src/assets"
 
-  # Editing options for each post
   metadata:
     title:
       type: text
       label: "Post Title"
+
     slug:
       type: text
-      label: "URL Slug"
+      label: "Slug"
+
     date:
       type: datetime
       label: "Publish Date"
+
+    author:
+      type: text
+      label: "Author"
+
+    description:
+      type: textarea
+      label: "Description"
+
     coverImage:
       type: file
       label: "Cover Image"
-    description:
-      type: text
-      label: "Short Description / SEO Description"
+
     tags:
       type: list
       label: "Tags"
+
+    category:
+      type: text
+      label: "Category"
+
+    pillar:
+      type: text
+      label: "Pillar"
+
+    readTime:
+      type: number
+      label: "Read Time (minutes)"
+
+    isParentResource:
+      type: boolean
+      label: "Is Parent Resource?"
+
+    url:
+      type: text
+      label: "Original URL"
+
     body:
       type: markdown
-      label: "Post Content"
+      label: "Content"
