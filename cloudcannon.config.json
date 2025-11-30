@@ -1,0 +1,33 @@
+{
+  "collections": {
+    "posts": {
+      "path": "src/content/posts",
+      "output": false,
+      "name": "Posts",
+      "icon": "book",
+      "singular_name": "Post",
+      "create": {
+        "trigger": "button",
+        "default_values": {
+          "date": "NOW",
+          "draft": false
+        }
+      },
+      "schema": {
+        "title": "string",
+        "slug": "string",
+        "date": "date",
+        "coverImage": "image",
+        "description": "text",
+        "tags": {
+          "type": "array",
+          "items": "string"
+        },
+        "body": "markdown"
+      }
+    }
+  },
+  "paths": {
+    "uploads": "public/uploads"
+  }
+}
