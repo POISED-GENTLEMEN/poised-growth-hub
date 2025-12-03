@@ -216,16 +216,16 @@ const Resources = () => {
                       {article.isParentResource && <ParentBadge variant="parent-resource" />}
                     </div>
                   </div>
-                  {article.tags && article.tags.length > 0 && (
+                  {article.tags && article.tags.length > 1 && (
                     <div className="px-6 pt-4 flex flex-wrap gap-1">
-                      {article.tags.slice(0, 4).map((tag) => (
+                      {article.tags.slice(1, 5).map((tag) => (
                         <Badge key={tag} variant="secondary" className="text-xs">
                           {tag}
                         </Badge>
                       ))}
-                      {article.tags.length > 4 && (
+                      {article.tags.length > 5 && (
                         <Badge variant="secondary" className="text-xs">
-                          +{article.tags.length - 4}
+                          +{article.tags.length - 5}
                         </Badge>
                       )}
                     </div>
