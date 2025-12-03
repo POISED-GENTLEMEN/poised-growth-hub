@@ -17,25 +17,24 @@ import adultImage from "@/assets/adult-coaching.jpg";
 
 const Index = () => {
   useCanonical();
-  
+
   // Add JSON-LD structured data for Organization
   useEffect(() => {
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "The Poised Gentlemen",
-      "url": "https://poisedgentlemen.com",
-      "logo": "https://poisedgentlemen.com/favicon.ico",
-      "description": "Youth mentorship, adult coaching, and premium grooming aligned with the Four Pillars: Integrity, Strength, Emotional Intelligence, Discipline.",
-      "address": {
+      name: "The Poised Gentlemen",
+      url: "https://poisedgentlemen.com",
+      logo: "https://poisedgentlemen.com/favicon.ico",
+      description:
+        "Youth mentorship, adult coaching, and premium grooming aligned with the Four Pillars: Integrity, Strength, Emotional Intelligence, Discipline.",
+      address: {
         "@type": "PostalAddress",
-        "addressLocality": "New Orleans",
-        "addressRegion": "LA",
-        "addressCountry": "US"
+        addressLocality: "New Orleans",
+        addressRegion: "LA",
+        addressCountry: "US",
       },
-      "sameAs": [
-        "https://x.com/ThePoisedGentlemen"
-      ]
+      sameAs: ["https://x.com/ThePoisedGentlemen"],
     };
 
     const script = document.createElement("script");
@@ -424,7 +423,11 @@ const Index = () => {
               </div>
 
               <div className="w-full">
-                <Button type="submit" size="lg" className="w-full whitespace-nowrap text-center bg-primary text-white hover:bg-primary/90">
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full whitespace-nowrap text-center bg-primary text-white hover:bg-primary/90"
+                >
                   Get the Starter Kit
                 </Button>
               </div>
