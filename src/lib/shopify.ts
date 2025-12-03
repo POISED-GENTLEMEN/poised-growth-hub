@@ -3,6 +3,8 @@ const SHOPIFY_API_VERSION = '2025-07';
 const SHOPIFY_STORE_PERMANENT_DOMAIN = 'poised-growth-hub-rfqhl.myshopify.com';
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
 const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN;
+// Blog token with unauthenticated_read_content scope
+const SHOPIFY_BLOG_TOKEN = '9d01b783b935434fab46eb9822fb9668';
 
 export interface ShopifyProduct {
   node: {
@@ -261,12 +263,31 @@ const BLOG_ARTICLES_QUERY = `
 
 export async function fetchShopifyBlogPosts(blogHandle: string = 'news'): Promise<ShopifyArticle[]> {
   try {
-    const data = await storefrontApiRequest(BLOG_ARTICLES_QUERY, { 
-      blogHandle, 
-      first: 50 
+    // Use blog token with unauthenticated_read_content scope
+    const response = await fetch(SHOPIFY_STOREFRONT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': SHOPIFY_BLOG_TOKEN
+      },
+      body: JSON.stringify({
+        query: BLOG_ARTICLES_QUERY,
+        variables: { blogHandle, first: 50 },
+      }),
     });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
     
-    if (!data.data.blog) {
+    if (data.errors) {
+      console.error('Shopify blog API errors:', data.errors);
+      return [];
+    }
+    
+    if (!data.data?.blog) {
       console.warn(`Blog "${blogHandle}" not found.`);
       return [];
     }
