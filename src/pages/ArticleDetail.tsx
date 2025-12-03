@@ -1,19 +1,51 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect } from "react";
-import { ArrowLeft, Clock, Calendar, User, ExternalLink } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowLeft, Clock, Calendar, User, ExternalLink, Loader2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ParentBadge from "@/components/ParentBadge";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { getArticleBySlug } from "@/lib/content";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getArticleBySlug, getArticleBySlugAsync, type BlogPost } from "@/lib/content";
 import { useCanonical } from "@/hooks/useCanonical";
 import { RelatedProducts } from "@/components/RelatedProducts";
 
 const ArticleDetail = () => {
   useCanonical();
   const { slug } = useParams<{ slug: string }>();
-  const article = slug ? getArticleBySlug(slug) : undefined;
+  const [article, setArticle] = useState<BlogPost | undefined>(() => 
+    slug ? getArticleBySlug(slug) : undefined
+  );
+  const [isLoading, setIsLoading] = useState(!article);
+
+  // Fetch article (including from Shopify if not found locally)
+  useEffect(() => {
+    if (!slug) return;
+    
+    // If we already have the article from local, no need to fetch
+    const localArticle = getArticleBySlug(slug);
+    if (localArticle) {
+      setArticle(localArticle);
+      setIsLoading(false);
+      return;
+    }
+    
+    // Try fetching from Shopify
+    const fetchArticle = async () => {
+      setIsLoading(true);
+      try {
+        const shopifyArticle = await getArticleBySlugAsync(slug, 'news');
+        setArticle(shopifyArticle);
+      } catch (error) {
+        console.error('Error fetching article:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchArticle();
+  }, [slug]);
 
   // SEO: Update meta tags for each article
   useEffect(() => {
@@ -57,6 +89,27 @@ const ArticleDetail = () => {
       setMetaTag('description', 'Youth mentorship, adult coaching, and premium grooming aligned with the Four Pillars: Integrity, Strength, Emotional Intelligence, Discipline. New Orleans.');
     };
   }, [article]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main className="container mx-auto px-4 py-24">
+          <div className="max-w-3xl mx-auto">
+            <Skeleton className="h-8 w-32 mb-6" />
+            <Skeleton className="h-12 w-full mb-4" />
+            <Skeleton className="h-6 w-3/4 mb-8" />
+            <div className="space-y-4">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-2/3" />
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!article) {
     return (
@@ -135,7 +188,11 @@ const ArticleDetail = () => {
 
           {/* Body Content */}
           <article className="prose prose-lg prose-slate dark:prose-invert max-w-none">
-            <div className="whitespace-pre-wrap leading-relaxed">{article.body}</div>
+            {article.body.includes('<') ? (
+              <div dangerouslySetInnerHTML={{ __html: article.body }} />
+            ) : (
+              <div className="whitespace-pre-wrap leading-relaxed">{article.body}</div>
+            )}
           </article>
 
           {/* Related Products */}

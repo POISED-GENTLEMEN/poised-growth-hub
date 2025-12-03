@@ -10,10 +10,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Clock, FileText, BookOpen, Award, Heart } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Clock, FileText, BookOpen, Award, Heart, Loader2 } from "lucide-react";
 import { useCanonical } from "@/hooks/useCanonical";
 import articleFeatured from "@/assets/article-featured.jpg";
-import { articles, type BlogPost as Article } from "@/lib/content";
+import { articles as localArticles, fetchAllArticles, type BlogPost as Article } from "@/lib/content";
 import { resourceDownloadSchema, newsletterSchema } from "@/lib/validations";
 
 type Category =
@@ -58,6 +59,25 @@ const Resources = () => {
   const [selectedDownload, setSelectedDownload] = useState<Download | null>(null);
   const [formData, setFormData] = useState({ name: "", email: "", newsletter: false });
   const [downloadErrors, setDownloadErrors] = useState<Record<string, string>>({});
+  const [articles, setArticles] = useState<Article[]>(localArticles);
+  const [isLoadingArticles, setIsLoadingArticles] = useState(true);
+
+  // Fetch Shopify blog posts on mount
+  useEffect(() => {
+    const loadArticles = async () => {
+      try {
+        const allArticles = await fetchAllArticles('news');
+        setArticles(allArticles);
+      } catch (error) {
+        console.error('Failed to load Shopify articles:', error);
+        // Keep local articles on error
+      } finally {
+        setIsLoadingArticles(false);
+      }
+    };
+    
+    loadArticles();
+  }, []);
 
   // SEO: Update page title and meta description
   useEffect(() => {
