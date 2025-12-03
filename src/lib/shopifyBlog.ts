@@ -81,6 +81,11 @@ const tagToPillarMap: Record<string, string> = {
   'success': 'Success',
   'legacy': 'Legacy',
   'purpose': 'Purpose',
+  // Direct tag matches (Shopify exact tags)
+  'masculinity faqs': 'Masculinity FAQs',
+  'masculinity': 'Masculinity FAQs',
+  'four pillars': 'Four Pillars',
+  'presence & etiquette': 'Presence & Etiquette',
 };
 
 function getCategoryFromTags(tags: string[]): Category {
@@ -155,6 +160,14 @@ export async function fetchAndMapShopifyBlogPosts(
   startId: number = 1000
 ): Promise<BlogPost[]> {
   const shopifyArticles = await fetchShopifyBlogPosts(blogHandle);
+  
+  // Debug: log raw Shopify article tags
+  if (shopifyArticles.length > 0) {
+    console.log('Shopify articles tags:', shopifyArticles.map(a => ({
+      title: a.node.title,
+      tags: a.node.tags
+    })));
+  }
   
   return shopifyArticles.map((article, index) => 
     mapShopifyArticleToBlogPost(article, startId + index)
