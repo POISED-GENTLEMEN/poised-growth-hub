@@ -22,6 +22,7 @@ export interface BlogPost {
   isParentResource: boolean;
   url: string;
   body: string;
+  tags: string[];
 }
 
 // Empty array for initial render (before Shopify fetch completes)
