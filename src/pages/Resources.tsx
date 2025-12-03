@@ -17,12 +17,7 @@ import articleFeatured from "@/assets/article-featured.jpg";
 import { articles as localArticles, fetchAllArticles, type BlogPost as Article } from "@/lib/content";
 import { resourceDownloadSchema, newsletterSchema } from "@/lib/validations";
 
-type Category =
-  | "All Articles"
-  | "Four Pillars"
-  | "Presence & Etiquette"
-  | "Masculinity FAQs"
-  | "Mindfulness";
+// Categories are now derived from Shopify tags
 
 interface Download {
   id: number;
@@ -54,7 +49,7 @@ const downloads: Download[] = [
 
 const Resources = () => {
   useCanonical();
-  const [activeCategory, setActiveCategory] = useState<Category>("All Articles");
+  const [activeCategory, setActiveCategory] = useState<string>("All Articles");
   const [downloadModalOpen, setDownloadModalOpen] = useState(false);
   const [selectedDownload, setSelectedDownload] = useState<Download | null>(null);
   const [formData, setFormData] = useState({ name: "", email: "", newsletter: false });
@@ -103,16 +98,15 @@ const Resources = () => {
     };
   }, []);
 
-  const categories: Category[] = [
-    "All Articles",
-    "Four Pillars",
-    "Presence & Etiquette",
-    "Masculinity FAQs",
-    "Mindfulness",
-  ];
+  // Derive categories from Shopify article tags (pillars)
+  const categories = ["All Articles", ...Array.from(
+    new Set(articles.map((article) => article.pillar).filter(Boolean))
+  )];
 
   const filteredArticles =
-    activeCategory === "All Articles" ? articles : articles.filter((article) => article.category === activeCategory);
+    activeCategory === "All Articles" 
+      ? articles 
+      : articles.filter((article) => article.pillar === activeCategory);
 
   const handleDownloadClick = (download: Download) => {
     setSelectedDownload(download);
