@@ -1,0 +1,56 @@
+# The Poised Gentlemen
+
+> Youth mentorship, adult coaching, and premium grooming aligned with the Four Pillars: Integrity, Strength, Emotional Intelligence, Discipline.
+
+## About
+
+The Poised Gentlemen is a New Orleans-based organization dedicated to redefining modern masculinity through principled mentorship, emotional intelligence coaching, and premium grooming products. Founded by RISE TO PURPOSE LLC, we help men and boys build their legacy through intentional personal development.
+
+## Core Philosophy: The Four Pillars
+
+1. **Integrity** - Character over convenience
+2. **Strength** - Mental, emotional, and physical resilience
+3. **Emotional Intelligence** - Self-awareness and regulation
+4. **Discipline** - Consistency over motivation
+
+## Programs
+
+- **Youth Mentorship (Ages 13-17)** - 7-week transformation program teaching the Four Pillars to young men
+- **Adult Coaching (18+)** - Group coaching and digital courses for mastering emotional intelligence
+- **Live Experiences** - In-person workshops and events
+
+## Products
+
+### Essence Collection
+Premium cologne balms combining designer-inspired fragrances with therapeutic skincare. Made with organic shea butter, mango butter, and vitamin E. Cruelty-free, paraben-free, and made in the USA.
+
+### Generations Collection
+Age-appropriate grooming products:
+- **Young G Line** - For teens (13-17)
+- **Big G Line** - For adults (18+)
+
+## Resources
+
+- Free EQ Assessment tool
+- First Shave Guide for parents
+- The Codex (blog) with articles on masculinity, grooming, and personal development
+- Parent and mentor resources
+
+## Contact
+
+- Website: https://poisedgentlemen.com
+- Location: New Orleans, Louisiana, USA
+- Social: @ThePoisedGentlemen
+
+## Site Structure
+
+- `/` - Homepage
+- `/about` - About us and team
+- `/programs` - Mentorship and coaching programs
+- `/shop` - All grooming products
+- `/shop/essence-collection` - Cologne balms collection
+- `/resources` - The Codex blog and free resources
+- `/eq-assessment` - Free Emotional Intelligence assessment
+- `/for-moms-mentors` - Resources for parents and mentors
+- `/contact` - Contact information
+- `/program-partners` - Partnership opportunities
