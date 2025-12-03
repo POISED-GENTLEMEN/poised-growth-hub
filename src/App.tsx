@@ -19,6 +19,7 @@ import EQAssessment from "./pages/EQAssessment";
 import EssenceCollection from "./pages/EssenceCollection";
 import ProductDetail from "./pages/ProductDetail";
 import ArticleDetail from "./pages/ArticleDetail";
+import MentorshipPrograms from "./pages/MentorshipPrograms";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -47,6 +48,7 @@ const App = () => (
             <Route path="/eq-assessment" element={<EQAssessment />} />
             <Route path="/shop/essence-collection" element={<EssenceCollection />} />
             <Route path="/products/:slug" element={<ProductDetail />} />
+            <Route path="/mentorship-programs" element={<MentorshipPrograms />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
