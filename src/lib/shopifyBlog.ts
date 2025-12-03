@@ -25,16 +25,62 @@ const tagToCategoryMap: Record<string, Category> = {
   'wellness': 'Mindfulness',
 };
 
-// Map tags to pillars
+// Map tags to pillars (categories shown on blog)
 const tagToPillarMap: Record<string, string> = {
+  // Four Pillars
   'integrity': 'Integrity',
+  'honesty': 'Integrity',
+  'character': 'Integrity',
+  'values': 'Integrity',
   'strength': 'Strength',
+  'resilience': 'Strength',
+  'courage': 'Strength',
+  'confidence': 'Strength',
   'emotional-intelligence': 'Emotional Intelligence',
   'eq': 'Emotional Intelligence',
+  'emotions': 'Emotional Intelligence',
+  'empathy': 'Emotional Intelligence',
+  'self-awareness': 'Emotional Intelligence',
   'discipline': 'Discipline',
+  'habits': 'Discipline',
+  'routine': 'Discipline',
+  'focus': 'Discipline',
+  'consistency': 'Discipline',
+  // Grooming & Style
   'grooming': 'Grooming',
+  'skincare': 'Grooming',
+  'shaving': 'Grooming',
+  'beard': 'Grooming',
+  'haircare': 'Grooming',
   'style': 'Style',
+  'fashion': 'Style',
+  'wardrobe': 'Style',
+  'etiquette': 'Etiquette',
+  'manners': 'Etiquette',
+  // Mentorship & Growth
   'mentorship': 'Mentorship',
+  'fatherhood': 'Fatherhood',
+  'parenting': 'Fatherhood',
+  'fathers': 'Fatherhood',
+  'dads': 'Fatherhood',
+  'youth': 'Youth Development',
+  'teens': 'Youth Development',
+  'young-men': 'Youth Development',
+  'boys': 'Youth Development',
+  // Wellness & Mindset
+  'mindfulness': 'Mindfulness',
+  'meditation': 'Mindfulness',
+  'mental-health': 'Wellness',
+  'wellness': 'Wellness',
+  'health': 'Wellness',
+  'fitness': 'Wellness',
+  // Career & Leadership
+  'leadership': 'Leadership',
+  'career': 'Career',
+  'professional': 'Career',
+  'success': 'Success',
+  'legacy': 'Legacy',
+  'purpose': 'Purpose',
 };
 
 function getCategoryFromTags(tags: string[]): Category {
