@@ -10,6 +10,7 @@ import {
 import { Shield, Dumbbell, Heart, Target } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useCanonical } from "@/hooks/useCanonical";
 import heroImage from "@/assets/about-hero.jpg";
 import davidProfessional from "@/assets/david-rachal-professional.jpg";
 import davidTeam from "@/assets/team-david.jpg";
@@ -17,6 +18,7 @@ import kimberlyTeam from "@/assets/team-kimberly.jpg";
 import joelTeam from "@/assets/team-joel.jpg";
 
 const About = () => {
+  useCanonical();
   return (
     <div className="min-h-screen bg-background">
       <Header />

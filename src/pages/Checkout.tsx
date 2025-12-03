@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { checkoutSchema } from "@/lib/validations";
+import { useCanonical } from "@/hooks/useCanonical";
 
 const Checkout = () => {
+  useCanonical();
   const { cartItems, getCartTotal, getShippingCost, getFinalTotal, getDiscountAmount, clearCart } = useShop();
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);

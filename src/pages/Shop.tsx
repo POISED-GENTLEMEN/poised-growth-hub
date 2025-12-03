@@ -8,9 +8,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ParentGuideBanner } from "@/components/ParentGuideBanner";
 import { useShop } from "@/contexts/ShopContext";
+import { useCanonical } from "@/hooks/useCanonical";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const Shop = () => {
+  useCanonical();
   const [quizOpen, setQuizOpen] = useState(false);
   const { products } = useShop();
 

@@ -9,9 +9,11 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Building2, Users, Briefcase, CheckCircle, Download, Calendar, Phone } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useCanonical } from "@/hooks/useCanonical";
 import { programPartnerSchema } from "@/lib/validations";
 
 const ProgramPartners = () => {
+  useCanonical();
   const [partnerForm, setPartnerForm] = useState({
     organizationName: "",
     name: "",

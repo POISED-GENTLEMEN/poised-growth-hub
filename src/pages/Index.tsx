@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { newsletterSchema } from "@/lib/validations";
 import { useShop } from "@/contexts/ShopContext";
+import { useCanonical } from "@/hooks/useCanonical";
 
 // Images
 import heroImage from "@/assets/hero-mentorship.jpg";
@@ -15,6 +16,7 @@ import youthImage from "@/assets/youth-mentorship.jpg";
 import adultImage from "@/assets/adult-coaching.jpg";
 
 const Index = () => {
+  useCanonical();
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [errors, setErrors] = useState<{ email?: string; firstName?: string }>({});

@@ -23,11 +23,13 @@ import {
   Facebook,
   Youtube,
 } from "lucide-react";
+import { useCanonical } from "@/hooks/useCanonical";
 import partnershipSonOfSaint from "@/assets/partnership-son-of-saint.jpg";
 import partnershipAmeriHealth from "@/assets/partnership-amerihealth.jpg";
 import { contactGeneralSchema, contactPartnershipSchema } from "@/lib/validations";
 
 const Contact = () => {
+  useCanonical();
   const [generalForm, setGeneralForm] = useState({
     name: "",
     email: "",
