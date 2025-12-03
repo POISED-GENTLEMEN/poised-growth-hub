@@ -146,6 +146,7 @@ export function mapShopifyArticleToBlogPost(
     ),
     url: '',
     body: node.contentHtml || node.content,
+    tags: node.tags,
   };
 }
 

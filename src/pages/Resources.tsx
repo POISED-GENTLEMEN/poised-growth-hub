@@ -211,11 +211,25 @@ const Resources = () => {
                       alt={article.title}
                       className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute top-4 left-4 flex items-center gap-2">
+                    <div className="absolute top-4 left-4 flex items-center gap-2 flex-wrap">
                       <Badge className="bg-gold text-gold-foreground">{article.pillar}</Badge>
                       {article.isParentResource && <ParentBadge variant="parent-resource" />}
                     </div>
                   </div>
+                  {article.tags && article.tags.length > 0 && (
+                    <div className="px-6 pt-4 flex flex-wrap gap-1">
+                      {article.tags.slice(0, 4).map((tag) => (
+                        <Badge key={tag} variant="secondary" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                      {article.tags.length > 4 && (
+                        <Badge variant="secondary" className="text-xs">
+                          +{article.tags.length - 4}
+                        </Badge>
+                      )}
+                    </div>
+                  )}
                   <div className="p-6">
                     <h3 className="text-xl font-heading font-bold mb-2 text-card-foreground group-hover:text-gold transition-colors">
                       {article.title}
