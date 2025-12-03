@@ -6,6 +6,7 @@ import articleModernMasculinity from "@/assets/article-modern-masculinity.jpg";
 import articlePoisedSteps from "@/assets/article-poised-steps.jpg";
 import articleEmotionalBlueprint from "@/assets/article-emotional-blueprint.jpg";
 import articleFathersDay from "@/assets/article-fathers-day-2025.jpg";
+import { fetchAndMapShopifyBlogPosts } from "./shopifyBlog";
 
 type Category =
   | "All Articles"
@@ -105,13 +106,56 @@ const posts = Object.entries(postModules).map(([path, content], index) => {
 });
 
 // Sort by date descending
-export const articles: BlogPost[] = posts.sort((a, b) => {
+const localArticles: BlogPost[] = posts.sort((a, b) => {
   const dateA = new Date(a.date);
   const dateB = new Date(b.date);
   return dateB.getTime() - dateA.getTime();
 });
 
-// Helper function to get post by slug
+// Export local articles for immediate use (before Shopify fetch)
+export const articles: BlogPost[] = localArticles;
+
+// Async function to fetch all articles including Shopify blog posts
+export async function fetchAllArticles(blogHandle: string = 'news'): Promise<BlogPost[]> {
+  try {
+    // Fetch Shopify blog posts
+    const shopifyPosts = await fetchAndMapShopifyBlogPosts(blogHandle, 1000);
+    
+    // Merge with local posts, avoiding duplicates by slug
+    const localSlugs = new Set(localArticles.map(a => a.slug));
+    const uniqueShopifyPosts = shopifyPosts.filter(p => !localSlugs.has(p.slug));
+    
+    // Combine and sort by date
+    const allPosts = [...localArticles, ...uniqueShopifyPosts].sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateB.getTime() - dateA.getTime();
+    });
+    
+    return allPosts;
+  } catch (error) {
+    console.error('Error fetching Shopify blog posts:', error);
+    return localArticles;
+  }
+}
+
+// Helper function to get post by slug (searches local first, then can be extended)
 export const getArticleBySlug = (slug: string): BlogPost | undefined => {
-  return articles.find(article => article.slug === slug);
+  return localArticles.find(article => article.slug === slug);
 };
+
+// Async version that also checks Shopify posts
+export async function getArticleBySlugAsync(slug: string, blogHandle: string = 'news'): Promise<BlogPost | undefined> {
+  // First check local articles
+  const localArticle = localArticles.find(article => article.slug === slug);
+  if (localArticle) return localArticle;
+  
+  // If not found locally, fetch from Shopify
+  try {
+    const shopifyPosts = await fetchAndMapShopifyBlogPosts(blogHandle, 1000);
+    return shopifyPosts.find(article => article.slug === slug);
+  } catch (error) {
+    console.error('Error fetching article from Shopify:', error);
+    return undefined;
+  }
+}

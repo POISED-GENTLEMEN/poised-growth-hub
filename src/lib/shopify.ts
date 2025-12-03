@@ -198,3 +198,82 @@ export async function fetchCollectionProducts(collectionHandle: string): Promise
   
   return data.data.collectionByHandle.products.edges;
 }
+
+// Blog Article Types
+export interface ShopifyArticle {
+  node: {
+    id: string;
+    title: string;
+    handle: string;
+    excerpt: string | null;
+    content: string;
+    contentHtml: string;
+    publishedAt: string;
+    image: {
+      url: string;
+      altText: string | null;
+    } | null;
+    authorV2: {
+      name: string;
+    } | null;
+    tags: string[];
+    blog: {
+      handle: string;
+      title: string;
+    };
+  };
+}
+
+const BLOG_ARTICLES_QUERY = `
+  query GetBlogArticles($blogHandle: String!, $first: Int!) {
+    blog(handle: $blogHandle) {
+      id
+      title
+      handle
+      articles(first: $first, sortKey: PUBLISHED_AT, reverse: true) {
+        edges {
+          node {
+            id
+            title
+            handle
+            excerpt
+            content
+            contentHtml
+            publishedAt
+            image {
+              url
+              altText
+            }
+            authorV2 {
+              name
+            }
+            tags
+            blog {
+              handle
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export async function fetchShopifyBlogPosts(blogHandle: string = 'news'): Promise<ShopifyArticle[]> {
+  try {
+    const data = await storefrontApiRequest(BLOG_ARTICLES_QUERY, { 
+      blogHandle, 
+      first: 50 
+    });
+    
+    if (!data.data.blog) {
+      console.warn(`Blog "${blogHandle}" not found.`);
+      return [];
+    }
+    
+    return data.data.blog.articles.edges;
+  } catch (error) {
+    console.error('Error fetching Shopify blog posts:', error);
+    return [];
+  }
+}
