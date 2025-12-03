@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getArticleBySlug } from "@/lib/content";
 import { useCanonical } from "@/hooks/useCanonical";
+import { RelatedProducts } from "@/components/RelatedProducts";
 
 const ArticleDetail = () => {
   useCanonical();
@@ -136,6 +137,9 @@ const ArticleDetail = () => {
           <article className="prose prose-lg prose-slate dark:prose-invert max-w-none">
             <div className="whitespace-pre-wrap leading-relaxed">{article.body}</div>
           </article>
+
+          {/* Related Products */}
+          {slug && <RelatedProducts articleSlug={slug} />}
 
           {/* Back to Codex */}
           <div className="mt-12">
