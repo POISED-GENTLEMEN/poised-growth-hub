@@ -187,7 +187,7 @@ const ArticleDetail = () => {
           <div className="text-xl text-muted-foreground mb-12 pb-8 border-b">{article.excerpt}</div>
 
           {/* Body Content */}
-          <article className="prose prose-lg prose-slate dark:prose-invert max-w-none">
+          <article className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-heading prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-li:text-muted-foreground prose-ul:list-disc prose-ol:list-decimal">
             {article.body.includes('<') ? (
               <div dangerouslySetInnerHTML={{ __html: article.body }} />
             ) : (
