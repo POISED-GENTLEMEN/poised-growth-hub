@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Clock, FileText, BookOpen, Award, Heart } from "lucide-react";
+import { useCanonical } from "@/hooks/useCanonical";
 import articleFeatured from "@/assets/article-featured.jpg";
 import { articles, type BlogPost as Article } from "@/lib/content";
 import { resourceDownloadSchema, newsletterSchema } from "@/lib/validations";
@@ -51,6 +52,7 @@ const downloads: Download[] = [
 ];
 
 const Resources = () => {
+  useCanonical();
   const [activeCategory, setActiveCategory] = useState<Category>("All Articles");
   const [downloadModalOpen, setDownloadModalOpen] = useState(false);
   const [selectedDownload, setSelectedDownload] = useState<Download | null>(null);

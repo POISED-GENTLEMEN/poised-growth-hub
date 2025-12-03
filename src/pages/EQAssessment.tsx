@@ -5,10 +5,12 @@ import { EQWelcome } from "@/components/eq/EQWelcome";
 import { EQQuestions } from "@/components/eq/EQQuestions";
 import { EQResultsComponent } from "@/components/eq/EQResults";
 import { calculateResults, EQResults } from "@/data/eqQuestions";
+import { useCanonical } from "@/hooks/useCanonical";
 
 type Stage = 'welcome' | 'questions' | 'results';
 
 const EQAssessment = () => {
+  useCanonical();
   const [stage, setStage] = useState<Stage>('welcome');
   const [results, setResults] = useState<EQResults | null>(null);
 

@@ -7,8 +7,10 @@ import ParentBadge from "@/components/ParentBadge";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getArticleBySlug } from "@/lib/content";
+import { useCanonical } from "@/hooks/useCanonical";
 
 const ArticleDetail = () => {
+  useCanonical();
   const { slug } = useParams<{ slug: string }>();
   const article = slug ? getArticleBySlug(slug) : undefined;
 

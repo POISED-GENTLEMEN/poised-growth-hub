@@ -1,8 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
+import { useCanonical } from "@/hooks/useCanonical";
 
 const ThankYou = () => {
+  useCanonical();
   const location = useLocation();
   const { orderNumber, email } = location.state || { orderNumber: 'TPG-00000', email: 'your email' };
 

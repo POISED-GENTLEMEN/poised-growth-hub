@@ -7,6 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useCanonical } from "@/hooks/useCanonical";
 import teenGroomingRoutine from "@/assets/teen-grooming-routine.png";
 import firstShaveGuide from "@/assets/first-shave-guide.png";
 import mentorTrainingClassroom from "@/assets/mentor-training-classroom.png";
@@ -28,6 +29,7 @@ import {
 import { newsletterSchema } from "@/lib/validations";
 
 const ForMomsMentors = () => {
+  useCanonical();
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState<{ email?: string }>({});
 

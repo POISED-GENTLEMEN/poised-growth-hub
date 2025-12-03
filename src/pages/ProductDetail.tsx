@@ -9,8 +9,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { useShop } from "@/contexts/ShopContext";
 import { toast } from "sonner";
 import { fetchCollectionProducts, ShopifyProduct } from "@/lib/shopify";
+import { useCanonical } from "@/hooks/useCanonical";
 
 const ProductDetail = () => {
+  useCanonical();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { addToCart } = useShop();

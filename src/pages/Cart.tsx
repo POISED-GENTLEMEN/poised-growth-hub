@@ -3,8 +3,10 @@ import { useShop } from "@/contexts/ShopContext";
 import { Button } from "@/components/ui/button";
 import { Trash2, Plus, Minus, ShoppingBag, Check } from "lucide-react";
 import { useState } from "react";
+import { useCanonical } from "@/hooks/useCanonical";
 
 const Cart = () => {
+  useCanonical();
   const { cartItems, updateQuantity, removeFromCart, getCartTotal, getShippingCost, getFinalTotal, appliedDiscount, applyDiscount, removeDiscount, getDiscountAmount } = useShop();
   const [discountCode, setDiscountCode] = useState("");
   const [showDiscountInput, setShowDiscountInput] = useState(false);

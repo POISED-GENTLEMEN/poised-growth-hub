@@ -13,6 +13,7 @@ import { fetchCollectionProducts, ShopifyProduct } from "@/lib/shopify";
 import { ScentQuiz } from "@/components/ScentQuiz";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useCanonical } from "@/hooks/useCanonical";
 
 const fragranceCategories = [
   { id: "all", label: "All Fragrances" },
@@ -76,6 +77,7 @@ function mapShopifyToEssenceProduct(shopifyProduct: ShopifyProduct, index: numbe
 }
 
 const EssenceCollection = () => {
+  useCanonical();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [products, setProducts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);

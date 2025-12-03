@@ -22,10 +22,12 @@ import {
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ParentBadge from "@/components/ParentBadge";
+import { useCanonical } from "@/hooks/useCanonical";
 import youthImage from "@/assets/youth-program-card.jpg";
 import { youthProgramSchema } from "@/lib/validations";
 
 const Programs = () => {
+  useCanonical();
   const [youthForm, setYouthForm] = useState({
     parentName: "",
     email: "",
