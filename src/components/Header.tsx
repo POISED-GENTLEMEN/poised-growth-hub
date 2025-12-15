@@ -174,8 +174,10 @@ const Header = () => {
                           </div>
                         </Link>
 
-                        <Link 
-                          to="/shop#generations-collection"
+                        <a 
+                          href="https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=WXDprR"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="group block p-3 rounded-lg hover:border-l-4 hover:border-gold hover:pl-[11px] transition-all"
                         >
                           <div className="flex items-start gap-3">
@@ -189,7 +191,7 @@ const Header = () => {
                               </div>
                             </div>
                           </div>
-                        </Link>
+                        </a>
                       </div>
 
                       <div className="mt-4 pt-4 border-t border-border">
@@ -303,8 +305,10 @@ const Header = () => {
                     </div>
                   </Link>
                   
-                  <Link
-                    to="/shop#generations-collection"
+                  <a
+                    href="https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=WXDprR"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="group flex items-start gap-2 text-sm text-foreground hover:text-gold transition-colors py-2"
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -313,7 +317,7 @@ const Header = () => {
                       <div className="font-medium">Generations Collection</div>
                       <div className="text-xs text-muted-foreground">Heritage grooming essentials</div>
                     </div>
-                  </Link>
+                  </a>
                   
                   <Link
                     to="/shop#scent-quiz"
