@@ -334,7 +334,7 @@ const Resources = () => {
                 required
                 className="flex-1 bg-background text-foreground"
               />
-              <Button type="submit" className="bg-gold text-gold-foreground hover:bg-gold/90">
+              <Button type="submit" variant="hero">
                 Subscribe
               </Button>
             </form>
@@ -352,7 +352,7 @@ const Resources = () => {
             Knowledge is just the beginning. Join our programs or shop our values-aligned products.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-gold text-gold-foreground hover:bg-gold/90">
+            <Button asChild size="lg" variant="hero">
               <Link to="/programs">Explore Programs</Link>
             </Button>
             <Button asChild size="lg" variant="outline">
@@ -419,7 +419,7 @@ const Resources = () => {
             </div>
 
             <div className="w-full">
-              <Button type="submit" className="w-full whitespace-nowrap text-center bg-gold text-gold-foreground hover:bg-gold/90">
+              <Button type="submit" variant="hero" className="w-full">
                 Send Me the Resource
               </Button>
             </div>

@@ -100,11 +100,11 @@ const Index = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="hero" className="w-full max-w-full whitespace-nowrap text-center" asChild>
+            <Button size="lg" variant="hero" className="w-full sm:w-auto" asChild>
               <Link to="/programs">Explore Programs</Link>
             </Button>
 
-            <Button size="lg" variant="hero" className="w-full max-w-full whitespace-nowrap text-center" asChild>
+            <Button size="lg" variant="hero" className="w-full sm:w-auto" asChild>
               <Link to="/shop">Shop Grooming</Link>
             </Button>
           </div>

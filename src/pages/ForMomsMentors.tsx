@@ -279,7 +279,7 @@ SECTION 2: Starter Kits (Muted / Disabled)
             <li>• First shave guide + video access</li>
           </ul>
           <div className="w-full">
-            <Button className="w-full whitespace-nowrap text-center bg-gold text-gold-foreground hover:bg-gold/90" asChild>
+            <Button variant="hero" className="w-full" asChild>
               <Link to="/shop">Shop Confidence Builder</Link>
             </Button>
           </div>
@@ -355,7 +355,7 @@ SECTION 2: Starter Kits (Muted / Disabled)
                 </li>
               </ul>
               <div className="w-full md:w-auto">
-                <Button size="lg" className="w-full whitespace-nowrap text-center bg-gold text-gold-foreground hover:bg-gold/90" asChild>
+                <Button variant="hero" size="lg" className="w-full" asChild>
                   <a href="/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf" target="_blank" rel="noopener noreferrer">
                     <Download className="w-5 h-5 mr-2" />
                     Download Free First Shave Guide
@@ -582,7 +582,7 @@ SECTION 2: Starter Kits (Muted / Disabled)
                   </div>
                   <div className="space-y-3 pt-4">
                     <div className="w-full">
-                      <Button size="lg" className="w-full whitespace-nowrap text-center bg-gold text-gold-foreground hover:bg-gold/90" asChild>
+                      <Button variant="hero" size="lg" className="w-full" asChild>
                         <Link to="/programs">Learn About Programs</Link>
                       </Button>
                     </div>
@@ -684,7 +684,7 @@ SECTION 2: Starter Kits (Muted / Disabled)
                       <Download className="w-6 h-6 text-gold shrink-0 ml-4" />
                     </div>
                     <div className="w-full">
-                      <Button size="sm" className="w-full whitespace-nowrap text-center bg-gold text-gold-foreground hover:bg-gold/90 mt-2" asChild>
+                      <Button variant="hero" size="sm" className="w-full mt-2" asChild>
                         <Link to="/programs#youth-mentorship">Download Free Preview</Link>
                       </Button>
                     </div>
