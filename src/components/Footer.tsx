@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Facebook, Instagram, Linkedin } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useState } from "react";
@@ -150,25 +150,7 @@ const Footer = () => {
             </form>
             <div className="flex gap-4 mt-4">
               <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-gold transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-gold transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/davidrachal3"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gold transition-colors"
@@ -177,13 +159,22 @@ const Footer = () => {
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
-                href="https://twitter.com"
+                href="https://www.facebook.com/poisedgentlemen"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gold transition-colors"
-                aria-label="Twitter"
+                aria-label="Facebook"
               >
-                <Twitter className="w-5 h-5" />
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a
+                href="http://instagram.com/poisedgentlemen"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gold transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5" />
               </a>
             </div>
           </div>
