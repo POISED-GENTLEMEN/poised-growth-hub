@@ -98,53 +98,6 @@ const Shop = () => {
         </div>
       </section>
 
-      {/* ------------------------- QUICK ACCESS NAV ------------------------- */}
-      <section className="bg-primary/95 border-b border-[#C1A36C]/30">
-        <div className="container mx-auto px-4">
-          <nav className="flex flex-wrap justify-center gap-1 md:gap-2 py-3">
-            <Link
-              to="/shop/essence-collection?filter=new"
-              className="flex items-center gap-2 px-4 py-2 text-sm text-white/90 hover:text-[#C1A36C] hover:bg-white/5 rounded-md transition-colors"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span className="hidden sm:inline">New Arrivals</span>
-              <span className="sm:hidden">New</span>
-            </Link>
-            <Link
-              to="/shop/essence-collection?filter=bestseller"
-              className="flex items-center gap-2 px-4 py-2 text-sm text-white/90 hover:text-[#C1A36C] hover:bg-white/5 rounded-md transition-colors"
-            >
-              <TrendingUp className="w-4 h-4" />
-              <span className="hidden sm:inline">Best Sellers</span>
-              <span className="sm:hidden">Best</span>
-            </Link>
-            <Link
-              to="/shop/essence-collection?filter=bundle"
-              className="flex items-center gap-2 px-4 py-2 text-sm text-white/90 hover:text-[#C1A36C] hover:bg-white/5 rounded-md transition-colors"
-            >
-              <Package className="w-4 h-4" />
-              <span className="hidden sm:inline">Bundles & Kits</span>
-              <span className="sm:hidden">Bundles</span>
-            </Link>
-            <Link
-              to="/shop/essence-collection?filter=age-group"
-              className="flex items-center gap-2 px-4 py-2 text-sm text-white/90 hover:text-[#C1A36C] hover:bg-white/5 rounded-md transition-colors"
-            >
-              <Users className="w-4 h-4" />
-              <span className="hidden sm:inline">By Age Group</span>
-              <span className="sm:hidden">Age</span>
-            </Link>
-            <Link
-              to="/mentorship-programs"
-              className="flex items-center gap-2 px-4 py-2 text-sm text-[#C1A36C] hover:text-white hover:bg-[#C1A36C]/20 rounded-md transition-colors font-medium"
-            >
-              <GraduationCap className="w-4 h-4" />
-              <span className="hidden sm:inline">Mentorship Programs</span>
-              <span className="sm:hidden">Mentorship</span>
-            </Link>
-          </nav>
-        </div>
-      </section>
 
       {/* ------------------------- COLLECTION CARDS ------------------------- */}
       <section id="collections" className="py-20 px-4 md:px-8 bg-background">
