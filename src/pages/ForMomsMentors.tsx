@@ -408,18 +408,10 @@ SECTION 2: Starter Kits (Muted / Disabled)
                 </div>
               </div>
 
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <Button size="lg" className="bg-gold text-navy hover:bg-gold/90 font-bold" asChild>
+              {/* CTA Button */}
+              <div className="flex justify-center mb-6">
+                <Button size="lg" className="bg-gold text-navy hover:bg-gold/90 font-bold w-full sm:w-auto sm:min-w-[300px]" asChild>
                   <Link to="/programs#youth-mentorship">Enroll in Core Course - $97</Link>
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
-                  asChild
-                >
-                  <Link to="/programs#youth-mentorship">Download Free Preview</Link>
                 </Button>
               </div>
 
