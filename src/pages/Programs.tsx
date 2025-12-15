@@ -932,16 +932,15 @@ const Programs = () => {
                     </div>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                    <Button variant="hero" size="lg" className="text-lg px-8">
-                      Enroll in Core Course - $97
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary text-lg px-8"
-                    >
-                      Download Free Course Preview
+                  <div className="flex justify-center mb-8">
+                    <Button asChild variant="hero" size="lg" className="text-lg px-8">
+                      <a
+                        href="https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=SaNybt"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Enroll in Core Course - $97
+                      </a>
                     </Button>
                   </div>
 
