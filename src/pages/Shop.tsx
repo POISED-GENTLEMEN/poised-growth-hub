@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, Moon, Sun, Zap, Star, Sparkles, TrendingUp, Package, Users, GraduationCap } from "lucide-react";
+import { Briefcase, Moon, Sun, Zap, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ScentQuiz } from "@/components/ScentQuiz";
 import Header from "@/components/Header";
@@ -354,17 +354,15 @@ const Shop = () => {
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-8">Ready to Elevate Your Grooming?</h2>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <div className="w-full">
-              <Button className="w-full whitespace-nowrap text-center bg-[#C1A36C] text-primary hover:bg-[#C1A36C]/90">
-                SHOP ESSENCE COLLECTION
-              </Button>
-            </div>
+            <Button variant="hero" size="lg" className="w-full sm:w-auto" asChild>
+              <Link to="/shop/essence-collection">Shop Essence Collection</Link>
+            </Button>
 
-            <div className="w-full">
-              <Button className="w-full whitespace-nowrap text-center border-white text-white hover:bg-white hover:text-primary">
-                JOIN GENERATIONS WAITLIST
-              </Button>
-            </div>
+            <Button variant="outline" size="lg" className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-primary" asChild>
+              <a href="https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=WXDprR" target="_blank" rel="noopener noreferrer">
+                Join Generations Waitlist
+              </a>
+            </Button>
           </div>
         </div>
       </section>
