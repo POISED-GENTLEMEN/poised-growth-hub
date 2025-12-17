@@ -20,6 +20,7 @@ import EssenceCollection from "./pages/EssenceCollection";
 import ProductDetail from "./pages/ProductDetail";
 import ArticleDetail from "./pages/ArticleDetail";
 import MentorshipPrograms from "./pages/MentorshipPrograms";
+import MockupGenerator from "./pages/MockupGenerator";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/shop/essence-collection" element={<EssenceCollection />} />
             <Route path="/products/:slug" element={<ProductDetail />} />
             <Route path="/mentorship-programs" element={<MentorshipPrograms />} />
+            <Route path="/mockup-generator" element={<MockupGenerator />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
