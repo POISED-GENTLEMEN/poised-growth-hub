@@ -11,7 +11,7 @@ import { useShop } from "@/contexts/ShopContext";
 import { useCanonical } from "@/hooks/useCanonical";
 
 // Images
-import heroImage from "@/assets/hero-mentorship.jpg";
+import heroImage from "@/assets/hero-mentorship-new.png";
 import youthImage from "@/assets/youth-mentorship.jpg";
 import adultImage from "@/assets/adult-coaching.jpg";
 
