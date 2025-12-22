@@ -138,13 +138,31 @@ const Resources = () => {
     <div className="min-h-screen bg-background">
       <Header />
 
-      {/* Hero Section */}
-      <section className="relative h-[35vh] bg-primary flex items-center justify-center">
+      {/* Hero Section - Reframed as Authority Hub */}
+      <section className="relative h-[40vh] bg-primary flex items-center justify-center">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl md:text-6xl font-heading font-bold text-primary-foreground mb-5">The Codex</h1>
-          <p className="text-lg md:text-xl text-primary-foreground/90 max-w-2xl mx-auto">
-            Guides on style, emotional intelligence, etiquette, and legacy.
+          <p className="text-lg md:text-xl text-primary-foreground/90 max-w-2xl mx-auto mb-4">
+            Your standards, frameworks, and resources library for building legacy.
           </p>
+          <p className="text-sm text-gold font-semibold">
+            Comprehensive guides on the Four Pillars, emotional intelligence, style, and etiquette.
+          </p>
+        </div>
+      </section>
+
+      {/* Start with the Four Pillars CTA */}
+      <section className="py-8 bg-muted border-b border-border">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 max-w-4xl mx-auto">
+            <div>
+              <h2 className="text-xl font-heading font-bold mb-1">New here?</h2>
+              <p className="text-muted-foreground">Start with our foundational framework.</p>
+            </div>
+            <Button asChild variant="hero" size="lg">
+              <Link to="/about#pillars">Start with the Four Pillars →</Link>
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -250,14 +268,14 @@ const Resources = () => {
         </div>
       </section>
 
-      {/* Free Downloads Section */}
+      {/* Free Downloads Section - Linked to Pillars */}
       <section className="py-16 bg-gold">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-4 text-gold-foreground">
             Free Resources
           </h2>
           <p className="text-center text-gold-foreground/80 mb-12 max-w-2xl mx-auto">
-            Download our guides, workbooks, and tools to accelerate your journey through the Four Pillars.
+            Download guides tied to the Four Pillars to accelerate your journey.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -267,7 +285,12 @@ const Resources = () => {
                 className="bg-primary rounded-lg p-6 text-primary-foreground hover:scale-105 transition-transform cursor-pointer"
                 onClick={() => handleDownloadClick(download)}
               >
-                <div className="mb-4">{download.icon}</div>
+                <div className="flex items-start gap-4 mb-4">
+                  <div>{download.icon}</div>
+                  <div className="inline-block bg-white/10 text-white text-xs font-semibold px-2 py-1 rounded">
+                    {download.id === 1 ? "All Pillars" : download.id === 2 ? "Discipline" : "Emotional Intelligence"}
+                  </div>
+                </div>
                 <h4 className="text-xl font-heading font-bold mb-2">{download.title}</h4>
                 <p className="text-primary-foreground/80 mb-4">{download.description}</p>
                 <div className="w-full">
@@ -281,15 +304,18 @@ const Resources = () => {
               </div>
             ))}
             
-            {/* EQ Assessment Card */}
+            {/* EQ Assessment Card - Tied to EQ Pillar */}
             <Link to="/eq-assessment" className="block">
-              <div className="bg-primary rounded-lg p-6 text-primary-foreground hover:scale-105 transition-transform cursor-pointer">
-                <div className="mb-4">
+              <div className="bg-primary rounded-lg p-6 text-primary-foreground hover:scale-105 transition-transform cursor-pointer h-full">
+                <div className="flex items-start gap-4 mb-4">
                   <Award className="w-8 h-8 text-gold" />
+                  <div className="inline-block bg-white/10 text-white text-xs font-semibold px-2 py-1 rounded">
+                    Emotional Intelligence
+                  </div>
                 </div>
                 <h4 className="text-xl font-heading font-bold mb-2">EQ Self-Assessment</h4>
                 <p className="text-primary-foreground/80 mb-4">
-                  Measure your emotional intelligence across 5 key dimensions and receive a personalized development roadmap. Complete 25-question assessment with detailed insights.
+                  Measure your emotional intelligence across 5 key dimensions and receive a personalized development roadmap.
                 </p>
                 <div className="w-full">
                   <Button
@@ -344,14 +370,17 @@ const Resources = () => {
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* Final CTA - Codex as primary */}
       <section className="py-16 bg-background border-t border-border">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">Ready to Take Action?</h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Knowledge is just the beginning. Join our programs or shop our values-aligned products.
+            The Codex is just the beginning. Apply what you've learned through our programs or shop our values-aligned products.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" variant="outline">
+              <Link to="/about#pillars">Deep Dive: Four Pillars</Link>
+            </Button>
             <Button asChild size="lg" variant="hero">
               <Link to="/programs">Explore Programs</Link>
             </Button>

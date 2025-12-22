@@ -92,26 +92,44 @@ const Index = () => {
       >
         <div className="absolute inset-0 bg-primary/60" />
         <div className="relative z-10 container mx-auto px-4 text-center text-white">
+          {/* New Orleans Origin Badge */}
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
+            <span className="text-gold text-sm font-semibold">Est. 2023 • New Orleans, LA</span>
+          </div>
+          
           <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
             Redefine Your Masculinity. Build Your Legacy.
           </h1>
           <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
-            Principled mentorship, emotional intelligence coaching, and premium grooming aligned with the Four Pillars.
+            Principled mentorship for today's men—and those raising the next generation. Aligned with the Four Pillars.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="hero" className="w-full sm:w-auto" asChild>
-              <Link to="/programs">Explore Programs</Link>
+              <Link to="/codex">Explore The Codex</Link>
             </Button>
 
             <Button size="lg" variant="hero" className="w-full sm:w-auto" asChild>
+              <Link to="/programs">View Programs</Link>
+            </Button>
+
+            <Button size="lg" variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-primary" asChild>
               <Link to="/shop">Shop Grooming</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* FEEL / LOOK / BE SHARP */}
+      {/* TAGLINE BAND */}
+      <section className="py-6 bg-gold">
+        <div className="container mx-auto px-4">
+          <p className="text-center text-gold-foreground font-heading font-bold text-lg md:text-xl tracking-wide">
+            Refined standards. Grounded character. Generational impact.
+          </p>
+        </div>
+      </section>
+
+      {/* FEEL / LOOK / BE SHARP - Now links to Codex */}
       <section className="py-20 md:py-24 bg-primary">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 max-w-6xl mx-auto">
@@ -121,8 +139,8 @@ const Index = () => {
               <p className="text-base text-primary-foreground/90 mb-5 max-w-xs mx-auto">
                 Emotional intelligence and internal clarity.
               </p>
-              <Link to="/programs" className="text-sm font-semibold text-gold hover:underline">
-                Explore Emotional Intelligence →
+              <Link to="/codex" className="text-sm font-semibold text-gold hover:underline">
+                Explore EQ Resources →
               </Link>
             </div>
 
@@ -132,8 +150,8 @@ const Index = () => {
               <p className="text-base text-primary-foreground/90 mb-5 max-w-xs mx-auto">
                 Refined grooming and daily rituals.
               </p>
-              <Link to="/shop" className="text-sm font-semibold text-gold hover:underline">
-                Shop Essence Collection →
+              <Link to="/codex" className="text-sm font-semibold text-gold hover:underline">
+                Explore Grooming Guides →
               </Link>
             </div>
 
@@ -143,30 +161,40 @@ const Index = () => {
               <p className="text-base text-primary-foreground/90 mb-5 max-w-xs mx-auto">
                 Legacy building and intentional leadership.
               </p>
-              <Link to="/programs" className="text-sm font-semibold text-gold hover:underline">
-                Join the Programs →
+              <Link to="/codex" className="text-sm font-semibold text-gold hover:underline">
+                Explore Leadership Guides →
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FOUR PILLARS */}
+      {/* FOUR PILLARS - Start Here Path */}
       <section className="py-20 md:py-32 bg-background" id="pillars">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl font-heading font-bold text-center mb-16">Built on the Four Pillars</h2>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">Built on the Four Pillars</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
+              A teachable, repeatable framework for character development and personal evolution.
+            </p>
+            <Button asChild variant="outline" size="lg">
+              <Link to="/codex">Start with the Four Pillars →</Link>
+            </Button>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {[
-              { title: "INTEGRITY", description: "Character over convenience." },
-              { title: "STRENGTH", description: "Mental, emotional, physical resilience." },
-              { title: "EMOTIONAL INTELLIGENCE", description: "Self-awareness and regulation." },
-              { title: "DISCIPLINE", description: "Consistency over motivation." },
+              { title: "INTEGRITY", description: "Character over convenience.", link: "/about#pillars" },
+              { title: "STRENGTH", description: "Mental, emotional, physical resilience.", link: "/about#pillars" },
+              { title: "EMOTIONAL INTELLIGENCE", description: "Self-awareness and regulation.", link: "/eq-assessment" },
+              { title: "DISCIPLINE", description: "Consistency over motivation.", link: "/about#pillars" },
             ].map((pillar, i) => (
-              <Card key={i} className="p-8 border-2 bg-card">
-                <h3 className="text-2xl font-heading font-bold mb-4">{pillar.title}</h3>
-                <p className="text-muted-foreground">{pillar.description}</p>
-              </Card>
+              <Link key={i} to={pillar.link}>
+                <Card className="p-8 border-2 bg-card hover:border-gold transition-colors cursor-pointer">
+                  <h3 className="text-2xl font-heading font-bold mb-4">{pillar.title}</h3>
+                  <p className="text-muted-foreground">{pillar.description}</p>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
@@ -335,49 +363,70 @@ const Index = () => {
         </div>
       </section>
 
-      {/* SOCIAL PROOF */}
+      {/* SOCIAL PROOF - Tagged Testimonials + Credibility Block */}
       <section className="py-20 md:py-32 bg-primary text-white">
         <div className="container mx-auto px-4">
+          {/* Credibility Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">Standards + Framework + Outcomes</h2>
+            <p className="text-primary-foreground/80 max-w-2xl mx-auto">
+              Our Four Pillars curriculum is built on Positive Youth Development, Trauma-Informed Care, and Social-Emotional Learning best practices.
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+            {/* Testimonial 1 - Tagged with Pillar */}
             <div>
-              <div className="text-6xl text-gold mb-4">"</div>
-              <p className="italic text-lg mb-4">The Poised Young Gentleman program changed my son's life.</p>
+              <div className="inline-block bg-gold/20 text-gold text-xs font-semibold px-3 py-1 rounded-full mb-4">
+                Discipline
+              </div>
+              <div className="text-5xl text-gold mb-4">"</div>
+              <p className="italic text-lg mb-4">The Poised Young Gentleman program changed my son's life. He now wakes up early and takes ownership of his day.</p>
               <p className="text-sm text-gold">— Marcus T., Parent</p>
             </div>
 
+            {/* Testimonial 2 - Tagged with Pillar */}
             <div>
-              <div className="text-6xl text-gold mb-4">"</div>
-              <p className="italic text-lg mb-4">Emotional intelligence isn't weakness — it's strategy.</p>
+              <div className="inline-block bg-gold/20 text-gold text-xs font-semibold px-3 py-1 rounded-full mb-4">
+                Emotional Intelligence
+              </div>
+              <div className="text-5xl text-gold mb-4">"</div>
+              <p className="italic text-lg mb-4">Emotional intelligence isn't weakness — it's strategy. This program gave me the vocabulary and tools.</p>
               <p className="text-sm text-gold">— Andre W., 29</p>
             </div>
 
+            {/* Stats - Grounded Claims */}
             <div className="flex flex-col gap-6">
               <div>
                 <div className="text-4xl font-heading font-bold text-gold">500+</div>
-                <p className="text-sm">Men & Boys Mentored</p>
+                <p className="text-sm">Individuals Mentored Since 2023</p>
               </div>
               <div>
-                <div className="text-4xl font-heading font-bold text-gold">7-Week</div>
-                <p className="text-sm">Youth Transformation</p>
+                <div className="text-4xl font-heading font-bold text-gold">8-Week</div>
+                <p className="text-sm">Youth Curriculum Program</p>
               </div>
               <div>
                 <div className="text-4xl font-heading font-bold text-gold">98%</div>
-                <p className="text-sm">Satisfaction Rate</p>
+                <p className="text-sm">Participant Satisfaction (Self-Reported)</p>
               </div>
               <div>
                 <div className="text-4xl font-heading font-bold text-gold">Est. 2023</div>
-                <p className="text-sm">Growing Daily</p>
+                <p className="text-sm">Founded in New Orleans, LA</p>
               </div>
             </div>
           </div>
 
+          {/* Partners + Codex Link */}
           <div className="text-center mt-16 pt-16 border-t border-white/20">
             <p className="text-sm text-gold mb-4">Proud Partners</p>
-            <div className="flex flex-wrap justify-center gap-8 text-sm">
+            <div className="flex flex-wrap justify-center gap-8 text-sm mb-8">
               <span>Son of a Saint</span>
               <span className="text-gold">•</span>
               <span>AmeriHealth Caritas</span>
             </div>
+            <Button asChild variant="outline" className="border-gold text-gold hover:bg-gold hover:text-gold-foreground">
+              <Link to="/codex">Explore Our Methods in The Codex →</Link>
+            </Button>
           </div>
         </div>
       </section>
