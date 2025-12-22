@@ -201,6 +201,13 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Tagline Lockup */}
+        <div className="text-center mb-6">
+          <p className="font-heading font-bold text-gold text-lg tracking-wide">
+            Refined standards. Grounded character. Generational impact.
+          </p>
+        </div>
+
         {/* Footer Bottom */}
         <div className="border-t border-primary-foreground/20 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
           <p>© 2025 RISE TO PURPOSE LLC. All rights reserved.</p>
