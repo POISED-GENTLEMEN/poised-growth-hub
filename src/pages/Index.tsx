@@ -96,7 +96,7 @@ const Index = () => {
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
             <span className="text-gold text-sm font-semibold">Est. 2023 • New Orleans, LA</span>
           </div>
-          
+
           <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
             Redefine Your Masculinity. Build Your Legacy.
           </h1>
@@ -113,7 +113,12 @@ const Index = () => {
               <Link to="/programs">View Programs</Link>
             </Button>
 
-            <Button size="lg" variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-primary" asChild>
+            <Button
+              size="lg"
+              variant="outline"
+              className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-primary"
+              asChild
+            >
               <Link to="/shop">Shop Grooming</Link>
             </Button>
           </div>
@@ -186,7 +191,11 @@ const Index = () => {
             {[
               { title: "INTEGRITY", description: "Character over convenience.", link: "/about#pillars" },
               { title: "STRENGTH", description: "Mental, emotional, physical resilience.", link: "/about#pillars" },
-              { title: "EMOTIONAL INTELLIGENCE", description: "Self-awareness and regulation.", link: "/eq-assessment" },
+              {
+                title: "EMOTIONAL INTELLIGENCE",
+                description: "Self-awareness and regulation.",
+                link: "/eq-assessment",
+              },
               { title: "DISCIPLINE", description: "Consistency over motivation.", link: "/about#pillars" },
             ].map((pillar, i) => (
               <Link key={i} to={pillar.link}>
@@ -370,7 +379,8 @@ const Index = () => {
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">Standards + Framework + Outcomes</h2>
             <p className="text-primary-foreground/80 max-w-2xl mx-auto">
-              Our Four Pillars curriculum is built on Positive Youth Development, Trauma-Informed Care, and Social-Emotional Learning best practices.
+              Our Four Pillars curriculum is built on Positive Youth Development, Trauma-Informed Care, and
+              Social-Emotional Learning best practices.
             </p>
           </div>
 
@@ -381,7 +391,10 @@ const Index = () => {
                 Discipline
               </div>
               <div className="text-5xl text-gold mb-4">"</div>
-              <p className="italic text-lg mb-4">The Poised Young Gentleman program changed my son's life. He now wakes up early and takes ownership of his day.</p>
+              <p className="italic text-lg mb-4">
+                The Poised Young Gentleman program changed my son's life. He now wakes up early and takes ownership of
+                his day.
+              </p>
               <p className="text-sm text-gold">— Marcus T., Parent</p>
             </div>
 
@@ -391,7 +404,9 @@ const Index = () => {
                 Emotional Intelligence
               </div>
               <div className="text-5xl text-gold mb-4">"</div>
-              <p className="italic text-lg mb-4">Emotional intelligence isn't weakness — it's strategy. This program gave me the vocabulary and tools.</p>
+              <p className="italic text-lg mb-4">
+                Emotional intelligence isn't weakness — it's strategy. This program gave me the vocabulary and tools.
+              </p>
               <p className="text-sm text-gold">— Andre W., 29</p>
             </div>
 
@@ -424,7 +439,11 @@ const Index = () => {
               <span className="text-gold">•</span>
               <span>AmeriHealth Caritas</span>
             </div>
-            <Button asChild variant="outline" className="border-gold text-gold hover:bg-gold hover:text-gold-foreground">
+            <Button
+              asChild
+              variant="outline"
+              className="border-gold text-gold hover:bg-gold hover:text-gold-foreground"
+            >
               <Link to="/codex">Explore Our Methods in The Codex →</Link>
             </Button>
           </div>
@@ -436,7 +455,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-heading font-bold text-primary mb-4">
-              Join the Movement. Stay Poised.
+              Enter Codex. Live with Poise.
             </h2>
             <p className="text-lg text-primary/90 mb-8">Weekly insights + free 4 Pillars Starter Kit.</p>
 
