@@ -4,7 +4,7 @@ const SHOPIFY_STORE_PERMANENT_DOMAIN = 'poised-growth-hub-rfqhl.myshopify.com';
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
 const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN;
 // Blog token with unauthenticated_read_content scope
-const SHOPIFY_BLOG_TOKEN = import.meta.env.VITE_SHOPIFY_BLOG_TOKEN;
+const SHOPIFY_BLOG_TOKEN = '9d01b783b935434fab46eb9822fb9668';
 
 export interface ShopifyProduct {
   node: {
