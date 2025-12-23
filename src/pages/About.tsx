@@ -51,28 +51,38 @@ const About = () => {
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-6">
                 Our Story
               </h2>
-              <div className="space-y-4 text-lg text-muted-foreground">
+              <div className="space-y-6 text-lg text-muted-foreground">
                 <p>
-                  David Rachal III founded The Poised Gentlemen in 2023 after more than a decade 
-                  of youth leadership and witnessing a crisis: boys and men lack roadmaps for 
-                  emotional intelligence, character development, and refined presence.
+                  Poised Gentlemen was founded in 2023 by David Rachal III with one clear belief: 
+                  most boys and men aren't failing—they're untrained. And when life gets heavy, 
+                  you don't rise to the moment. You default to your training.
                 </p>
                 <p>
-                  Raised in New Orleans, David understood early that masculinity wasn't about 
-                  bravado—it was about integrity, strength, emotional fluency, and discipline. 
-                  After earning his MBA and working in corporate leadership, he felt called to 
-                  bridge the gap between traditional male development and modern emotional intelligence.
+                  Raised in Natchitoches, Louisiana, David grew up around the kind of Southern 
+                  standards people still respect—character, composure, and accountability. But he 
+                  also saw the gap up close: too many young men are expected to lead, provide, and 
+                  stay emotionally steady without ever being taught how.
                 </p>
                 <p>
-                  The Four Pillars Framework was born from research in Positive Youth Development, 
-                  Trauma-Informed Care, and Social-Emotional Learning—combined with real-world 
-                  mentorship experience. It's not just theory. It's a teachable, repeatable system 
-                  that works for boys, men, and institutions.
+                  New Orleans became the birthplace of Poised Gentlemen for a reason. The city 
+                  represents culture, pressure, pride, and presence—all at once. And if a man can 
+                  learn to carry himself with integrity in a place that loud, he can carry himself 
+                  anywhere.
                 </p>
                 <p>
-                  Today, The Poised Gentlemen serves 500+ individuals annually through youth 
-                  mentorship, adult coaching, grooming products, and partnerships with organizations 
-                  like Son of a Saint and AmeriHealth Caritas.
+                  With more than a decade of youth leadership experience and an MBA, David built 
+                  what he wished more men had earlier: a practical framework for growth that holds 
+                  up under stress. <strong className="text-foreground">The Four Pillars Framework</strong> anchors 
+                  everything we teach and build.
+                </p>
+                <p className="text-xl font-semibold text-foreground border-l-4 border-gold pl-4 py-2">
+                  This isn't hype. It's conditioning.
+                </p>
+                <p>
+                  We train men and boys to a higher standard—so when times are tough, their default 
+                  is composure. Clarity. Character. The goal isn't perfection. It's to remain 
+                  poised <span className="text-gold font-medium">(Possession Of Integrity, Strength, 
+                  Emotional Intelligence, & Discipline)</span>.
                 </p>
               </div>
             </div>
