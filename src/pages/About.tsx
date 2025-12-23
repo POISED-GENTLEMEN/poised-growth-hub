@@ -13,8 +13,8 @@ import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
 import heroImage from "@/assets/about-hero.jpg";
 import davidProfessional from "@/assets/david-rachal-professional.jpg";
-import davidTeam from "@/assets/team-david.jpg";
-import kimberlyTeam from "@/assets/team-kimberly.jpg";
+import davidTeam from "@/assets/dr3-headshot.png";
+import kimberlyTeam from "@/assets/kimberly-beshears.png";
 import joelTeam from "@/assets/team-joel.jpg";
 
 const About = () => {
