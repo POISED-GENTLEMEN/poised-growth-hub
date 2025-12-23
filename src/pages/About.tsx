@@ -12,7 +12,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
 import heroImage from "@/assets/about-hero.jpg";
-import davidProfessional from "@/assets/david-rachal-professional.jpg";
+import davidFounderStory from "@/assets/david-founder-story.png";
 import davidTeam from "@/assets/team-david.jpg";
 import kimberlyTeam from "@/assets/team-kimberly.jpg";
 import joelTeam from "@/assets/team-joel.jpg";
@@ -88,9 +88,9 @@ const About = () => {
             </div>
             <div className="flex justify-center">
               <img 
-                src={davidProfessional} 
+                src={davidFounderStory} 
                 alt="David Rachal III, Founder of The Poised Gentlemen"
-                className="rounded-lg shadow-xl max-w-md w-full"
+                className="rounded-lg shadow-xl w-full max-w-sm md:max-w-md object-cover"
               />
             </div>
           </div>
