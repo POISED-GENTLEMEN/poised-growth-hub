@@ -324,7 +324,7 @@ const About = () => {
               <img 
                 src={davidTeam}
                 alt="David DR3 Rachal III, Founder & Chief Executive Officer"
-                className="w-48 h-48 rounded-full mx-auto mb-6 object-cover shadow-lg border-4 border-gold"
+                className="w-48 h-48 rounded-full mx-auto mb-6 object-cover object-top shadow-lg border-4 border-gold"
               />
               <h3 className="font-heading text-2xl font-bold text-foreground mb-2 text-center">
                 David "DR3" Rachal III, MBA
@@ -359,7 +359,7 @@ const About = () => {
               <img 
                 src={kimberlyTeam}
                 alt="Kimberly N. Beshears, Chief Program Officer & Director of Clinical Excellence"
-                className="w-48 h-48 rounded-full mx-auto mb-6 object-cover shadow-lg border-4 border-gold"
+                className="w-48 h-48 rounded-full mx-auto mb-6 object-cover object-top shadow-lg border-4 border-gold"
               />
               <h3 className="font-heading text-2xl font-bold text-foreground mb-2 text-center">
                 Kimberly N. Beshears, M.A., MBA
