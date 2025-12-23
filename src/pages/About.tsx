@@ -13,7 +13,7 @@ import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
 import heroImage from "@/assets/about-hero.jpg";
 import davidFounderStory from "@/assets/david-founder-story.png";
-import davidTeam from "@/assets/team-david.jpg";
+import davidTeam from "@/assets/team-david-new.png";
 import kimberlyTeam from "@/assets/team-kimberly.jpg";
 import joelTeam from "@/assets/team-joel.jpg";
 
