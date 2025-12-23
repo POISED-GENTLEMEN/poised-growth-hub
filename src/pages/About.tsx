@@ -89,7 +89,7 @@ const About = () => {
               <img 
                 src={davidTeam} 
                 alt="David Rachal III, Founder of Poised Gentlemen"
-                className="rounded-2xl shadow-xl max-w-md w-full border-4 border-gold"
+                className="rounded-2xl max-w-md w-full border-4 border-gold shadow-[0_0_40px_rgba(212,175,55,0.35)]"
               />
             </div>
           </div>
