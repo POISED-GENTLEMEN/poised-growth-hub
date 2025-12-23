@@ -209,7 +209,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">
-              Structured Mentorship Rooted in the Four Pillars
+              Structured Mentorship<p></p> Rooted in the Four Pillars
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Structured programs teaching the Four Pillars.
