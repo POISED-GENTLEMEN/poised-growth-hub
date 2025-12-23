@@ -263,12 +263,19 @@ const BLOG_ARTICLES_QUERY = `
 
 export async function fetchShopifyBlogPosts(blogHandle: string = 'news'): Promise<ShopifyArticle[]> {
   try {
-    // Use blog token with unauthenticated_read_content scope
+    // Use blog token if available, otherwise fallback to storefront token
+    const token = SHOPIFY_BLOG_TOKEN || SHOPIFY_STOREFRONT_TOKEN;
+    
+    if (!token) {
+      console.error('No Shopify token available for blog requests');
+      return [];
+    }
+    
     const response = await fetch(SHOPIFY_STOREFRONT_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': SHOPIFY_BLOG_TOKEN
+        'X-Shopify-Storefront-Access-Token': token
       },
       body: JSON.stringify({
         query: BLOG_ARTICLES_QUERY,
