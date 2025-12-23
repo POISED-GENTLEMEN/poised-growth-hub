@@ -30,14 +30,14 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            <Link to="/programs" className="text-foreground hover:text-primary transition-colors font-body font-medium">
+            <Link to="/programs" className="text-base text-foreground hover:text-primary transition-colors font-body font-medium">
               Programs
             </Link>
             
             <NavigationMenu delayDuration={200}>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors font-body font-medium bg-transparent h-auto p-0 hover:bg-transparent data-[state=open]:bg-transparent">
+                  <NavigationMenuTrigger className="text-base text-foreground hover:text-primary transition-colors font-body font-medium bg-transparent h-auto p-0 hover:bg-transparent data-[state=open]:bg-transparent">
                     Moms & Mentors
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="w-[300px]">
@@ -126,7 +126,7 @@ const Header = () => {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-foreground hover:text-primary transition-colors font-body font-medium bg-transparent h-auto p-0 hover:bg-transparent data-[state=open]:bg-transparent">
+                  <NavigationMenuTrigger className="text-base text-foreground hover:text-primary transition-colors font-body font-medium bg-transparent h-auto p-0 hover:bg-transparent data-[state=open]:bg-transparent">
                     Shop
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="w-[280px]">
@@ -207,13 +207,13 @@ const Header = () => {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            <Link to="/about" className="text-foreground hover:text-primary transition-colors font-body font-medium">
+            <Link to="/about" className="text-base text-foreground hover:text-primary transition-colors font-body font-medium">
               About
             </Link>
-            <Link to="/codex" className="text-foreground hover:text-primary transition-colors font-body font-medium">
+            <Link to="/codex" className="text-base text-foreground hover:text-primary transition-colors font-body font-medium">
               The Codex
             </Link>
-            <Link to="/contact" className="text-foreground hover:text-primary transition-colors font-body font-medium">
+            <Link to="/contact" className="text-base text-foreground hover:text-primary transition-colors font-body font-medium">
               Contact
             </Link>
           </nav>
