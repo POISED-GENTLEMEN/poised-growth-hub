@@ -244,9 +244,9 @@ const Index = () => {
       <section className="py-20 md:py-32 bg-background" id="shop">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">
+            <h1 className="text-3xl md:text-5xl font-heading font-bold mb-4">
               Grooming as Discipline. Grooming as Presence.
-            </h2>
+            </h1>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Premium ingredients. Purpose-driven formulas.
             </p>
