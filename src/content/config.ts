@@ -24,7 +24,7 @@ export const collections = {
       title: { type: 'string', required: true },
       slug: { type: 'string', required: true },
       date: { type: 'string', required: true },
-      author: { type: 'string', default: 'The Poised Gentlemen' },
+      author: { type: 'string', default: 'Poised Gentlemen' },
       description: { type: 'string', required: true },
       coverImage: { type: 'string', required: true },
       tags: { type: 'array', items: 'string', default: [] },

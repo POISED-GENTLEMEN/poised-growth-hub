@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* The Poised Gentlemen Design System */
+    /* Poised Gentlemen Design System */
     --background: 0 0% 100%;
     --foreground: 210 28% 17%;
     

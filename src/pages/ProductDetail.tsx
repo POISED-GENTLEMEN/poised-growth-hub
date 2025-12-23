@@ -141,7 +141,7 @@ const ProductDetail = () => {
             >
               <img 
                 src={imageUrl} 
-                alt={`${product.node.title} - Premium fragrance product from The Poised Gentlemen Essence Collection`}
+                alt={`${product.node.title} - Premium fragrance product from the Poised Gentlemen Essence Collection`}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
               <button

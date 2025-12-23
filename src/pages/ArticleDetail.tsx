@@ -53,7 +53,7 @@ const ArticleDetail = () => {
     if (!article) return;
 
     // Update document title
-    document.title = `${article.title} | The Poised Gentlemen`;
+    document.title = `${article.title} | Poised Gentlemen`;
 
     // Helper function to set or create meta tag
     const setMetaTag = (name: string, content: string, property?: boolean) => {
@@ -86,7 +86,7 @@ const ArticleDetail = () => {
 
     // Cleanup: Reset to default on unmount
     return () => {
-      document.title = "The Poised Gentlemen | Mentorship & Grooming for Modern Men";
+      document.title = "Poised Gentlemen | Mentorship & Grooming for Modern Men";
       setMetaTag('description', 'Youth mentorship, adult coaching, and premium grooming aligned with the Four Pillars: Integrity, Strength, Emotional Intelligence, Discipline. New Orleans.');
     };
   }, [article]);
