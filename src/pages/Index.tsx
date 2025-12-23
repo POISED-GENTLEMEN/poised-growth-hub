@@ -92,10 +92,6 @@ const Index = () => {
       >
         <div className="absolute inset-0 bg-primary/60" />
         <div className="relative z-10 container mx-auto px-4 text-center text-white">
-          {/* New Orleans Origin Badge */}
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
-            <span className="text-gold text-sm font-semibold">Est. 2023 • New Orleans, LA</span>
-          </div>
 
           <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
             Redefine Your Masculinity. Build Your Legacy.
