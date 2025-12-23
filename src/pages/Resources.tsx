@@ -142,11 +142,8 @@ const Resources = () => {
       <section className="relative h-[40vh] bg-primary flex items-center justify-center">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl md:text-6xl font-heading font-bold text-primary-foreground mb-5">The Codex</h1>
-          <p className="text-lg md:text-xl text-primary-foreground/90 max-w-2xl mx-auto mb-4">
-            Your standards, frameworks, and resources library for building legacy.
-          </p>
-          <p className="text-sm text-gold font-semibold">
-            Comprehensive guides on the Four Pillars, emotional intelligence, style, and etiquette.
+          <p className="text-lg md:text-xl text-primary-foreground/90 max-w-2xl mx-auto">
+            Your resource library for building leadership, lifestyle and legacy on the Four Pillars.
           </p>
         </div>
       </section>
