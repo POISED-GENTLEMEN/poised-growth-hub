@@ -135,7 +135,7 @@ export function mapShopifyArticleToBlogPost(article: ShopifyArticle, id: number)
     category: getCategoryFromTags(node.tags),
     image: node.image?.url || "",
     readTime: estimateReadTime(node.content),
-    author: node.authorV2?.name || "The Poised Gentlemen",
+    author: node.authorV2?.name || "Poised Gentlemen",
     pillar: getPillarFromTags(node.tags),
     isParentResource: node.tags.some((t) => t.toLowerCase() === "parent-resource" || t.toLowerCase() === "for-parents"),
     url: "",

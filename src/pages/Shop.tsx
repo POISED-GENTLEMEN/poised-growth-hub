@@ -86,7 +86,7 @@ const Shop = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[#C1A36C]"></div>
 
         <div className="relative z-10 text-center px-4 py-20 md:py-24">
-          <h1 className="text-3xl md:text-5xl font-heading font-bold text-white mb-4">The Poised Gentlemen Shop</h1>
+          <h1 className="text-3xl md:text-5xl font-heading font-bold text-white mb-4">Poised Gentlemen Shop</h1>
 
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
             Premium grooming essentials for the modern gentleman

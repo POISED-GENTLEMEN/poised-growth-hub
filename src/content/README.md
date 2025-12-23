@@ -25,7 +25,7 @@ Create a new `.md` file in `src/content/posts/` with this structure:
 title: "Your Post Title"
 slug: "your-post-slug"
 date: "Month Day, Year"
-author: "The Poised Gentlemen"
+author: "Poised Gentlemen"
 description: "A brief excerpt or description of your post"
 coverImage: "article-image-name.jpg"
 tags: ["Tag1", "Tag2"]
@@ -55,7 +55,7 @@ Write freely with full markdown support!
 | `title` | string | ✅ | The post title |
 | `slug` | string | ✅ | URL-friendly identifier |
 | `date` | string | ✅ | Publication date (e.g., "March 12, 2025") |
-| `author` | string | ❌ | Author name (defaults to "The Poised Gentlemen") |
+| `author` | string | ❌ | Author name (defaults to "Poised Gentlemen") |
 | `description` | string | ✅ | Short excerpt shown in listings |
 | `coverImage` | string | ✅ | Image filename (must exist in `/src/assets/`) |
 | `tags` | array | ❌ | Array of tag strings |
@@ -95,7 +95,7 @@ Current available images:
 ## SEO
 
 Each post automatically generates:
-- Page title: `{Post Title} | The Poised Gentlemen`
+- Page title: `{Post Title} | Poised Gentlemen`
 - Meta description from the `description` field
 - OpenGraph tags for social sharing
 - Twitter Card metadata

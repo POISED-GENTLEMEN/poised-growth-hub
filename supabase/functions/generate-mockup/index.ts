@@ -16,7 +16,7 @@ serve(async (req) => {
       throw new Error('LOVABLE_API_KEY is not configured');
     }
 
-    const prompt = `Create a professional high-fidelity web design mockup of a pricing carousel section for "The Poised Gentlemen" premium men's grooming and mentorship brand.
+    const prompt = `Create a professional high-fidelity web design mockup of a pricing carousel section for "Poised Gentlemen" premium men's grooming and mentorship brand.
 
 Design specifications:
 - Background: Dark navy (#1a1a2e) with subtle texture

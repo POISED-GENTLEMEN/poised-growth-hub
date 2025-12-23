@@ -89,7 +89,7 @@ const About = () => {
             <div className="flex justify-center">
               <img 
                 src={davidProfessional} 
-                alt="David Rachal III, Founder of The Poised Gentlemen"
+                alt="David Rachal III, Founder of Poised Gentlemen"
                 className="rounded-lg shadow-xl max-w-md w-full"
               />
             </div>
@@ -313,7 +313,7 @@ const About = () => {
               Meet the Team
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              The minds and hearts behind The Poised Gentlemen's mission to redefine masculinity 
+              The minds and hearts behind Poised Gentlemen's mission to redefine masculinity 
               through integrity, strength, emotional intelligence, and discipline.
             </p>
           </div>

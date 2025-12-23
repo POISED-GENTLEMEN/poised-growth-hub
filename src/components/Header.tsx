@@ -25,7 +25,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="text-2xl font-heading font-bold text-primary">
-            The Poised Gentlemen
+            Poised Gentlemen
           </Link>
 
           {/* Desktop Navigation */}

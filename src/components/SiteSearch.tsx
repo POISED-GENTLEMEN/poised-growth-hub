@@ -137,7 +137,7 @@ export const SiteSearch = () => {
     // Other pages
     {
       id: "about",
-      title: "About The Poised Gentlemen",
+      title: "About Poised Gentlemen",
       description: "Learn about our mission, the Four Pillars, and founder David Rachal",
       url: "/about",
       category: "Pages",

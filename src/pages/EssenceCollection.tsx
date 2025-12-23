@@ -211,7 +211,7 @@ const EssenceCollection = () => {
                   {product.image ? (
                     <img 
                       src={product.image} 
-                      alt={`${product.name} - Premium fragrance product from The Poised Gentlemen Essence Collection`}
+                      alt={`${product.name} - Premium fragrance product from the Poised Gentlemen Essence Collection`}
                       className="w-full h-full object-cover"
                     />
                   ) : (

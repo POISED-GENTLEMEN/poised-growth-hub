@@ -76,7 +76,7 @@ const Resources = () => {
 
   // SEO: Update page title and meta description
   useEffect(() => {
-    document.title = "The Codex | The Poised Gentlemen";
+    document.title = "The Codex | Poised Gentlemen";
 
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
@@ -88,7 +88,7 @@ const Resources = () => {
 
     // Cleanup: Reset to default on unmount
     return () => {
-      document.title = "The Poised Gentlemen | Mentorship & Grooming for Modern Men";
+      document.title = "Poised Gentlemen | Mentorship & Grooming for Modern Men";
       if (metaDescription) {
         metaDescription.setAttribute(
           "content",
@@ -440,7 +440,7 @@ const Resources = () => {
                 onCheckedChange={(checked) => setFormData({ ...formData, newsletter: checked as boolean })}
               />
               <Label htmlFor="newsletter" className="text-sm font-normal">
-                I agree to receive The Poised Gentlemen newsletter
+                I agree to receive the Poised Gentlemen newsletter
               </Label>
             </div>
 

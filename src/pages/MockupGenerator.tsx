@@ -171,7 +171,7 @@ const MockupGenerator = () => {
                   <li>• Navy background (#1a1a2e) with gold accents (#d4af37)</li>
                   <li>• 4-tab navigation: Boys, Men, Mentors, Parents</li>
                   <li>• 3 bundle cards with gradient headers and pricing</li>
-                  <li>• Premium aesthetic matching The Poised Gentlemen brand</li>
+                  <li>• Premium aesthetic matching the Poised Gentlemen brand</li>
                 </ul>
               </div>
             </CardContent>

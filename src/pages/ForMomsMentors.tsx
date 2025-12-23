@@ -34,7 +34,7 @@ const ForMomsMentors = () => {
   const [errors, setErrors] = useState<{ email?: string }>({});
 
   useEffect(() => {
-    document.title = "For Moms & Mentors | The Poised Gentlemen";
+    document.title = "For Moms & Mentors | Poised Gentlemen";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute(

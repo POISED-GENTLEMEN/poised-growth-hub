@@ -23,7 +23,7 @@ const Index = () => {
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "Organization",
-      name: "The Poised Gentlemen",
+      name: "Poised Gentlemen",
       url: "https://poisedgentlemen.com",
       logo: "https://poisedgentlemen.com/favicon.ico",
       description:
