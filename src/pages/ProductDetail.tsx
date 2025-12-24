@@ -23,6 +23,7 @@ const ProductDetail = () => {
   const [selectedVariant, setSelectedVariant] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   useEffect(() => {
     async function loadProduct() {
@@ -75,7 +76,7 @@ const ProductDetail = () => {
 
   const selectedVariantData = product.node.variants.edges.find(v => v.node.id === selectedVariant)?.node;
   const currentPrice = selectedVariantData ? parseFloat(selectedVariantData.price.amount) : 0;
-  const imageUrl = product.node.images.edges[0]?.node.url || '/placeholder.svg';
+  const imageUrl = product.node.images.edges[selectedImageIndex]?.node.url || product.node.images.edges[0]?.node.url || '/placeholder.svg';
 
   const handleAddToCart = () => {
     if (!selectedVariantData) return;
@@ -155,14 +156,23 @@ const ProductDetail = () => {
             
             {/* Thumbnail Gallery */}
             {product.node.images.edges.length > 1 && (
-              <div className="grid grid-cols-4 gap-4">
-                {product.node.images.edges.slice(1, 5).map((img, i) => (
-                  <div 
+              <div className="flex gap-3 overflow-x-auto pb-2">
+                {product.node.images.edges.map((img, i) => (
+                  <button
                     key={i}
-                    className="aspect-square rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-gold transition-colors bg-muted"
+                    onClick={() => setSelectedImageIndex(i)}
+                    className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                      selectedImageIndex === i
+                        ? "border-gold ring-2 ring-gold/30"
+                        : "border-transparent hover:border-gold/50"
+                    }`}
                   >
-                    <img src={img.node.url} alt={img.node.altText || `${product.node.title} view ${i + 2}`} className="w-full h-full object-cover" />
-                  </div>
+                    <img 
+                      src={img.node.url} 
+                      alt={img.node.altText || `${product.node.title} view ${i + 1}`} 
+                      className="w-full h-full object-cover" 
+                    />
+                  </button>
                 ))}
               </div>
             )}
