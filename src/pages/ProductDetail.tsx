@@ -10,6 +10,7 @@ import { useShop } from "@/contexts/ShopContext";
 import { toast } from "sonner";
 import { fetchCollectionProducts, ShopifyProduct } from "@/lib/shopify";
 import { useCanonical } from "@/hooks/useCanonical";
+import DOMPurify from "dompurify";
 
 const ProductDetail = () => {
   useCanonical();
@@ -175,9 +176,12 @@ const ProductDetail = () => {
             
             <h1 className="text-4xl font-bold mb-4 text-foreground">{product.node.title}</h1>
             
-            <p className="text-xl text-muted-foreground mb-6">
-              {product.node.description}
-            </p>
+            <div 
+              className="text-xl text-muted-foreground mb-6 prose prose-lg max-w-none prose-p:text-muted-foreground prose-strong:text-foreground prose-ul:text-muted-foreground prose-li:text-muted-foreground"
+              dangerouslySetInnerHTML={{ 
+                __html: DOMPurify.sanitize(product.node.descriptionHtml || product.node.description) 
+              }} 
+            />
 
             {/* Variant Selector */}
             {product.node.variants.edges.length > 1 && (
@@ -283,9 +287,12 @@ const ProductDetail = () => {
         <div className="container mx-auto px-4">
           <div className="bg-background p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold mb-6">About This Fragrance</h2>
-            <p className="text-muted-foreground leading-relaxed text-lg">
-              {product.node.description}
-            </p>
+            <div 
+              className="text-muted-foreground leading-relaxed text-lg prose prose-lg max-w-none prose-p:text-muted-foreground prose-strong:text-foreground prose-ul:text-muted-foreground prose-li:text-muted-foreground"
+              dangerouslySetInnerHTML={{ 
+                __html: DOMPurify.sanitize(product.node.descriptionHtml || product.node.description) 
+              }} 
+            />
           </div>
         </div>
       </section>
@@ -325,7 +332,12 @@ const ProductDetail = () => {
             <AccordionItem value="ingredients">
               <AccordionTrigger className="text-lg font-bold">Description</AccordionTrigger>
               <AccordionContent className="text-muted-foreground">
-                <p className="leading-relaxed">{product.node.description}</p>
+                <div 
+                  className="leading-relaxed prose max-w-none prose-p:text-muted-foreground prose-strong:text-foreground prose-ul:text-muted-foreground prose-li:text-muted-foreground"
+                  dangerouslySetInnerHTML={{ 
+                    __html: DOMPurify.sanitize(product.node.descriptionHtml || product.node.description) 
+                  }} 
+                />
               </AccordionContent>
             </AccordionItem>
             
