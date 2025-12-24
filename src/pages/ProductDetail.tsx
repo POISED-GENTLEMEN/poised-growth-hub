@@ -282,20 +282,6 @@ const ProductDetail = () => {
         </div>
       </section>
 
-      {/* Product Description Section */}
-      <section className="bg-accent py-16">
-        <div className="container mx-auto px-4">
-          <div className="bg-background p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold mb-6">About This Fragrance</h2>
-            <div 
-              className="text-muted-foreground leading-relaxed text-lg prose prose-lg max-w-none prose-p:text-muted-foreground prose-strong:text-foreground prose-ul:text-muted-foreground prose-li:text-muted-foreground"
-              dangerouslySetInnerHTML={{ 
-                __html: DOMPurify.sanitize(product.node.descriptionHtml || product.node.description) 
-              }} 
-            />
-          </div>
-        </div>
-      </section>
 
       {/* The Poised Difference */}
       <section className="bg-primary text-primary-foreground py-16">
