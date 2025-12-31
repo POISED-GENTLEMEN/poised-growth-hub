@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useShop } from "@/contexts/ShopContext";
 import { Button } from "@/components/ui/button";
-import { Trash2, Plus, Minus, ShoppingBag, Check, Loader2, ExternalLink } from "lucide-react";
+import { Trash2, Plus, Minus, ShoppingBag, Check, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useCanonical } from "@/hooks/useCanonical";
 import { createShopifyCheckout } from "@/lib/shopify";
@@ -9,21 +9,8 @@ import { toast } from "sonner";
 
 const Cart = () => {
   useCanonical();
-  const { cartItems, updateQuantity, removeFromCart, getCartTotal, getShippingCost, getFinalTotal, appliedDiscount, applyDiscount, removeDiscount, getDiscountAmount } = useShop();
-  const [discountCode, setDiscountCode] = useState("");
-  const [showDiscountInput, setShowDiscountInput] = useState(false);
-  const [discountError, setDiscountError] = useState("");
+  const { cartItems, updateQuantity, removeFromCart, getCartTotal, getShippingCost, getFinalTotal, getDiscountAmount } = useShop();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
-
-  const handleApplyDiscount = () => {
-    const result = applyDiscount(discountCode);
-    if (!result.success) {
-      setDiscountError(result.message);
-    } else {
-      setDiscountError("");
-      setDiscountCode("");
-    }
-  };
 
   const handleShopifyCheckout = async () => {
     setIsCheckingOut(true);
@@ -144,28 +131,6 @@ const Cart = () => {
                 </div>
               </div>
 
-              <div className="border-t pt-4 mb-4">
-                <button onClick={() => setShowDiscountInput(!showDiscountInput)} className="text-gold text-sm hover:underline">
-                  Have a discount code?
-                </button>
-                {showDiscountInput && (
-                  <div className="mt-3">
-                    {!appliedDiscount ? (
-                      <div className="flex gap-2">
-                        <input type="text" value={discountCode} onChange={(e) => setDiscountCode(e.target.value)} placeholder="Enter code" className="flex-1 border rounded px-3 py-2 text-sm" />
-                        <Button size="sm" onClick={handleApplyDiscount}>Apply</Button>
-                      </div>
-                    ) : (
-                      <div className="bg-green-50 border border-success rounded p-3 flex items-center justify-between">
-                        <span className="text-success text-sm font-medium">✓ {appliedDiscount.description}</span>
-                        <button onClick={removeDiscount} className="text-destructive text-sm hover:underline">Remove</button>
-                      </div>
-                    )}
-                    {discountError && <p className="text-destructive text-sm mt-2">{discountError}</p>}
-                  </div>
-                )}
-              </div>
-
               <div className="w-full">
                 <Button 
                   variant="hero" 
@@ -177,13 +142,10 @@ const Cart = () => {
                   {isCheckingOut ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Creating Checkout...
+                      Processing...
                     </>
                   ) : (
-                    <>
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Checkout with Shopify
-                    </>
+                    "Checkout"
                   )}
                 </Button>
               </div>
