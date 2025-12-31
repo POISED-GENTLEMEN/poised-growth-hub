@@ -2,9 +2,94 @@
 const SHOPIFY_API_VERSION = '2025-07';
 const SHOPIFY_STORE_PERMANENT_DOMAIN = 'poised-growth-hub-rfqhl.myshopify.com';
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
-const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN;
+const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || 'a68886fc37f05f0f157a3c8b2057d4dc';
 // Blog token with unauthenticated_read_content scope
 const SHOPIFY_BLOG_TOKEN = '9d01b783b935434fab46eb9822fb9668';
+
+// Cart item interface for checkout
+export interface CartLineItem {
+  variantId: string;
+  quantity: number;
+}
+
+// Cart Create Mutation for Shopify Checkout
+const CART_CREATE_MUTATION = `
+  mutation cartCreate($input: CartInput!) {
+    cartCreate(input: $input) {
+      cart {
+        id
+        checkoutUrl
+        totalQuantity
+        cost {
+          totalAmount {
+            amount
+            currencyCode
+          }
+        }
+        lines(first: 100) {
+          edges {
+            node {
+              id
+              quantity
+              merchandise {
+                ... on ProductVariant {
+                  id
+                  title
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  product {
+                    title
+                    handle
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`;
+
+// Create Shopify checkout and return checkout URL
+export async function createShopifyCheckout(items: CartLineItem[]): Promise<string> {
+  try {
+    const lines = items.map(item => ({
+      quantity: item.quantity,
+      merchandiseId: item.variantId,
+    }));
+
+    const cartData = await storefrontApiRequest(CART_CREATE_MUTATION, {
+      input: {
+        lines,
+      },
+    });
+
+    if (cartData.data.cartCreate.userErrors.length > 0) {
+      throw new Error(`Cart creation failed: ${cartData.data.cartCreate.userErrors.map((e: any) => e.message).join(', ')}`);
+    }
+
+    const cart = cartData.data.cartCreate.cart;
+    
+    if (!cart.checkoutUrl) {
+      throw new Error('No checkout URL returned from Shopify');
+    }
+
+    // Add channel parameter to ensure checkout works without password
+    const url = new URL(cart.checkoutUrl);
+    url.searchParams.set('channel', 'online_store');
+    return url.toString();
+  } catch (error) {
+    console.error('Error creating Shopify checkout:', error);
+    throw error;
+  }
+}
 
 export interface ShopifyProduct {
   node: {

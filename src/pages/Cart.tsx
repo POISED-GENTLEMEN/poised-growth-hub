@@ -1,9 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useShop } from "@/contexts/ShopContext";
 import { Button } from "@/components/ui/button";
-import { Trash2, Plus, Minus, ShoppingBag, Check } from "lucide-react";
+import { Trash2, Plus, Minus, ShoppingBag, Check, Loader2, ExternalLink } from "lucide-react";
 import { useState } from "react";
 import { useCanonical } from "@/hooks/useCanonical";
+import { createShopifyCheckout } from "@/lib/shopify";
+import { toast } from "sonner";
 
 const Cart = () => {
   useCanonical();
@@ -11,7 +13,7 @@ const Cart = () => {
   const [discountCode, setDiscountCode] = useState("");
   const [showDiscountInput, setShowDiscountInput] = useState(false);
   const [discountError, setDiscountError] = useState("");
-  const navigate = useNavigate();
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const handleApplyDiscount = () => {
     const result = applyDiscount(discountCode);
@@ -20,6 +22,25 @@ const Cart = () => {
     } else {
       setDiscountError("");
       setDiscountCode("");
+    }
+  };
+
+  const handleShopifyCheckout = async () => {
+    setIsCheckingOut(true);
+    try {
+      // Map cart items to Shopify format with variant IDs
+      const lineItems = cartItems.map(item => ({
+        variantId: (item as any).variantId || item.id.toString(),
+        quantity: item.quantity
+      }));
+
+      const checkoutUrl = await createShopifyCheckout(lineItems);
+      window.open(checkoutUrl, '_blank');
+    } catch (error) {
+      console.error('Checkout error:', error);
+      toast.error('Failed to create checkout. Please try again.');
+    } finally {
+      setIsCheckingOut(false);
     }
   };
 
@@ -146,8 +167,24 @@ const Cart = () => {
               </div>
 
               <div className="w-full">
-                <Button variant="hero" size="lg" className="w-full whitespace-nowrap text-center mb-4" onClick={() => navigate('/checkout')}>
-                  Proceed to Checkout
+                <Button 
+                  variant="hero" 
+                  size="lg" 
+                  className="w-full whitespace-nowrap text-center mb-4" 
+                  onClick={handleShopifyCheckout}
+                  disabled={isCheckingOut}
+                >
+                  {isCheckingOut ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Creating Checkout...
+                    </>
+                  ) : (
+                    <>
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      Checkout with Shopify
+                    </>
+                  )}
                 </Button>
               </div>
               <Link to="/shop" className="block text-center text-gold hover:underline text-sm">

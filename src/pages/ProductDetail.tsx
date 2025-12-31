@@ -83,9 +83,10 @@ const ProductDetail = () => {
     
     const productForCart: any = {
       id: product.node.id,
+      variantId: selectedVariantData.id, // Store the Shopify variant ID for checkout
       name: product.node.title,
       ageGroup: "Essence Collection",
-      ageRange: "All Ages",
+      ageRange: selectedVariantData.title !== "Default Title" ? selectedVariantData.title : "All Ages",
       category: "Cologne Balms",
       pillar: "Premium Fragrance",
       price: currentPrice,
