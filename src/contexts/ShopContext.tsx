@@ -2,7 +2,8 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { fetchShopifyProducts, ShopifyProduct } from '@/lib/shopify';
 
 export interface Product {
-  id: number;
+  id: number | string;
+  variantId?: string; // Shopify variant ID for checkout
   name: string;
   ageGroup: string;
   ageRange: string;
@@ -37,8 +38,8 @@ interface ShopContextType {
   products: Product[];
   cartItems: CartItem[];
   addToCart: (product: Product, quantity?: number) => void;
-  removeFromCart: (productId: number) => void;
-  updateQuantity: (productId: number, newQuantity: number) => void;
+  removeFromCart: (productId: number | string) => void;
+  updateQuantity: (productId: number | string, newQuantity: number) => void;
   getCartTotal: () => number;
   getCartCount: () => number;
   selectedProduct: Product | null;
@@ -148,12 +149,12 @@ export const ShopProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     showToast(`Added ${product.name} to cart!`, 'success');
   };
 
-  const removeFromCart = (productId: number) => {
+  const removeFromCart = (productId: number | string) => {
     setCartItems(cartItems.filter(item => item.id !== productId));
     showToast('Item removed from cart', 'info');
   };
 
-  const updateQuantity = (productId: number, newQuantity: number) => {
+  const updateQuantity = (productId: number | string, newQuantity: number) => {
     if (newQuantity < 1) {
       removeFromCart(productId);
       return;
