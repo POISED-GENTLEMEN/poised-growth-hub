@@ -3,8 +3,8 @@ const SHOPIFY_API_VERSION = '2025-07';
 const SHOPIFY_STORE_PERMANENT_DOMAIN = 'poised-growth-hub-rfqhl.myshopify.com';
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
 const SHOPIFY_STOREFRONT_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN || 'a68886fc37f05f0f157a3c8b2057d4dc';
-// Blog token with unauthenticated_read_content scope
-const SHOPIFY_BLOG_TOKEN = '9d01b783b935434fab46eb9822fb9668';
+// Blog token with unauthenticated_read_content scope - uses env var with fallback for backwards compatibility
+const SHOPIFY_BLOG_TOKEN = import.meta.env.VITE_SHOPIFY_BLOG_TOKEN || '9d01b783b935434fab46eb9822fb9668';
 
 // Cart item interface for checkout
 export interface CartLineItem {
