@@ -3,7 +3,7 @@ import { fetchShopifyProducts, ShopifyProduct } from '@/lib/shopify';
 
 export interface Product {
   id: number | string;
-  variantId?: string; // Shopify variant ID for checkout
+  variantId: string; // Shopify variant ID for checkout - REQUIRED
   name: string;
   ageGroup: string;
   ageRange: string;
@@ -25,6 +25,7 @@ export interface Product {
 
 export interface CartItem extends Product {
   quantity: number;
+  variantId: string; // Ensure variantId is always present in cart
 }
 
 interface Discount {
@@ -63,9 +64,13 @@ function mapShopifyToProduct(shopifyProduct: ShopifyProduct, index: number): Pro
   const { node } = shopifyProduct;
   const price = parseFloat(node.priceRange.minVariantPrice.amount);
   const imageUrl = node.images.edges[0]?.node.url || '';
+  // Get the first variant's ID for checkout
+  const firstVariant = node.variants?.edges?.[0]?.node;
+  const variantId = firstVariant?.id || node.id; // Use variant ID or fallback to product ID
   
   return {
-    id: index + 1,
+    id: node.id, // Use Shopify product ID
+    variantId: variantId, // Shopify variant ID for checkout
     name: node.title,
     ageGroup: "all",
     ageRange: "Any Age",
@@ -132,7 +137,8 @@ export const ShopProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   const addToCart = (product: Product, quantity: number = 1) => {
-    const existing = cartItems.find(item => item.id === product.id);
+    // Match by variantId to support same product with different variants
+    const existing = cartItems.find(item => item.variantId === product.variantId);
     const currentQuantity = existing ? existing.quantity : 0;
     const newQuantity = currentQuantity + quantity;
 
@@ -142,15 +148,17 @@ export const ShopProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
 
     if (existing) {
-      updateQuantity(product.id, newQuantity);
+      updateQuantity(product.variantId, newQuantity);
     } else {
-      setCartItems([...cartItems, { ...product, quantity }]);
+      // Ensure variantId is preserved when adding to cart
+      setCartItems([...cartItems, { ...product, variantId: product.variantId, quantity }]);
     }
     showToast(`Added ${product.name} to cart!`, 'success');
   };
 
   const removeFromCart = (productId: number | string) => {
-    setCartItems(cartItems.filter(item => item.id !== productId));
+    // Support both id and variantId for removal
+    setCartItems(cartItems.filter(item => item.id !== productId && item.variantId !== productId));
     showToast('Item removed from cart', 'info');
   };
 
@@ -160,14 +168,15 @@ export const ShopProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       return;
     }
 
-    const product = products.find(p => p.id === productId);
-    if (product && newQuantity > product.stock) {
-      showToast(`Only ${product.stock} available in stock`, 'error');
+    // Find product by id or variantId
+    const cartItem = cartItems.find(item => item.id === productId || item.variantId === productId);
+    if (cartItem && newQuantity > cartItem.stock) {
+      showToast(`Only ${cartItem.stock} available in stock`, 'error');
       return;
     }
 
     setCartItems(cartItems.map(item => 
-      item.id === productId ? { ...item, quantity: newQuantity } : item
+      (item.id === productId || item.variantId === productId) ? { ...item, quantity: newQuantity } : item
     ));
   };
 
