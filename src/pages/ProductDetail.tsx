@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useShop } from "@/contexts/ShopContext";
 import { toast } from "sonner";
-import { fetchCollectionProducts, ShopifyProduct } from "@/lib/shopify";
+import { fetchCollectionProducts, ShopifyProduct, extractShopifyId } from "@/lib/shopify";
 import { useCanonical } from "@/hooks/useCanonical";
 import DOMPurify from "dompurify";
 
@@ -50,6 +50,13 @@ const ProductDetail = () => {
     
     loadProduct();
   }, [slug]);
+
+  // Reinitialize PreProduct when product or variant changes
+  useEffect(() => {
+    if (typeof window !== 'undefined' && (window as any).PPretry) {
+      (window as any).PPretry();
+    }
+  }, [product, selectedVariant]);
 
   if (isLoading) {
     return (
@@ -252,6 +259,9 @@ const ProductDetail = () => {
                 className="w-full whitespace-nowrap text-center mb-4 h-14 text-lg"
                 variant="hero"
                 disabled={!selectedVariantData?.availableForSale}
+                data-native-pre-order-btn
+                data-starting-variant={extractShopifyId(selectedVariantData?.id || '')}
+                data-domain="poised-growth-hub-rfqhl.myshopify.com"
               >
                 <ShoppingCart className="w-5 h-5 mr-2" />
                 {selectedVariantData?.availableForSale ? "Add to Cart" : "Out of Stock"}

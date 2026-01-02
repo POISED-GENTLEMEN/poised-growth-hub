@@ -349,6 +349,13 @@ const BLOG_ARTICLES_QUERY = `
   }
 `;
 
+// Extract numeric Shopify ID from GraphQL ID
+// e.g., "gid://shopify/ProductVariant/45678901234567" -> "45678901234567"
+export function extractShopifyId(graphqlId: string): string {
+  const parts = graphqlId.split('/');
+  return parts[parts.length - 1];
+}
+
 export async function fetchShopifyBlogPosts(blogHandle: string = 'news'): Promise<ShopifyArticle[]> {
   try {
     // Use blog token if available, otherwise fallback to storefront token
