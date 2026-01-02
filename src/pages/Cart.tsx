@@ -16,11 +16,15 @@ const Cart = () => {
     setIsCheckingOut(true);
     try {
       // Map cart items to Shopify format with variant IDs
-      const lineItems = cartItems.map(item => ({
-        variantId: (item as any).variantId || item.id.toString(),
-        quantity: item.quantity
-      }));
+      const lineItems = cartItems.map(item => {
+        console.log('Cart item for checkout:', { id: item.id, variantId: item.variantId, name: item.name });
+        return {
+          variantId: item.variantId, // variantId is now guaranteed to exist
+          quantity: item.quantity
+        };
+      });
 
+      console.log('Creating checkout with line items:', lineItems);
       const checkoutUrl = await createShopifyCheckout(lineItems);
       window.open(checkoutUrl, '_blank');
     } catch (error) {
