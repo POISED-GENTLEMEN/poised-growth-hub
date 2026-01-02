@@ -5,6 +5,7 @@ import { Loader2, Download, RefreshCw, ImageIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { supabase } from '@/integrations/supabase/client';
 
 const MockupGenerator = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -18,13 +19,20 @@ const MockupGenerator = () => {
     setDescription(null);
 
     try {
+      // Get the current session for authentication
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      
+      if (sessionError || !session) {
+        throw new Error('Please sign in to use the mockup generator');
+      }
+
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-mockup`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+            'Authorization': `Bearer ${session.access_token}`,
           },
         }
       );
