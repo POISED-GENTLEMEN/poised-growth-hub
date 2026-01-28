@@ -349,6 +349,52 @@ const BLOG_ARTICLES_QUERY = `
   }
 `;
 
+// Query to list all blogs in the store
+const LIST_BLOGS_QUERY = `
+  query ListBlogs($first: Int!) {
+    blogs(first: $first) {
+      edges {
+        node {
+          id
+          title
+          handle
+        }
+      }
+    }
+  }
+`;
+
+// Fetch all articles from ALL blogs (not just one specific blog)
+const ALL_ARTICLES_QUERY = `
+  query GetAllArticles($first: Int!) {
+    articles(first: $first, sortKey: PUBLISHED_AT, reverse: true) {
+      edges {
+        node {
+          id
+          title
+          handle
+          excerpt
+          content
+          contentHtml
+          publishedAt
+          image {
+            url
+            altText
+          }
+          authorV2 {
+            name
+          }
+          tags
+          blog {
+            handle
+            title
+          }
+        }
+      }
+    }
+  }
+`;
+
 // Extract numeric Shopify ID from GraphQL ID
 // e.g., "gid://shopify/ProductVariant/45678901234567" -> "45678901234567"
 export function extractShopifyId(graphqlId: string): string {
@@ -356,6 +402,91 @@ export function extractShopifyId(graphqlId: string): string {
   return parts[parts.length - 1];
 }
 
+// Fetch list of all blogs in the store
+export async function fetchShopifyBlogs(): Promise<Array<{ id: string; title: string; handle: string }>> {
+  try {
+    const token = SHOPIFY_BLOG_TOKEN || SHOPIFY_STOREFRONT_TOKEN;
+    
+    if (!token) {
+      console.error('No Shopify token available for blog requests');
+      return [];
+    }
+    
+    const response = await fetch(SHOPIFY_STOREFRONT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': token
+      },
+      body: JSON.stringify({
+        query: LIST_BLOGS_QUERY,
+        variables: { first: 20 },
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    if (data.errors) {
+      console.error('Shopify blogs API errors:', data.errors);
+      return [];
+    }
+    
+    const blogs = data.data?.blogs?.edges?.map((edge: any) => edge.node) || [];
+    console.log('Available Shopify blogs:', blogs);
+    return blogs;
+  } catch (error) {
+    console.error('Error fetching Shopify blogs:', error);
+    return [];
+  }
+}
+
+// Fetch ALL articles from ALL blogs (recommended approach)
+export async function fetchAllShopifyArticles(): Promise<ShopifyArticle[]> {
+  try {
+    const token = SHOPIFY_BLOG_TOKEN || SHOPIFY_STOREFRONT_TOKEN;
+    
+    if (!token) {
+      console.error('No Shopify token available for blog requests');
+      return [];
+    }
+    
+    const response = await fetch(SHOPIFY_STOREFRONT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': token
+      },
+      body: JSON.stringify({
+        query: ALL_ARTICLES_QUERY,
+        variables: { first: 100 },
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    if (data.errors) {
+      console.error('Shopify articles API errors:', data.errors);
+      return [];
+    }
+    
+    const articles = data.data?.articles?.edges || [];
+    console.log(`Fetched ${articles.length} articles from Shopify`);
+    return articles;
+  } catch (error) {
+    console.error('Error fetching all Shopify articles:', error);
+    return [];
+  }
+}
+
+// Fetch blog posts from a specific blog (legacy function, kept for compatibility)
 export async function fetchShopifyBlogPosts(blogHandle: string = 'news'): Promise<ShopifyArticle[]> {
   try {
     // Use blog token if available, otherwise fallback to storefront token
@@ -390,8 +521,9 @@ export async function fetchShopifyBlogPosts(blogHandle: string = 'news'): Promis
     }
     
     if (!data.data?.blog) {
-      console.warn(`Blog "${blogHandle}" not found.`);
-      return [];
+      console.warn(`Blog "${blogHandle}" not found. Trying to fetch all articles instead.`);
+      // Fallback to fetching all articles
+      return fetchAllShopifyArticles();
     }
     
     return data.data.blog.articles.edges;

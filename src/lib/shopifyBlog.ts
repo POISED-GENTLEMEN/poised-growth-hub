@@ -1,5 +1,5 @@
 // Shopify Blog to BlogPost Mapper
-import { fetchShopifyBlogPosts, type ShopifyArticle } from "./shopify";
+import { fetchShopifyBlogPosts, fetchAllShopifyArticles, type ShopifyArticle } from "./shopify";
 import type { BlogPost } from "./content";
 
 type Category = "All Articles" | "Four Pillars" | "Presence & Etiquette" | "Masculinity FAQs" | "Mindfulness";
@@ -148,17 +148,27 @@ export async function fetchAndMapShopifyBlogPosts(
   blogHandle: string = "news",
   startId: number = 1000,
 ): Promise<BlogPost[]> {
-  const shopifyArticles = await fetchShopifyBlogPosts(blogHandle);
+  // Try fetching all articles first (more reliable)
+  let shopifyArticles = await fetchAllShopifyArticles();
+  
+  // If that fails, fallback to specific blog
+  if (shopifyArticles.length === 0) {
+    console.log(`Falling back to blog handle: ${blogHandle}`);
+    shopifyArticles = await fetchShopifyBlogPosts(blogHandle);
+  }
 
-  // Debug: log raw Shopify article tags
+  // Debug: log raw Shopify article info
   if (shopifyArticles.length > 0) {
     console.log(
-      "Shopify articles tags:",
-      shopifyArticles.map((a) => ({
+      `Fetched ${shopifyArticles.length} Shopify articles:`,
+      shopifyArticles.slice(0, 5).map((a) => ({
         title: a.node.title,
+        blog: a.node.blog?.title,
         tags: a.node.tags,
       })),
     );
+  } else {
+    console.warn('No Shopify articles found');
   }
 
   return shopifyArticles.map((article, index) => mapShopifyArticleToBlogPost(article, startId + index));
