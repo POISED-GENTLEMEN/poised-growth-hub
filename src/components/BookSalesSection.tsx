@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Check, Loader2 } from "lucide-react";
 import { createShopifyCheckout } from "@/lib/shopify";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import authorPhoto from "@/assets/dr3-headshot.png";
 import hardcoverImage from "@/assets/book-hardcover.jpg";
 import bookLaunchImage from "@/assets/codex-book-launch.png";
@@ -37,10 +38,20 @@ const BookSalesSection = () => {
     e.preventDefault();
     if (!email.trim()) return;
     setSubmitting(true);
-    // Placeholder — swap with real endpoint
-    await new Promise((r) => setTimeout(r, 600));
-    setSubmitted(true);
-    setSubmitting(false);
+    try {
+      const { error } = await supabase.from("email_submissions").insert({
+        email: email.trim(),
+        category: "codex_founding_circle",
+        source: "book_sales_section",
+      });
+      if (error) throw error;
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Email submission error:", err);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

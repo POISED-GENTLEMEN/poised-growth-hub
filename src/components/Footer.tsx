@@ -4,12 +4,13 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { newsletterSchema } from "@/lib/validations";
+import { supabase } from "@/integrations/supabase/client";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState<{ email?: string }>({});
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     const result = newsletterSchema.safeParse({ email });
@@ -25,6 +26,15 @@ const Footer = () => {
     }
     
     setErrors({});
+
+    // Save to database
+    await supabase.from("email_submissions").insert({
+      email: email.trim(),
+      category: "newsletter",
+      source: "footer",
+    });
+
+    // Also send to Klaviyo
     const klaviyoUrl = `https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=TbsAZp&email=${encodeURIComponent(email)}`;
     window.open(klaviyoUrl, '_blank');
     setEmail("");

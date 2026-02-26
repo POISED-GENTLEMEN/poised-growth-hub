@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BookSalesSection from "@/components/BookSalesSection";
 import { newsletterSchema } from "@/lib/validations";
+import { supabase } from "@/integrations/supabase/client";
 import { useShop } from "@/contexts/ShopContext";
 import { useCanonical } from "@/hooks/useCanonical";
 
@@ -62,7 +63,7 @@ const Index = () => {
     })
     .slice(0, 3);
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = newsletterSchema.safeParse({ email, firstName });
 
@@ -78,6 +79,15 @@ const Index = () => {
     }
 
     setErrors({});
+
+    // Save to database
+    await supabase.from("email_submissions").insert({
+      email: email.trim(),
+      first_name: firstName.trim() || null,
+      category: "newsletter",
+      source: "homepage",
+    });
+
     setEmail("");
     setFirstName("");
   };
