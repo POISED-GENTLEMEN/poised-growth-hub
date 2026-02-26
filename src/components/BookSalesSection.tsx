@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Check } from "lucide-react";
 import authorPhoto from "@/assets/dr3-headshot.png";
 import hardcoverImage from "@/assets/book-hardcover.jpg";
+import bookLaunchImage from "@/assets/codex-book-launch.png";
 
 const BookSalesSection = () => {
   const [email, setEmail] = useState("");
@@ -43,60 +44,13 @@ const BookSalesSection = () => {
       </div>
 
       {/* ── 2. BOOK DISPLAY ── */}
-      <div className="container mx-auto px-4 pb-24 flex justify-center">
-        <div className="relative" style={{ perspective: "1200px" }}>
-          {/* 3D Book */}
-          <div
-            className="relative w-[260px] md:w-[320px]"
-            style={{
-              transformStyle: "preserve-3d",
-              transform: "rotateY(-18deg) rotateX(2deg)",
-            }}
-          >
-            {/* Front cover */}
-            <div className="relative rounded-r-md overflow-hidden shadow-2xl">
-              <img
-                src={hardcoverImage}
-                alt="The Poised Gentlemen Codex — Hardcover"
-                className="w-full h-auto block"
-              />
-              {/* Spine edge highlight */}
-              <div
-                className="absolute top-0 left-0 w-[6px] h-full"
-                style={{
-                  background: "linear-gradient(to right, hsl(var(--gold) / 0.6), transparent)",
-                }}
-              />
-            </div>
-
-            {/* Spine (3D side) */}
-            <div
-              className="absolute top-0 left-0 h-full bg-primary"
-              style={{
-                width: "40px",
-                transform: "rotateY(90deg) translateZ(0px) translateX(-20px)",
-                transformOrigin: "left center",
-                background: "linear-gradient(to right, hsl(43 74% 40%), hsl(43 74% 53%), hsl(43 74% 40%))",
-                borderRadius: "2px 0 0 2px",
-              }}
-            />
-
-            {/* Bottom shadow */}
-            <div
-              className="absolute -bottom-6 left-4 right-4 h-8 rounded-full"
-              style={{
-                background: "radial-gradient(ellipse, rgba(0,0,0,0.35) 0%, transparent 70%)",
-                filter: "blur(6px)",
-              }}
-            />
-          </div>
-
-          {/* Foreword badge */}
-          <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-gold text-gold-foreground text-[10px] md:text-xs font-semibold px-4 py-2 rounded-full whitespace-nowrap shadow-lg text-center leading-tight z-10">
-            Foreword by Demetrius Grosse
-            <br />
-            <span className="font-normal">Marvel Actor, Wonder Man</span>
-          </div>
+      <div className="container mx-auto px-4 pb-20">
+        <div className="max-w-4xl mx-auto rounded-lg overflow-hidden shadow-2xl">
+          <img
+            src={bookLaunchImage}
+            alt="The Poised Gentlemen Codex — Book Launch Event"
+            className="w-full h-auto block"
+          />
         </div>
       </div>
 
