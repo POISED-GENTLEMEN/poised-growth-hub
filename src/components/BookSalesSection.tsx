@@ -2,15 +2,36 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Check } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
+import { createShopifyCheckout } from "@/lib/shopify";
+import { toast } from "sonner";
 import authorPhoto from "@/assets/dr3-headshot.png";
 import hardcoverImage from "@/assets/book-hardcover.jpg";
 import bookLaunchImage from "@/assets/codex-book-launch.png";
+
+// Shopify variant IDs for The Poised Gentlemen Codex
+const PAPERBACK_VARIANT_ID = "gid://shopify/ProductVariant/47414370337026";
+const HARDCOVER_VARIANT_ID = "gid://shopify/ProductVariant/47414370369794";
 
 const BookSalesSection = () => {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [buyingPaperback, setBuyingPaperback] = useState(false);
+  const [buyingHardcover, setBuyingHardcover] = useState(false);
+
+  const handleBuy = async (variantId: string, setLoading: (v: boolean) => void) => {
+    setLoading(true);
+    try {
+      const checkoutUrl = await createShopifyCheckout([{ variantId, quantity: 1 }]);
+      window.open(checkoutUrl, '_blank');
+    } catch (error) {
+      toast.error("Unable to start checkout. Please try again.");
+      console.error("Checkout error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,10 +100,12 @@ const BookSalesSection = () => {
             </ul>
 
             <Button
-              asChild
+              onClick={() => handleBuy(PAPERBACK_VARIANT_ID, setBuyingPaperback)}
+              disabled={buyingPaperback}
               className="w-full bg-gold text-gold-foreground hover:bg-gold/90 font-bold rounded-lg"
             >
-              <a href="#shopify-paperback">Order Paperback</a>
+              {buyingPaperback ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+              Order Paperback
             </Button>
           </Card>
 
@@ -114,10 +137,12 @@ const BookSalesSection = () => {
             </ul>
 
             <Button
-              asChild
+              onClick={() => handleBuy(HARDCOVER_VARIANT_ID, setBuyingHardcover)}
+              disabled={buyingHardcover}
               className="w-full bg-gold text-gold-foreground hover:bg-gold/90 font-bold rounded-lg"
             >
-              <a href="#shopify-hardcover">Order Hardcover</a>
+              {buyingHardcover ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+              Order Hardcover
             </Button>
           </Card>
 
@@ -194,19 +219,23 @@ const BookSalesSection = () => {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
           <Button
-            asChild
+            onClick={() => handleBuy(PAPERBACK_VARIANT_ID, setBuyingPaperback)}
+            disabled={buyingPaperback}
             variant="outline"
             size="lg"
             className="border-gold text-gold hover:bg-gold hover:text-gold-foreground font-bold rounded-lg"
           >
-            <a href="#shopify-paperback">Order Paperback — $19.99</a>
+            {buyingPaperback ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+            Order Paperback — $19.99
           </Button>
           <Button
-            asChild
+            onClick={() => handleBuy(HARDCOVER_VARIANT_ID, setBuyingHardcover)}
+            disabled={buyingHardcover}
             size="lg"
             className="bg-gold text-gold-foreground hover:bg-gold/90 font-bold rounded-lg"
           >
-            <a href="#shopify-hardcover">Order Hardcover — $29.99</a>
+            {buyingHardcover ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+            Order Hardcover — $29.99
           </Button>
         </div>
 
