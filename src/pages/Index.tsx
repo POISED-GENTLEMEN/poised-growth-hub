@@ -6,6 +6,7 @@ import { Target, Brain, Sparkles, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import BookSalesSection from "@/components/BookSalesSection";
 import { newsletterSchema } from "@/lib/validations";
 import { useShop } from "@/contexts/ShopContext";
 import { useCanonical } from "@/hooks/useCanonical";
@@ -128,6 +129,9 @@ const Index = () => {
           </p>
         </div>
       </section>
+
+      {/* BOOK SALES SECTION */}
+      <BookSalesSection />
 
       {/* FEEL / LOOK / BE SHARP - Now links to Codex */}
       <section className="py-20 md:py-24 bg-primary">
