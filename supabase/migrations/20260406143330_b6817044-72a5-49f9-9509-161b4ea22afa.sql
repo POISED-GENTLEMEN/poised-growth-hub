@@ -1,0 +1,1 @@
+DROP POLICY "Authenticated users can read submissions" ON public.email_submissions;
