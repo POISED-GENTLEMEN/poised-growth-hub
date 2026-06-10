@@ -37,11 +37,15 @@ const BookSalesSection = () => {
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
+    const result = newsletterSchema.safeParse({ email });
+    if (!result.success) {
+      toast.error(result.error.issues[0]?.message || "Please enter a valid email.");
+      return;
+    }
     setSubmitting(true);
     try {
       const { error } = await supabase.from("email_submissions").insert({
-        email: email.trim(),
+        email: result.data.email,
         category: "codex_founding_circle",
         source: "book_sales_section",
       });
@@ -54,6 +58,7 @@ const BookSalesSection = () => {
       setSubmitting(false);
     }
   };
+
 
   return (
     <section className="bg-primary text-primary-foreground">
