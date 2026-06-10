@@ -6,6 +6,7 @@ import { Check, Loader2 } from "lucide-react";
 import { createShopifyCheckout } from "@/lib/shopify";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { newsletterSchema } from "@/lib/validations";
 import authorPhoto from "@/assets/dr3-headshot.png";
 import hardcoverImage from "@/assets/book-hardcover.jpg";
 import bookLaunchImage from "@/assets/codex-book-launch.png";
