@@ -6,6 +6,7 @@ import { Check, Loader2 } from "lucide-react";
 import { createShopifyCheckout } from "@/lib/shopify";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { newsletterSchema } from "@/lib/validations";
 import authorPhoto from "@/assets/dr3-headshot.png";
 import hardcoverImage from "@/assets/book-hardcover.jpg";
 import bookLaunchImage from "@/assets/codex-book-launch.png";
@@ -36,11 +37,15 @@ const BookSalesSection = () => {
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
+    const result = newsletterSchema.safeParse({ email });
+    if (!result.success) {
+      toast.error(result.error.issues[0]?.message || "Please enter a valid email.");
+      return;
+    }
     setSubmitting(true);
     try {
       const { error } = await supabase.from("email_submissions").insert({
-        email: email.trim(),
+        email: result.data.email,
         category: "codex_founding_circle",
         source: "book_sales_section",
       });
@@ -53,6 +58,7 @@ const BookSalesSection = () => {
       setSubmitting(false);
     }
   };
+
 
   return (
     <section className="bg-primary text-primary-foreground">
