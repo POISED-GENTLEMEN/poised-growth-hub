@@ -1,5 +1,5 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -20,25 +20,33 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
 
+const PROGRAMS_DESC =
+  "Youth character development programs for boys 10–17 — from ADA-certified school engagements to 1-on-1 mentorship. Delivered in New Orleans and beyond.";
+
+const setMeta = (selector: string, attr: string, value: string) => {
+  let el = document.head.querySelector<HTMLMetaElement>(selector);
+  if (!el) {
+    el = document.createElement("meta");
+    const [, key, name] = selector.match(/\[(\w+)="([^"]+)"\]/) ?? [];
+    if (key && name) el.setAttribute(key, name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute(attr, value);
+};
+
 const Programs = () => {
   useCanonical();
 
+  useEffect(() => {
+    document.title = "Programs | Poised Gentlemen";
+    setMeta('meta[name="description"]', "content", PROGRAMS_DESC);
+    setMeta('meta[property="og:title"]', "content", "Programs | Poised Gentlemen");
+    setMeta('meta[property="og:description"]', "content", PROGRAMS_DESC);
+    setMeta('meta[property="og:url"]', "content", "https://poisedgentlemen.com/programs/");
+  }, []);
+
   return (
     <div className="min-h-screen">
-      <Helmet>
-        <title>Programs | Poised Gentlemen</title>
-        <meta
-          name="description"
-          content="Youth character development programs for boys 10–17 — from ADA-certified school engagements to 1-on-1 mentorship. Delivered in New Orleans and beyond."
-        />
-        <meta property="og:title" content="Programs | Poised Gentlemen" />
-        <meta
-          property="og:description"
-          content="Youth character development programs for boys 10–17 — from ADA-certified school engagements to 1-on-1 mentorship. Delivered in New Orleans and beyond."
-        />
-        <meta property="og:url" content="https://poisedgentlemen.com/programs/" />
-      </Helmet>
-
       <Header />
 
       {/* Hero */}
