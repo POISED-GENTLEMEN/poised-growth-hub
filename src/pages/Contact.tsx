@@ -122,26 +122,44 @@ const Contact = () => {
     setSubmitting(true);
 
     const details: Record<string, string> = {};
+    const extraFields: { label: string; value: string }[] = [];
     if (segment === "school") {
       details.orgName = form.orgName;
       details.role = form.role;
       details.programInterest = form.programInterest;
       details.groupSize = form.groupSize;
       details.timeline = form.timeline;
+      extraFields.push(
+        { label: "Organization", value: form.orgName },
+        { label: "Role", value: form.role },
+        { label: "Program Interest", value: form.programInterest },
+        { label: "Group Size", value: form.groupSize },
+        { label: "Timeline", value: form.timeline },
+      );
     } else if (segment === "parent") {
       details.childAge = form.childAge;
       details.interest = form.interest;
+      extraFields.push(
+        { label: "Child's Age", value: form.childAge },
+        { label: "Interest", value: form.interest },
+      );
     } else if (segment === "press") {
       details.outlet = form.outlet;
+      extraFields.push({ label: "Outlet / Publication", value: form.outlet });
     }
+    details.message = form.message;
 
-    const { error } = await supabase.from("contact_submissions").insert({
-      segment,
-      name: form.name.trim(),
-      email: form.email.trim(),
-      phone: form.phone.trim() || null,
-      details,
-    });
+    const { data: inserted, error } = await supabase
+      .from("contact_submissions")
+      .insert({
+        segment,
+        name: form.name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim() || null,
+        details,
+      })
+      .select("id")
+      .single();
 
     setSubmitting(false);
 
@@ -149,6 +167,30 @@ const Contact = () => {
       setErrors({ submit: "Something went wrong. Please try again or email us directly." });
       return;
     }
+
+    // Fire-and-forget internal notification email
+    supabase.functions
+      .invoke("send-transactional-email", {
+        body: {
+          templateName: "contact-notification",
+          idempotencyKey: `contact-${inserted?.id}`,
+          templateData: {
+            segment,
+            segmentLabel: segmentLabels[segment] ?? segment,
+            name: form.name.trim(),
+            email: form.email.trim(),
+            phone: form.phone.trim(),
+            message: form.message.trim(),
+            submittedAt: new Date().toLocaleString("en-US", {
+              dateStyle: "medium",
+              timeStyle: "short",
+            }),
+            fields: extraFields,
+          },
+        },
+      })
+      .catch((err) => console.error("Notification email failed", err));
+
 
     setSubmitted(true);
     setForm({
