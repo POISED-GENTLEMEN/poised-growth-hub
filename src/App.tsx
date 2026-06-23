@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import { ShopProvider } from "./contexts/ShopContext";
 import Index from "./pages/Index";
 import Programs from "./pages/Programs";
@@ -24,9 +24,19 @@ import MockupGenerator from "./pages/MockupGenerator";
 import Schools from "./pages/Schools";
 import SchoolsOnePager from "./pages/SchoolsOnePager";
 import SchoolsOnePagerThankYou from "./pages/SchoolsOnePagerThankYou";
+import Codex from "./pages/Codex";
+import CodexArticle, { codexArticleSlugs } from "./pages/CodexArticle";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
+
+const CodexOrArticleRouter = () => {
+  const { slug } = useParams<{ slug: string }>();
+  if (slug && codexArticleSlugs.includes(slug)) {
+    return <CodexArticle />;
+  }
+  return <ArticleDetail />;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -51,8 +61,10 @@ const App = () => (
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/thank-you" element={<ThankYou />} />
             <Route path="/about" element={<About />} />
-            <Route path="/codex" element={<Resources />} />
-            <Route path="/codex/:slug" element={<ArticleDetail />} />
+            <Route path="/codex" element={<Codex />} />
+            <Route path="/codex/" element={<Codex />} />
+            <Route path="/codex/:slug" element={<CodexOrArticleRouter />} />
+            <Route path="/codex/:slug/" element={<CodexOrArticleRouter />} />
             <Route path="/resources" element={<Resources />} /> {/* Legacy redirect */}
             <Route path="/contact" element={<Contact />} />
             <Route path="/for-moms-mentors" element={<ForMomsMentors />} />
