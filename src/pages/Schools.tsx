@@ -84,7 +84,36 @@ const Schools = () => {
     setMeta('meta[property="og:title"]', "School & Organization Programs | Poised Gentlemen");
     setMeta('meta[property="og:description"]', DESC);
     setMeta('meta[property="og:url"]', "https://poisedgentlemen.com/schools/");
+
+    upsertJsonLd("schools-edprogram", {
+      "@context": "https://schema.org",
+      "@type": "EducationalProgram",
+      name: "Project Power & The Poised Method™ Pilot",
+      description: DESC,
+      url: "https://poisedgentlemen.com/schools/",
+      provider: { "@type": "Organization", name: "Poised Gentlemen", url: "https://poisedgentlemen.com" },
+      educationalProgramMode: "in-person",
+      programType: "Character development and wellness programming",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock", description: "Project Power is grant-funded and free to host schools and organizations." },
+      audience: { "@type": "EducationalAudience", educationalRole: "student", audienceType: "Boys 10–17" },
+      areaServed: [{ "@type": "City", name: "New Orleans" }, { "@type": "State", name: "Louisiana" }, { "@type": "Country", name: "United States" }],
+    });
+    upsertJsonLd("schools-faq", {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: SCHOOLS_FAQ.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    });
+
+    return () => {
+      document.head.querySelector('script[data-jsonld="schools-edprogram"]')?.remove();
+      document.head.querySelector('script[data-jsonld="schools-faq"]')?.remove();
+    };
   }, []);
+
 
   return (
     <div className="min-h-screen">
