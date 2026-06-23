@@ -18,6 +18,7 @@ import { useCanonical } from "@/hooks/useCanonical";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { z } from "zod";
+import onePagerAsset from "@/assets/schools-one-pager.pdf.asset.json";
 
 const DESC =
   "Download a one-page overview of Poised Gentlemen programs for schools and youth organizations — featuring Project Power, ADA-certified and delivered at no cost to your organization.";
