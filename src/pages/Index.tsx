@@ -214,6 +214,12 @@ const Index = () => {
       {/* THE CODEX */}
       <section className="py-20 md:py-24 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 max-w-4xl text-center">
+          <img
+            src={codexCover}
+            alt="The Poised Gentlemen Codex book cover"
+            className="mx-auto mb-8 rounded-lg shadow-2xl max-h-80 object-contain"
+            loading="lazy"
+          />
           <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">The Codex</p>
           <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6">
             The Poised Gentlemen Codex
