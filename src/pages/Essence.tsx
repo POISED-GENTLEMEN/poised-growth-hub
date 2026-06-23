@@ -39,6 +39,7 @@ const scents: { name: string; family: string; notes: string; color: string }[] =
 
 const Essence = () => {
   useCanonical("/essence/");
+  const [quizOpen, setQuizOpen] = useState(false);
 
   useEffect(() => {
     document.title = "The Essence Collection | Poised Gentlemen";
