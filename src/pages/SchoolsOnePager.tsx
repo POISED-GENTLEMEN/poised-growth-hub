@@ -71,22 +71,18 @@ const SchoolsOnePager = () => {
     }
     setSubmitting(true);
     try {
-      const { data: inserted, error } = await supabase
-        .from("email_submissions")
-        .insert({
-          email: parsed.data.email,
-          first_name: parsed.data.firstName,
-          category: "schools-one-pager",
-          source: JSON.stringify({
-            organization: parsed.data.organization,
-            role: parsed.data.role,
-          }),
-        })
-        .select("id")
-        .single();
+      const { error } = await supabase.from("email_submissions").insert({
+        email: parsed.data.email,
+        first_name: parsed.data.firstName,
+        category: "schools-one-pager",
+        source: JSON.stringify({
+          organization: parsed.data.organization,
+          role: parsed.data.role,
+        }),
+      });
       if (error) throw error;
 
-      const submissionId = inserted?.id ?? `${Date.now()}`;
+      const submissionId = `${Date.now()}-${parsed.data.email}`;
       const pdfUrl = `${window.location.origin}${onePagerAsset.url}`;
 
       // Email the requester the PDF link (don't block UX on email failure)
