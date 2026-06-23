@@ -62,11 +62,11 @@ const Index = () => {
   const programs = [
     {
       name: "Project Power",
-      desc: "ADA-certified character development, delivered to your school or organization at no cost — funded through our grant and health-partner relationships.",
+      desc: "ADA-certified youth health and wellness programming — healthy habits, nutrition, movement, and emotional regulation — delivered to your school or organization at no cost, funded through our grant and health-partner relationships and paired with the Four Pillars.",
     },
     {
       name: "Poised Young Gentlemen (PYG)",
-      desc: "Multi-week cohort-based mentorship and character development.",
+      desc: "Our flagship school pilot — The Poised Method™ Pilot Edition. 24 sessions over 12 weeks, cohorts of 8–12 boys ages 10–13 at a strict 12:1 ratio, built on the Four Pillars and measured with the Poised Relational Index. A trademark-protected preview of the full Method, with a pilot-to-contract pathway.",
     },
     {
       name: "1-on-1 Mentorship",
@@ -231,7 +231,7 @@ const Index = () => {
       <section className="py-20 md:py-28 bg-gold text-primary">
         <div className="container mx-auto px-4 max-w-4xl text-center">
           <h2 className="text-3xl md:text-5xl font-heading font-bold mb-8 leading-tight">
-            Bring Poised Gentlemen to Your School or Organization — At No Cost
+            Bring ADA-Certified Programming to Your School — At No Cost
           </h2>
           <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold">
             <Link to="/schools/one-pager/">Download Our One-Pager</Link>
