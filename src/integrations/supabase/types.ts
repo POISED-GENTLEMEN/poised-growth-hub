@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_submissions: {
+        Row: {
+          created_at: string
+          details: Json | null
+          email: string
+          id: string
+          name: string
+          phone: string | null
+          segment: string
+        }
+        Insert: {
+          created_at?: string
+          details?: Json | null
+          email: string
+          id?: string
+          name: string
+          phone?: string | null
+          segment: string
+        }
+        Update: {
+          created_at?: string
+          details?: Json | null
+          email?: string
+          id?: string
+          name?: string
+          phone?: string | null
+          segment?: string
+        }
+        Relationships: []
+      }
       email_submissions: {
         Row: {
           category: string
