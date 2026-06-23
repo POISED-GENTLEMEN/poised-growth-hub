@@ -1,374 +1,282 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Briefcase, Moon, Sun, Zap, Star } from "lucide-react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ScentQuiz } from "@/components/ScentQuiz";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { ExternalLink, ShieldCheck, BadgeCheck, Truck, Lock, ArrowRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ParentGuideBanner } from "@/components/ParentGuideBanner";
-import { useShop } from "@/contexts/ShopContext";
 import { useCanonical } from "@/hooks/useCanonical";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+
+const TITLE = "Shop | Poised Gentlemen";
+const DESC =
+  "Shop the Poised Essence Collection and Young-G Collection — grooming built on the principle that how you present yourself is a form of discipline.";
+
+const SHOP_LINKS = {
+  essence:
+    "https://poised-growth-hub-rfqhl.myshopify.com/collections/essence-collection",
+  youngG:
+    "https://poised-growth-hub-rfqhl.myshopify.com/collections/young-g-collection",
+  bundles:
+    "https://poised-growth-hub-rfqhl.myshopify.com/collections/bundles-subscribe-save",
+};
+
+const setMeta = (selector: string, value: string) => {
+  let el = document.head.querySelector<HTMLMetaElement>(selector);
+  if (!el) {
+    el = document.createElement("meta");
+    const m = selector.match(/\[(\w+)="([^"]+)"\]/);
+    if (m) el.setAttribute(m[1], m[2]);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", value);
+};
+
+type ShopSection = "essence" | "young-g" | "bundles";
+
+const trackShopClick = (section: ShopSection, url: string) => {
+  const w = window as unknown as { gtag?: (...args: unknown[]) => void; dataLayer?: unknown[] };
+  const payload = {
+    event_category: "outbound",
+    event_label: section,
+    section,
+    destination: url,
+    transport_type: "beacon",
+  };
+  try {
+    if (typeof w.gtag === "function") {
+      w.gtag("event", "shop_click", payload);
+    } else if (Array.isArray(w.dataLayer)) {
+      w.dataLayer.push({ event: "shop_click", ...payload });
+    }
+  } catch {
+    /* no-op: analytics must never block navigation */
+  }
+};
+
+interface BridgeCardProps {
+  badge: string;
+  title: string;
+  description: string;
+  bullets: string[];
+  ctaLabel: string;
+  href: string;
+  section: ShopSection;
+  internalLink?: { to: string; label: string };
+}
+
+const BridgeCard = ({
+  badge,
+  title,
+  description,
+  bullets,
+  ctaLabel,
+  href,
+  section,
+  internalLink,
+}: BridgeCardProps) => (
+  <Card className="flex flex-col h-full p-8 border-2 border-border hover:border-gold/60 transition-colors">
+    <span className="inline-block self-start text-[11px] uppercase tracking-widest font-semibold text-gold mb-4">
+      {badge}
+    </span>
+    <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary mb-3">{title}</h2>
+    <p className="text-muted-foreground mb-5 leading-relaxed">{description}</p>
+    <ul className="space-y-2 mb-8">
+      {bullets.map((b) => (
+        <li key={b} className="flex items-start gap-2 text-sm text-foreground">
+          <BadgeCheck className="w-4 h-4 text-gold mt-0.5 shrink-0" />
+          <span>{b}</span>
+        </li>
+      ))}
+    </ul>
+    <div className="mt-auto space-y-3">
+      <Button
+        asChild
+        size="lg"
+        className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+      >
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackShopClick(section, href)}
+          data-ga-event="shop_click"
+          data-ga-label={section}
+        >
+          {ctaLabel}
+          <ExternalLink className="ml-2 h-4 w-4" />
+        </a>
+      </Button>
+      {internalLink && (
+        <Link
+          to={internalLink.to}
+          className="block text-center text-sm text-gold hover:underline"
+        >
+          {internalLink.label} →
+        </Link>
+      )}
+    </div>
+  </Card>
+);
+
+const TRUST_BADGES = [
+  { icon: Lock, label: "Secure Shopify Checkout" },
+  { icon: ShieldCheck, label: "Satisfaction Guarantee" },
+  { icon: Truck, label: "Ships from the USA" },
+  { icon: BadgeCheck, label: "Cruelty-Free • Paraben-Free" },
+];
 
 const Shop = () => {
-  useCanonical();
-  const [quizOpen, setQuizOpen] = useState(false);
-  const { products } = useShop();
+  useCanonical("/shop/");
 
-  const scrollToCollections = () => {
-    document.getElementById("collections")?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const featuredProducts = products.slice(0, 6);
-
-  const occasionCategories = [
-    {
-      title: "Office & Professional",
-      icon: Briefcase,
-      products: ["Buoyant", "Blue Harmony", "First Impression", "Urban Wisdom"],
-      link: "/shop/essence-collection?filter=office",
-    },
-    {
-      title: "Date Night & Evening",
-      icon: Moon,
-      products: ["Vigaros", "Seven Figures", "Poised Sauvage", "JSP"],
-      link: "/shop/essence-collection?filter=date-night",
-    },
-    {
-      title: "Weekend & Casual",
-      icon: Sun,
-      products: ["Light Breeze", "Admiral's Odyssey", "Fighting Trim"],
-      link: "/shop/essence-collection?filter=weekend",
-    },
-    {
-      title: "Athletic & Active",
-      icon: Zap,
-      products: ["Fighting Trim", "Admiral's Odyssey"],
-      link: "/shop/essence-collection?filter=athletic",
-    },
-  ];
-
-  const testimonials = [
-    {
-      rating: 5,
-      quote: "Blue Harmony has become my signature scent. Professional yet inviting - perfect for the office.",
-      name: "Marcus J.",
-      age: 34,
-      location: "Atlanta, GA",
-      product: "Blue Harmony",
-    },
-    {
-      rating: 5,
-      quote: "The cologne balm format is genius. My skin feels amazing and the scent lasts all day.",
-      name: "David R.",
-      age: 28,
-      location: "Chicago, IL",
-      product: "Vigaros",
-    },
-    {
-      rating: 5,
-      quote: "Finally found a grooming brand that understands what modern men need. Quality and purpose.",
-      name: "James T.",
-      age: 42,
-      location: "Houston, TX",
-      product: "First Impression",
-    },
-  ];
+  useEffect(() => {
+    document.title = TITLE;
+    setMeta('meta[name="description"]', DESC);
+    setMeta('meta[property="og:title"]', TITLE);
+    setMeta('meta[property="og:description"]', DESC);
+    setMeta('meta[property="og:url"]', "https://poisedgentlemen.com/shop/");
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <ParentGuideBanner />
 
-      {/* ------------------------- HERO SECTION ------------------------- */}
-      <section className="relative min-h-[60svh] md:min-h-[60dvh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-[#C1A36C]"></div>
-
-        <div className="relative z-10 text-center px-4 py-20 md:py-24">
-          <h1 className="text-3xl md:text-5xl font-heading font-bold text-white mb-4">Poised Gentlemen Shop</h1>
-
-          <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Premium grooming essentials for the modern gentleman
+      {/* Hero / Intro */}
+      <section className="bg-primary text-primary-foreground py-20 md:py-28">
+        <div className="container mx-auto px-4 max-w-3xl text-center">
+          <span className="inline-block text-[11px] uppercase tracking-widest font-semibold text-gold mb-4">
+            The Shop
+          </span>
+          <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
+            Grooming as Discipline
+          </h1>
+          <p className="text-lg md:text-xl opacity-90 leading-relaxed">
+            Grooming is one of the Four Pillars in practice. How a man presents himself —
+            the way he walks into a room, the care he takes with his skin, the scent he
+            chooses for the day — is a daily rehearsal of discipline and self-respect.
+            Our products are built for that practice: a tool, not a treatment. No medical
+            claims, no shortcuts. Just consistent, intentional self-presentation for today's
+            men — and the boys raising up behind them.
           </p>
-
-          <Button variant="hero" size="lg" onClick={scrollToCollections}>
-            Explore Collections ↓
-          </Button>
         </div>
       </section>
 
+      {/* External-store notice */}
+      <section className="bg-muted/40 border-y border-border py-4">
+        <div className="container mx-auto px-4 max-w-4xl text-center text-sm text-muted-foreground">
+          Our store is hosted on Shopify. Every purchase below opens our secure Shopify
+          storefront in a new tab.
+        </div>
+      </section>
 
-      {/* ------------------------- COLLECTION CARDS ------------------------- */}
-      <section id="collections" className="py-20 px-4 md:px-8 bg-background">
-        <div className="container mx-auto">
-          <h2 className="text-4xl font-heading font-bold text-primary text-center mb-12">Explore Our Collections</h2>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto">
-            {/* Essence Collection Card */}
-            <Link
-              to="/shop/essence-collection"
-              className="group relative overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-[#C1A36C]"></div>
-
-              <div className="relative z-10 p-12 md:p-16 min-h-[500px] flex flex-col justify-between">
-                <div>
-                  <Badge className="mb-4 bg-[#C1A36C] text-primary border-0">12 SIGNATURE FRAGRANCES</Badge>
-
-                  <h3 className="text-4xl font-heading font-bold text-white mb-4">Essence Collection</h3>
-
-                  <p className="text-white/90 text-lg mb-6">
-                    Designer-inspired cologne balms that combine lasting fragrance with therapeutic skincare.
-                  </p>
-
-                  <div className="space-y-2 mb-8">
-                    <div className="flex items-center gap-2 text-white">
-                      <span className="text-[#C1A36C]">✓</span>
-                      <span>4-6 hours lasting scent</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-white">
-                      <span className="text-[#C1A36C]">✓</span>
-                      <span>Deep hydration with organic ingredients</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-white">
-                      <span className="text-[#C1A36C]">✓</span>
-                      <span>Designer-inspired fragrances</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="w-full">
-                    <Button className="w-full whitespace-nowrap text-center bg-[#C1A36C] text-primary hover:bg-[#C1A36C]/90 font-semibold transition-transform group-hover:scale-105">
-                      Shop Essence Collection
-                    </Button>
-                  </div>
-
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setQuizOpen(true);
-                    }}
-                    className="w-full text-white hover:text-[#C1A36C] transition-colors text-center"
-                  >
-                    Take Scent Quiz →
-                  </button>
-                </div>
-              </div>
-            </Link>
-
-            {/* Generations Collection Card */}
-            <div className="group relative overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#5C4B3A] via-[#8B7355] to-[#A0826D]"></div>
-
-              <div className="relative z-10 p-12 md:p-16 min-h-[500px] flex flex-col justify-between">
-                <div>
-                  <Badge className="mb-4 bg-[#C1A36C] text-primary border-0">COMING SOON</Badge>
-
-                  <h3 className="text-4xl font-heading font-bold text-white mb-4">Generations Collection</h3>
-
-                  <p className="text-white/90 text-lg mb-6">
-                    Heritage grooming products designed for father-son bonding and building legacy.
-                  </p>
-
-                  <div className="space-y-2 mb-8">
-                    <div className="flex items-center gap-2 text-white">
-                      <span className="text-[#C1A36C]">✓</span>
-                      <span>Heritage shaving tools</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-white">
-                      <span className="text-[#C1A36C]">✓</span>
-                      <span>Father-son gift sets</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-white">
-                      <span className="text-[#C1A36C]">✓</span>
-                      <span>Mentorship resources</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <button
-                    className="w-full bg-[#C9A56D] hover:bg-[#C9A56D]/90 text-navy font-semibold py-3 px-4 rounded-md transition-colors"
-                    onClick={() => {
-                      window.open(
-                        "https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=WXDprR",
-                        "_blank",
-                        "noopener,noreferrer",
-                      );
-                    }}
-                  >
-                    JOIN WAITLIST
-                  </button>
-
-                  <Link
-                    to="/programs"
-                    className="block w-full text-white hover:text-[#C1A36C] transition-colors text-center"
-                  >
-                    Learn More →
-                  </Link>
-                </div>
-              </div>
-            </div>
+      {/* Three bridge sections */}
+      <section className="py-16 md:py-24 px-4 bg-background">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <BridgeCard
+              badge="Adult — 12 Scents"
+              title="The Essence Collection"
+              description="Twelve designer-inspired cologne balms. Fragrance and skincare in one — built for the man who treats his routine as a daily standard."
+              bullets={[
+                "12 signature fragrances",
+                "4–6 hours of lasting scent",
+                "Hydrating cologne balm format",
+              ]}
+              ctaLabel="Shop the Essence Collection"
+              href={SHOP_LINKS.essence}
+              section="essence"
+              internalLink={{ to: "/essence/", label: "Read the story behind Essence" }}
+            />
+            <BridgeCard
+              badge="Boys 10–17"
+              title="The Young-G Collection"
+              description="Grooming built specifically for boys 10–17 — a structured first routine that turns daily care into a habit of discipline and self-respect."
+              bullets={[
+                "Age-appropriate formulas",
+                "Individual products from $14.99",
+                "Starter Kit $79.00",
+              ]}
+              ctaLabel="Shop the Young-G Collection"
+              href={SHOP_LINKS.youngG}
+              section="young-g"
+              internalLink={{
+                to: "/codex/teen-grooming-routine/",
+                label: "Read: The Teen Grooming Routine",
+              }}
+            />
+            <BridgeCard
+              badge="Save"
+              title="Bundles + Subscribe & Save"
+              description="Curated bundles and a subscribe-and-save option for the gentleman who has already chosen consistency — and wants to make it the default."
+              bullets={[
+                "Curated multi-product bundles",
+                "Subscribe & save on essentials",
+                "Auto-ship on your schedule",
+              ]}
+              ctaLabel="Shop Bundles + Subscribe & Save"
+              href={SHOP_LINKS.bundles}
+              section="bundles"
+              internalLink={{
+                to: "/codex/how-to-build-discipline/",
+                label: "Read: How to Build Discipline",
+              }}
+            />
           </div>
         </div>
       </section>
 
-      {/* ------------------------- SHOP BY OCCASION ------------------------- */}
-      <section className="py-20 px-4 md:px-8 bg-[#F9F7F4]">
-        <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary text-center mb-12">
-            Shop by Occasion
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {occasionCategories.map((category, idx) => (
-              <Link
-                key={idx}
-                to={category.link}
-                className="group bg-background border border-border rounded-lg p-6 transition-all duration-300 hover:border-[#C1A36C] hover:shadow-lg hover:-translate-y-1"
-              >
-                <category.icon className="w-12 h-12 text-[#C1A36C] mb-4" />
-
-                <h3 className="text-xl font-heading font-bold text-primary mb-3">{category.title}</h3>
-
-                <p className="text-sm text-muted-foreground mb-4">{category.products.join(", ")}</p>
-
-                <span className="text-[#C1A36C] group-hover:underline">
-                  Shop {category.title.split("&")[0].trim()} Scents →
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------- FEATURED PRODUCTS ------------------------- */}
-      <section className="py-20 px-4 md:px-8 bg-background">
-        <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary text-center mb-12">
-            Bestsellers from Essence Collection
-          </h2>
-
-          <Carousel className="max-w-6xl mx-auto">
-            <CarouselContent>
-              {featuredProducts.map((product) => (
-                <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3">
-                  <Link to={`/products/${product.id}`} className="block group">
-                    <div className="bg-background border border-border rounded-lg p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                      <div className="relative aspect-square mb-4 bg-muted rounded-md overflow-hidden">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-full object-cover transition-transform group-hover:scale-105"
-                        />
-                      </div>
-
-                      <div className="flex gap-2 mb-3">
-                        {product.badges?.slice(0, 2).map((badge, idx) => (
-                          <Badge
-                            key={idx}
-                            variant="outline"
-                            className="text-xs bg-[#C1A36C]/10 text-[#C1A36C] border-[#C1A36C]/20"
-                          >
-                            {badge}
-                          </Badge>
-                        ))}
-                      </div>
-
-                      <h3 className="text-xl font-heading font-bold text-primary mb-2">{product.name}</h3>
-
-                      <p className="text-sm text-muted-foreground mb-2">{product.category}</p>
-
-                      <p className="text-sm italic text-foreground mb-3 line-clamp-2">{product.shortDescription}</p>
-
-                      <p className="text-lg font-bold text-primary mb-4">${product.price}</p>
-
-                      <Button className="w-full bg-[#C1A36C] text-primary hover:bg-[#C1A36C]/90">View Details</Button>
-                    </div>
-                  </Link>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-
-            <CarouselPrevious className="hidden md:flex" />
-            <CarouselNext className="hidden md:flex" />
-          </Carousel>
-        </div>
-      </section>
-
-      {/* ------------------------- QUIZ CTA ------------------------- */}
-      <section className="py-16 px-4 md:px-8 bg-primary text-white text-center">
-        <div className="container mx-auto max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">Not Sure Which Scent is Right for You?</h2>
-
-          <p className="text-lg text-white/90 mb-8">Take our 2-minute scent quiz for personalized recommendations</p>
-
-          <Button
-            size="lg"
-            className="bg-[#C1A36C] text-primary hover:bg-[#C1A36C]/90 font-semibold"
-            onClick={() => setQuizOpen(true)}
-          >
-            Take Scent Quiz
-          </Button>
-        </div>
-      </section>
-
-      {/* ------------------------- TESTIMONIALS ------------------------- */}
-      <section className="py-20 px-4 md:px-8 bg-background">
-        <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary text-center mb-12">
-            What Gentlemen Are Saying
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {testimonials.map((testimonial, idx) => (
-              <div key={idx} className="bg-muted rounded-lg p-8">
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-[#C1A36C] text-[#C1A36C]" />
-                  ))}
-                </div>
-
-                <p className="text-foreground italic mb-6">"{testimonial.quote}"</p>
-
-                <div className="border-t border-border pt-4">
-                  <p className="font-semibold text-primary">
-                    {testimonial.name}, {testimonial.age}
-                  </p>
-
-                  <p className="text-sm text-muted-foreground mb-2">{testimonial.location}</p>
-
-                  <p className="text-sm text-[#C1A36C]">Using: {testimonial.product}</p>
-                </div>
+      {/* Trust badges */}
+      <section className="py-12 bg-[#F9F7F4] border-y border-border">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            {TRUST_BADGES.map(({ icon: Icon, label }) => (
+              <div key={label} className="flex flex-col items-center gap-2">
+                <Icon className="w-7 h-7 text-gold" aria-hidden="true" />
+                <p className="text-sm font-medium text-primary">{label}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ------------------------- FOOTER CTA ------------------------- */}
-      <section className="py-16 px-4 md:px-8 bg-primary text-white text-center">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-8">Ready to Elevate Your Grooming?</h2>
-
+      {/* Closing CTA */}
+      <section className="py-16 px-4 bg-primary text-primary-foreground">
+        <div className="container mx-auto max-w-3xl text-center">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold mb-4">
+            Self-presentation is a practice. Start it deliberately.
+          </h2>
+          <p className="opacity-90 mb-8">
+            Pick the collection that fits the man — or the young man — in front of you.
+          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="hero" size="lg" className="w-full sm:w-auto" asChild>
-              <Link to="/shop/essence-collection">Shop Essence Collection</Link>
+            <Button
+              asChild
+              size="lg"
+              className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+            >
+              <a
+                href={SHOP_LINKS.essence}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackShopClick("essence", SHOP_LINKS.essence)}
+              >
+                Essence Collection
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </a>
             </Button>
-
-            <Button variant="outline" size="lg" className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-primary" asChild>
-              <a href="https://manage.kmail-lists.com/subscriptions/subscribe?a=WGTZM9&g=WXDprR" target="_blank" rel="noopener noreferrer">
-                Join Generations Waitlist
+            <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+              <a
+                href={SHOP_LINKS.youngG}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackShopClick("young-g", SHOP_LINKS.youngG)}
+              >
+                Young-G Collection
+                <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </Button>
           </div>
         </div>
       </section>
-
-      {/* QUIZ MODAL */}
-      <ScentQuiz open={quizOpen} onOpenChange={setQuizOpen} />
 
       <Footer />
     </div>
