@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Mail, ArrowRight } from "lucide-react";
+import { CheckCircle, Mail, ArrowRight, Download } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
+import onePagerAsset from "@/assets/schools-one-pager.pdf.asset.json";
 
 const SchoolsOnePagerThankYou = () => {
   useCanonical("/schools/one-pager/thank-you/");
