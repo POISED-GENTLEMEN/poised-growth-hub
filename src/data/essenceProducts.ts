@@ -507,20 +507,3 @@ export const essenceProducts: EssenceProduct[] = [
 export const getProductBySlug = (slug: string): EssenceProduct | undefined => {
   return essenceProducts.find(product => product.slug === slug);
 };
-
-export const getRelatedProducts = (currentProduct: EssenceProduct, count: number = 4): EssenceProduct[] => {
-  // Filter products by same fragrance family, excluding current product
-  const sameFamily = essenceProducts.filter(
-    p => p.id !== currentProduct.id && p.fragranceFamily === currentProduct.fragranceFamily
-  );
-  
-  // If not enough same family, add products with same occasions
-  const sameOccasion = essenceProducts.filter(
-    p => p.id !== currentProduct.id && 
-    !sameFamily.includes(p) &&
-    p.occasions.some(occ => currentProduct.occasions.includes(occ))
-  );
-  
-  // Combine and limit to requested count
-  return [...sameFamily, ...sameOccasion].slice(0, count);
-};

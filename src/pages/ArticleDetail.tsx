@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getArticleBySlug, getArticleBySlugAsync, type BlogPost } from "@/lib/content";
 import { useCanonical } from "@/hooks/useCanonical";
 import { RelatedProducts } from "@/components/RelatedProducts";
+import RelatedLinks from "@/components/RelatedLinks";
 
 const ArticleDetail = () => {
   useCanonical();
@@ -198,6 +199,9 @@ const ArticleDetail = () => {
 
           {/* Related Products */}
           {slug && <RelatedProducts articleSlug={slug} />}
+
+          {/* Related Links — cross-link to Codex / Programs / Shop */}
+          <RelatedLinks variant="essence" className="mt-12 -mx-4" />
 
           {/* Back to Codex */}
           <div className="mt-12">

@@ -88,13 +88,14 @@ const buildLinks = (
         icon: Sparkles,
         emphasis: true,
       });
-    } else {
+    }
+    if (article.showSchoolsLink) {
       links.push({
         to: "/schools/",
         eyebrow: "Take this off the page",
         title: "Bring Our Programs to Your School",
         icon: GraduationCap,
-        emphasis: true,
+        emphasis: !article.showEssenceLink,
       });
     }
     return links;
