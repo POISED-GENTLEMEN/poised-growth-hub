@@ -200,6 +200,9 @@ const ArticleDetail = () => {
           {/* Related Products */}
           {slug && <RelatedProducts articleSlug={slug} />}
 
+          {/* Related Links — cross-link to Codex / Programs / Shop */}
+          <RelatedLinks variant="essence" className="mt-12 -mx-4" />
+
           {/* Back to Codex */}
           <div className="mt-12">
             <Link to="/codex">
