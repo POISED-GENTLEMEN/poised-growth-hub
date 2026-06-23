@@ -1,7 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Accordion,
   AccordionContent,
@@ -25,6 +34,8 @@ import Footer from "@/components/Footer";
 import RelatedLinks from "@/components/RelatedLinks";
 import { useCanonical } from "@/hooks/useCanonical";
 import HowItWorks from "@/components/HowItWorks";
+import { supabase } from "@/integrations/supabase/client";
+import { trackProposalOrInquirySubmit } from "@/lib/analytics";
 
 const DESC =
   "Bring free, ADA-certified Project Power wellness programming to your school — plus our flagship Poised Method™ character pilot. Project Power is fully grant-funded; no cost to host.";
