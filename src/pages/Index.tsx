@@ -83,26 +83,25 @@ const Index = () => {
       {/* HERO */}
       <section className="relative bg-primary text-primary-foreground py-24 md:py-32">
         <div className="container mx-auto px-4 text-center max-w-4xl">
-          <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
+          <p className="text-sm uppercase tracking-widest text-gold font-semibold mb-4">
             Build Men. Build Communities.
+          </p>
+          <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
+            Build Character. License the Method. Elevate Your School.
           </h1>
           <p className="text-lg md:text-xl text-primary-foreground/90 mb-10 max-w-3xl mx-auto leading-relaxed">
-            Poised Gentlemen builds boys ages 10–17 into young men of integrity, strength, emotional
-            intelligence, and discipline. Start with ADA-certified wellness programming — delivered to
-            your school at no cost — then go deeper with our flagship Poised Method™ school pilot.
+            The Poised Method™ is a structured, outcomes-driven character development system for boys ages 10–13 — available as a licensed 12-week school pilot or through ADA-certified Project Power programming delivered to your organization at no cost.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col items-center gap-4">
             <Button asChild size="lg" className="bg-gold text-primary hover:bg-gold/90 font-semibold w-full sm:w-auto">
-              <Link to="/schools/">Partner With Us</Link>
+              <Link to="/schools/#proposal-form">Request a Proposal</Link>
             </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="border-white/40 text-white hover:bg-white hover:text-primary w-full sm:w-auto"
+            <Link
+              to="/schools/#project-power"
+              className="text-white underline underline-offset-4 hover:text-gold transition-colors"
             >
-              <Link to="/essence/">Explore the Essence Collection</Link>
-            </Button>
+              Learn about Project Power (no-cost entry)
+            </Link>
           </div>
         </div>
       </section>
