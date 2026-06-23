@@ -11,6 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getArticleBySlug, getArticleBySlugAsync, type BlogPost } from "@/lib/content";
 import { useCanonical } from "@/hooks/useCanonical";
 import { RelatedProducts } from "@/components/RelatedProducts";
+import RelatedLinks from "@/components/RelatedLinks";
 
 const ArticleDetail = () => {
   useCanonical();
