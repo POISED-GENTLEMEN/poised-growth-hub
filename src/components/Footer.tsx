@@ -194,8 +194,8 @@ const Footer = () => {
             <h3 className="font-heading font-bold text-lg mb-4">Contact</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="mailto:info@thepoisedgentlemen.com" className="hover:text-gold transition-colors">
-                  info@thepoisedgentlemen.com
+                <a href="mailto:david@risetopurpose.org" className="hover:text-gold transition-colors">
+                  david@risetopurpose.org
                 </a>
               </li>
               <li>
