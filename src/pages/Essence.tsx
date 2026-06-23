@@ -141,10 +141,15 @@ const Essence = () => {
 
           <div className="text-center mt-12">
             <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90">
-              <Link to="/shop/essence-collection">
+              <a
+                href={ESSENCE_SHOPIFY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackShopClick("essence_hub", ESSENCE_SHOPIFY_URL)}
+              >
                 Shop the Essence Collection
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+                <ExternalLink className="ml-2 h-5 w-5" />
+              </a>
             </Button>
           </div>
         </div>
@@ -256,10 +261,15 @@ const Essence = () => {
             Twelve scents. One standard. Shop the full Essence Collection.
           </p>
           <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90">
-            <Link to="/shop/essence-collection">
+            <a
+              href={ESSENCE_SHOPIFY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackShopClick("essence_hub", ESSENCE_SHOPIFY_URL)}
+            >
               Shop the Essence Collection
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+              <ExternalLink className="ml-2 h-5 w-5" />
+            </a>
           </Button>
         </div>
       </section>
