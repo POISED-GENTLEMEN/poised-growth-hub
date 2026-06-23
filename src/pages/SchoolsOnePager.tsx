@@ -14,6 +14,7 @@ import {
 import { CheckCircle, FileText, Award, BookOpen, Shield } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import RelatedLinks from "@/components/RelatedLinks";
 import { useCanonical } from "@/hooks/useCanonical";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
@@ -257,6 +258,8 @@ const SchoolsOnePager = () => {
           </div>
         </div>
       </section>
+
+      <RelatedLinks variant="schools" />
 
       <Footer />
     </div>

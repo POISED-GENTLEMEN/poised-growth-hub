@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import RelatedLinks from "@/components/RelatedLinks";
 import { useCanonical } from "@/hooks/useCanonical";
 import HowItWorks from "@/components/HowItWorks";
 
@@ -368,6 +369,8 @@ const Schools = () => {
           </p>
         </div>
       </section>
+
+      <RelatedLinks variant="schools" />
 
       <Footer />
     </div>

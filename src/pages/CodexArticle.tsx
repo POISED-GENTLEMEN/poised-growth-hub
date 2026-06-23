@@ -3,9 +3,10 @@ import { Link, useParams, Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, ArrowRight, BookOpen, GraduationCap, Sparkles } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import RelatedLinks from "@/components/RelatedLinks";
 import { useCanonical } from "@/hooks/useCanonical";
 import { getCodexArticleBySlug, codexArticles } from "@/lib/codexArticles";
 
@@ -135,72 +136,10 @@ const CodexArticle = () => {
               ))}
             </div>
           </section>
-
-          {/* Internal links */}
-          <section className="mt-16 pt-12 border-t border-border space-y-6">
-            <h2 className="text-2xl font-heading font-bold">Continue Reading</h2>
-
-            {related && (
-              <Link to={`/codex/${related.slug}/`} className="block group">
-                <Card className="p-6 hover:shadow-md transition-shadow">
-                  <div className="flex items-start gap-3">
-                    <BookOpen className="h-5 w-5 text-secondary mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
-                        Related in the Codex
-                      </p>
-                      <p className="font-heading font-semibold group-hover:text-secondary transition-colors">
-                        {related.title}
-                      </p>
-                    </div>
-                    <ArrowRight className="h-5 w-5 ml-auto text-muted-foreground group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Card>
-              </Link>
-            )}
-
-            {article.showSchoolsLink && (
-              <Link to="/schools/" className="block group">
-                <Card className="p-6 hover:shadow-md transition-shadow bg-primary text-primary-foreground">
-                  <div className="flex items-start gap-3">
-                    <GraduationCap className="h-5 w-5 mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs uppercase tracking-wide opacity-75 mb-1">
-                        Take this to your school
-                      </p>
-                      <p className="font-heading font-semibold">
-                        Bring our character development programs to your
-                        organization — at no cost.
-                      </p>
-                    </div>
-                    <ArrowRight className="h-5 w-5 ml-auto group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Card>
-              </Link>
-            )}
-
-            {article.showEssenceLink && (
-              <Link to="/shop/essence-collection" className="block group">
-                <Card className="p-6 hover:shadow-md transition-shadow">
-                  <div className="flex items-start gap-3">
-                    <Sparkles className="h-5 w-5 text-secondary mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
-                        Refinement, in practice
-                      </p>
-                      <p className="font-heading font-semibold group-hover:text-secondary transition-colors">
-                        The Essence Collection — for the man committed to
-                        refinement.
-                      </p>
-                    </div>
-                    <ArrowRight className="h-5 w-5 ml-auto text-muted-foreground group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Card>
-              </Link>
-            )}
-          </section>
         </div>
       </article>
+
+      <RelatedLinks variant="codex-article" articleSlug={article.slug} />
 
       <Footer />
     </div>

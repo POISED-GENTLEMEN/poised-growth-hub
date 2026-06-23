@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { BookOpen, ArrowRight, Award, Brain, FileText } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import RelatedLinks from "@/components/RelatedLinks";
 import { useCanonical } from "@/hooks/useCanonical";
 import { codexArticles } from "@/lib/codexArticles";
 import codexCover from "@/assets/book-hardcover.jpg";
@@ -215,6 +216,8 @@ const Codex = () => {
           </div>
         </div>
       </section>
+
+      <RelatedLinks variant="programs" />
 
       <Footer />
     </div>
