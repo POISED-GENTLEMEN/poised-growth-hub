@@ -95,6 +95,8 @@ const App = () => {
       </ShopProvider>
     </TooltipProvider>
   </QueryClientProvider>
-);
+  );
+};
+
 
 export default App;
