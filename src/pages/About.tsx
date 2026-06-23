@@ -1,94 +1,108 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Shield, Dumbbell, Heart, Target } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Shield, Dumbbell, Brain, Target } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
-import heroImage from "@/assets/about-hero.jpg";
-import davidTeam from "@/assets/dr3-headshot.png";
-import kimberlyTeam from "@/assets/kimberly-beshears.png";
-import joelTeam from "@/assets/team-joel.jpg";
+import dr3Headshot from "@/assets/dr3-headshot.png";
 
 const About = () => {
   useCanonical();
+
+  const pillars = [
+    {
+      icon: Shield,
+      title: "Integrity",
+      desc: "Character over convenience — doing what is right when no one is watching. It is the foundation of trust, and trust is the currency of every relationship a man will build.",
+    },
+    {
+      icon: Dumbbell,
+      title: "Strength",
+      desc: "Mental, emotional, and physical resilience built through consistent practice. Strength is not domination — it is the capacity to carry responsibility without breaking.",
+    },
+    {
+      icon: Brain,
+      title: "Emotional Intelligence",
+      desc: "Self-awareness, regulation, and the ability to lead from clarity. A boy who can name what he feels and choose his response becomes a man others can rely on.",
+    },
+    {
+      icon: Target,
+      title: "Discipline",
+      desc: "Consistency over motivation — the daily rituals that compound into character. Discipline is what remains when inspiration fades and the work still needs doing.",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      
-      {/* Hero Section - With New Orleans Cultural Root */}
-      <section className="relative h-[50vh] md:h-[60vh] flex items-center justify-center">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroImage})` }}
+      <Helmet>
+        <title>About | Poised Gentlemen</title>
+        <meta
+          name="description"
+          content="The story behind Poised Gentlemen — a builder, a mission, and a framework for turning boys into men of character."
         />
-        <div className="absolute inset-0 bg-[#1B2B3A]/70" />
-        <div className="relative z-10 text-center px-6">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
-            <span className="text-[#D4AF37] text-sm font-semibold">Born in New Orleans • Est. 2023</span>
-          </div>
-          <h1 className="font-heading text-4xl md:text-6xl font-bold text-white mb-4">
-            We're Rewriting the Masculinity Playbook
+        <link rel="canonical" href="https://poisedgentlemen.com/about" />
+        <meta property="og:title" content="About | Poised Gentlemen" />
+        <meta
+          property="og:description"
+          content="The story behind Poised Gentlemen — a builder, a mission, and a framework for turning boys into men of character."
+        />
+        <meta property="og:url" content="https://poisedgentlemen.com/about" />
+      </Helmet>
+
+      <Header />
+
+      {/* HERO */}
+      <section className="relative bg-primary text-primary-foreground py-24 md:py-32">
+        <div className="container mx-auto px-4 text-center max-w-4xl">
+          <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
+            A Builder and a Disruptor
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
-            One man. One boy. One Four Pillars conversation at a time.
+          <p className="text-lg md:text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
+            Building men while disrupting the patterns that broke them.
           </p>
         </div>
       </section>
 
-      {/* Our Story Section */}
-      <section className="py-20 px-6">
-        <div className="container mx-auto max-w-7xl">
+      {/* FOUNDER */}
+      <section className="py-20 md:py-24 bg-background">
+        <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-6">
-                Our Story
+              <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">
+                Founder & CEO, Rise to Purpose LLC
+              </p>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">
+                David Rachal III
               </h2>
-              <div className="space-y-6 text-lg text-muted-foreground">
+              <div className="space-y-5 text-foreground/85 leading-relaxed">
                 <p>
-                  Poised Gentlemen was founded in 2023 by David Rachal III with one clear belief: 
-                  most boys and men aren't failing—they're untrained. And when life gets heavy, 
-                  you don't rise to the moment. You default to your training.
+                  David Rachal III (DR3) is not here to tell stories. He is here to build systems
+                  that turn boys into men of character — and to disrupt the cycles that leave young
+                  men untrained, unsupported, and underestimated.
                 </p>
                 <p>
-                  Raised in Natchitoches, Louisiana, David grew up around the kind of Southern 
-                  standards people still respect—character, composure, and accountability. But he 
-                  also saw the gap up close: too many young men are expected to lead, provide, and 
-                  stay emotionally steady without ever being taught how.
+                  As an <strong>ADA Master Trainer</strong>, he has delivered certified wellness
+                  programming to schools and community organizations across New Orleans and beyond. As
+                  the author of the <strong>Poised Gentlemen Codex</strong> — a Library of
+                  Congress-cataloged framework — he has codified the Four Pillars into a teachable,
+                  repeatable system that holds up under real pressure.
                 </p>
                 <p>
-                  New Orleans became the birthplace of Poised Gentlemen for a reason. The city 
-                  represents culture, pressure, pride, and presence—all at once. And if a man can 
-                  learn to carry himself with integrity in a place that loud, he can carry himself 
-                  anywhere.
+                  New Orleans is not just where he works. It is where the standard was set — a city
+                  of culture, pressure, pride, and presence. If a boy can learn to carry himself with
+                  integrity here, he can carry himself anywhere.
                 </p>
-                <p>
-                  With more than a decade of youth leadership experience and an MBA, David built 
-                  what he wished more men had earlier: a practical framework for growth that holds 
-                  up under stress. <strong className="text-foreground">The Four Pillars Framework</strong> anchors 
-                  everything we teach and build.
-                </p>
-                <p className="text-xl font-semibold text-foreground border-l-4 border-gold pl-4 py-2">
-                  This isn't hype. It's conditioning.
-                </p>
-                <p>
-                  We train men and boys to a higher standard—so when times are tough, their default 
-                  is composure. Clarity. Character. The goal isn't perfection. It's to remain 
-                  poised <span className="text-gold font-medium">(Possession Of Integrity, Strength, 
-                  Emotional Intelligence, & Discipline)</span>.
+                <p className="text-xl font-semibold text-primary border-l-4 border-gold pl-4 py-2">
+                  This is not biography. It is credibility.
                 </p>
               </div>
             </div>
             <div className="flex justify-center">
-              <img 
-                src={davidTeam} 
-                alt="David Rachal III, Founder of Poised Gentlemen"
+              <img
+                src={dr3Headshot}
+                alt="David Rachal III, Founder & CEO of Rise to Purpose LLC"
                 className="rounded-2xl max-w-md w-full border-4 border-gold shadow-[0_0_40px_rgba(212,175,55,0.35)]"
               />
             </div>
@@ -96,449 +110,133 @@ const About = () => {
         </div>
       </section>
 
-      {/* Mission & Vision Section */}
-      <section className="py-20 px-6 bg-muted">
-        <div className="container mx-auto max-w-4xl text-center">
-          <div className="mb-12">
-            <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">
-              Our Mission
-            </h3>
-            <p className="text-xl text-muted-foreground">
-              To redefine masculinity by cultivating character, emotional intelligence, 
-              and refined presence across generations.
-            </p>
-          </div>
-          <div>
-            <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">
-              Our Vision
-            </h3>
-            <p className="text-xl text-muted-foreground">
-              A world where every boy has a mentor, every man has a framework, and masculinity 
-              is synonymous with integrity.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Four Pillars Deep Dive Section */}
-      <section className="py-20 px-6">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="font-heading text-3xl md:text-5xl font-bold text-foreground mb-4">
-              The Four Pillars Framework
+      {/* THE TWO ENTITIES */}
+      <section className="py-20 md:py-24 bg-muted">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-5xl font-heading font-bold text-primary mb-4">
+              The Two Entities
             </h2>
-            <p className="text-xl text-muted-foreground">
-              A teachable, repeatable system for personal evolution.
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              One mission. Two structures. Each serving a different lane of access.
             </p>
           </div>
 
-          <Accordion type="single" collapsible className="space-y-4">
-            <AccordionItem value="integrity" className="border border-border rounded-lg px-6 data-[state=open]:border-l-[5px] data-[state=open]:border-l-[#D4AF37]">
-              <AccordionTrigger className="hover:no-underline">
-                <div className="flex items-center gap-3">
-                  <Shield className="h-6 w-6 text-[#D4AF37]" />
-                  <span className="font-heading text-xl font-bold">
-                    INTEGRITY — Character Over Convenience
-                  </span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground space-y-4 pt-4">
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="p-8 md:p-10 border-2 border-gold/30 hover:border-gold transition-colors">
+              <h3 className="text-2xl font-heading font-bold text-primary mb-4">
+                Rise to Purpose LLC
+              </h3>
+              <p className="text-sm uppercase tracking-wider text-gold font-semibold mb-6">
+                The For-Profit Delivery Arm
+              </p>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Integrity means alignment—your actions match your values, even when no one's 
-                  watching. It's choosing principle over popularity, truth over trends. Your word 
-                  is your bond, and your choices define your character.
+                  Rise to Purpose LLC is the for-profit delivery arm of Poised Gentlemen. It
+                  contracts with schools, nonprofits, health organizations, and government programs
+                  to deliver character-development and ADA-certified wellness programming.
                 </p>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">Research Basis:</h4>
-                  <p>
-                    Studies show that character strengths (like honesty, courage, and fairness) 
-                    predict long-term life satisfaction more than intelligence or talent. Integrity 
-                    builds trust, strengthens relationships, and creates opportunities.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">In Practice:</h4>
-                  <p>
-                    A man with integrity admits his mistakes, keeps his commitments, and treats 
-                    everyone with respect—from the CEO to the janitor. He does what's right, not 
-                    what's easy.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">For Youth:</h4>
-                  <p>
-                    We teach boys that integrity starts small: returning extra change, telling 
-                    the truth when it's hard, standing up for others. Small acts of integrity 
-                    compound into character.
-                  </p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
+                <p>
+                  Host organizations pay nothing. Programming is funded through stipends from grant
+                  and health-partner relationships — making it possible for under-resourced schools
+                  and community groups to receive structured character development they could not
+                  otherwise afford.
+                </p>
+                <p className="text-foreground font-medium">
+                  If you are a school administrator, counselor, or community leader, this is your
+                  entry point.
+                </p>
+              </div>
+            </Card>
 
-            <AccordionItem value="strength" className="border border-border rounded-lg px-6 data-[state=open]:border-l-[5px] data-[state=open]:border-l-[#D4AF37]">
-              <AccordionTrigger className="hover:no-underline">
-                <div className="flex items-center gap-3">
-                  <Dumbbell className="h-6 w-6 text-[#D4AF37]" />
-                  <span className="font-heading text-xl font-bold">
-                    STRENGTH — Physical, Mental, Emotional Resilience
-                  </span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground space-y-4 pt-4">
+            <Card className="p-8 md:p-10 border-2 border-primary/20 hover:border-primary transition-colors">
+              <h3 className="text-2xl font-heading font-bold text-primary mb-4">
+                Poised Gentlemen Institute (PGI)
+              </h3>
+              <p className="text-sm uppercase tracking-wider text-gold font-semibold mb-6">
+                The Nonprofit Arm — In Formation
+              </p>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  True strength isn't about domination—it's discipline. Physical fitness, mental 
-                  fortitude, and emotional regulation create a foundation for leadership. Strength 
-                  means knowing when to stand firm and when to be flexible.
+                  The Poised Gentlemen Institute is our nonprofit arm, currently in formation. PGI
+                  exists to expand access to character development programming through grants,
+                  donations, and fiscal partnerships — ensuring that no boy is excluded because of
+                  where he lives or what his school can afford.
                 </p>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">Research Basis:</h4>
-                  <p>
-                    Physical exercise improves mental health, cognitive function, and emotional 
-                    regulation. Mental resilience (grit) predicts success across domains. Emotional 
-                    strength allows leaders to stay calm under pressure.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">In Practice:</h4>
-                  <p>
-                    A strong man trains his body, fortifies his mind through learning and challenge, 
-                    and regulates his emotions instead of exploding or shutting down. He persists 
-                    through failure and adapts to change.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">For Youth:</h4>
-                  <p>
-                    We teach boys that strength is saying no to peer pressure, asking for help when 
-                    needed, and persisting through difficulty. Strength is built through consistent 
-                    effort, not isolated achievements.
-                  </p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="emotional-intelligence" className="border border-border rounded-lg px-6 data-[state=open]:border-l-[5px] data-[state=open]:border-l-[#D4AF37]">
-              <AccordionTrigger className="hover:no-underline">
-                <div className="flex items-center gap-3">
-                  <Heart className="h-6 w-6 text-[#D4AF37]" />
-                  <span className="font-heading text-xl font-bold">
-                    EMOTIONAL INTELLIGENCE — Self-Awareness, Empathy, Regulation
-                  </span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground space-y-4 pt-4">
                 <p>
-                  Modern masculinity requires emotional fluency. Understand your triggers. 
-                  Communicate your needs. Read the room. Empathy isn't weakness—it's strategic 
-                  awareness. Master your emotions or they'll master you.
+                  PGI partners with United Way SELA as fiscal partner for the LYFE program,
+                  broadening the reach of social-emotional learning and wellness initiatives
+                  throughout Southeast Louisiana.
                 </p>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">Research Basis:</h4>
-                  <p>
-                    EQ predicts career success, relationship quality, and mental health outcomes. 
-                    Men with higher EQ report greater life satisfaction and stronger social networks. 
-                    Emotional intelligence can be learned and practiced.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">In Practice:</h4>
-                  <p>
-                    An emotionally intelligent man names his feelings, considers others' perspectives, 
-                    and chooses responses instead of reacting. He communicates clearly, listens 
-                    actively, and resolves conflict constructively.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">For Youth:</h4>
-                  <p>
-                    We teach boys to identify emotions (not just "mad" or "fine"), express needs 
-                    clearly, and practice empathy through perspective-taking exercises. Emotional 
-                    intelligence is taught through role-play, reflection, and real-world practice.
-                  </p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="discipline" className="border border-border rounded-lg px-6 data-[state=open]:border-l-[5px] data-[state=open]:border-l-[#D4AF37]">
-              <AccordionTrigger className="hover:no-underline">
-                <div className="flex items-center gap-3">
-                  <Target className="h-6 w-6 text-[#D4AF37]" />
-                  <span className="font-heading text-xl font-bold">
-                    DISCIPLINE — Consistent Action, Delayed Gratification
-                  </span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground space-y-4 pt-4">
-                <p>
-                  Motivation fades. Discipline endures. Small, consistent actions compound into 
-                  legacy. Wake up early. Show up daily. Choose the hard right over the easy wrong. 
-                  Discipline over motivation, always.
+                <p className="text-foreground font-medium">
+                  If you are a funder, donor, or mission-aligned organization, this is your
+                  entry point.
                 </p>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">Research Basis:</h4>
-                  <p>
-                    Self-control and delayed gratification predict academic achievement, financial 
-                    stability, and health outcomes decades later (famous "marshmallow test"). 
-                    Discipline is a skill that can be strengthened through practice.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">In Practice:</h4>
-                  <p>
-                    A disciplined man builds systems, not willpower. He automates good habits, 
-                    eliminates temptations, and stays consistent. He understands that excellence 
-                    is a habit, not an event.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-2">For Youth:</h4>
-                  <p>
-                    We teach boys that discipline starts with small wins: making your bed, finishing 
-                    homework before gaming, practicing a skill for 15 minutes daily. These small 
-                    actions build the neural pathways for lifelong discipline.
-                  </p>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+              </div>
+            </Card>
+          </div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 px-6 bg-muted">
-        <div className="container mx-auto max-w-7xl">
-          <div className="text-center mb-16">
-            <h2 className="font-heading text-3xl md:text-5xl font-bold text-foreground mb-4">
-              Meet the Team
+      {/* FOUR PILLARS */}
+      <section className="py-20 md:py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4 text-primary">
+              The Four Pillars
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              The minds and hearts behind Poised Gentlemen's mission to redefine masculinity 
-              through integrity, strength, emotional intelligence, and discipline.
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              The framework that shapes every program, product, and principle we stand on.
             </p>
           </div>
-          
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-            {/* David "DR3" Rachal III - Shortened Bio */}
-            <div className="bg-background rounded-2xl p-8 shadow-lg hover:-translate-y-1 transition-all duration-300">
-              <img 
-                src={davidTeam}
-                alt="David DR3 Rachal III, Founder & Chief Executive Officer"
-                className="w-48 h-48 rounded-full mx-auto mb-6 object-cover object-top shadow-lg border-4 border-gold"
-              />
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-2 text-center">
-                David "DR3" Rachal III, MBA
-              </h3>
-              <p className="text-gold font-semibold mb-4 text-center uppercase tracking-wide text-sm">
-                Founder & Chief Executive Officer
-              </p>
-              <div className="space-y-4 text-muted-foreground text-left">
-                <div>
-                  <h4 className="font-semibold text-foreground text-sm mb-1">Background</h4>
-                  <p className="text-sm">
-                    20+ years in youth leadership and corporate development. MBA in Healthcare Leadership. Certified Business Coach and CKM Level 3 Instructor.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground text-sm mb-1">Expertise</h4>
-                  <p className="text-sm">
-                    Four Pillars Framework creator. Lead Trainer for American Diabetes Association's Project Power. Medical fitness and executive coaching.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground text-sm mb-1">Vision</h4>
-                  <p className="text-sm">
-                    Helping men build lives that command respect—from within. Refinement isn't about appearances; it's about identity, impact, and legacy.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Kimberly N. Beshears - Shortened Bio */}
-            <div className="bg-background rounded-2xl p-8 shadow-lg hover:-translate-y-1 transition-all duration-300">
-              <img 
-                src={kimberlyTeam}
-                alt="Kimberly N. Beshears, Chief Program Officer & Director of Clinical Excellence"
-                className="w-48 h-48 rounded-full mx-auto mb-6 object-cover object-top shadow-lg border-4 border-gold"
-              />
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-2 text-center">
-                Kimberly N. Beshears, M.A., MBA
-              </h3>
-              <p className="text-gold font-semibold mb-4 text-center uppercase tracking-wide text-sm">
-                Chief Program Officer & Director of Clinical Excellence
-              </p>
-              <div className="space-y-4 text-muted-foreground text-left">
-                <div>
-                  <h4 className="font-semibold text-foreground text-sm mb-1">Background</h4>
-                  <p className="text-sm">
-                    M.A., MBA, Master of Psychology. 18 doctoral hours toward Ph.D. Trauma-informed youth justice expert with forensic psychology training.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground text-sm mb-1">Expertise</h4>
-                  <p className="text-sm">
-                    Evidence-based curriculum design. Positive Youth Development and Social-Emotional Learning. Poised Mentor Certification developer.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground text-sm mb-1">Impact</h4>
-                  <p className="text-sm">
-                    85%+ program completion rates. Strategic partnerships with Son of a Saint and AmeriHealth Caritas. Creates frameworks that change lives.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Joel Chambers - Shortened Bio */}
-            <div className="bg-background rounded-2xl p-8 shadow-lg hover:-translate-y-1 transition-all duration-300">
-              <img 
-                src={joelTeam}
-                alt="Joel Chambers, Chief Technology Officer & Director of Digital Innovation"
-                className="w-48 h-48 rounded-full mx-auto mb-6 object-cover shadow-lg border-4 border-gold"
-              />
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-2 text-center">
-                Joel Chambers
-              </h3>
-              <p className="text-gold font-semibold mb-4 text-center uppercase tracking-wide text-sm">
-                Chief Technology Officer & Director of Digital Innovation
-              </p>
-              <div className="space-y-4 text-muted-foreground text-left">
-                <div>
-                  <h4 className="font-semibold text-foreground text-sm mb-1">Background</h4>
-                  <p className="text-sm">
-                    Enterprise IT leadership. Apple Certified Macintosh Technician (ACMT). A+ trained. Experience managing 100+ user database systems.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground text-sm mb-1">Expertise</h4>
-                  <p className="text-sm">
-                    Windows Azure, Microsoft 365, LEAD SQL. Web development, multimedia production. HTML, Adobe Creative Suite, Apple Logic Pro, Final Cut Pro.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground text-sm mb-1">Focus</h4>
-                  <p className="text-sm">
-                    Digital infrastructure for national scale. AI-enhanced marketing systems. Academy platform development with human-centered approach.
-                  </p>
-                </div>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {pillars.map(({ icon: Icon, title, desc }) => (
+              <Card key={title} className="p-8 border-2 hover:border-gold transition-colors text-center">
+                <Icon className="w-10 h-10 text-gold mx-auto mb-4" strokeWidth={1.5} />
+                <h3 className="text-xl font-heading font-bold mb-3 text-primary">{title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Partnerships & Impact Section */}
-      <section className="py-20 px-6">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="font-heading text-3xl md:text-5xl font-bold text-center text-foreground mb-12">
-            Partnerships & Impact
+      {/* MISSION STATEMENT */}
+      <section className="py-20 md:py-24 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 max-w-4xl text-center">
+          <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-6">Mission</p>
+          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-8 leading-tight">
+            What Changes for a Boy Who Completes a Poised Gentlemen Program
           </h2>
-          
-          <div className="grid md:grid-cols-2 gap-12 mb-12">
-            {/* In Development */}
-            <div>
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-6">
-                In Development
-              </h3>
-              <ul className="space-y-3 text-muted-foreground">
-                <li className="flex items-start gap-3">
-                  <span className="text-[#D4AF37] mt-1">•</span>
-                  <span>Poised Mentor Certification (launching 2026)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#D4AF37] mt-1">•</span>
-                  <span>National accreditation for youth curriculum</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#D4AF37] mt-1">•</span>
-                  <span>B Corp certification (in progress)</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Current Partners */}
-            <div>
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-6">
-                Current Partners
-              </h3>
-              <ul className="space-y-3 text-muted-foreground">
-                <li className="flex items-start gap-3">
-                  <span className="text-[#D4AF37] mt-1">•</span>
-                  <span>Son of a Saint (youth mentorship)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#D4AF37] mt-1">•</span>
-                  <span>AmeriHealth Caritas (community wellness)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#D4AF37] mt-1">•</span>
-                  <span>Black-owned brand collaborations</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Community Impact Stats */}
-          <div className="bg-[#1B2B3A] rounded-lg p-8 text-white">
-            <h3 className="font-heading text-2xl font-bold text-center mb-8">
-              Community Impact
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <div className="text-4xl font-bold text-[#D4AF37] mb-2">500+</div>
-                <div className="text-sm">Individuals Mentored Since 2023</div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-[#D4AF37] mb-2">98%</div>
-                <div className="text-sm">Participant Satisfaction Rate</div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-[#D4AF37] mb-2">5+</div>
-                <div className="text-sm">Local Organization Partnerships</div>
-              </div>
-              <div>
-                <div className="text-4xl font-bold text-[#D4AF37] mb-2">2023</div>
-                <div className="text-sm">Founded in New Orleans</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA Section */}
-      <section className="py-20 px-6 bg-[#D4AF37]">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="font-heading text-3xl md:text-5xl font-bold text-[#1B2B3A] mb-6">
-            Ready to Join the Movement?
-          </h2>
-          <p className="text-xl text-[#1B2B3A] mb-8">
-            Whether you're looking for mentorship, coaching, or grooming products aligned 
-            with your values, we're here to serve.
+          <p className="text-lg md:text-xl text-primary-foreground/90 leading-relaxed">
+            We serve boys ages 10–17 in under-resourced schools and communities — the boys who are
+            often written off before they are ever trained. A boy who completes a Poised Gentlemen
+            program does not walk away with a certificate. He walks away with a default setting:
+            composure under pressure, clarity in conflict, and the quiet confidence that comes from
+            knowing who he is and what he stands for. He has been taught — not told — how to lead
+            himself. And when a boy learns to lead himself, he becomes the kind of man others can
+            follow.
           </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              asChild
-              size="lg"
-              className="bg-[#1B2B3A] text-white hover:bg-[#1B2B3A]/90"
-            >
-              <Link to="/programs">Explore Programs</Link>
-            </Button>
-            <Button 
-              asChild
-              size="lg"
-              className="bg-[#1B2B3A] text-white hover:bg-[#1B2B3A]/90"
-            >
-              <Link to="/shop">Shop Grooming</Link>
-            </Button>
-            <Button 
-              asChild
-              size="lg"
-              variant="outline"
-              className="bg-transparent border-2 border-[#1B2B3A] text-[#1B2B3A] hover:bg-[#1B2B3A] hover:text-white"
-            >
-              <Link to="/contact">Partner With Us</Link>
-            </Button>
-          </div>
+        </div>
+      </section>
+
+      {/* FINAL CTA */}
+      <section className="py-20 md:py-28 bg-gold text-primary">
+        <div className="container mx-auto px-4 max-w-4xl text-center">
+          <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6 leading-tight">
+            Ready to Partner With Us?
+          </h2>
+          <p className="text-lg md:text-xl text-primary/90 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Bring ADA-certified wellness and character-development programming to your school or
+            organization — at no cost to your budget.
+          </p>
+          <Button
+            asChild
+            size="lg"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
+          >
+            <Link to="/schools/">Partner With Us</Link>
+          </Button>
         </div>
       </section>
 
