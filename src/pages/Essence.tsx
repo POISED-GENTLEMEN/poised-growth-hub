@@ -175,7 +175,7 @@ const Essence = () => {
           </h2>
           <div className="space-y-5 text-foreground leading-relaxed">
             <p>
-              The Poised Gentlemen routine is built around a simple
+              The Poised Gentleman's routine is built around a simple
               principle: the first five minutes of your morning install the
               standard for the next sixteen hours. Fragrance is the last
               step — applied after grooming, after dressing, after intent

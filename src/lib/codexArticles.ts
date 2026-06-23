@@ -21,7 +21,7 @@ export const codexArticles: CodexArticle[] = [
     title:
       "What Emotional Intelligence Actually Means for Men (And Why It's Not Weakness)",
     description:
-      "Emotional intelligence for men explained — self-awareness, regulation, and relational skill. Not softness. The Poised Gentlemen Codex.",
+      "Emotional intelligence for men explained — self-awareness, regulation, and relational skill. Not softness. Poised Gentlemen Codex.",
     targetKeyword: "emotional intelligence for men",
     pillar: "Emotional Intelligence",
     relatedSlug: "four-pillars-of-character",

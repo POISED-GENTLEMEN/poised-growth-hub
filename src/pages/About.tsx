@@ -158,7 +158,7 @@ const About = () => {
               </p>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  The Poised Gentlemen Institute is our nonprofit arm, currently in formation. PGI
+                  Poised Gentlemen Institute is our nonprofit arm, currently in formation. PGI
                   exists to expand access to character development programming through grants,
                   donations, and fiscal partnerships — ensuring that no boy is excluded because of
                   where he lives or what his school can afford.
