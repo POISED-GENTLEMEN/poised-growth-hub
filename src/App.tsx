@@ -21,6 +21,9 @@ import ProductDetail from "./pages/ProductDetail";
 import ArticleDetail from "./pages/ArticleDetail";
 import MentorshipPrograms from "./pages/MentorshipPrograms";
 import MockupGenerator from "./pages/MockupGenerator";
+import Schools from "./pages/Schools";
+import SchoolsOnePager from "./pages/SchoolsOnePager";
+import SchoolsOnePagerThankYou from "./pages/SchoolsOnePagerThankYou";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
