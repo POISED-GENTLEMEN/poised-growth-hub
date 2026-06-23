@@ -40,6 +40,27 @@ const setMeta = (selector: string, value: string) => {
   el.setAttribute("content", value);
 };
 
+const upsertJsonLd = (id: string, data: object) => {
+  let el = document.head.querySelector<HTMLScriptElement>(`script[data-jsonld="${id}"]`);
+  if (!el) {
+    el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.setAttribute("data-jsonld", id);
+    document.head.appendChild(el);
+  }
+  el.textContent = JSON.stringify(data);
+};
+
+const SCHOOLS_FAQ: { q: string; a: string }[] = [
+  { q: "What does it cost?", a: "Zero. Project Power is fully grant-funded through the American Diabetes Association and partner health organizations. There is no fee to your school or organization. (Our flagship PYG pilot is a separate, paid program.)" },
+  { q: "How long is the program?", a: "Project Power runs as a single engagement or a short multi-session series, scoped to your calendar. PYG runs as a 12-week pilot totaling roughly 4 hours per week." },
+  { q: "What does a typical session look like?", a: "In-person, group-facilitated, structured around a wellness or character-development objective. A certified trainer leads each session with full materials provided." },
+  { q: "How many students can participate?", a: "Project Power scales by site. PYG cohorts are deliberately small — 8 to 12 boys at a strict 12:1 ratio to preserve depth." },
+  { q: "Can we run it during school hours?", a: "Yes. We deliver during school hours, after school, or in weekend community settings depending on your context." },
+  { q: "What materials are provided?", a: "All curriculum, facilitator guides, and participant materials are included. You provide the space and the participants; we bring everything else." },
+  { q: "How do we measure outcomes?", a: "We use pre/post indicators tied to the Four Pillars, facilitator observation notes, and partner-organization reporting templates where applicable. A summary is shared with site leadership." },
+];
+
 const PrimaryCTA = () => (
   <div className="flex flex-col sm:flex-row gap-4 justify-center">
     <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90">
