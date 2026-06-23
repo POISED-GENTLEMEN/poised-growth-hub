@@ -53,7 +53,22 @@ const App = () => (
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/thank-you" element={<ThankYou />} />
             <Route path="/about" element={<About />} />
-            <Route path="/codex" element={<Resources />} />
+            <Route path="/codex" element={<Codex />} />
+            <Route path="/codex/" element={<Codex />} />
+            {codexArticleSlugs.map((slug) => (
+              <Route
+                key={slug}
+                path={`/codex/${slug}`}
+                element={<CodexArticle />}
+              />
+            ))}
+            {codexArticleSlugs.map((slug) => (
+              <Route
+                key={`${slug}-trailing`}
+                path={`/codex/${slug}/`}
+                element={<CodexArticle />}
+              />
+            ))}
             <Route path="/codex/:slug" element={<ArticleDetail />} />
             <Route path="/resources" element={<Resources />} /> {/* Legacy redirect */}
             <Route path="/contact" element={<Contact />} />
