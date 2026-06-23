@@ -46,10 +46,12 @@ Age-appropriate grooming products:
 - `/` - Homepage
 - `/about` - About us and team
 - `/programs` - Mentorship and coaching programs
-- `/shop` - All grooming products
-- `/shop/essence-collection` - Cologne balms collection
-- `/resources` - The Codex blog and free resources
+- `/shop` - External-store bridge to our Shopify storefront (Essence, Young-G, Bundles)
+- `/essence` - The Essence Collection story and Scent Quiz launcher
+- `/codex` - The Codex (long-form articles) and free resources
 - `/eq-assessment` - Free Emotional Intelligence assessment
 - `/for-moms-mentors` - Resources for parents and mentors
 - `/contact` - Contact information
-- `/program-partners` - Partnership opportunities
+- `/programs/partners` - Partnership opportunities
+
+Note: product checkout is hosted on Shopify, not on poisedgentlemen.com. The /shop page is a bridge that links to the live Shopify storefront in a new tab.

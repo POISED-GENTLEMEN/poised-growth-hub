@@ -2,12 +2,18 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Droplet, BookOpen, Sparkles, Compass } from "lucide-react";
+import { ArrowRight, Droplet, BookOpen, Sparkles, Compass, ExternalLink } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RelatedLinks from "@/components/RelatedLinks";
 import { useCanonical } from "@/hooks/useCanonical";
 import { ScentQuiz } from "@/components/ScentQuiz";
+import { shopifyUrl, trackShopClick } from "@/lib/shopifyLinks";
+
+const ESSENCE_SHOPIFY_URL = shopifyUrl(
+  "/collections/essence-collection",
+  "essence_hub"
+);
 
 const DESC =
   "Premium fragrance for men who lead with intention. The Essence Collection — 12 scents built on the principle that how you present yourself is a form of discipline.";
@@ -135,10 +141,15 @@ const Essence = () => {
 
           <div className="text-center mt-12">
             <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90">
-              <Link to="/shop/essence-collection">
+              <a
+                href={ESSENCE_SHOPIFY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackShopClick("essence_hub", ESSENCE_SHOPIFY_URL)}
+              >
                 Shop the Essence Collection
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+                <ExternalLink className="ml-2 h-5 w-5" />
+              </a>
             </Button>
           </div>
         </div>
@@ -250,10 +261,15 @@ const Essence = () => {
             Twelve scents. One standard. Shop the full Essence Collection.
           </p>
           <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90">
-            <Link to="/shop/essence-collection">
+            <a
+              href={ESSENCE_SHOPIFY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackShopClick("essence_hub", ESSENCE_SHOPIFY_URL)}
+            >
               Shop the Essence Collection
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+              <ExternalLink className="ml-2 h-5 w-5" />
+            </a>
           </Button>
         </div>
       </section>
