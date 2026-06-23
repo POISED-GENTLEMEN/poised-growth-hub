@@ -26,6 +26,7 @@ import SchoolsOnePager from "./pages/SchoolsOnePager";
 import SchoolsOnePagerThankYou from "./pages/SchoolsOnePagerThankYou";
 import Codex from "./pages/Codex";
 import CodexArticle, { codexArticleSlugs } from "./pages/CodexArticle";
+import Essence from "./pages/Essence";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -69,6 +70,8 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/for-moms-mentors" element={<ForMomsMentors />} />
             <Route path="/eq-assessment" element={<EQAssessment />} />
+            <Route path="/essence" element={<Essence />} />
+            <Route path="/essence/" element={<Essence />} />
             <Route path="/shop/essence-collection" element={<EssenceCollection />} />
             <Route path="/products/:slug" element={<ProductDetail />} />
             <Route path="/mentorship-programs" element={<MentorshipPrograms />} />
