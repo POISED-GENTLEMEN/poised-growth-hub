@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { ArrowRight, Droplet, BookOpen, Sparkles, Compass } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import RelatedLinks from "@/components/RelatedLinks";
 import { useCanonical } from "@/hooks/useCanonical";
 import { ScentQuiz } from "@/components/ScentQuiz";
 
@@ -258,6 +259,8 @@ const Essence = () => {
       </section>
 
       <ScentQuiz open={quizOpen} onOpenChange={setQuizOpen} />
+
+      <RelatedLinks variant="essence" />
 
       <Footer />
     </div>

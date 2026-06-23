@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import RelatedLinks from "@/components/RelatedLinks";
 import { useCanonical } from "@/hooks/useCanonical";
 
 const PROGRAMS_DESC =
@@ -396,6 +397,8 @@ const Programs = () => {
           </div>
         </div>
       </section>
+
+      <RelatedLinks variant="programs" />
 
       <Footer />
     </div>
