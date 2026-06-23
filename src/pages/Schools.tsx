@@ -200,7 +200,7 @@ const Schools = () => {
             How the Programs Run
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8">
+            <Card id="project-power" className="p-8">
               <HeartPulse className="h-10 w-10 text-secondary mb-4" />
               <h3 className="font-heading font-bold text-2xl mb-3">Project Power</h3>
               <p className="text-sm text-muted-foreground mb-4 uppercase tracking-wide">
