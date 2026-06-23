@@ -23,6 +23,7 @@ import {
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
+import HowItWorks from "@/components/HowItWorks";
 
 const DESC =
   "Bring free, ADA-certified Project Power wellness programming to your school — plus our flagship Poised Method™ character pilot. Project Power is fully grant-funded; no cost to host.";
@@ -81,6 +82,8 @@ const Schools = () => {
           <PrimaryCTA />
         </div>
       </section>
+
+      <HowItWorks />
 
       {/* Outcomes */}
       <section className="py-20 bg-background">

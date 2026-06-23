@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Shield, Dumbbell, Brain, Target } from "lucide-react";
+import HowItWorks from "@/components/HowItWorks";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
@@ -200,6 +201,8 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      <HowItWorks />
 
       {/* PROOF / IMPACT */}
       <section className="py-20 md:py-24 bg-background">
