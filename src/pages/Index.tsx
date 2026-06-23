@@ -202,6 +202,8 @@ const Index = () => {
         </div>
       </section>
 
+      <HowItWorks />
+
       {/* PROOF / IMPACT */}
       <section className="py-20 md:py-24 bg-background">
         <div className="container mx-auto px-4 max-w-4xl text-center">
