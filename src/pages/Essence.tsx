@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Droplet, BookOpen, Sparkles } from "lucide-react";
+import { ArrowRight, Droplet, BookOpen, Sparkles, Compass } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
+import { ScentQuiz } from "@/components/ScentQuiz";
 
 const DESC =
   "Premium fragrance for men who lead with intention. The Essence Collection — 12 scents built on the principle that how you present yourself is a form of discipline.";
