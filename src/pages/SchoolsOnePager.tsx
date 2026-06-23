@@ -71,16 +71,53 @@ const SchoolsOnePager = () => {
     }
     setSubmitting(true);
     try {
-      const { error } = await supabase.from("email_submissions").insert({
-        email: parsed.data.email,
-        first_name: parsed.data.firstName,
-        category: "schools-one-pager",
-        source: JSON.stringify({
-          organization: parsed.data.organization,
-          role: parsed.data.role,
-        }),
-      });
+      const { data: inserted, error } = await supabase
+        .from("email_submissions")
+        .insert({
+          email: parsed.data.email,
+          first_name: parsed.data.firstName,
+          category: "schools-one-pager",
+          source: JSON.stringify({
+            organization: parsed.data.organization,
+            role: parsed.data.role,
+          }),
+        })
+        .select("id")
+        .single();
       if (error) throw error;
+
+      const submissionId = inserted?.id ?? `${Date.now()}`;
+      const pdfUrl = `${window.location.origin}${onePagerAsset.url}`;
+
+      // Email the requester the PDF link (don't block UX on email failure)
+      void supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "schools-one-pager-delivery",
+          recipientEmail: parsed.data.email,
+          idempotencyKey: `schools-one-pager-delivery-${submissionId}`,
+          templateData: {
+            firstName: parsed.data.firstName,
+            organization: parsed.data.organization,
+            pdfUrl,
+          },
+        },
+      });
+
+      // Internal notification to David
+      void supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "schools-one-pager-internal",
+          idempotencyKey: `schools-one-pager-internal-${submissionId}`,
+          templateData: {
+            firstName: parsed.data.firstName,
+            organization: parsed.data.organization,
+            email: parsed.data.email,
+            role: parsed.data.role,
+            submittedAt: new Date().toISOString(),
+          },
+        },
+      });
+
       window.open(onePagerAsset.url, "_blank", "noopener,noreferrer");
       navigate("/schools/one-pager/thank-you/");
     } catch (err) {
