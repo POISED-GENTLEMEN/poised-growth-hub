@@ -217,6 +217,12 @@ const Header = () => {
 
           {/* Right Side Actions */}
           <div className="hidden md:flex items-center gap-4">
+            <Link
+              to="/schools/#proposal-form"
+              className="text-base font-body font-medium bg-gold text-gold-foreground px-5 py-2 rounded-md hover:bg-primary hover:text-gold transition-colors"
+            >
+              Request a Proposal
+            </Link>
             <SiteSearch />
           </div>
 
