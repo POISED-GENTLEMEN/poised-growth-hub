@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Mail, ArrowRight } from "lucide-react";
+import { CheckCircle, Mail, ArrowRight, Download } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
+import onePagerAsset from "@/assets/schools-one-pager.pdf.asset.json";
 
 const SchoolsOnePagerThankYou = () => {
   useCanonical("/schools/one-pager/thank-you/");
@@ -38,10 +39,26 @@ const SchoolsOnePagerThankYou = () => {
             You're one step closer to building stronger young men.
           </h1>
 
-          <p className="text-lg text-muted-foreground mb-8 flex items-center justify-center gap-2">
+          <p className="text-lg text-muted-foreground mb-6 flex items-center justify-center gap-2">
             <Mail className="h-5 w-5" />
             Check your inbox — your one-pager is on its way.
           </p>
+
+          <Button
+            asChild
+            size="lg"
+            className="mb-8 bg-secondary text-secondary-foreground hover:bg-secondary/90"
+          >
+            <a
+              href={onePagerAsset.url}
+              download="Poised_Gentlemen_Schools_OnePager.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Download className="mr-2 h-5 w-5" />
+              Download the One-Pager Now
+            </a>
+          </Button>
 
           <div className="bg-muted/30 rounded-lg p-8 text-left mb-8">
             <p className="font-heading font-semibold text-lg mb-4">
