@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { BookOpen, ArrowRight, Award } from "lucide-react";
+import { BookOpen, ArrowRight, Award, Brain, FileText } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
@@ -91,6 +91,64 @@ const Codex = () => {
                 loading="lazy"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Free Resources */}
+      <section className="py-20 bg-background border-b border-border">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-12">
+            <Badge className="mb-4 bg-secondary text-secondary-foreground">Free Resources</Badge>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+              Tools You Can Use Today
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Practical instruments from the Codex — built for today's men and
+              those raising the next generation.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <Card className="p-8 border-border hover:shadow-lg transition-shadow">
+              <Brain className="h-10 w-10 text-secondary mb-4" />
+              <h3 className="font-heading font-bold text-2xl mb-3">
+                EQ Self-Assessment
+              </h3>
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                A 25-question instrument across five dimensions of emotional
+                intelligence. Get a scored profile and tier-based guidance in
+                under 10 minutes.
+              </p>
+              <Button asChild className="bg-secondary text-secondary-foreground hover:bg-secondary/90">
+                <Link to="/eq-assessment">
+                  Take the Assessment
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </Card>
+
+            <Card className="p-8 border-border hover:shadow-lg transition-shadow">
+              <FileText className="h-10 w-10 text-secondary mb-4" />
+              <h3 className="font-heading font-bold text-2xl mb-3">
+                First Shave Kit Guide
+              </h3>
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                A printable guide for fathers, mothers, and mentors preparing a
+                young man for his first shave. Step-by-step technique, tools,
+                and the conversation that goes with it.
+              </p>
+              <Button asChild className="bg-secondary text-secondary-foreground hover:bg-secondary/90">
+                <a
+                  href="/POISED-YOUNG-GENTLEMEN-FIRST-SHAVE-KIT.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Download PDF
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </a>
+              </Button>
+            </Card>
           </div>
         </div>
       </section>
