@@ -30,6 +30,14 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+const CodexOrArticleRouter = () => {
+  const { slug } = useParams<{ slug: string }>();
+  if (slug && codexArticleSlugs.includes(slug)) {
+    return <CodexArticle />;
+  }
+  return <ArticleDetail />;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
