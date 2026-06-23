@@ -200,7 +200,7 @@ const Schools = () => {
             How the Programs Run
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
-            <Card className="p-8">
+            <Card id="project-power" className="p-8">
               <HeartPulse className="h-10 w-10 text-secondary mb-4" />
               <h3 className="font-heading font-bold text-2xl mb-3">Project Power</h3>
               <p className="text-sm text-muted-foreground mb-4 uppercase tracking-wide">
@@ -428,6 +428,80 @@ const Schools = () => {
             Looking for the full program catalog? Visit{" "}
             <Link to="/programs/" className="underline">our programs page</Link>.
           </p>
+        </div>
+      </section>
+
+      {/* How We Partner */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12">
+            How We Partner
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Card 1 — Entry */}
+            <Card className="overflow-hidden flex flex-col">
+              <div className="bg-primary text-primary-foreground p-6">
+                <p className="text-secondary uppercase tracking-wider text-xs font-semibold mb-2">Entry</p>
+                <h3 className="font-heading font-bold text-xl mb-1">Project Power</h3>
+                <p className="text-primary-foreground/70 text-sm">ADA-Certified | No Cost to Host Organizations</p>
+              </div>
+              <div className="p-6 bg-muted/30 flex-1 flex flex-col">
+                <p className="text-muted-foreground mb-6 flex-1">
+                  Delivered by certified Poised Gentlemen trainers. Stipend-funded. Ages 5–12. Ideal for schools, wellness centers, and youth organizations ready to launch social-emotional programming immediately — at no cost to your organization.
+                </p>
+                <Button asChild variant="outline" size="sm" className="w-full">
+                  <a href="#project-power">Learn More <ArrowRight className="ml-1 h-4 w-4" /></a>
+                </Button>
+              </div>
+            </Card>
+
+            {/* Card 2 — Pilot (Featured) */}
+            <Card className="overflow-hidden flex flex-col border-secondary ring-1 ring-secondary/30 relative">
+              <div className="absolute top-0 right-0 bg-secondary text-secondary-foreground text-xs font-bold px-3 py-1.5 rounded-bl">
+                Most Requested
+              </div>
+              <div className="bg-primary text-primary-foreground p-6">
+                <p className="text-secondary uppercase tracking-wider text-xs font-semibold mb-2">Pilot</p>
+                <h3 className="font-heading font-bold text-xl mb-1">The Poised Method™ School Pilot</h3>
+                <p className="text-primary-foreground/70 text-sm">12-Week Licensed Program | Ages 10–13</p>
+              </div>
+              <div className="p-6 bg-muted/30 flex-1 flex flex-col">
+                <p className="text-muted-foreground mb-6 flex-1">
+                  A structured 24-session pilot delivering measurable character development outcomes tracked via PRI v2.0. Maximum 12:1 student ratio. Five phases. Built for principals and program directors ready to invest in what works.
+                </p>
+                <Button asChild size="sm" className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90">
+                  <a href="#proposal-form">Request a Proposal <ArrowRight className="ml-1 h-4 w-4" /></a>
+                </Button>
+              </div>
+            </Card>
+
+            {/* Card 3 — Scale */}
+            <Card className="overflow-hidden flex flex-col">
+              <div className="bg-primary text-primary-foreground p-6">
+                <p className="text-secondary uppercase tracking-wider text-xs font-semibold mb-2">Scale</p>
+                <h3 className="font-heading font-bold text-xl mb-1">Institutional Licensing</h3>
+                <p className="text-primary-foreground/70 text-sm">Annual Contract | Multi-Cohort | Certification Track</p>
+              </div>
+              <div className="p-6 bg-muted/30 flex-1 flex flex-col">
+                <p className="text-muted-foreground mb-6 flex-1">
+                  For districts, large youth-serving organizations, and partners ready to license The Poised Method™ framework organization-wide. Pricing and scope available upon proposal.
+                </p>
+                <Button asChild variant="outline" size="sm" className="w-full">
+                  <a href="#proposal-form">Request a Proposal <ArrowRight className="ml-1 h-4 w-4" /></a>
+                </Button>
+              </div>
+            </Card>
+          </div>
+
+          {/* Secondary CTA row */}
+          <div className="text-center mt-12 space-x-8">
+            <Link to="/schools/one-pager/" className="text-secondary font-semibold hover:underline inline-flex items-center">
+              Download the One-Pager <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
+            <a href="#" className="text-secondary font-semibold hover:underline inline-flex items-center">
+              Book a Discovery Call <ArrowRight className="ml-1 h-4 w-4" />
+            </a>
+          </div>
         </div>
       </section>
 
