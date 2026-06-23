@@ -259,6 +259,8 @@ const SchoolsOnePager = () => {
         </div>
       </section>
 
+      <RelatedLinks variant="schools" />
+
       <Footer />
     </div>
   );
