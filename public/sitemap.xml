@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://poisedgentlemen.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://poisedgentlemen.com/programs</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://poisedgentlemen.com/programs/partners</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://poisedgentlemen.com/schools</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://poisedgentlemen.com/schools/one-pager</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://poisedgentlemen.com/mentorship-programs</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://poisedgentlemen.com/shop</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://poisedgentlemen.com/shop/essence-collection</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://poisedgentlemen.com/essence</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://poisedgentlemen.com/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://poisedgentlemen.com/codex</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://poisedgentlemen.com/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://poisedgentlemen.com/for-moms-mentors</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://poisedgentlemen.com/eq-assessment</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://poisedgentlemen.com/programs/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://poisedgentlemen.com/programs/partners/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://poisedgentlemen.com/schools/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://poisedgentlemen.com/schools/one-pager/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://poisedgentlemen.com/mentorship-programs/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://poisedgentlemen.com/shop/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://poisedgentlemen.com/essence/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://poisedgentlemen.com/about/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://poisedgentlemen.com/codex/</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://poisedgentlemen.com/codex/what-is-emotional-intelligence-for-men/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://poisedgentlemen.com/codex/modern-masculinity/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://poisedgentlemen.com/codex/how-to-build-discipline/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://poisedgentlemen.com/codex/teen-grooming-routine/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://poisedgentlemen.com/codex/father-figure-vs-mentor/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://poisedgentlemen.com/codex/four-pillars-of-character/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://poisedgentlemen.com/codex/what-is-integrity/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://poisedgentlemen.com/codex/boys-to-men/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://poisedgentlemen.com/contact/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://poisedgentlemen.com/for-moms-mentors/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://poisedgentlemen.com/eq-assessment/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>
