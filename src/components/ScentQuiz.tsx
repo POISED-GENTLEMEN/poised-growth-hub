@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { ChevronLeft, Compass, ArrowRight } from "lucide-react";
+import { ChevronLeft, Compass, ArrowRight, ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { essenceProducts, EssenceProduct } from "@/data/essenceProducts";
+import { shopifyUrl, trackShopClick } from "@/lib/shopifyLinks";
 
 interface QuizQuestion {
   id: string;
@@ -430,16 +430,27 @@ export const ScentQuiz = ({ open, onOpenChange }: ScentQuizProps) => {
                   <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                     {getWhyText(product)}
                   </p>
-                  <Button
-                    asChild
-                    className="w-full bg-gold text-gold-foreground hover:bg-gold/90"
-                    onClick={() => onOpenChange(false)}
-                  >
-                    <Link to={`/products/${product.slug}`}>
-                      View Product
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Link>
-                  </Button>
+                  {(() => {
+                    const url = shopifyUrl(`/products/${product.slug}`, "scent_quiz_result");
+                    return (
+                      <Button
+                        asChild
+                        className="w-full bg-gold text-gold-foreground hover:bg-gold/90"
+                      >
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => {
+                            trackShopClick("scent_quiz_result", url);
+                          }}
+                        >
+                          Shop on Shopify
+                          <ExternalLink className="w-4 h-4 ml-2" />
+                        </a>
+                      </Button>
+                    );
+                  })()}
                 </div>
               ))}
             </div>
@@ -452,17 +463,29 @@ export const ScentQuiz = ({ open, onOpenChange }: ScentQuizProps) => {
               <p className="opacity-90 mb-6">
                 Six fragrance families. Twelve scents. One standard.
               </p>
-              <Button
-                asChild
-                size="lg"
-                className="bg-gold text-gold-foreground hover:bg-gold/90"
-                onClick={() => onOpenChange(false)}
-              >
-                <Link to="/shop/essence-collection">
-                  Shop the Essence Collection
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Link>
-              </Button>
+              {(() => {
+                const url = shopifyUrl(
+                  "/collections/essence-collection",
+                  "scent_quiz_cta"
+                );
+                return (
+                  <Button
+                    asChild
+                    size="lg"
+                    className="bg-gold text-gold-foreground hover:bg-gold/90"
+                  >
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackShopClick("scent_quiz_cta", url)}
+                    >
+                      Shop the Essence Collection
+                      <ExternalLink className="w-5 h-5 ml-2" />
+                    </a>
+                  </Button>
+                );
+              })()}
             </div>
 
             {/* Secondary Actions */}

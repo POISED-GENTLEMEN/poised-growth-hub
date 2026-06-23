@@ -1,24 +1,26 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ExternalLink, ShieldCheck, BadgeCheck, Truck, Lock, ArrowRight } from "lucide-react";
+import { ExternalLink, ShieldCheck, BadgeCheck, Truck, Lock, ArrowRight, Compass } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
-import { trackEvent } from "@/lib/analytics";
+import { ScentQuiz } from "@/components/ScentQuiz";
+import {
+  shopifyUrl,
+  trackShopClick,
+  type ShopPlacement,
+} from "@/lib/shopifyLinks";
 
 const TITLE = "Shop | Poised Gentlemen";
 const DESC =
   "Shop the Poised Essence Collection and Young-G Collection — grooming built on the principle that how you present yourself is a form of discipline.";
 
 const SHOP_LINKS = {
-  essence:
-    "https://poised-growth-hub-rfqhl.myshopify.com/collections/essence-collection",
-  youngG:
-    "https://poised-growth-hub-rfqhl.myshopify.com/collections/young-g-collection",
-  bundles:
-    "https://poised-growth-hub-rfqhl.myshopify.com/collections/bundles-subscribe-save",
+  essence: shopifyUrl("/collections/essence-collection", "shop_bridge_essence"),
+  youngG: shopifyUrl("/collections/young-g-collection", "shop_bridge_young_g"),
+  bundles: shopifyUrl("/collections/bundles-subscribe-save", "shop_bridge_bundles"),
 };
 
 const setMeta = (selector: string, value: string) => {
@@ -32,18 +34,6 @@ const setMeta = (selector: string, value: string) => {
   el.setAttribute("content", value);
 };
 
-type ShopSection = "essence" | "young-g" | "bundles";
-
-const trackShopClick = (section: ShopSection, url: string) => {
-  trackEvent("shop_click", {
-    event_category: "outbound",
-    event_label: section,
-    section,
-    destination: url,
-    transport_type: "beacon",
-  });
-};
-
 interface BridgeCardProps {
   badge: string;
   title: string;
@@ -51,8 +41,9 @@ interface BridgeCardProps {
   bullets: string[];
   ctaLabel: string;
   href: string;
-  section: ShopSection;
+  placement: ShopPlacement;
   internalLink?: { to: string; label: string };
+  anchorId?: string;
 }
 
 const BridgeCard = ({
@@ -62,10 +53,14 @@ const BridgeCard = ({
   bullets,
   ctaLabel,
   href,
-  section,
+  placement,
   internalLink,
+  anchorId,
 }: BridgeCardProps) => (
-  <Card className="flex flex-col h-full p-8 border-2 border-border hover:border-gold/60 transition-colors">
+  <Card
+    id={anchorId}
+    className="flex flex-col h-full p-8 border-2 border-border hover:border-gold/60 transition-colors scroll-mt-24"
+  >
     <span className="inline-block self-start text-[11px] uppercase tracking-widest font-semibold text-gold mb-4">
       {badge}
     </span>
@@ -89,9 +84,9 @@ const BridgeCard = ({
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackShopClick(section, href)}
+          onClick={() => trackShopClick(placement, href)}
           data-ga-event="shop_click"
-          data-ga-label={section}
+          data-ga-label={placement}
         >
           {ctaLabel}
           <ExternalLink className="ml-2 h-4 w-4" />
@@ -118,6 +113,9 @@ const TRUST_BADGES = [
 
 const Shop = () => {
   useCanonical("/shop/");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [quizOpen, setQuizOpen] = useState(false);
 
   useEffect(() => {
     document.title = TITLE;
@@ -126,6 +124,36 @@ const Shop = () => {
     setMeta('meta[property="og:description"]', DESC);
     setMeta('meta[property="og:url"]', "https://poisedgentlemen.com/shop/");
   }, []);
+
+  // Auto-open the scent quiz when arriving via #scent-quiz or ?quiz=1.
+  useEffect(() => {
+    const wantsQuiz =
+      location.hash === "#scent-quiz" ||
+      new URLSearchParams(location.search).get("quiz") === "1";
+    if (wantsQuiz) setQuizOpen(true);
+  }, [location.hash, location.search]);
+
+  // Smooth-scroll to #essence-collection or #young-g-collection when used.
+  useEffect(() => {
+    if (!location.hash) return;
+    const id = location.hash.slice(1);
+    if (id === "scent-quiz") return; // handled by quiz auto-open
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [location.hash]);
+
+  const handleQuizOpenChange = (open: boolean) => {
+    setQuizOpen(open);
+    // When closing, strip ?quiz=1 / #scent-quiz so reopens are intentional.
+    if (!open) {
+      const wantsQuiz =
+        location.hash === "#scent-quiz" ||
+        new URLSearchParams(location.search).get("quiz") === "1";
+      if (wantsQuiz) {
+        navigate("/shop/", { replace: true });
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -164,6 +192,7 @@ const Shop = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             <BridgeCard
+              anchorId="essence-collection"
               badge="Adult — 12 Scents"
               title="The Essence Collection"
               description="Twelve designer-inspired cologne balms. Fragrance and skincare in one — built for the man who treats his routine as a daily standard."
@@ -174,10 +203,11 @@ const Shop = () => {
               ]}
               ctaLabel="Shop the Essence Collection"
               href={SHOP_LINKS.essence}
-              section="essence"
+              placement="shop_bridge_essence"
               internalLink={{ to: "/essence/", label: "Read the story behind Essence" }}
             />
             <BridgeCard
+              anchorId="young-g-collection"
               badge="Boys 10–17"
               title="The Young-G Collection"
               description="Grooming built specifically for boys 10–17 — a structured first routine that turns daily care into a habit of discipline and self-respect."
@@ -188,7 +218,7 @@ const Shop = () => {
               ]}
               ctaLabel="Shop the Young-G Collection"
               href={SHOP_LINKS.youngG}
-              section="young-g"
+              placement="shop_bridge_young_g"
               internalLink={{
                 to: "/codex/teen-grooming-routine/",
                 label: "Read: The Teen Grooming Routine",
@@ -205,13 +235,39 @@ const Shop = () => {
               ]}
               ctaLabel="Shop Bundles + Subscribe & Save"
               href={SHOP_LINKS.bundles}
-              section="bundles"
+              placement="shop_bridge_bundles"
               internalLink={{
                 to: "/codex/how-to-build-discipline/",
                 label: "Read: How to Build Discipline",
               }}
             />
           </div>
+        </div>
+      </section>
+
+      {/* Scent Quiz launcher (re-homed from /shop/essence-collection) */}
+      <section
+        id="scent-quiz"
+        className="py-20 bg-primary text-primary-foreground scroll-mt-24"
+      >
+        <div className="container mx-auto px-4 max-w-3xl text-center">
+          <Compass className="h-10 w-10 mx-auto mb-5 text-gold" />
+          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+            Find Your Signature Scent
+          </h2>
+          <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
+            Six questions. Two minutes. We'll match you to the scents in the
+            Essence Collection built for your lifestyle, your standard, and the
+            rooms you walk into.
+          </p>
+          <Button
+            size="lg"
+            onClick={() => setQuizOpen(true)}
+            className="bg-gold text-primary hover:bg-gold/90"
+          >
+            Take the Scent Quiz
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
       </section>
 
@@ -248,7 +304,7 @@ const Shop = () => {
                 href={SHOP_LINKS.essence}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackShopClick("essence", SHOP_LINKS.essence)}
+                onClick={() => trackShopClick("shop_bridge_essence", SHOP_LINKS.essence)}
               >
                 Essence Collection
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -259,7 +315,7 @@ const Shop = () => {
                 href={SHOP_LINKS.youngG}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackShopClick("young-g", SHOP_LINKS.youngG)}
+                onClick={() => trackShopClick("shop_bridge_young_g", SHOP_LINKS.youngG)}
               >
                 Young-G Collection
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -268,6 +324,8 @@ const Shop = () => {
           </div>
         </div>
       </section>
+
+      <ScentQuiz open={quizOpen} onOpenChange={handleQuizOpenChange} />
 
       <Footer />
     </div>
