@@ -22,18 +22,18 @@ const setMeta = (selector: string, value: string) => {
 };
 
 const scents: { name: string; family: string; notes: string; color: string }[] = [
-  { name: "Cedar Reserve", family: "Woody & Earthy", notes: "Cedarwood, vetiver, smoked amber.", color: "#8B6B3D" },
-  { name: "Atlantic", family: "Aquatic & Fresh", notes: "Sea salt, bergamot, driftwood.", color: "#1F4E79" },
-  { name: "Black Oud", family: "Oriental & Warm", notes: "Oud, leather, dark rose.", color: "#3A1F1F" },
-  { name: "Citrine", family: "Citrus & Bright", notes: "Italian lemon, neroli, white musk.", color: "#C8A33E" },
-  { name: "Sequoia", family: "Woody & Earthy", notes: "Pine, moss, tonka bean.", color: "#3F5544" },
-  { name: "Bourbon Vanille", family: "Oriental & Warm", notes: "Vanilla, bourbon, smoked tobacco.", color: "#6B3E1B" },
-  { name: "Iron & Pepper", family: "Aromatic & Spicy", notes: "Black pepper, cardamom, iron." , color: "#4A4A4A" },
-  { name: "Linen", family: "Fresh & Green", notes: "White tea, cotton musk, mint.", color: "#B8C5BA" },
-  { name: "Crescent", family: "Aromatic & Spicy", notes: "Star anise, juniper, leather.", color: "#2E2A4A" },
-  { name: "Marble", family: "Citrus & Bright", notes: "Grapefruit, ginger, white amber.", color: "#A9A9A9" },
-  { name: "Heritage", family: "Woody & Earthy", notes: "Sandalwood, tobacco leaf, suede.", color: "#5C3A21" },
-  { name: "Vesper", family: "Oriental & Warm", notes: "Frankincense, myrrh, dark honey.", color: "#7A4E2D" },
+  { name: "Buoyant", family: "Aquatic & Fresh", notes: "Marine Accord, Bergamot, Cedarwood.", color: "#077DFE" },
+  { name: "Admiral's Odyssey", family: "Aquatic & Fresh", notes: "Green Leaf, Apple, Mimosa.", color: "#1E90FF" },
+  { name: "Vigaros", family: "Aromatic & Spicy", notes: "Mint, Green Apple, Lemon.", color: "#4B2E5C" },
+  { name: "Urban Wisdom", family: "Aromatic & Spicy", notes: "Pear, Bergamot, Lavender.", color: "#6B3A8A" },
+  { name: "Poised Sauvage", family: "Aromatic & Spicy", notes: "Calabrian Bergamot, Sichuan Pepper.", color: "#8B5A8C" },
+  { name: "Light Breeze", family: "Citrus & Bright", notes: "Mandarin, Grapefruit, Juniper.", color: "#D97E3A" },
+  { name: "L.Y. Creed", family: "Citrus & Bright", notes: "Blackcurrant, Pineapple, Bergamot.", color: "#E8A838" },
+  { name: "Blue Harmony", family: "Woody & Earthy", notes: "Grapefruit, Cedar, Sandalwood.", color: "#CFB040" },
+  { name: "First Impression", family: "Woody & Earthy", notes: "Violet Leaf, Mandarin, Cedarwood.", color: "#B8960C" },
+  { name: "JSP (James Saint Patrick)", family: "Woody & Earthy", notes: "Bergamot, Apple, Sage.", color: "#8B7355" },
+  { name: "Fighting Trim", family: "Fresh & Green", notes: "Rosemary, Pineapple, Bergamot.", color: "#7ED957" },
+  { name: "Seven Figures", family: "Oriental & Warm", notes: "Grapefruit, Mint, Blood Mandarin.", color: "#FF0707" },
 ];
 
 const Essence = () => {
