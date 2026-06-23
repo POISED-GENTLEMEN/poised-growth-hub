@@ -217,6 +217,12 @@ const Header = () => {
 
           {/* Right Side Actions */}
           <div className="hidden md:flex items-center gap-4">
+            <Link
+              to="/schools/#proposal-form"
+              className="text-base font-body font-medium bg-gold text-gold-foreground px-5 py-2 rounded-md hover:bg-primary hover:text-gold transition-colors"
+            >
+              Request a Proposal
+            </Link>
             <SiteSearch />
           </div>
 
@@ -234,6 +240,13 @@ const Header = () => {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 flex flex-col gap-4 border-t border-border pt-4">
+            <Link
+              to="/schools/#proposal-form"
+              className="w-full text-center text-base font-body font-medium bg-gold text-gold-foreground px-5 py-3 rounded-md hover:bg-primary hover:text-gold transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Request a Proposal
+            </Link>
             <Link
               to="/programs"
               className="text-foreground hover:text-primary transition-colors font-body font-medium"
