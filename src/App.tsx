@@ -38,7 +38,14 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/programs" element={<Programs />} />
+            <Route path="/programs/" element={<Programs />} />
             <Route path="/programs/partners" element={<ProgramPartners />} />
+            <Route path="/schools" element={<Schools />} />
+            <Route path="/schools/" element={<Schools />} />
+            <Route path="/schools/one-pager" element={<SchoolsOnePager />} />
+            <Route path="/schools/one-pager/" element={<SchoolsOnePager />} />
+            <Route path="/schools/one-pager/thank-you" element={<SchoolsOnePagerThankYou />} />
+            <Route path="/schools/one-pager/thank-you/" element={<SchoolsOnePagerThankYou />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
