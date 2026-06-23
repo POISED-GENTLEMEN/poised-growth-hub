@@ -288,7 +288,7 @@ const Programs = () => {
               size="lg"
               className="bg-gold text-primary hover:bg-gold/90 font-semibold"
             >
-              <a href="#" target="_blank" rel="noopener noreferrer">
+              <a href="https://cal.com/david-rachal-iii" target="_blank" rel="noopener noreferrer">
                 Book a Mentorship Session
                 <ArrowRight className="w-4 h-4 ml-2" />
               </a>
