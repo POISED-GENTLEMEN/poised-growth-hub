@@ -24,7 +24,19 @@ export const REDIRECT_MAP: Record<string, string> = {
   "/store": "/shop/",
   "/cologne": "/essence/",
   "/young-g": "/shop/",
+
+  // Removed on-site commerce — Shopify is the store of record now.
+  "/cart": "/shop/",
+  "/checkout": "/shop/",
+  "/thank-you": "/shop/",
+  "/shop/essence-collection": "/shop/",
 };
+
+// Path prefixes that always redirect to a single canonical path, regardless of
+// what comes after the prefix (e.g. /products/<anything> → /shop/).
+const PREFIX_REDIRECTS: Array<{ prefix: string; target: string }> = [
+  { prefix: "/products/", target: "/shop/" },
+];
 
 // Paths that should NEVER be normalized (assets, API-style routes).
 const PRESERVE_AS_IS = /\.[a-z0-9]{2,5}$/i;
@@ -54,6 +66,13 @@ export function normalizePath(rawPath: string): NormalizeResult {
   const noTrail = path.endsWith("/") && path !== "/" ? path.slice(0, -1) : path;
   if (REDIRECT_MAP[noTrail]) {
     return { changed: true, path: REDIRECT_MAP[noTrail] };
+  }
+
+  // Prefix redirects (e.g. all /products/* → /shop/)
+  for (const { prefix, target } of PREFIX_REDIRECTS) {
+    if (path === prefix.slice(0, -1) || path.startsWith(prefix)) {
+      return { changed: true, path: target };
+    }
   }
 
   // Enforce trailing slash on non-file paths
