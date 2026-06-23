@@ -81,6 +81,7 @@ const SchoolsOnePager = () => {
         }),
       });
       if (error) throw error;
+      window.open(onePagerAsset.url, "_blank", "noopener,noreferrer");
       navigate("/schools/one-pager/thank-you/");
     } catch (err) {
       console.error(err);
