@@ -6,6 +6,7 @@ import { Shield, Dumbbell, Brain, Target } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
+import codexCover from "@/assets/book-hardcover.jpg";
 
 const Index = () => {
   useCanonical();
