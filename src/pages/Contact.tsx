@@ -1,773 +1,579 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Card } from "@/components/ui/card";
 import {
-  Mail,
-  Phone,
-  Handshake,
-  CheckCircle,
-  School,
-  Heart,
-  Briefcase,
-  Users,
-  Instagram,
-  Linkedin,
-  Facebook,
-  Youtube,
-} from "lucide-react";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Card } from "@/components/ui/card";
+import { Mail, Phone, CheckCircle, Building2, Users, Newspaper } from "lucide-react";
 import { useCanonical } from "@/hooks/useCanonical";
-import partnershipSonOfSaint from "@/assets/partnership-son-of-saint.jpg";
-import partnershipAmeriHealth from "@/assets/partnership-amerihealth.jpg";
-import { contactGeneralSchema, contactPartnershipSchema } from "@/lib/validations";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { supabase } from "@/integrations/supabase/client";
+
+type Segment = "school" | "parent" | "press" | "other" | "";
+
+const segmentLabels: Record<string, string> = {
+  school: "School or Organization",
+  parent: "Parent or Guardian",
+  press: "Press or Media",
+  other: "Other",
+};
 
 const Contact = () => {
   useCanonical();
-  const [generalForm, setGeneralForm] = useState({
+
+  const [segment, setSegment] = useState<Segment>("");
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const [form, setForm] = useState({
     name: "",
     email: "",
     phone: "",
-    inquiryType: "",
     message: "",
-    newsletter: false,
-  });
-
-  const [partnershipForm, setPartnershipForm] = useState({
     orgName: "",
-    contactPerson: "",
-    email: "",
-    phone: "",
-    orgType: "",
-    participants: "",
-    challenge: "",
+    role: "",
+    programInterest: "",
+    groupSize: "",
     timeline: "",
-    budget: "",
-    hearAbout: "",
+    childAge: "",
+    interest: "",
+    outlet: "",
   });
 
-  const [generalSubmitted, setGeneralSubmitted] = useState(false);
-  const [partnershipSubmitted, setPartnershipSubmitted] = useState(false);
-  const [generalErrors, setGeneralErrors] = useState<Record<string, string>>({});
-  const [partnershipErrors, setPartnershipErrors] = useState<Record<string, string>>({});
-
-  const handleGeneralSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const result = contactGeneralSchema.safeParse(generalForm);
-    if (!result.success) {
-      const fieldErrors: Record<string, string> = {};
-      result.error.issues.forEach((issue) => {
-        if (issue.path[0]) {
-          fieldErrors[issue.path[0] as string] = issue.message;
-        }
+  const updateField = (field: keyof typeof form, value: string) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
       });
-      setGeneralErrors(fieldErrors);
+    }
+  };
+
+  const validate = (): boolean => {
+    const fieldErrors: Record<string, string> = {};
+
+    if (!segment) {
+      fieldErrors.segment = "Please select who you're reaching out as";
+    }
+
+    if (!form.name.trim()) {
+      fieldErrors.name = "Name is required";
+    } else if (form.name.length > 100) {
+      fieldErrors.name = "Name must be less than 100 characters";
+    }
+
+    if (!form.email.trim()) {
+      fieldErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      fieldErrors.email = "Please enter a valid email address";
+    }
+
+    if (segment === "school") {
+      if (!form.phone.trim()) {
+        fieldErrors.phone = "Phone is required for school and organization inquiries";
+      } else if (!/^\+?[\d\s\-()]+$/.test(form.phone)) {
+        fieldErrors.phone = "Please enter a valid phone number";
+      }
+      if (!form.orgName.trim()) fieldErrors.orgName = "Organization name is required";
+      if (!form.role.trim()) fieldErrors.role = "Your role is required";
+      if (!form.programInterest) fieldErrors.programInterest = "Please select a program";
+      if (!form.groupSize) fieldErrors.groupSize = "Please select a group size";
+      if (!form.timeline) fieldErrors.timeline = "Please select a timeline";
+    }
+
+    if (segment === "parent") {
+      if (!form.childAge.trim()) fieldErrors.childAge = "Child's age is required";
+      if (!form.interest) fieldErrors.interest = "Please select an interest";
+    }
+
+    if (segment === "press") {
+      if (!form.outlet.trim()) fieldErrors.outlet = "Outlet / publication is required";
+    }
+
+    if (!form.message.trim()) {
+      fieldErrors.message = "Message is required";
+    } else if (form.message.length < 10) {
+      fieldErrors.message = "Message must be at least 10 characters";
+    } else if (form.message.length > 2000) {
+      fieldErrors.message = "Message must be less than 2000 characters";
+    }
+
+    setErrors(fieldErrors);
+    return Object.keys(fieldErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    setSubmitting(true);
+
+    const details: Record<string, string> = {};
+    if (segment === "school") {
+      details.orgName = form.orgName;
+      details.role = form.role;
+      details.programInterest = form.programInterest;
+      details.groupSize = form.groupSize;
+      details.timeline = form.timeline;
+    } else if (segment === "parent") {
+      details.childAge = form.childAge;
+      details.interest = form.interest;
+    } else if (segment === "press") {
+      details.outlet = form.outlet;
+    }
+
+    const { error } = await supabase.from("contact_submissions").insert({
+      segment,
+      name: form.name.trim(),
+      email: form.email.trim(),
+      phone: form.phone.trim() || null,
+      details,
+    });
+
+    setSubmitting(false);
+
+    if (error) {
+      setErrors({ submit: "Something went wrong. Please try again or email us directly." });
       return;
     }
 
-    setGeneralErrors({});
-    setGeneralSubmitted(true);
-    setTimeout(() => setGeneralSubmitted(false), 5000);
-    setGeneralForm({
+    setSubmitted(true);
+    setForm({
       name: "",
       email: "",
       phone: "",
-      inquiryType: "",
       message: "",
-      newsletter: false,
-    });
-  };
-
-  const handlePartnershipSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const result = contactPartnershipSchema.safeParse(partnershipForm);
-    if (!result.success) {
-      const fieldErrors: Record<string, string> = {};
-      result.error.issues.forEach((issue) => {
-        if (issue.path[0]) {
-          fieldErrors[issue.path[0] as string] = issue.message;
-        }
-      });
-      setPartnershipErrors(fieldErrors);
-      return;
-    }
-
-    setPartnershipErrors({});
-    setPartnershipSubmitted(true);
-    setTimeout(() => setPartnershipSubmitted(false), 5000);
-    setPartnershipForm({
       orgName: "",
-      contactPerson: "",
-      email: "",
-      phone: "",
-      orgType: "",
-      participants: "",
-      challenge: "",
+      role: "",
+      programInterest: "",
+      groupSize: "",
       timeline: "",
-      budget: "",
-      hearAbout: "",
+      childAge: "",
+      interest: "",
+      outlet: "",
     });
+    setSegment("");
   };
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Contact | Poised Gentlemen</title>
+        <meta
+          name="description"
+          content="Start a conversation with Poised Gentlemen — partnership inquiries, mentorship bookings, press, and more."
+        />
+        <link rel="canonical" href="https://poisedgentlemen.com/contact" />
+        <meta property="og:title" content="Contact | Poised Gentlemen" />
+        <meta
+          property="og:description"
+          content="Start a conversation with Poised Gentlemen — partnership inquiries, mentorship bookings, press, and more."
+        />
+        <meta property="og:url" content="https://poisedgentlemen.com/contact" />
+      </Helmet>
+
       <Header />
 
-      {/* Hero Section */}
-      <section className="relative h-[30vh] bg-primary flex items-center justify-center">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-heading font-bold text-primary-foreground mb-4">
-            Let's Connect. Stay Poised.
+      {/* Hero */}
+      <section className="relative bg-primary text-primary-foreground py-20 md:py-28">
+        <div className="container mx-auto px-4 text-center max-w-4xl">
+          <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
+            Start the Conversation
           </h1>
-          <p className="text-lg md:text-xl text-primary-foreground/90 max-w-2xl mx-auto">
-            Questions about products, programs, or partnerships? We're here.
+          <p className="text-lg md:text-xl text-primary-foreground/90 max-w-2xl mx-auto leading-relaxed">
+            Partnership inquiries, mentorship bookings, press — whatever brought you here, we will respond within 1–2 business days.
           </p>
         </div>
       </section>
 
-      {/* Contact Options */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* General Inquiries */}
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gold rounded-full mb-4">
-                <Mail className="w-8 h-8 text-gold-foreground" />
-              </div>
-              <h3 className="text-xl font-heading font-bold mb-2">General Questions</h3>
-              <p className="text-muted-foreground mb-4">
-                Product support, program information, or just want to say hello? Fill out the form below or email us
-                directly.
-              </p>
-              <a
-                href="mailto:info@thepoisedgentlemen.com"
-                className="text-gold hover:text-gold/80 font-semibold transition-colors"
-              >
-                info@thepoisedgentlemen.com
-              </a>
-            </div>
-
-            {/* Program Inquiries */}
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gold rounded-full mb-4">
-                <Phone className="w-8 h-8 text-gold-foreground" />
-              </div>
-              <h3 className="text-xl font-heading font-bold mb-2">Ready to Enroll?</h3>
-              <p className="text-muted-foreground mb-4">
-                Questions about youth mentorship or adult coaching? Let's schedule a call to discuss your needs.
-              </p>
-              <a
-                href="tel:+15044849037"
-                className="text-gold hover:text-gold/80 font-semibold transition-colors block mb-2"
-              >
-                504-484-9037
-              </a>
-              {/*}
-              <Button className="bg-gold text-gold-foreground hover:bg-gold/90">Schedule a Call</Button>*/}
-            </div>
-
-            {/* Partnerships */}
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gold rounded-full mb-4">
-                <Handshake className="w-8 h-8 text-gold-foreground" />
-              </div>
-              <h3 className="text-xl font-heading font-bold mb-2">Partner With Us</h3>
-              <p className="text-muted-foreground mb-4">
-                Schools, nonprofits, brands, and organizations: let's collaborate to elevate male identity in your
-                community.
-              </p>
-              <Button asChild className="bg-gold text-gold-foreground hover:bg-gold/90">
-                <a href="#partnership-form">Explore Partnerships</a>
-              </Button>
-            </div>
+      {/* Contact Info Bar */}
+      <section className="bg-muted border-b border-border">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-center">
+            <a
+              href="mailto:david@risetopurpose.org"
+              className="flex items-center gap-2 text-foreground hover:text-gold transition-colors font-medium"
+            >
+              <Mail className="w-5 h-5 text-gold" />
+              david@risetopurpose.org
+            </a>
+            <span className="hidden sm:inline text-muted-foreground">|</span>
+            <a
+              href="tel:+15044849037"
+              className="flex items-center gap-2 text-foreground hover:text-gold transition-colors font-medium"
+            >
+              <Phone className="w-5 h-5 text-gold" />
+              504-484-9037
+            </a>
           </div>
         </div>
       </section>
 
-      {/* General Contact Form */}
-      <section className="py-16 bg-muted">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-8">Send Us a Message</h2>
-
-          <Card className="max-w-2xl mx-auto p-8">
-            {generalSubmitted ? (
-              <div className="text-center py-8">
-                <CheckCircle className="w-16 h-16 text-success mx-auto mb-4" />
-                <h3 className="text-2xl font-heading font-bold mb-2">Thank You!</h3>
-                <p className="text-muted-foreground">We'll be in touch soon.</p>
+      {/* Form Section */}
+      <section className="py-16 md:py-24 bg-background">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <Card className="p-8 md:p-10">
+            {submitted ? (
+              <div className="text-center py-10">
+                <CheckCircle className="w-16 h-16 text-success mx-auto mb-6" />
+                <h2 className="text-2xl md:text-3xl font-heading font-bold mb-4 text-primary">
+                  Thank You
+                </h2>
+                <p className="text-lg text-muted-foreground max-w-lg mx-auto leading-relaxed">
+                  We'll respond within 1–2 business days. Stay Poised.
+                </p>
               </div>
             ) : (
-              <form onSubmit={handleGeneralSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-8">
+                {/* Segment Selector */}
                 <div>
-                  <Label htmlFor="name">
-                    Name <span className="text-destructive">*</span>
+                  <Label className="text-base font-semibold mb-3 block">
+                    I'm reaching out as a... <span className="text-destructive">*</span>
                   </Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    required
-                    value={generalForm.name}
-                    onChange={(e) => {
-                      setGeneralForm({ ...generalForm, name: e.target.value });
-                      if (generalErrors.name) setGeneralErrors({ ...generalErrors, name: "" });
-                    }}
-                    className={`h-12 ${generalErrors.name ? "border-destructive" : ""}`}
-                  />
-                  {generalErrors.name && <p className="text-xs text-destructive mt-1">{generalErrors.name}</p>}
-                </div>
-
-                <div>
-                  <Label htmlFor="email">
-                    Email <span className="text-destructive">*</span>
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    required
-                    value={generalForm.email}
-                    onChange={(e) => {
-                      setGeneralForm({ ...generalForm, email: e.target.value });
-                      if (generalErrors.email) setGeneralErrors({ ...generalErrors, email: "" });
-                    }}
-                    className={`h-12 ${generalErrors.email ? "border-destructive" : ""}`}
-                  />
-                  {generalErrors.email && <p className="text-xs text-destructive mt-1">{generalErrors.email}</p>}
-                </div>
-
-                <div>
-                  <Label htmlFor="phone">Phone</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    value={generalForm.phone}
-                    onChange={(e) => {
-                      setGeneralForm({ ...generalForm, phone: e.target.value });
-                      if (generalErrors.phone) setGeneralErrors({ ...generalErrors, phone: "" });
-                    }}
-                    className={`h-12 ${generalErrors.phone ? "border-destructive" : ""}`}
-                  />
-                  {generalErrors.phone && <p className="text-xs text-destructive mt-1">{generalErrors.phone}</p>}
-                </div>
-
-                <div>
-                  <Label htmlFor="inquiryType">
-                    Inquiry Type <span className="text-destructive">*</span>
-                  </Label>
-                  <Select
-                    required
-                    value={generalForm.inquiryType}
-                    onValueChange={(value) => {
-                      setGeneralForm({ ...generalForm, inquiryType: value });
-                      if (generalErrors.inquiryType) setGeneralErrors({ ...generalErrors, inquiryType: "" });
-                    }}
-                  >
-                    <SelectTrigger className={`h-12 ${generalErrors.inquiryType ? "border-destructive" : ""}`}>
-                      <SelectValue placeholder="Select inquiry type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="general">General Question</SelectItem>
-                      <SelectItem value="product">Product Support</SelectItem>
-                      <SelectItem value="program">Program Information</SelectItem>
-                      <SelectItem value="partnership">Partnership Inquiry</SelectItem>
-                      <SelectItem value="press">Press/Media</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  {generalErrors.inquiryType && (
-                    <p className="text-xs text-destructive mt-1">{generalErrors.inquiryType}</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {([
+                      { value: "school", label: "School or Organization", icon: Building2 },
+                      { value: "parent", label: "Parent or Guardian", icon: Users },
+                      { value: "press", label: "Press or Media", icon: Newspaper },
+                      { value: "other", label: "Other", icon: Mail },
+                    ] as const).map(({ value, label, icon: Icon }) => (
+                      <button
+                        key={value}
+                        type="button"
+                        onClick={() => {
+                          setSegment(value);
+                          setErrors((prev) => {
+                            const next = { ...prev };
+                            delete next.segment;
+                            return next;
+                          });
+                        }}
+                        className={`flex items-center gap-3 p-4 rounded-lg border-2 text-left transition-all ${
+                          segment === value
+                            ? "border-gold bg-gold/5 text-primary"
+                            : "border-border hover:border-gold/50 text-foreground"
+                        }`}
+                      >
+                        <Icon className="w-5 h-5 flex-shrink-0" />
+                        <span className="font-medium">{label}</span>
+                      </button>
+                    ))}
+                  </div>
+                  {errors.segment && (
+                    <p className="text-sm text-destructive mt-2">{errors.segment}</p>
                   )}
                 </div>
 
+                {/* Contextual Note */}
+                {segment === "school" && (
+                  <div className="bg-muted p-5 rounded-lg border border-border">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      <strong className="text-foreground">Project Power</strong> is delivered at no cost to your organization — funded through our grant and health-partner relationships. Our flagship PYG pilot (<strong>The Poised Method™</strong>) is a paid program; tell us what you're after and we'll send pricing.
+                    </p>
+                    <div className="mt-3 flex flex-wrap gap-3">
+                      <Link
+                        to="/schools/"
+                        className="text-sm font-semibold text-gold hover:text-gold/80 transition-colors"
+                      >
+                        Explore School Programs →
+                      </Link>
+                      <Link
+                        to="/schools/one-pager/"
+                        className="text-sm font-semibold text-gold hover:text-gold/80 transition-colors"
+                      >
+                        Download One-Pager →
+                      </Link>
+                    </div>
+                  </div>
+                )}
+
+                {/* Common Fields */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <Label htmlFor="name">
+                      Name <span className="text-destructive">*</span>
+                    </Label>
+                    <Input
+                      id="name"
+                      value={form.name}
+                      onChange={(e) => updateField("name", e.target.value)}
+                      className={`h-12 mt-1.5 ${errors.name ? "border-destructive" : ""}`}
+                      placeholder="Your full name"
+                    />
+                    {errors.name && (
+                      <p className="text-xs text-destructive mt-1.5">{errors.name}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <Label htmlFor="email">
+                      Email <span className="text-destructive">*</span>
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={form.email}
+                      onChange={(e) => updateField("email", e.target.value)}
+                      className={`h-12 mt-1.5 ${errors.email ? "border-destructive" : ""}`}
+                      placeholder="you@example.com"
+                    />
+                    {errors.email && (
+                      <p className="text-xs text-destructive mt-1.5">{errors.email}</p>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="phone">
+                    Phone {segment === "school" && <span className="text-destructive">*</span>}
+                  </Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    value={form.phone}
+                    onChange={(e) => updateField("phone", e.target.value)}
+                    className={`h-12 mt-1.5 ${errors.phone ? "border-destructive" : ""}`}
+                    placeholder={segment === "school" ? "Required" : "Optional"}
+                  />
+                  {errors.phone && (
+                    <p className="text-xs text-destructive mt-1.5">{errors.phone}</p>
+                  )}
+                </div>
+
+                {/* School / Organization Fields */}
+                {segment === "school" && (
+                  <div className="space-y-6 border-t border-border pt-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <Label htmlFor="orgName">
+                          Organization Name <span className="text-destructive">*</span>
+                        </Label>
+                        <Input
+                          id="orgName"
+                          value={form.orgName}
+                          onChange={(e) => updateField("orgName", e.target.value)}
+                          className={`h-12 mt-1.5 ${errors.orgName ? "border-destructive" : ""}`}
+                        />
+                        {errors.orgName && (
+                          <p className="text-xs text-destructive mt-1.5">{errors.orgName}</p>
+                        )}
+                      </div>
+
+                      <div>
+                        <Label htmlFor="role">
+                          Your Role <span className="text-destructive">*</span>
+                        </Label>
+                        <Input
+                          id="role"
+                          value={form.role}
+                          onChange={(e) => updateField("role", e.target.value)}
+                          className={`h-12 mt-1.5 ${errors.role ? "border-destructive" : ""}`}
+                          placeholder="e.g. Principal, Counselor, Program Director"
+                        />
+                        {errors.role && (
+                          <p className="text-xs text-destructive mt-1.5">{errors.role}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="programInterest">
+                        Program of Interest <span className="text-destructive">*</span>
+                      </Label>
+                      <Select
+                        value={form.programInterest}
+                        onValueChange={(value) => updateField("programInterest", value)}
+                      >
+                        <SelectTrigger
+                          id="programInterest"
+                          className={`h-12 mt-1.5 ${errors.programInterest ? "border-destructive" : ""}`}
+                        >
+                          <SelectValue placeholder="Select a program" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="project-power">Project Power (ADA-certified wellness)</SelectItem>
+                          <SelectItem value="pyg">PYG / The Poised Method™ (character pilot)</SelectItem>
+                          <SelectItem value="lyfe">LYFE Program</SelectItem>
+                          <SelectItem value="other">Other / Not sure yet</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {errors.programInterest && (
+                        <p className="text-xs text-destructive mt-1.5">{errors.programInterest}</p>
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <Label htmlFor="groupSize">
+                          Approx. Group Size <span className="text-destructive">*</span>
+                        </Label>
+                        <Select
+                          value={form.groupSize}
+                          onValueChange={(value) => updateField("groupSize", value)}
+                        >
+                          <SelectTrigger
+                            id="groupSize"
+                            className={`h-12 mt-1.5 ${errors.groupSize ? "border-destructive" : ""}`}
+                          >
+                            <SelectValue placeholder="Select group size" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="10-25">10–25</SelectItem>
+                            <SelectItem value="25-50">25–50</SelectItem>
+                            <SelectItem value="50-100">50–100</SelectItem>
+                            <SelectItem value="100+">100+</SelectItem>
+                            <SelectItem value="unsure">Not sure yet</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        {errors.groupSize && (
+                          <p className="text-xs text-destructive mt-1.5">{errors.groupSize}</p>
+                        )}
+                      </div>
+
+                      <div>
+                        <Label htmlFor="timeline">
+                          Timeline <span className="text-destructive">*</span>
+                        </Label>
+                        <Select
+                          value={form.timeline}
+                          onValueChange={(value) => updateField("timeline", value)}
+                        >
+                          <SelectTrigger
+                            id="timeline"
+                            className={`h-12 mt-1.5 ${errors.timeline ? "border-destructive" : ""}`}
+                          >
+                            <SelectValue placeholder="Select timeline" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="immediate">Immediate (within 30 days)</SelectItem>
+                            <SelectItem value="next-quarter">Next quarter</SelectItem>
+                            <SelectItem value="next-semester">Next semester</SelectItem>
+                            <SelectItem value="flexible">Flexible</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        {errors.timeline && (
+                          <p className="text-xs text-destructive mt-1.5">{errors.timeline}</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Parent or Guardian Fields */}
+                {segment === "parent" && (
+                  <div className="space-y-6 border-t border-border pt-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <Label htmlFor="childAge">
+                          Child's Age <span className="text-destructive">*</span>
+                        </Label>
+                        <Input
+                          id="childAge"
+                          value={form.childAge}
+                          onChange={(e) => updateField("childAge", e.target.value)}
+                          className={`h-12 mt-1.5 ${errors.childAge ? "border-destructive" : ""}`}
+                          placeholder="e.g. 12"
+                        />
+                        {errors.childAge && (
+                          <p className="text-xs text-destructive mt-1.5">{errors.childAge}</p>
+                        )}
+                      </div>
+
+                      <div>
+                        <Label htmlFor="interest">
+                          Interest <span className="text-destructive">*</span>
+                        </Label>
+                        <Select
+                          value={form.interest}
+                          onValueChange={(value) => updateField("interest", value)}
+                        >
+                          <SelectTrigger
+                            id="interest"
+                            className={`h-12 mt-1.5 ${errors.interest ? "border-destructive" : ""}`}
+                          >
+                            <SelectValue placeholder="Select an option" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="mentorship">1-on-1 Mentorship</SelectItem>
+                            <SelectItem value="program">Youth Program (PYG)</SelectItem>
+                            <SelectItem value="products">Products / Grooming</SelectItem>
+                            <SelectItem value="other">Something else</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        {errors.interest && (
+                          <p className="text-xs text-destructive mt-1.5">{errors.interest}</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Press or Media Fields */}
+                {segment === "press" && (
+                  <div className="space-y-6 border-t border-border pt-6">
+                    <div>
+                      <Label htmlFor="outlet">
+                        Outlet / Publication <span className="text-destructive">*</span>
+                      </Label>
+                      <Input
+                        id="outlet"
+                        value={form.outlet}
+                        onChange={(e) => updateField("outlet", e.target.value)}
+                        className={`h-12 mt-1.5 ${errors.outlet ? "border-destructive" : ""}`}
+                        placeholder="e.g. The Times-Picayune, NPR, local news station"
+                      />
+                      {errors.outlet && (
+                        <p className="text-xs text-destructive mt-1.5">{errors.outlet}</p>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Message — All Segments */}
                 <div>
                   <Label htmlFor="message">
                     Message <span className="text-destructive">*</span>
                   </Label>
                   <Textarea
                     id="message"
-                    required
                     rows={5}
-                    value={generalForm.message}
-                    onChange={(e) => {
-                      setGeneralForm({ ...generalForm, message: e.target.value });
-                      if (generalErrors.message) setGeneralErrors({ ...generalErrors, message: "" });
-                    }}
-                    className={generalErrors.message ? "border-destructive" : ""}
+                    value={form.message}
+                    onChange={(e) => updateField("message", e.target.value)}
+                    className={`mt-1.5 ${errors.message ? "border-destructive" : ""}`}
+                    placeholder="Tell us what you're looking for..."
                   />
-                  {generalErrors.message && <p className="text-xs text-destructive mt-1">{generalErrors.message}</p>}
+                  {errors.message && (
+                    <p className="text-xs text-destructive mt-1.5">{errors.message}</p>
+                  )}
                 </div>
 
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="newsletter"
-                    checked={generalForm.newsletter}
-                    onCheckedChange={(checked) => setGeneralForm({ ...generalForm, newsletter: checked as boolean })}
-                  />
-                  <Label htmlFor="newsletter" className="font-normal">
-                    I'd like to join the newsletter
-                  </Label>
-                </div>
+                {errors.submit && (
+                  <p className="text-sm text-destructive text-center">{errors.submit}</p>
+                )}
 
-                <div className="w-full">
-                  <Button type="submit" className="w-full whitespace-nowrap text-center h-12 bg-gold text-gold-foreground hover:bg-gold/90">
-                    Send Message
-                  </Button>
-                </div>
-
-                <p className="text-sm text-muted-foreground text-center">
-                  We typically respond within 24 hours during business hours.
-                </p>
-              </form>
-            )}
-          </Card>
-        </div>
-      </section>
-
-      {/* Contact Info & Hours */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-heading font-bold mb-8">Get in Touch</h2>
-
-            <div className="space-y-3 mb-8">
-              <p className="text-lg">
-                <strong>Email:</strong>{" "}
-                <a href="mailto:info@thepoisedgentlemen.com" className="text-gold hover:text-gold/80">
-                  info@thepoisedgentlemen.com
-                </a>
-              </p>
-              <p className="text-lg">
-                <strong>Phone:</strong>{" "}
-                <a href="tel:+15044849037" className="text-gold hover:text-gold/80">
-                  504-484-9037
-                </a>
-              </p>
-              <p className="text-lg">
-                <strong>Location:</strong> New Orleans, LA
-              </p>
-              <p className="text-lg">
-                <strong>Hours:</strong> Monday-Friday, 9am-6pm CST
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-xl font-heading font-bold mb-4">Follow Us</h3>
-              <div className="flex justify-center gap-4">
-                <a
-                  href="https://instagram.com/thepoisedgentlemen"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-12 h-12 bg-gold rounded-full hover:scale-110 transition-transform"
-                  aria-label="Instagram"
+                <Button
+                  type="submit"
+                  disabled={submitting || !segment}
+                  className="w-full h-12 bg-gold text-gold-foreground hover:bg-gold/90 font-semibold"
                 >
-                  <Instagram className="w-6 h-6 text-gold-foreground" />
-                </a>
-                <a
-                  href="https://linkedin.com/company/thepoisedgentlemen"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-12 h-12 bg-gold rounded-full hover:scale-110 transition-transform"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="w-6 h-6 text-gold-foreground" />
-                </a>
-                <a
-                  href="https://youtube.com/@thepoisedgentlemen"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-12 h-12 bg-gold rounded-full hover:scale-110 transition-transform"
-                  aria-label="YouTube"
-                >
-                  <Youtube className="w-6 h-6 text-gold-foreground" />
-                </a>
-                <a
-                  href="https://facebook.com/thepoisedgentlemen"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-12 h-12 bg-gold rounded-full hover:scale-110 transition-transform"
-                  aria-label="Facebook"
-                >
-                  <Facebook className="w-6 h-6 text-gold-foreground" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Partnership Opportunities */}
-      <section id="partnerships" className="py-16 bg-primary">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-4 text-primary-foreground">
-            Elevate Male Identity in Your Community
-          </h2>
-          <p className="text-lg text-center text-primary-foreground/90 mb-12 max-w-3xl mx-auto">
-            We partner with schools, nonprofits, wellness centers, and brands committed to positive male development.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center text-primary-foreground">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gold rounded-full mb-4">
-                <CheckCircle className="w-8 h-8 text-gold-foreground" />
-              </div>
-              <p className="font-semibold">Evidence-based curriculum (Positive Youth Development + SEL)</p>
-            </div>
-
-            <div className="text-center text-primary-foreground">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gold rounded-full mb-4">
-                <CheckCircle className="w-8 h-8 text-gold-foreground" />
-              </div>
-              <p className="font-semibold">Customizable programming for your population</p>
-            </div>
-
-            <div className="text-center text-primary-foreground">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gold rounded-full mb-4">
-                <CheckCircle className="w-8 h-8 text-gold-foreground" />
-              </div>
-              <p className="font-semibold">Measurable outcomes and reporting</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Partnership Types */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12">Who We Partner With</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Schools & Youth Organizations */}
-            <Card className="p-8 hover-lift">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gold rounded-full mb-4">
-                <School className="w-8 h-8 text-gold-foreground" />
-              </div>
-              <h3 className="text-2xl font-heading font-bold mb-4">For Schools & Youth Organizations</h3>
-              <ul className="space-y-2 mb-6 text-muted-foreground">
-                <li>• After-school programming (PYG cohorts)</li>
-                <li>• Assembly presentations and workshops</li>
-                <li>• Teacher professional development</li>
-                <li>• Parent education series</li>
-              </ul>
-              <Button asChild className="w-full bg-gold text-gold-foreground hover:bg-gold/90">
-                <a href="#partnership-form">Request Info</a>
-              </Button>
-            </Card>
-
-            {/* Wellness Centers */}
-            <Card className="p-8 hover-lift">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gold rounded-full mb-4">
-                <Heart className="w-8 h-8 text-gold-foreground" />
-              </div>
-              <h3 className="text-2xl font-heading font-bold mb-4">For Wellness Centers & Therapy Practices</h3>
-              <ul className="space-y-2 mb-6 text-muted-foreground">
-                <li>• Men's groups facilitation training</li>
-                <li>• Referral partnerships</li>
-                <li>• Co-hosted events</li>
-              </ul>
-              <Button asChild className="w-full bg-gold text-gold-foreground hover:bg-gold/90">
-                <a href="#partnership-form">Request Info</a>
-              </Button>
-            </Card>
-
-            {/* Brands & Businesses */}
-            <Card className="p-8 hover-lift">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gold rounded-full mb-4">
-                <Briefcase className="w-8 h-8 text-gold-foreground" />
-              </div>
-              <h3 className="text-2xl font-heading font-bold mb-4">For Brands & Businesses</h3>
-              <ul className="space-y-2 mb-6 text-muted-foreground">
-                <li>• Corporate wellness programming</li>
-                <li>• Leadership development workshops</li>
-                <li>• Private label grooming products</li>
-                <li>• Co-marketing opportunities</li>
-              </ul>
-              <Button asChild className="w-full bg-gold text-gold-foreground hover:bg-gold/90">
-                <a href="#partnership-form">Request Info</a>
-              </Button>
-            </Card>
-
-            {/* Community Organizations */}
-            <Card className="p-8 hover-lift">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gold rounded-full mb-4">
-                <Users className="w-8 h-8 text-gold-foreground" />
-              </div>
-              <h3 className="text-2xl font-heading font-bold mb-4">For Community Organizations</h3>
-              <ul className="space-y-2 mb-6 text-muted-foreground">
-                <li>• Custom curriculum for your members</li>
-                <li>• Train-the-trainer certification (coming 2026)</li>
-                <li>• Co-branding opportunities</li>
-              </ul>
-              <Button asChild className="w-full bg-gold text-gold-foreground hover:bg-gold/90">
-                <a href="#partnership-form">Request Info</a>
-              </Button>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Partnership Inquiry Form */}
-      <section id="partnership-form" className="py-16 bg-muted">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-8">Let's Explore a Partnership</h2>
-
-          <Card className="max-w-2xl mx-auto p-8">
-            {partnershipSubmitted ? (
-              <div className="text-center py-8">
-                <CheckCircle className="w-16 h-16 text-success mx-auto mb-4" />
-                <h3 className="text-2xl font-heading font-bold mb-2">Thank You!</h3>
-                <p className="text-muted-foreground">We're excited to explore this partnership.</p>
-              </div>
-            ) : (
-              <form onSubmit={handlePartnershipSubmit} className="space-y-6">
-                <div>
-                  <Label htmlFor="orgName">
-                    Organization Name <span className="text-destructive">*</span>
-                  </Label>
-                  <Input
-                    id="orgName"
-                    type="text"
-                    required
-                    value={partnershipForm.orgName}
-                    onChange={(e) => {
-                      setPartnershipForm({ ...partnershipForm, orgName: e.target.value });
-                      if (partnershipErrors.orgName) setPartnershipErrors({ ...partnershipErrors, orgName: "" });
-                    }}
-                    className={`h-12 ${partnershipErrors.orgName ? "border-destructive" : ""}`}
-                  />
-                  {partnershipErrors.orgName && (
-                    <p className="text-xs text-destructive mt-1">{partnershipErrors.orgName}</p>
-                  )}
-                </div>
-
-                <div>
-                  <Label htmlFor="contactPerson">
-                    Contact Person <span className="text-destructive">*</span>
-                  </Label>
-                  <Input
-                    id="contactPerson"
-                    type="text"
-                    required
-                    value={partnershipForm.contactPerson}
-                    onChange={(e) => {
-                      setPartnershipForm({ ...partnershipForm, contactPerson: e.target.value });
-                      if (partnershipErrors.contactPerson)
-                        setPartnershipErrors({ ...partnershipErrors, contactPerson: "" });
-                    }}
-                    className={`h-12 ${partnershipErrors.contactPerson ? "border-destructive" : ""}`}
-                  />
-                  {partnershipErrors.contactPerson && (
-                    <p className="text-xs text-destructive mt-1">{partnershipErrors.contactPerson}</p>
-                  )}
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="partnerEmail">
-                      Email <span className="text-destructive">*</span>
-                    </Label>
-                    <Input
-                      id="partnerEmail"
-                      type="email"
-                      required
-                      value={partnershipForm.email}
-                      onChange={(e) => {
-                        setPartnershipForm({ ...partnershipForm, email: e.target.value });
-                        if (partnershipErrors.email) setPartnershipErrors({ ...partnershipErrors, email: "" });
-                      }}
-                      className={`h-12 ${partnershipErrors.email ? "border-destructive" : ""}`}
-                    />
-                    {partnershipErrors.email && (
-                      <p className="text-xs text-destructive mt-1">{partnershipErrors.email}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <Label htmlFor="partnerPhone">
-                      Phone <span className="text-destructive">*</span>
-                    </Label>
-                    <Input
-                      id="partnerPhone"
-                      type="tel"
-                      required
-                      value={partnershipForm.phone}
-                      onChange={(e) => {
-                        setPartnershipForm({ ...partnershipForm, phone: e.target.value });
-                        if (partnershipErrors.phone) setPartnershipErrors({ ...partnershipErrors, phone: "" });
-                      }}
-                      className={`h-12 ${partnershipErrors.phone ? "border-destructive" : ""}`}
-                    />
-                    {partnershipErrors.phone && (
-                      <p className="text-xs text-destructive mt-1">{partnershipErrors.phone}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="orgType">
-                    Organization Type <span className="text-destructive">*</span>
-                  </Label>
-                  <Select
-                    required
-                    value={partnershipForm.orgType}
-                    onValueChange={(value) => {
-                      setPartnershipForm({ ...partnershipForm, orgType: value });
-                      if (partnershipErrors.orgType) setPartnershipErrors({ ...partnershipErrors, orgType: "" });
-                    }}
-                  >
-                    <SelectTrigger className={`h-12 ${partnershipErrors.orgType ? "border-destructive" : ""}`}>
-                      <SelectValue placeholder="Select organization type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="school">School / University</SelectItem>
-                      <SelectItem value="nonprofit">Nonprofit / Youth Organization</SelectItem>
-                      <SelectItem value="wellness">Wellness Center / Therapy Practice</SelectItem>
-                      <SelectItem value="brand">Brand / Business</SelectItem>
-                      <SelectItem value="community">Community Organization</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  {partnershipErrors.orgType && (
-                    <p className="text-xs text-destructive mt-1">{partnershipErrors.orgType}</p>
-                  )}
-                </div>
-
-                <div>
-                  <Label htmlFor="participants">
-                    Number of Participants <span className="text-destructive">*</span>
-                  </Label>
-                  <Select
-                    required
-                    value={partnershipForm.participants}
-                    onValueChange={(value) => {
-                      setPartnershipForm({ ...partnershipForm, participants: value });
-                      if (partnershipErrors.participants)
-                        setPartnershipErrors({ ...partnershipErrors, participants: "" });
-                    }}
-                  >
-                    <SelectTrigger className={`h-12 ${partnershipErrors.participants ? "border-destructive" : ""}`}>
-                      <SelectValue placeholder="Expected participant count" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="10-25">10-25</SelectItem>
-                      <SelectItem value="25-50">25-50</SelectItem>
-                      <SelectItem value="50-100">50-100</SelectItem>
-                      <SelectItem value="100+">100+</SelectItem>
-                      <SelectItem value="unsure">Unsure</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  {partnershipErrors.participants && (
-                    <p className="text-xs text-destructive mt-1">{partnershipErrors.participants}</p>
-                  )}
-                </div>
-
-                <div>
-                  <Label htmlFor="challenge">
-                    What Challenge Are You Trying to Address? <span className="text-destructive">*</span>
-                  </Label>
-                  <Textarea
-                    id="challenge"
-                    required
-                    rows={4}
-                    value={partnershipForm.challenge}
-                    onChange={(e) => {
-                      setPartnershipForm({ ...partnershipForm, challenge: e.target.value });
-                      if (partnershipErrors.challenge) setPartnershipErrors({ ...partnershipErrors, challenge: "" });
-                    }}
-                    placeholder="Tell us about the challenges or goals you're hoping to address with programming"
-                    className={partnershipErrors.challenge ? "border-destructive" : ""}
-                  />
-                  {partnershipErrors.challenge && (
-                    <p className="text-xs text-destructive mt-1">{partnershipErrors.challenge}</p>
-                  )}
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="timeline">
-                      Desired Timeline <span className="text-destructive">*</span>
-                    </Label>
-                    <Select
-                      required
-                      value={partnershipForm.timeline}
-                      onValueChange={(value) => {
-                        setPartnershipForm({ ...partnershipForm, timeline: value });
-                        if (partnershipErrors.timeline) setPartnershipErrors({ ...partnershipErrors, timeline: "" });
-                      }}
-                    >
-                      <SelectTrigger className={`h-12 ${partnershipErrors.timeline ? "border-destructive" : ""}`}>
-                        <SelectValue placeholder="Select timeline" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="immediate">Immediate (within 30 days)</SelectItem>
-                        <SelectItem value="next-quarter">Next Quarter</SelectItem>
-                        <SelectItem value="next-semester">Next Semester</SelectItem>
-                        <SelectItem value="flexible">Flexible</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {partnershipErrors.timeline && (
-                      <p className="text-xs text-destructive mt-1">{partnershipErrors.timeline}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <Label htmlFor="budget">
-                      Budget Range <span className="text-destructive">*</span>
-                    </Label>
-                    <Select
-                      required
-                      value={partnershipForm.budget}
-                      onValueChange={(value) => {
-                        setPartnershipForm({ ...partnershipForm, budget: value });
-                        if (partnershipErrors.budget) setPartnershipErrors({ ...partnershipErrors, budget: "" });
-                      }}
-                    >
-                      <SelectTrigger className={`h-12 ${partnershipErrors.budget ? "border-destructive" : ""}`}>
-                        <SelectValue placeholder="Select budget range" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="under-2000">Under $2,000</SelectItem>
-                        <SelectItem value="2000-5000">$2,000 - $5,000</SelectItem>
-                        <SelectItem value="5000-10000">$5,000 - $10,000</SelectItem>
-                        <SelectItem value="10000+">$10,000+</SelectItem>
-                        <SelectItem value="grant">Grant-funded</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    {partnershipErrors.budget && (
-                      <p className="text-xs text-destructive mt-1">{partnershipErrors.budget}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="hearAbout">How did you hear about us?</Label>
-                  <Input
-                    id="hearAbout"
-                    type="text"
-                    value={partnershipForm.hearAbout}
-                    onChange={(e) => {
-                      setPartnershipForm({ ...partnershipForm, hearAbout: e.target.value });
-                      if (partnershipErrors.hearAbout) setPartnershipErrors({ ...partnershipErrors, hearAbout: "" });
-                    }}
-                    className={`h-12 ${partnershipErrors.hearAbout ? "border-destructive" : ""}`}
-                  />
-                  {partnershipErrors.hearAbout && (
-                    <p className="text-xs text-destructive mt-1">{partnershipErrors.hearAbout}</p>
-                  )}
-                </div>
-
-                <Button type="submit" className="w-full h-12 bg-gold text-gold-foreground hover:bg-gold/90">
-                  Submit Partnership Inquiry
+                  {submitting ? "Sending..." : "Send Inquiry"}
                 </Button>
 
                 <p className="text-sm text-muted-foreground text-center">
-                  We'll respond within 2 business days to discuss your needs.
+                  We typically respond within 1–2 business days.
                 </p>
               </form>
             )}
@@ -775,45 +581,31 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Success Stories */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-12">Partnership Success Stories</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Son of a Saint */}
-            <Card className="overflow-hidden">
-              <img
-                src={partnershipSonOfSaint}
-                alt="Son of a Saint mentorship partnership"
-                className="w-full h-64 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-heading font-bold mb-2">Son of a Saint</h3>
-                <p className="text-muted-foreground mb-4">
-                  Partnered to provide mentorship to 50+ fatherless young men through our 7-week PYG curriculum. 85% of
-                  participants reported improved emotional regulation and confidence.
-                </p>
-                <div className="text-sm text-gold font-semibold">New Orleans, LA</div>
-              </div>
-            </Card>
-
-            {/* AmeriHealth Caritas */}
-            <Card className="overflow-hidden">
-              <img
-                src={partnershipAmeriHealth}
-                alt="AmeriHealth Caritas wellness partnership"
-                className="w-full h-64 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-heading font-bold mb-2">AmeriHealth Caritas</h3>
-                <p className="text-muted-foreground mb-4">
-                  Collaborated on community wellness initiatives focused on young male mental health. Reached 200+
-                  families through workshops and parent education sessions.
-                </p>
-                <div className="text-sm text-gold font-semibold">Louisiana</div>
-              </div>
-            </Card>
+      {/* Direct Contact */}
+      <section className="py-16 md:py-20 bg-muted">
+        <div className="container mx-auto px-4 text-center max-w-2xl">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary mb-6">
+            Prefer to Reach Out Directly?
+          </h2>
+          <div className="space-y-3 text-lg">
+            <p>
+              <Mail className="w-5 h-5 inline-block text-gold mr-2" />
+              <a
+                href="mailto:david@risetopurpose.org"
+                className="text-gold hover:text-gold/80 font-semibold transition-colors"
+              >
+                david@risetopurpose.org
+              </a>
+            </p>
+            <p>
+              <Phone className="w-5 h-5 inline-block text-gold mr-2" />
+              <a
+                href="tel:+15044849037"
+                className="text-gold hover:text-gold/80 font-semibold transition-colors"
+              >
+                504-484-9037
+              </a>
+            </p>
           </div>
         </div>
       </section>
