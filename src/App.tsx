@@ -24,6 +24,8 @@ import MockupGenerator from "./pages/MockupGenerator";
 import Schools from "./pages/Schools";
 import SchoolsOnePager from "./pages/SchoolsOnePager";
 import SchoolsOnePagerThankYou from "./pages/SchoolsOnePagerThankYou";
+import Codex from "./pages/Codex";
+import CodexArticle, { codexArticleSlugs } from "./pages/CodexArticle";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
