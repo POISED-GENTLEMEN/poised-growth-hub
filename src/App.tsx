@@ -43,14 +43,20 @@ const CodexOrArticleRouter = () => {
   return <ArticleDetail />;
 };
 
-const App = () => (
+const App = () => {
+  useEffect(() => {
+    installBookCallDelegate();
+  }, []);
+  return (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <ShopProvider>
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <RedirectGate />
           <Routes>
+
             <Route path="/" element={<Index />} />
             <Route path="/programs" element={<Programs />} />
             <Route path="/programs/" element={<Programs />} />
