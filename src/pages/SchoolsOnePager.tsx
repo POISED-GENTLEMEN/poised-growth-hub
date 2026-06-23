@@ -18,6 +18,7 @@ import RelatedLinks from "@/components/RelatedLinks";
 import { useCanonical } from "@/hooks/useCanonical";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import { trackProposalOrInquirySubmit, trackOnePagerDownload } from "@/lib/analytics";
 import { z } from "zod";
 import onePagerAsset from "@/assets/schools-one-pager.pdf.asset.json";
 
@@ -114,6 +115,9 @@ const SchoolsOnePager = () => {
           },
         },
       });
+
+      trackProposalOrInquirySubmit("schools_one_pager");
+      trackOnePagerDownload("schools_one_pager_form");
 
       window.open(onePagerAsset.url, "_blank", "noopener,noreferrer");
       navigate("/schools/one-pager/thank-you/");
