@@ -78,3 +78,35 @@ export const resourceDownloadSchema = z.object({
   email: z.string().trim().email("Please enter a valid email address").max(255, "Email must be less than 255 characters"),
   newsletter: z.boolean().optional(),
 });
+
+// Contact inquiry form — segmented by audience type
+const contactBase = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
+  email: z.string().trim().email("Please enter a valid email address").max(255, "Email must be less than 255 characters"),
+  phone: z.string().trim().max(20, "Phone number must be less than 20 characters").optional().or(z.literal("")),
+  message: z.string().trim().min(10, "Message must be at least 10 characters").max(2000, "Message must be less than 2000 characters"),
+});
+
+export const contactInquirySchema = z.discriminatedUnion("segment", [
+  contactBase.merge(z.object({
+    segment: z.literal("school"),
+    orgName: z.string().trim().min(1, "Organization name is required").max(150, "Organization name must be less than 150 characters"),
+    role: z.string().trim().min(1, "Your role is required").max(100, "Role must be less than 100 characters"),
+    programInterest: z.string().min(1, "Please select a program"),
+    groupSize: z.string().min(1, "Please select a group size"),
+    timeline: z.string().min(1, "Please select a timeline"),
+    phone: z.string().trim().regex(phoneRegex, "Please enter a valid phone number").max(20, "Phone number must be less than 20 characters"),
+  })),
+  contactBase.merge(z.object({
+    segment: z.literal("parent"),
+    childAge: z.string().trim().min(1, "Child's age is required").max(50, "Age must be less than 50 characters"),
+    interest: z.string().min(1, "Please select an interest"),
+  })),
+  contactBase.merge(z.object({
+    segment: z.literal("press"),
+    outlet: z.string().trim().min(1, "Outlet / publication is required").max(200, "Outlet must be less than 200 characters"),
+  })),
+  contactBase.merge(z.object({
+    segment: z.literal("other"),
+  })),
+]);
