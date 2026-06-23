@@ -27,6 +27,7 @@ import SchoolsOnePagerThankYou from "./pages/SchoolsOnePagerThankYou";
 import Codex from "./pages/Codex";
 import CodexArticle, { codexArticleSlugs } from "./pages/CodexArticle";
 import Essence from "./pages/Essence";
+import Unsubscribe from "./pages/Unsubscribe";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -76,6 +77,8 @@ const App = () => (
             <Route path="/products/:slug" element={<ProductDetail />} />
             <Route path="/mentorship-programs" element={<MentorshipPrograms />} />
             <Route path="/mockup-generator" element={<MockupGenerator />} />
+            <Route path="/unsubscribe" element={<Unsubscribe />} />
+            <Route path="/unsubscribe/" element={<Unsubscribe />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
