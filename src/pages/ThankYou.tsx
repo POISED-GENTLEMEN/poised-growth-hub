@@ -22,7 +22,7 @@ const ThankYou = () => {
           <ul className="text-left space-y-2 text-muted-foreground">
             <li>✓ Check your email for order confirmation</li>
             <li>✓ We'll reach out within 24 hours</li>
-            <li>✓ Questions? Contact us at info@thepoisedgentlemen.com</li>
+            <li>✓ Questions? Contact us at david@risetopurpose.org</li>
           </ul>
         </div>
         <div className="bg-gold/10 border-2 border-gold rounded-lg p-6 mb-8">

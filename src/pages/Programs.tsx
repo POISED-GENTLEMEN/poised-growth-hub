@@ -183,8 +183,8 @@ const Programs = () => {
                 <Award className="w-8 h-8 text-gold mb-4" />
                 <h3 className="font-heading font-bold text-lg mb-2">Integrated System</h3>
                 <p className="text-sm text-muted-foreground">
-                  Built on the Four Pillars: The Poised Method™, the Young-G Protocol™, and
-                  F.I.R.E. DRILL® (the embedded Strength-pillar engine).
+                  Built on the Four Pillars: The Poised Method™ and the Young-G Protocol™, with
+                  an embedded Strength-pillar engine.
                 </p>
               </Card>
               <Card className="p-6 border-2 border-primary/20">

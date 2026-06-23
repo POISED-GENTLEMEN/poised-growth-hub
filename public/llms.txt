@@ -40,7 +40,6 @@ Age-appropriate grooming products:
 
 - Website: https://poisedgentlemen.com
 - Location: New Orleans, Louisiana, USA
-- Social: @ThePoisedGentlemen
 
 ## Site Structure
 

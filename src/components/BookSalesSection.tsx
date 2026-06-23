@@ -11,7 +11,7 @@ import authorPhoto from "@/assets/dr3-headshot.png";
 import hardcoverImage from "@/assets/book-hardcover.jpg";
 import bookLaunchImage from "@/assets/codex-book-launch.png";
 
-// Shopify variant IDs for The Poised Gentlemen Codex
+// Shopify variant IDs for Poised Gentlemen Codex
 const PAPERBACK_VARIANT_ID = "gid://shopify/ProductVariant/47414370337026";
 const HARDCOVER_VARIANT_ID = "gid://shopify/ProductVariant/47414370369794";
 
@@ -69,7 +69,7 @@ const BookSalesSection = () => {
             Now Available — Founding Circle Edition
           </p>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-4">
-            The Poised Gentlemen Codex
+            Poised Gentlemen Codex
           </h1>
           <p className="text-xl md:text-2xl font-heading italic text-gold mb-6">
             Earn Respect. Build Freedom. Master Yourself.
@@ -86,7 +86,7 @@ const BookSalesSection = () => {
         <div className="max-w-4xl mx-auto rounded-lg overflow-hidden shadow-2xl">
           <img
             src={bookLaunchImage}
-            alt="The Poised Gentlemen Codex — Book Launch Event"
+            alt="Poised Gentlemen Codex — Book Launch Event"
             className="w-full h-auto block"
           />
         </div>
@@ -218,7 +218,7 @@ const BookSalesSection = () => {
           className="w-28 h-28 rounded-full object-cover mx-auto mb-6 border-2 border-gold"
         />
         <p className="font-heading text-xl font-bold text-gold mb-2">
-          David Rachal III — CEO[G], The Poised Gentlemen
+          David Rachal III — CEO[G], Poised Gentlemen
         </p>
         <p className="text-sm text-primary-foreground/70 leading-relaxed">
           Creator of the nation's first commercially reimbursable medical fitness

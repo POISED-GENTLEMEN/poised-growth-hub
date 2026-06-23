@@ -216,13 +216,13 @@ const Index = () => {
         <div className="container mx-auto px-4 max-w-4xl text-center">
           <img
             src={codexCover}
-            alt="The Poised Gentlemen Codex book cover"
+            alt="Poised Gentlemen Codex book cover"
             className="mx-auto mb-8 rounded-lg shadow-2xl max-h-80 object-contain"
             loading="lazy"
           />
           <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">The Codex</p>
           <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6">
-            The Poised Gentlemen Codex
+            Poised Gentlemen Codex
           </h2>
           <p className="text-lg text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
             The written framework behind every program — a field manual on the Four Pillars for the men

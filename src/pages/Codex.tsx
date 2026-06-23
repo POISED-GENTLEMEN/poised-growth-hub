@@ -11,7 +11,7 @@ import { codexArticles } from "@/lib/codexArticles";
 import codexCover from "@/assets/book-hardcover.jpg";
 
 const DESC =
-  "Frameworks, principles, and practical tools for building men of character. The Poised Gentlemen Codex — Library of Congress cataloged.";
+  "Frameworks, principles, and practical tools for building men of character. Poised Gentlemen Codex — Library of Congress cataloged.";
 
 const setMeta = (selector: string, value: string) => {
   let el = document.head.querySelector<HTMLMetaElement>(selector);
@@ -62,7 +62,7 @@ const Codex = () => {
                 Library of Congress Cataloged
               </Badge>
               <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-                The Poised Gentlemen Codex
+                Poised Gentlemen Codex
               </h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                 The foundational text of our work. A practical framework for
@@ -86,7 +86,7 @@ const Codex = () => {
             <div className="order-1 md:order-2 flex justify-center">
               <img
                 src={codexCover}
-                alt="The Poised Gentlemen Codex hardcover book"
+                alt="Poised Gentlemen Codex hardcover book"
                 className="max-w-sm w-full rounded shadow-2xl"
                 loading="lazy"
               />
