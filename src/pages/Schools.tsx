@@ -1,7 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Accordion,
   AccordionContent,
@@ -25,6 +34,8 @@ import Footer from "@/components/Footer";
 import RelatedLinks from "@/components/RelatedLinks";
 import { useCanonical } from "@/hooks/useCanonical";
 import HowItWorks from "@/components/HowItWorks";
+import { supabase } from "@/integrations/supabase/client";
+import { trackProposalOrInquirySubmit } from "@/lib/analytics";
 
 const DESC =
   "Bring free, ADA-certified Project Power wellness programming to your school — plus our flagship Poised Method™ character pilot. Project Power is fully grant-funded; no cost to host.";
@@ -420,10 +431,267 @@ const Schools = () => {
         </div>
       </section>
 
+      {/* Proposal Form */}
+      <section id="proposal-form" className="py-20 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">
+              Ready to Bring Poised Gentlemen to Your School?
+            </h2>
+            <p className="text-lg opacity-90 max-w-xl mx-auto">
+              Tell us about your school or organization and we'll follow up within 48 hours with a custom proposal.
+            </p>
+          </div>
+          <ProposalForm />
+        </div>
+      </section>
+
       <RelatedLinks variant="schools" />
 
       <Footer />
     </div>
+  );
+};
+
+const ProposalForm = () => {
+  const [form, setForm] = useState({
+    name: "",
+    title: "",
+    organization: "",
+    email: "",
+    phone: "",
+    programInterest: "",
+    hearAboutUs: "",
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  const updateField = (field: keyof typeof form, value: string) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
+    }
+  };
+
+  const validate = (): boolean => {
+    const e: Record<string, string> = {};
+    if (!form.name.trim()) e.name = "Name is required";
+    else if (form.name.length > 100) e.name = "Name must be less than 100 characters";
+
+    if (!form.title.trim()) e.title = "Title is required";
+    if (!form.organization.trim()) e.organization = "Organization is required";
+
+    if (!form.email.trim()) e.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = "Please enter a valid email";
+
+    if (!form.phone.trim()) e.phone = "Phone is required";
+
+    if (!form.programInterest) e.programInterest = "Please select a program";
+    if (!form.hearAboutUs) e.hearAboutUs = "Please tell us how you heard about us";
+
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    setSubmitting(true);
+
+    const details: Record<string, string> = {
+      title: form.title.trim(),
+      organization: form.organization.trim(),
+      programInterest: form.programInterest,
+      hearAboutUs: form.hearAboutUs,
+    };
+
+    const { data: inserted, error } = await supabase
+      .from("contact_submissions")
+      .insert({
+        segment: "school",
+        name: form.name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        details,
+      })
+      .select("id")
+      .single();
+
+    setSubmitting(false);
+
+    if (error) {
+      setErrors({ submit: "Something went wrong. Please try again or email us directly." });
+      return;
+    }
+
+    supabase.functions
+      .invoke("send-transactional-email", {
+        body: {
+          templateName: "contact-notification",
+          idempotencyKey: `proposal-${inserted?.id}`,
+          templateData: {
+            segment: "school",
+            segmentLabel: "School Proposal Request",
+            name: form.name.trim(),
+            email: form.email.trim(),
+            phone: form.phone.trim(),
+            message: `Program Interest: ${form.programInterest} | Hear About Us: ${form.hearAboutUs}`,
+            submittedAt: new Date().toLocaleString("en-US", {
+              dateStyle: "medium",
+              timeStyle: "short",
+            }),
+            fields: [
+              { label: "Title", value: form.title },
+              { label: "Organization", value: form.organization },
+              { label: "Program Interest", value: form.programInterest },
+              { label: "How Did You Hear About Us?", value: form.hearAboutUs },
+            ],
+          },
+        },
+      })
+      .catch((err) => console.error("Notification email failed", err));
+
+    trackProposalOrInquirySubmit("school_proposal");
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <Card className="p-8 md:p-10 bg-background text-foreground text-center">
+        <CheckCircle className="w-16 h-16 text-success mx-auto mb-6" />
+        <h3 className="text-2xl md:text-3xl font-heading font-bold mb-4 text-primary">
+          Request Received
+        </h3>
+        <p className="text-lg text-muted-foreground max-w-lg mx-auto leading-relaxed">
+          We'll review your details and follow up within 48 hours with a custom proposal. Stay Poised.
+        </p>
+      </Card>
+    );
+  }
+
+  return (
+    <Card className="p-8 md:p-10 bg-background text-foreground">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <Label htmlFor="prop-name">Name <span className="text-destructive">*</span></Label>
+            <Input
+              id="prop-name"
+              value={form.name}
+              onChange={(e) => updateField("name", e.target.value)}
+              className={`h-12 mt-1.5 ${errors.name ? "border-destructive" : ""}`}
+              placeholder="Your full name"
+            />
+            {errors.name && <p className="text-xs text-destructive mt-1.5">{errors.name}</p>}
+          </div>
+          <div>
+            <Label htmlFor="prop-title">Title <span className="text-destructive">*</span></Label>
+            <Input
+              id="prop-title"
+              value={form.title}
+              onChange={(e) => updateField("title", e.target.value)}
+              className={`h-12 mt-1.5 ${errors.title ? "border-destructive" : ""}`}
+              placeholder="e.g. Principal, Program Director"
+            />
+            {errors.title && <p className="text-xs text-destructive mt-1.5">{errors.title}</p>}
+          </div>
+        </div>
+
+        <div>
+          <Label htmlFor="prop-organization">Organization <span className="text-destructive">*</span></Label>
+          <Input
+            id="prop-organization"
+            value={form.organization}
+            onChange={(e) => updateField("organization", e.target.value)}
+            className={`h-12 mt-1.5 ${errors.organization ? "border-destructive" : ""}`}
+            placeholder="School or organization name"
+          />
+          {errors.organization && <p className="text-xs text-destructive mt-1.5">{errors.organization}</p>}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <Label htmlFor="prop-email">Email <span className="text-destructive">*</span></Label>
+            <Input
+              id="prop-email"
+              type="email"
+              value={form.email}
+              onChange={(e) => updateField("email", e.target.value)}
+              className={`h-12 mt-1.5 ${errors.email ? "border-destructive" : ""}`}
+              placeholder="you@example.com"
+            />
+            {errors.email && <p className="text-xs text-destructive mt-1.5">{errors.email}</p>}
+          </div>
+          <div>
+            <Label htmlFor="prop-phone">Phone <span className="text-destructive">*</span></Label>
+            <Input
+              id="prop-phone"
+              type="tel"
+              value={form.phone}
+              onChange={(e) => updateField("phone", e.target.value)}
+              className={`h-12 mt-1.5 ${errors.phone ? "border-destructive" : ""}`}
+              placeholder="(555) 123-4567"
+            />
+            {errors.phone && <p className="text-xs text-destructive mt-1.5">{errors.phone}</p>}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <Label htmlFor="prop-program">Program Interest <span className="text-destructive">*</span></Label>
+            <Select value={form.programInterest} onValueChange={(value) => updateField("programInterest", value)}>
+              <SelectTrigger id="prop-program" className={`h-12 mt-1.5 ${errors.programInterest ? "border-destructive" : ""}`}>
+                <SelectValue placeholder="Select a program" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Project Power">Project Power</SelectItem>
+                <SelectItem value="Poised Method Pilot">Poised Method™ Pilot</SelectItem>
+                <SelectItem value="Institutional Licensing">Institutional Licensing</SelectItem>
+                <SelectItem value="Not Sure Yet">Not Sure Yet</SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.programInterest && <p className="text-xs text-destructive mt-1.5">{errors.programInterest}</p>}
+          </div>
+          <div>
+            <Label htmlFor="prop-hear">How Did You Hear About Us? <span className="text-destructive">*</span></Label>
+            <Select value={form.hearAboutUs} onValueChange={(value) => updateField("hearAboutUs", value)}>
+              <SelectTrigger id="prop-hear" className={`h-12 mt-1.5 ${errors.hearAboutUs ? "border-destructive" : ""}`}>
+                <SelectValue placeholder="Select an option" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="United Way">United Way</SelectItem>
+                <SelectItem value="Referral">Referral</SelectItem>
+                <SelectItem value="Web Search">Web Search</SelectItem>
+                <SelectItem value="Event">Event</SelectItem>
+                <SelectItem value="Other">Other</SelectItem>
+              </SelectContent>
+            </Select>
+            {errors.hearAboutUs && <p className="text-xs text-destructive mt-1.5">{errors.hearAboutUs}</p>}
+          </div>
+        </div>
+
+        {errors.submit && (
+          <p className="text-sm text-destructive text-center">{errors.submit}</p>
+        )}
+
+        <div className="text-center pt-2">
+          <Button
+            type="submit"
+            size="lg"
+            disabled={submitting}
+            className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+          >
+            {submitting ? "Sending..." : "Send My Request"}
+          </Button>
+        </div>
+      </form>
+    </Card>
   );
 };
 
