@@ -4,11 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Trash2, Plus, Minus, ShoppingBag, Check, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useCanonical } from "@/hooks/useCanonical";
+import { useNoindex } from "@/hooks/useNoindex";
 import { createShopifyCheckout } from "@/lib/shopify";
 import { toast } from "sonner";
 
 const Cart = () => {
   useCanonical();
+  useNoindex();
   const { cartItems, updateQuantity, removeFromCart, getCartTotal, getShippingCost, getFinalTotal, getDiscountAmount } = useShop();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
 

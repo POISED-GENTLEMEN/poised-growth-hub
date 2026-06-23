@@ -18,6 +18,7 @@ import { useCanonical } from "@/hooks/useCanonical";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import { trackProposalOrInquirySubmit } from "@/lib/analytics";
 
 type Segment = "school" | "parent" | "press" | "other" | "";
 
@@ -191,6 +192,8 @@ const Contact = () => {
       })
       .catch((err) => console.error("Notification email failed", err));
 
+
+    trackProposalOrInquirySubmit(segment || "other");
 
     setSubmitted(true);
     setForm({

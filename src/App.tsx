@@ -3,7 +3,10 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import { useEffect } from "react";
 import { ShopProvider } from "./contexts/ShopContext";
+import RedirectGate from "./components/RedirectGate";
+import { installBookCallDelegate } from "./lib/analytics";
 import Index from "./pages/Index";
 import Programs from "./pages/Programs";
 import ProgramPartners from "./pages/ProgramPartners";
@@ -40,14 +43,20 @@ const CodexOrArticleRouter = () => {
   return <ArticleDetail />;
 };
 
-const App = () => (
+const App = () => {
+  useEffect(() => {
+    installBookCallDelegate();
+  }, []);
+  return (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <ShopProvider>
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <RedirectGate />
           <Routes>
+
             <Route path="/" element={<Index />} />
             <Route path="/programs" element={<Programs />} />
             <Route path="/programs/" element={<Programs />} />
@@ -86,6 +95,8 @@ const App = () => (
       </ShopProvider>
     </TooltipProvider>
   </QueryClientProvider>
-);
+  );
+};
+
 
 export default App;

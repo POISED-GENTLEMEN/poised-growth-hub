@@ -6,6 +6,7 @@ import { ExternalLink, ShieldCheck, BadgeCheck, Truck, Lock, ArrowRight } from "
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
+import { trackEvent } from "@/lib/analytics";
 
 const TITLE = "Shop | Poised Gentlemen";
 const DESC =
@@ -34,23 +35,13 @@ const setMeta = (selector: string, value: string) => {
 type ShopSection = "essence" | "young-g" | "bundles";
 
 const trackShopClick = (section: ShopSection, url: string) => {
-  const w = window as unknown as { gtag?: (...args: unknown[]) => void; dataLayer?: unknown[] };
-  const payload = {
+  trackEvent("shop_click", {
     event_category: "outbound",
     event_label: section,
     section,
     destination: url,
     transport_type: "beacon",
-  };
-  try {
-    if (typeof w.gtag === "function") {
-      w.gtag("event", "shop_click", payload);
-    } else if (Array.isArray(w.dataLayer)) {
-      w.dataLayer.push({ event: "shop_click", ...payload });
-    }
-  } catch {
-    /* no-op: analytics must never block navigation */
-  }
+  });
 };
 
 interface BridgeCardProps {

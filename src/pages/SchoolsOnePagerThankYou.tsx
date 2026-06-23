@@ -5,24 +5,29 @@ import { CheckCircle, Mail, ArrowRight, Download } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
+import { trackOnePagerDownload } from "@/lib/analytics";
 import onePagerAsset from "@/assets/schools-one-pager.pdf.asset.json";
+
+const setRobotsNoindex = () => {
+  let meta = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]');
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.name = "robots";
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute("content", "noindex, nofollow");
+  return meta;
+};
 
 const SchoolsOnePagerThankYou = () => {
   useCanonical("/schools/one-pager/thank-you/");
 
   useEffect(() => {
     document.title = "Thank You | Poised Gentlemen One-Pager";
-    const meta = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]');
-    if (meta) meta.setAttribute("content", "noindex");
-
-    // GA4 conversion event
-    const w = window as unknown as { gtag?: (...args: unknown[]) => void };
-    if (typeof w.gtag === "function") {
-      w.gtag("event", "conversion", {
-        event_category: "schools",
-        event_label: "one_pager_request",
-      });
-    }
+    const meta = setRobotsNoindex();
+    return () => {
+      meta.remove();
+    };
   }, []);
 
   return (
@@ -54,11 +59,14 @@ const SchoolsOnePagerThankYou = () => {
               download="Poised_Gentlemen_Schools_OnePager.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackOnePagerDownload("schools_one_pager")}
+              data-ga-event="one_pager_download"
             >
               <Download className="mr-2 h-5 w-5" />
               Download the One-Pager Now
             </a>
           </Button>
+
 
           <div className="bg-muted/30 rounded-lg p-8 text-left mb-8">
             <p className="font-heading font-semibold text-lg mb-4">

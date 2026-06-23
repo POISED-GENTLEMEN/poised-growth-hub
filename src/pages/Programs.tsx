@@ -47,7 +47,31 @@ const Programs = () => {
     setMeta('meta[property="og:title"]', "content", "Programs | Poised Gentlemen");
     setMeta('meta[property="og:description"]', "content", PROGRAMS_DESC);
     setMeta('meta[property="og:url"]', "content", "https://poisedgentlemen.com/programs/");
+
+    let ld = document.head.querySelector<HTMLScriptElement>('script[data-jsonld="programs-edprogram"]');
+    if (!ld) {
+      ld = document.createElement("script");
+      ld.type = "application/ld+json";
+      ld.setAttribute("data-jsonld", "programs-edprogram");
+      document.head.appendChild(ld);
+    }
+    ld.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "EducationalProgram",
+      name: "Poised Gentlemen Programs",
+      description: PROGRAMS_DESC,
+      url: "https://poisedgentlemen.com/programs/",
+      provider: { "@type": "Organization", name: "Poised Gentlemen", url: "https://poisedgentlemen.com" },
+      educationalProgramMode: "in-person",
+      programType: "Character development, mentorship, and wellness programming for boys 10–17",
+      audience: { "@type": "EducationalAudience", educationalRole: "student", audienceType: "Boys 10–17" },
+      areaServed: [{ "@type": "City", name: "New Orleans" }, { "@type": "Country", name: "United States" }],
+    });
+    return () => {
+      ld?.remove();
+    };
   }, []);
+
 
   return (
     <div className="min-h-screen">

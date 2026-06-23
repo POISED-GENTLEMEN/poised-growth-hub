@@ -2,11 +2,14 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { useCanonical } from "@/hooks/useCanonical";
+import { useNoindex } from "@/hooks/useNoindex";
 
 const ThankYou = () => {
   useCanonical();
+  useNoindex();
   const location = useLocation();
   const { orderNumber, email } = location.state || { orderNumber: 'TPG-00000', email: 'your email' };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
