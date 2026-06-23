@@ -25,7 +25,7 @@ export interface EssenceProduct {
 export const essenceProducts: EssenceProduct[] = [
   {
     id: "1",
-    slug: "buoyant",
+    slug: "buoyant-inspired-by-giorgio-armani",
     name: "Buoyant",
     fragranceFamily: "Aquatic/Fresh",
     colorCode: "#077DFE",
@@ -64,7 +64,7 @@ export const essenceProducts: EssenceProduct[] = [
   },
   {
     id: "2",
-    slug: "vigaros",
+    slug: "vigaros-inspired-by-versace-eros",
     name: "Vigaros",
     fragranceFamily: "Aromatic/Spicy",
     colorCode: "#4B2E5C",
@@ -104,7 +104,7 @@ export const essenceProducts: EssenceProduct[] = [
   },
   {
     id: "3",
-    slug: "light-breeze",
+    slug: "light-breeze-inspired-by-dolce-gabbana-light-blue",
     name: "Light Breeze",
     fragranceFamily: "Citrus/Bright",
     colorCode: "#D97E3A",
@@ -144,7 +144,7 @@ export const essenceProducts: EssenceProduct[] = [
   },
   {
     id: "4",
-    slug: "blue-harmony",
+    slug: "blue-harmony-inspired-by-bleu-de-chanel",
     name: "Blue Harmony",
     fragranceFamily: "Woody/Earthy",
     colorCode: "#CFB040",
@@ -184,7 +184,7 @@ export const essenceProducts: EssenceProduct[] = [
   },
   {
     id: "5",
-    slug: "urban-wisdom",
+    slug: "urban-wisdom-inspired-by-coach-for-men",
     name: "Urban Wisdom",
     fragranceFamily: "Aromatic/Spicy",
     colorCode: "#4B2E5C",
@@ -224,7 +224,7 @@ export const essenceProducts: EssenceProduct[] = [
   },
   {
     id: "6",
-    slug: "fighting-trim",
+    slug: "fighting-trim-inspired-by-chrome-azzaro",
     name: "Fighting Trim",
     fragranceFamily: "Fresh/Green",
     colorCode: "#7ED957",
@@ -264,7 +264,7 @@ export const essenceProducts: EssenceProduct[] = [
   },
   {
     id: "7",
-    slug: "first-impression",
+    slug: "first-impression-inspired-by-bleu-de-chanel",
     name: "First Impression",
     fragranceFamily: "Woody/Earthy",
     colorCode: "#CFB040",
@@ -304,7 +304,7 @@ export const essenceProducts: EssenceProduct[] = [
   },
   {
     id: "8",
-    slug: "jsp",
+    slug: "james-saint-patrick-jsp-inspired-by-yves-saint-laurent",
     name: "JSP (James Saint Patrick)",
     fragranceFamily: "Woody/Earthy",
     colorCode: "#CFB040",
@@ -344,7 +344,7 @@ export const essenceProducts: EssenceProduct[] = [
   },
   {
     id: "9",
-    slug: "poised-sauvage",
+    slug: "poised-sauvage-inspired-by-dior-sauvage",
     name: "Poised Sauvage",
     fragranceFamily: "Aromatic/Spicy",
     colorCode: "#4B2E5C",
@@ -384,7 +384,7 @@ export const essenceProducts: EssenceProduct[] = [
   },
   {
     id: "10",
-    slug: "seven-figures",
+    slug: "seven-figures-inspired-by-paco-rabanne-1-million",
     name: "Seven Figures",
     fragranceFamily: "Oriental/Warm",
     colorCode: "#FF0707",
@@ -424,7 +424,7 @@ export const essenceProducts: EssenceProduct[] = [
   },
   {
     id: "11",
-    slug: "ly-creed",
+    slug: "l-y-creed-inspired-by-creed-aventus",
     name: "L.Y. Creed",
     fragranceFamily: "Citrus/Bright",
     colorCode: "#D97E3A",
@@ -464,7 +464,7 @@ export const essenceProducts: EssenceProduct[] = [
   },
   {
     id: "12",
-    slug: "admirals-odyssey",
+    slug: "admirals-odyssey-inspired-by-nautica-voyage",
     name: "Admiral's Odyssey",
     fragranceFamily: "Aquatic/Fresh",
     colorCode: "#077DFE",

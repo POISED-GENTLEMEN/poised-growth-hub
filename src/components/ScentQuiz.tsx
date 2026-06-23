@@ -101,7 +101,7 @@ type QuizAttrs = {
 };
 
 const productQuizAttributes: Record<string, QuizAttrs> = {
-  "buoyant": {
+  "buoyant-inspired-by-giorgio-armani": {
     lifestyle: ["corporate", "active", "creative"],
     occasion: ["professional", "everyday"],
     scent: ["fresh"],
@@ -109,7 +109,7 @@ const productQuizAttributes: Record<string, QuizAttrs> = {
     strength: ["subtle", "moderate"],
     style: ["modern", "classic"],
   },
-  "vigaros": {
+  "vigaros-inspired-by-versace-eros": {
     lifestyle: ["social", "creative"],
     occasion: ["date", "special"],
     scent: ["spicy"],
@@ -117,7 +117,7 @@ const productQuizAttributes: Record<string, QuizAttrs> = {
     strength: ["bold", "moderate"],
     style: ["adventurous", "classic"],
   },
-  "light-breeze": {
+  "light-breeze-inspired-by-dolce-gabbana-light-blue": {
     lifestyle: ["active", "creative"],
     occasion: ["casual", "everyday"],
     scent: ["citrus", "fresh"],
@@ -125,7 +125,7 @@ const productQuizAttributes: Record<string, QuizAttrs> = {
     strength: ["moderate", "subtle"],
     style: ["casual", "modern"],
   },
-  "blue-harmony": {
+  "blue-harmony-inspired-by-bleu-de-chanel": {
     lifestyle: ["corporate", "social"],
     occasion: ["professional", "date", "special"],
     scent: ["woody"],
@@ -133,7 +133,7 @@ const productQuizAttributes: Record<string, QuizAttrs> = {
     strength: ["moderate"],
     style: ["classic", "modern"],
   },
-  "urban-wisdom": {
+  "urban-wisdom-inspired-by-coach-for-men": {
     lifestyle: ["corporate", "creative"],
     occasion: ["professional", "everyday"],
     scent: ["subtle", "woody"],
@@ -141,7 +141,7 @@ const productQuizAttributes: Record<string, QuizAttrs> = {
     strength: ["moderate"],
     style: ["modern", "classic"],
   },
-  "fighting-trim": {
+  "fighting-trim-inspired-by-chrome-azzaro": {
     lifestyle: ["active"],
     occasion: ["casual", "everyday"],
     scent: ["fresh", "citrus"],
@@ -149,7 +149,7 @@ const productQuizAttributes: Record<string, QuizAttrs> = {
     strength: ["moderate"],
     style: ["casual", "adventurous"],
   },
-  "first-impression": {
+  "first-impression-inspired-by-bleu-de-chanel": {
     lifestyle: ["corporate", "social"],
     occasion: ["professional", "special", "date"],
     scent: ["woody", "subtle"],
@@ -157,7 +157,7 @@ const productQuizAttributes: Record<string, QuizAttrs> = {
     strength: ["moderate", "bold"],
     style: ["classic"],
   },
-  "jsp": {
+  "james-saint-patrick-jsp-inspired-by-yves-saint-laurent": {
     lifestyle: ["social", "corporate"],
     occasion: ["date", "special"],
     scent: ["woody", "spicy"],
@@ -165,7 +165,7 @@ const productQuizAttributes: Record<string, QuizAttrs> = {
     strength: ["bold", "moderate"],
     style: ["classic", "modern"],
   },
-  "poised-sauvage": {
+  "poised-sauvage-inspired-by-dior-sauvage": {
     lifestyle: ["social", "creative"],
     occasion: ["date", "special"],
     scent: ["spicy", "woody"],
@@ -173,7 +173,7 @@ const productQuizAttributes: Record<string, QuizAttrs> = {
     strength: ["bold"],
     style: ["adventurous", "modern"],
   },
-  "seven-figures": {
+  "seven-figures-inspired-by-paco-rabanne-1-million": {
     lifestyle: ["social"],
     occasion: ["date", "special"],
     scent: ["spicy", "woody"],
@@ -181,7 +181,7 @@ const productQuizAttributes: Record<string, QuizAttrs> = {
     strength: ["bold"],
     style: ["adventurous", "classic"],
   },
-  "ly-creed": {
+  "l-y-creed-inspired-by-creed-aventus": {
     lifestyle: ["corporate", "social"],
     occasion: ["professional", "special"],
     scent: ["citrus", "woody"],
@@ -189,7 +189,7 @@ const productQuizAttributes: Record<string, QuizAttrs> = {
     strength: ["moderate", "bold"],
     style: ["classic", "modern"],
   },
-  "admirals-odyssey": {
+  "admirals-odyssey-inspired-by-nautica-voyage": {
     lifestyle: ["active", "creative"],
     occasion: ["casual", "everyday"],
     scent: ["fresh"],
