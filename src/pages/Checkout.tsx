@@ -6,9 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { checkoutSchema } from "@/lib/validations";
 import { useCanonical } from "@/hooks/useCanonical";
+import { useNoindex } from "@/hooks/useNoindex";
 
 const Checkout = () => {
   useCanonical();
+  useNoindex();
   const { cartItems, getCartTotal, getShippingCost, getFinalTotal, getDiscountAmount, clearCart } = useShop();
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);

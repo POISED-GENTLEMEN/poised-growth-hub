@@ -7,6 +7,7 @@ import { CheckCircle, Mail, Loader2, AlertCircle } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import { useNoindex } from "@/hooks/useNoindex";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
@@ -14,6 +15,7 @@ const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
 type Status = "validating" | "valid" | "invalid" | "used" | "submitting" | "done" | "error";
 
 const Unsubscribe = () => {
+  useNoindex();
   const [params] = useSearchParams();
   const token = params.get("token") ?? "";
   const [status, setStatus] = useState<Status>("validating");
