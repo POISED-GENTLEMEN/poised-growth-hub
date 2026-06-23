@@ -249,13 +249,15 @@ const Essence = () => {
             Twelve scents. One standard. Shop the full Essence Collection.
           </p>
           <Button asChild size="lg" className="bg-secondary text-secondary-foreground hover:bg-secondary/90">
-            <Link to="/shop">
+            <Link to="/shop/essence-collection">
               Shop the Essence Collection
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
         </div>
       </section>
+
+      <ScentQuiz open={quizOpen} onOpenChange={setQuizOpen} />
 
       <Footer />
     </div>
