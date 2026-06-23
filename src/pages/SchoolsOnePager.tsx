@@ -81,6 +81,39 @@ const SchoolsOnePager = () => {
         }),
       });
       if (error) throw error;
+
+      const submissionId = `${Date.now()}-${parsed.data.email}`;
+      const pdfUrl = `${window.location.origin}${onePagerAsset.url}`;
+
+      // Email the requester the PDF link (don't block UX on email failure)
+      void supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "schools-one-pager-delivery",
+          recipientEmail: parsed.data.email,
+          idempotencyKey: `schools-one-pager-delivery-${submissionId}`,
+          templateData: {
+            firstName: parsed.data.firstName,
+            organization: parsed.data.organization,
+            pdfUrl,
+          },
+        },
+      });
+
+      // Internal notification to David
+      void supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "schools-one-pager-internal",
+          idempotencyKey: `schools-one-pager-internal-${submissionId}`,
+          templateData: {
+            firstName: parsed.data.firstName,
+            organization: parsed.data.organization,
+            email: parsed.data.email,
+            role: parsed.data.role,
+            submittedAt: new Date().toISOString(),
+          },
+        },
+      });
+
       window.open(onePagerAsset.url, "_blank", "noopener,noreferrer");
       navigate("/schools/one-pager/thank-you/");
     } catch (err) {
