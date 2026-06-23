@@ -26,6 +26,7 @@ import SchoolsOnePager from "./pages/SchoolsOnePager";
 import SchoolsOnePagerThankYou from "./pages/SchoolsOnePagerThankYou";
 import Codex from "./pages/Codex";
 import CodexArticle, { codexArticleSlugs } from "./pages/CodexArticle";
+import Essence from "./pages/Essence";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
