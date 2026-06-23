@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
-import { ShoppingCart, Menu, X, Heart, Gift, FileText, GraduationCap, HelpCircle, ChevronDown } from "lucide-react";
-import { Button } from "./ui/button";
+import { Menu, X, Heart, Gift, FileText, GraduationCap, HelpCircle, ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { useShop } from "@/contexts/ShopContext";
 import ParentBadge from "./ParentBadge";
 import { SiteSearch } from "./SiteSearch";
 import {
@@ -17,7 +15,6 @@ import {
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [shopMenuOpen, setShopMenuOpen] = useState(false);
-  const { getCartCount } = useShop();
 
   return (
     <header className="sticky top-0 z-50 bg-background border-b border-border">
@@ -221,14 +218,6 @@ const Header = () => {
           {/* Right Side Actions */}
           <div className="hidden md:flex items-center gap-4">
             <SiteSearch />
-            <Link to="/cart" className="relative text-foreground hover:text-primary transition-colors" aria-label="Shopping Cart">
-              <ShoppingCart className="w-6 h-6" />
-              {getCartCount() > 0 && (
-                <span className="absolute -top-2 -right-2 bg-gold text-gold-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold animate-pulse">
-                  {getCartCount()}
-                </span>
-              )}
-            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -348,16 +337,6 @@ const Header = () => {
             >
               Contact
             </Link>
-            <div className="flex items-center gap-4 pt-2">
-              <Link to="/cart" className="relative text-foreground hover:text-primary transition-colors" aria-label="Shopping Cart">
-                <ShoppingCart className="w-6 h-6" />
-                {getCartCount() > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-gold text-gold-foreground text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-                    {getCartCount()}
-                  </span>
-                )}
-              </Link>
-            </div>
           </nav>
         )}
       </div>
