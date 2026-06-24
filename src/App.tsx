@@ -20,6 +20,7 @@ import MentorshipPrograms from "./pages/MentorshipPrograms";
 import MockupGenerator from "./pages/MockupGenerator";
 import Schools from "./pages/Schools";
 import SchoolsOnePager from "./pages/SchoolsOnePager";
+import PYG from "./pages/PYG";
 import SchoolsOnePagerThankYou from "./pages/SchoolsOnePagerThankYou";
 import Codex from "./pages/Codex";
 import CodexArticle, { codexArticleSlugs } from "./pages/CodexArticle";
@@ -80,6 +81,8 @@ const App = () => {
           <Route path="/unsubscribe/" element={<Unsubscribe />} />
           <Route path="/legal" element={<LegalPage />} />
           <Route path="/legal/" element={<LegalPage />} />
+          <Route path="/pyg" element={<PYG />} />
+          <Route path="/pyg/" element={<PYG />} />
           {/* /request-proposal is handled by RedirectGate → /schools/#proposal-form */}
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
