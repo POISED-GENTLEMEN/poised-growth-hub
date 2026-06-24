@@ -214,11 +214,11 @@ const Footer = () => {
         {/* Homepage Quick Links */}
         <div className="border-t border-primary-foreground/20 pt-6 mb-6">
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm mb-4">
-            <Link to="/request-proposal" className="hover:text-gold transition-colors">
+            <Link to="/proposal" className="hover:text-gold transition-colors">
               Schools & Organizations
             </Link>
             <span className="text-primary-foreground/30" aria-hidden="true">|</span>
-            <Link to="/#programs" className="hover:text-gold transition-colors">
+            <Link to="/pyg" className="hover:text-gold transition-colors">
               Parents
             </Link>
             <span className="text-primary-foreground/30" aria-hidden="true">|</span>
