@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet-async";
 import { Check, Shield, Dumbbell, Brain, Target } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ParentPlaybookSection from "@/components/ParentPlaybookSection";
 import { useCanonical } from "@/hooks/useCanonical";
 import { trackEvent } from "@/lib/analytics";
 
@@ -172,12 +173,18 @@ const Index = () => {
                   size="lg"
                   className="bg-gold text-primary hover:bg-gold/90 font-semibold w-full"
                 >
-                  <Link
-                    to="/pyg"
-                    onClick={() => trackEvent("cta_explore_pyg_hero")}
+                  <a
+                    href="#parent-playbook"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      trackEvent("cta_parent_playbook_hero");
+                      document
+                        .getElementById("parent-playbook")
+                        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }}
                   >
-                    Explore Poised Young Gentlemen
-                  </Link>
+                    Get the Parent Playbook — Free
+                  </a>
                 </Button>
                 <Button
                   asChild
@@ -469,6 +476,8 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      <ParentPlaybookSection />
 
       <Footer />
     </div>
