@@ -629,13 +629,17 @@ const Contact = () => {
                   )}
                 </div>
 
+                <div className="flex justify-center">
+                  <TurnstileWidget onToken={setCaptchaToken} />
+                </div>
+
                 {errors.submit && (
                   <p className="text-sm text-destructive text-center">{errors.submit}</p>
                 )}
 
                 <Button
                   type="submit"
-                  disabled={submitting || !segment}
+                  disabled={submitting || !segment || !captchaToken}
                   className="w-full h-12 bg-gold text-gold-foreground hover:bg-gold/90 font-semibold"
                 >
                   {submitting ? "Sending..." : "Send Inquiry"}
