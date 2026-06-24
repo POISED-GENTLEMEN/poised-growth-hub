@@ -185,6 +185,8 @@ const Contact = () => {
 
     if (error) {
       setErrors({ submit: "Something went wrong. Please try again or email us directly." });
+      resetTurnstile();
+      setCaptchaToken(null);
       return;
     }
 
@@ -230,7 +232,10 @@ const Contact = () => {
       outlet: "",
     });
     setSegment("");
+    setCaptchaToken(null);
+    resetTurnstile();
   };
+
 
   return (
     <div className="min-h-screen bg-background">
