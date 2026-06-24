@@ -20,8 +20,7 @@ import { useCanonical } from "@/hooks/useCanonical";
 import { trackEvent } from "@/lib/analytics";
 import { supabase } from "@/integrations/supabase/client";
 
-// TODO: replace with hosted PDF URL
-const PDF_URL = "/playbook/parents-playbook.pdf";
+const PDF_URL = "https://xxwhtwryyoxlwwwfxido.supabase.co/storage/v1/object/public/Assets/PoisedGentlemen_ParentPlaybook_v2.pdf";
 
 const REFERRAL_OPTIONS = [
   "United Way SELA",
