@@ -80,8 +80,7 @@ const App = () => {
           <Route path="/unsubscribe/" element={<Unsubscribe />} />
           <Route path="/legal" element={<LegalPage />} />
           <Route path="/legal/" element={<LegalPage />} />
-          <Route path="/request-proposal" element={<Schools />} />
-          <Route path="/request-proposal/" element={<Schools />} />
+          {/* /request-proposal is handled by RedirectGate → /schools/#proposal-form */}
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Check } from "lucide-react";
+import { Check, Shield, Dumbbell, Brain, Target } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
@@ -57,21 +57,37 @@ const Index = () => {
     {
       label: "Organizations",
       price: "$2,500–$4,500 / year",
+      subline: null as string | null,
       line: "Youth orgs, libraries, community partners",
       event: "cta_request_proposal_org",
     },
     {
       label: "Schools",
       price: "$8,500–$12,000 / year",
+      subline: null as string | null,
       line: "School campuses and charter networks",
       event: "cta_request_proposal_school",
     },
     {
       label: "Individuals",
-      price: "$497–$997 / year",
+      price: "$600–$1,800",
+      subline: "$75/session · 2 sessions/week minimum",
       line: "Independent mentors and families",
       event: "cta_request_proposal_individual",
     },
+  ];
+
+  const partners = [
+    "United Way SELA",
+    "Son of a Saint",
+    "AmeriHealth Caritas Louisiana",
+  ];
+
+  const pillars = [
+    { icon: Shield, title: "Integrity", desc: "Character over convenience — doing right when no one is watching." },
+    { icon: Dumbbell, title: "Strength", desc: "Mental, emotional, and physical resilience built through practice." },
+    { icon: Brain, title: "Emotional Intelligence", desc: "Self-awareness, regulation, and the ability to lead from clarity." },
+    { icon: Target, title: "Discipline", desc: "Consistency over motivation — the daily rituals that build men." },
   ];
 
   return (
@@ -181,6 +197,23 @@ const Index = () => {
         </div>
       </section>
 
+      {/* PARTNER BANNER */}
+      <section className="py-10 bg-muted border-b border-border">
+        <div className="container mx-auto px-4">
+          <h2 className="sr-only">Trusted Partners</h2>
+          <p className="text-center text-xs uppercase tracking-widest text-muted-foreground font-semibold mb-4">
+            Trusted Partners
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-3 md:gap-x-16">
+            {partners.map((p) => (
+              <span key={p} className="text-sm md:text-base font-heading text-primary text-center">
+                {p}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* LICENSING OPTIONS */}
       <section id="programs" className="py-20 md:py-24 bg-background">
         <div className="container mx-auto px-4 max-w-6xl">
@@ -198,12 +231,10 @@ const Index = () => {
                 <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-3">
                   {t.label}
                 </p>
-                <p className="text-2xl font-heading font-bold mb-2">
-                  <span className="text-gold/70 text-xs uppercase tracking-wider block mb-1">
-                    [Confirm Pricing]
-                  </span>
-                  {t.price}
-                </p>
+                <p className="text-2xl font-heading font-bold mb-2">{t.price}</p>
+                {t.subline && (
+                  <p className="text-xs text-gold/90 mb-2">{t.subline}</p>
+                )}
                 <p className="text-sm text-primary-foreground/85 mb-8 flex-1">{t.line}</p>
                 <Button
                   asChild
@@ -221,6 +252,30 @@ const Index = () => {
           </p>
         </div>
       </section>
+
+      {/* FOUR PILLARS */}
+      <section className="py-20 md:py-24 bg-muted">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4 text-primary">
+              The Four Pillars
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              The framework that shapes every program we deliver.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {pillars.map(({ icon: Icon, title, desc }) => (
+              <Card key={title} className="p-8 border-2 hover:border-gold transition-colors text-center bg-background">
+                <Icon className="w-10 h-10 text-gold mx-auto mb-4" strokeWidth={1.5} />
+                <h3 className="text-xl font-heading font-bold mb-3 text-primary">{title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
       <Footer />
     </div>
