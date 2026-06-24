@@ -20,6 +20,7 @@ import MentorshipPrograms from "./pages/MentorshipPrograms";
 import MockupGenerator from "./pages/MockupGenerator";
 import Schools from "./pages/Schools";
 import SchoolsOnePager from "./pages/SchoolsOnePager";
+import PYG from "./pages/PYG";
 import SchoolsOnePagerThankYou from "./pages/SchoolsOnePagerThankYou";
 import Codex from "./pages/Codex";
 import CodexArticle, { codexArticleSlugs } from "./pages/CodexArticle";
