@@ -1,43 +1,38 @@
-# Plan — Cross-link cleanup (internal links only)
+## Goal
+Replace `WITH CHECK (true)` on the two public lead-capture tables with column-shape validation, as defense-in-depth against malformed/abusive anon inserts. No change to who can insert (still `anon, authenticated`); no change to SELECT/UPDATE/DELETE (still denied for non-service_role).
 
-Scope: internal navigation only. Shopify outbound URLs/UTMs in `RelatedLinks` (essence variant) and `RelatedProducts`, plus ScentQuiz and EQ Assessment, are untouched.
+## Migration
 
-## 1. Honor `showSchoolsLink` in `RelatedLinks` (codex-article variant)
+Drop and recreate the INSERT policies on `public.contact_submissions` and `public.email_submissions` with stricter `WITH CHECK` predicates.
 
-`src/components/RelatedLinks.tsx`, `buildLinks(variant="codex-article")`:
+### `public.contact_submissions`
 
-Replace the current either/or branch with independent flag checks so both can render when both are true:
+New INSERT policy `WITH CHECK`:
+- `email` matches a basic email regex AND `length(email) BETWEEN 3 AND 255`
+- `name` is non-empty after trim AND `length(name) <= 100`
+- `segment` is non-empty AND `length(segment) <= 50`
+- `phone IS NULL OR length(phone) <= 40`
+- `details IS NULL OR jsonb_typeof(details) = 'object'`
+- `pg_column_size(details) <= 8192` (cap JSON blob size)
 
-```
-links = [ relatedCodexArticle ]
-if (article.showEssenceLink) links.push(EssenceCard)
-if (article.showSchoolsLink) links.push(SchoolsCard)
-// keep emphasis: Essence emphasized when present, else Schools emphasized
-```
+### `public.email_submissions`
 
-Behavior:
-- `showSchoolsLink: true` only → Schools card (current fallback, now driven by the flag instead of `!showEssenceLink`).
-- `showEssenceLink: true` only → Essence card (unchanged).
-- Both true (e.g. `four-pillars-of-character`) → both cards.
-- Both false → just the related Codex article.
+New INSERT policy `WITH CHECK`:
+- `email` matches a basic email regex AND `length(email) BETWEEN 3 AND 255`
+- `category` non-empty AND `length(category) <= 50`
+- `first_name IS NULL OR length(first_name) <= 100`
+- `source IS NULL OR length(source) <= 100`
 
-No change to the Essence Shopify URL or its UTM string.
+Email regex used: `^[^@\s]+@[^@\s]+\.[^@\s]+$` (cheap shape check, not full RFC).
 
-## 2. Wire `RelatedLinks` into blog `ArticleDetail`
+## Out of scope
+- Rate limiting (RLS can't do this; would need an edge function or Cloudflare).
+- Changing roles or any other policies.
+- Touching `send-transactional-email` (already sanitizes inputs).
 
-`src/pages/ArticleDetail.tsx`:
-- Import `RelatedLinks`.
-- After the existing `<RelatedProducts articleSlug={slug} />` block, render `<RelatedLinks variant="essence" />`.
-  - Rationale: blog posts don't map to a Codex slug, so `codex-article` variant doesn't apply. The `essence` variant gives readers the Shop collection + 3 grooming/mindset Codex articles — the most relevant cross-links for blog readers and consistent with existing site IA. (Shop card here already uses the verified outbound URL — untouched.)
-- Keep `RelatedProducts` above it; layout: products grid → related links section → back-to-codex button.
+## After migration
+- Re-run the Supabase linter; the two `SUPA_rls_policy_always_true` warnings should clear since `WITH CHECK` is no longer `true`.
+- Update `@security-memory` to reflect the new hardened policies.
 
-## 3. Remove dead export
-
-`src/data/essenceProducts.ts`: delete the `getRelatedProducts` function (line ~511) and any helper used only by it. Confirm no remaining importers (grep already shows none).
-
-## Verification
-
-- `tsgo` typecheck clean.
-- Spot-check routes: `/codex/four-pillars-of-character/` (both cards), `/codex/modern-masculinity/` (Essence only), `/codex/what-is-emotional-intelligence-for-men/` (Schools only), a blog article under `/blog/<slug>` (RelatedLinks now visible).
-- Confirm ScentQuiz (`/shop#scent-quiz`) and EQ Assessment (`/eq-assessment`) render and run — no files in those paths touched.
-- Confirm Shopify outbound URL in `RelatedLinks.tsx` essence variant byte-identical to current.
+## Risk
+If the regex or length caps reject a legitimate submission shape currently in use, inserts will start failing. Current callers (contact + newsletter forms) send standard fields well within these caps, so impact should be nil — but worth flagging.
