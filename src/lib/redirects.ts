@@ -26,6 +26,7 @@ export const REDIRECT_MAP: Record<string, string> = {
   "/young-g": "/shop/",
   "/request-proposal": "/schools/#proposal-form",
   "/proposal": "/schools/#proposal-form",
+  "/project-power": "/schools/#project-power",
 
   // Removed on-site commerce — Shopify is the store of record now.
   "/cart": "/shop/",
