@@ -27,7 +27,121 @@ function generateToken(): string {
 
 // Auth note: this function uses verify_jwt = true in config.toml, so Supabase's
 // gateway validates the caller's JWT (anon or service_role) before the request
-// reaches this code. No in-function auth check is needed.
+// reaches this code. In addition, we apply a per-template input-sanitization
+// policy for non-service_role callers to prevent abuse of branded sends as a
+// phishing/spam vector (e.g., attacker-controlled URLs in templateData).
+
+function getCallerRole(req: Request): string {
+  try {
+    const auth = req.headers.get('Authorization') || ''
+    const token = auth.startsWith('Bearer ') ? auth.slice(7) : ''
+    if (!token) return 'anon'
+    const parts = token.split('.')
+    if (parts.length < 2) return 'anon'
+    const padded = parts[1] + '==='.slice((parts[1].length + 3) % 4)
+    const json = JSON.parse(
+      atob(padded.replace(/-/g, '+').replace(/_/g, '/'))
+    )
+    return typeof json.role === 'string' ? json.role : 'anon'
+  } catch {
+    return 'anon'
+  }
+}
+
+// String contains a URL or HTML — reject for public callers to prevent
+// branded-email phishing via attacker-supplied links.
+const URL_OR_HTML_RE = /(https?:\/\/|\/\/[a-z0-9]|<\s*[a-z!\/])/i
+
+function cleanString(v: unknown, maxLen: number): string {
+  if (typeof v !== 'string') return ''
+  const trimmed = v.slice(0, maxLen)
+  if (URL_OR_HTML_RE.test(trimmed)) return ''
+  return trimmed
+}
+
+type PublicPolicy = {
+  // Allowed scalar fields and their max length
+  fields: Record<string, number>
+  // Optional array-of-objects field: { name: { key: maxLen, ... }, maxItems }
+  arrays?: Record<string, { item: Record<string, number>; maxItems: number }>
+  // Force these fields to fixed server-side values (overrides any caller input)
+  forced?: Record<string, unknown>
+}
+
+const PUBLIC_TEMPLATE_POLICIES: Record<string, PublicPolicy> = {
+  'contact-notification': {
+    fields: {
+      segment: 64,
+      segmentLabel: 128,
+      name: 200,
+      email: 255,
+      phone: 64,
+      message: 4000,
+      submittedAt: 64,
+    },
+    arrays: {
+      fields: {
+        item: { label: 128, value: 1000 },
+        maxItems: 32,
+      },
+    },
+  },
+  'schools-one-pager-delivery': {
+    fields: {
+      firstName: 100,
+      organization: 200,
+    },
+    // pdfUrl is intentionally NOT accepted from public callers; the template's
+    // default constant is used instead. This prevents an anon caller from
+    // turning the branded delivery email into a phishing vehicle.
+  },
+  'schools-one-pager-internal': {
+    fields: {
+      firstName: 100,
+      organization: 200,
+      email: 255,
+      role: 128,
+      submittedAt: 64,
+    },
+  },
+}
+
+function sanitizeTemplateDataForPublic(
+  templateName: string,
+  data: Record<string, any>
+): { ok: true; data: Record<string, any> } | { ok: false; error: string } {
+  const policy = PUBLIC_TEMPLATE_POLICIES[templateName]
+  if (!policy) {
+    return {
+      ok: false,
+      error: `Template '${templateName}' is not callable by public clients`,
+    }
+  }
+  const out: Record<string, any> = {}
+  for (const [key, maxLen] of Object.entries(policy.fields)) {
+    if (data[key] !== undefined) out[key] = cleanString(data[key], maxLen)
+  }
+  if (policy.arrays) {
+    for (const [arrKey, spec] of Object.entries(policy.arrays)) {
+      const raw = data[arrKey]
+      if (Array.isArray(raw)) {
+        out[arrKey] = raw.slice(0, spec.maxItems).map((entry) => {
+          const cleaned: Record<string, string> = {}
+          if (entry && typeof entry === 'object') {
+            for (const [k, ml] of Object.entries(spec.item)) {
+              cleaned[k] = cleanString((entry as any)[k], ml)
+            }
+          }
+          return cleaned
+        })
+      }
+    }
+  }
+  if (policy.forced) {
+    for (const [k, v] of Object.entries(policy.forced)) out[k] = v
+  }
+  return { ok: true, data: out }
+}
 
 Deno.serve(async (req) => {
   // Handle CORS preflight
@@ -82,6 +196,24 @@ Deno.serve(async (req) => {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       }
     )
+  }
+
+  // Restrict templateData for non-service_role callers (public clients using the
+  // anon key) to prevent branded-email phishing/spam abuse.
+  const callerRole = getCallerRole(req)
+  if (callerRole !== 'service_role') {
+    const sanitized = sanitizeTemplateDataForPublic(templateName, templateData)
+    if (!sanitized.ok) {
+      console.warn('Rejected public send for restricted template', {
+        templateName,
+        callerRole,
+      })
+      return new Response(JSON.stringify({ error: sanitized.error }), {
+        status: 403,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
+    }
+    templateData = sanitized.data
   }
 
   // 1. Look up template from registry (early — needed to resolve recipient)
