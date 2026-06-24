@@ -252,6 +252,57 @@ Deno.serve(async (req) => {
   // Create Supabase client with service role (bypasses RLS)
   const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
+  // Gate public sends of the schools one-pager delivery email to recipients
+  // who have actually submitted the schools one-pager form recently. This
+  // prevents an anon caller from blasting branded emails to arbitrary
+  // addresses ("email spam vector"). Service-role callers bypass this.
+  if (
+    callerRole !== 'service_role' &&
+    templateName === 'schools-one-pager-delivery'
+  ) {
+    const lookbackIso = new Date(
+      Date.now() - 24 * 60 * 60 * 1000
+    ).toISOString()
+    const { data: submission, error: submissionError } = await supabase
+      .from('email_submissions')
+      .select('id')
+      .eq('email', effectiveRecipient.toLowerCase())
+      .eq('category', 'schools-one-pager')
+      .gte('created_at', lookbackIso)
+      .limit(1)
+      .maybeSingle()
+
+    if (submissionError) {
+      console.error('Failed to verify schools one-pager submission', {
+        error: submissionError,
+        effectiveRecipient,
+      })
+      return new Response(
+        JSON.stringify({ error: 'Failed to verify request' }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      )
+    }
+
+    if (!submission) {
+      console.warn('Rejected schools one-pager delivery without prior submission', {
+        effectiveRecipient,
+      })
+      return new Response(
+        JSON.stringify({
+          error:
+            'Recipient must submit the schools one-pager request form before delivery can be triggered',
+        }),
+        {
+          status: 403,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      )
+    }
+  }
+
   // 2. Check suppression list (fail-closed: if we can't verify, don't send)
   const { data: suppressed, error: suppressionError } = await supabase
     .from('suppressed_emails')
