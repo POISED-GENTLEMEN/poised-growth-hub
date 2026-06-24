@@ -269,11 +269,14 @@ const SchoolsOnePager = () => {
                     </SelectContent>
                   </Select>
                 </div>
+                <div className="flex justify-center">
+                  <TurnstileWidget onToken={setCaptchaToken} />
+                </div>
                 <Button
                   type="submit"
                   size="lg"
                   className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
-                  disabled={submitting}
+                  disabled={submitting || !captchaToken}
                 >
                   {submitting ? "Sending..." : "Send Me the One-Pager"}
                 </Button>
