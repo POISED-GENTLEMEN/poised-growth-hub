@@ -1,38 +1,26 @@
-## Goal
-Replace `WITH CHECK (true)` on the two public lead-capture tables with column-shape validation, as defense-in-depth against malformed/abusive anon inserts. No change to who can insert (still `anon, authenticated`); no change to SELECT/UPDATE/DELETE (still denied for non-service_role).
+# Patch high-severity dependency advisories
 
-## Migration
+Three transitive vulnerabilities flagged by the supply-chain scanner. Fix by bumping the direct parents to versions that pull in patched transitives.
 
-Drop and recreate the INSERT policies on `public.contact_submissions` and `public.email_submissions` with stricter `WITH CHECK` predicates.
+## Changes
 
-### `public.contact_submissions`
+1. **@supabase/supabase-js** — bump from `2.81.1` to latest `2.x` (pulls in patched `ws` ≥ 8.17.1, addressing GHSA-96hv-2xvq-fx4p).
+2. **react-router-dom** — bump from `6.30.1` to latest `6.x` patch (pulls in patched `@remix-run/router`, addressing GHSA-2w69-qvjg-hvjx). Stay on v6 to avoid the v7 breaking changes across the routing in `src/App.tsx` and `src/lib/redirects.ts`.
+3. **recharts** — bump from `2.15.4` to the latest `2.x` that no longer depends on vulnerable `lodash` (addressing GHSA-r5fr-rjxr-66jc). If no `2.x` release drops the bad lodash, fall back to adding an `overrides` entry in `package.json` forcing `lodash` ≥ 4.17.21 patched line.
 
-New INSERT policy `WITH CHECK`:
-- `email` matches a basic email regex AND `length(email) BETWEEN 3 AND 255`
-- `name` is non-empty after trim AND `length(name) <= 100`
-- `segment` is non-empty AND `length(segment) <= 50`
-- `phone IS NULL OR length(phone) <= 40`
-- `details IS NULL OR jsonb_typeof(details) = 'object'`
-- `pg_column_size(details) <= 8192` (cap JSON blob size)
+## Steps
 
-### `public.email_submissions`
-
-New INSERT policy `WITH CHECK`:
-- `email` matches a basic email regex AND `length(email) BETWEEN 3 AND 255`
-- `category` non-empty AND `length(category) <= 50`
-- `first_name IS NULL OR length(first_name) <= 100`
-- `source IS NULL OR length(source) <= 100`
-
-Email regex used: `^[^@\s]+@[^@\s]+\.[^@\s]+$` (cheap shape check, not full RFC).
+1. Run `bun add @supabase/supabase-js@latest react-router-dom@^6 recharts@latest` (single command, lockfile updates auto-restart dev server).
+2. Re-run `code--dependency_scan` to confirm the three advisories clear.
+3. Smoke-check the preview: home route renders, a Codex article route resolves (router), Supabase client still imports, any Recharts usage still mounts (`src/components/ui/chart.tsx`).
+4. Call `security--manage_security_finding` → `mark_as_fixed` for `vulnerable_dependencies_high` with a note listing the new versions.
 
 ## Out of scope
-- Rate limiting (RLS can't do this; would need an edge function or Cloudflare).
-- Changing roles or any other policies.
-- Touching `send-transactional-email` (already sanitizes inputs).
 
-## After migration
-- Re-run the Supabase linter; the two `SUPA_rls_policy_always_true` warnings should clear since `WITH CHECK` is no longer `true`.
-- Update `@security-memory` to reflect the new hardened policies.
+- No code changes in `src/`. All three upgrades are within the current major, so no API migration is expected.
+- No `react-router-dom` v7 migration.
+- No security-memory update (this is a fix, not an accepted risk).
 
 ## Risk
-If the regex or length caps reject a legitimate submission shape currently in use, inserts will start failing. Current callers (contact + newsletter forms) send standard fields well within these caps, so impact should be nil — but worth flagging.
+
+Low. All bumps stay within the current major. If `recharts` lacks a clean lodash-patched release on v2, the `overrides` fallback is a one-line `package.json` change with no source impact.
