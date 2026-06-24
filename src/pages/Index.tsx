@@ -46,11 +46,11 @@ const Index = () => {
   }, []);
 
   const proofItems = [
-    "SOAS MOU — $6,310 engagement",
-    "May 2026 cohort completed — 12 participants + Family Showcase",
-    "ADA-certified facilitator credential",
-    "Library of Congress catalogued book — LCCN 2026934416",
-    "PGI incorporation effective Juneteenth 2026",
+    "12 young men completed our inaugural PYG cohort — May 2026",
+    "ADA-certified programming — Louisiana Regions 2 & 9",
+    "The Poised Gentlemen Codex — Library of Congress catalogued",
+    "Nonprofit formation complete — Juneteenth 2026",
+    "United Way SELA — active partnership in development",
   ];
 
   const tiers = [
@@ -96,7 +96,7 @@ const Index = () => {
         <title>Poised Gentlemen | Character Development for Boys</title>
         <meta
           name="description"
-          content="Character development and wellness programs for boys built on Integrity, Strength, Emotional Intelligence, and Discipline. For schools, organizations, and families."
+          content="Character development programs for boys built on Integrity, Strength, Emotional Intelligence, and Discipline. For schools, organizations, and families in Louisiana and beyond."
         />
       </Helmet>
       <Header />
@@ -109,7 +109,7 @@ const Index = () => {
               Build Men. Build Communities.
             </h1>
             <p className="text-lg md:text-xl text-primary-foreground/90 leading-relaxed">
-              Character development and wellness programming for youth — built on Integrity,
+              Character development programs for boys — built on Integrity,
               Strength, Emotional Intelligence, and Discipline.
             </p>
           </div>
@@ -117,14 +117,41 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {/* Lane A — Schools & Organizations */}
             <Card className="p-8 bg-background text-foreground border-2 border-gold flex flex-col">
-              <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-3">
+              <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">
                 For Schools & Organizations
               </p>
-              <ul className="space-y-3 mb-8 flex-1">
+              <div className="flex flex-col gap-3 mb-6">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-gold text-primary hover:bg-gold/90 font-semibold w-full"
+                >
+                  <Link
+                    to="/proposal"
+                    onClick={() => trackEvent("cta_request_proposal_hero")}
+                  >
+                    Request a Program Proposal
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="border-gold text-primary hover:bg-gold hover:text-primary font-semibold w-full bg-transparent"
+                >
+                  <Link
+                    to="/contact"
+                    onClick={() => trackEvent("cta_book_fit_call_hero")}
+                  >
+                    Book a 15-Minute Fit Call
+                  </Link>
+                </Button>
+              </div>
+              <ul className="space-y-3 flex-1">
                 {[
-                  "Procurement-ready licensing options",
-                  "ADA-certified facilitation available",
-                  "Clear implementation. Measurable outcomes.",
+                  "ADA-certified programming for ages 5–12",
+                  "Character development cohort for boys 10–13",
+                  "Clear outcomes. Simple implementation.",
                 ].map((b) => (
                   <li key={b} className="flex gap-2 text-sm text-foreground/85">
                     <Check className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" strokeWidth={2} />
@@ -132,30 +159,45 @@ const Index = () => {
                   </li>
                 ))}
               </ul>
-              <Button
-                asChild
-                size="lg"
-                className="bg-gold text-primary hover:bg-gold/90 font-semibold w-full"
-              >
-                <Link
-                  to="/request-proposal"
-                  onClick={() => trackEvent("cta_request_proposal_hero")}
-                >
-                  Request a Program Proposal
-                </Link>
-              </Button>
             </Card>
 
-            {/* Lane B — Parents & Families */}
+            {/* Lane B — For Parents */}
             <Card className="p-8 bg-primary text-primary-foreground border-2 border-primary-foreground/30 flex flex-col">
-              <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-3">
-                For Parents & Families
+              <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-4">
+                For Parents
               </p>
-              <ul className="space-y-3 mb-8 flex-1">
+              <div className="flex flex-col gap-3 mb-6">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-gold text-primary hover:bg-gold/90 font-semibold w-full"
+                >
+                  <Link
+                    to="/pyg"
+                    onClick={() => trackEvent("cta_explore_pyg_hero")}
+                  >
+                    Explore Poised Young Gentlemen
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="border-gold text-gold hover:bg-gold hover:text-primary font-semibold w-full bg-transparent"
+                >
+                  <Link
+                    to="/project-power"
+                    onClick={() => trackEvent("cta_learn_project_power_hero")}
+                  >
+                    Learn About Project Power
+                  </Link>
+                </Button>
+              </div>
+              <ul className="space-y-3 flex-1">
                 {[
-                  "Poised Young Gentlemen — boys ages 10–13",
-                  "Project Power — ages 5–12, co-ed",
-                  "Confidence, discipline, emotional intelligence",
+                  "Ages 5–12: ADA-certified health & wellness (co-ed)",
+                  "Ages 10–13: 12-week character development for boys",
+                  "Confidence, discipline, emotional control",
                 ].map((b) => (
                   <li key={b} className="flex gap-2 text-sm text-primary-foreground/90">
                     <Check className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" strokeWidth={2} />
@@ -163,16 +205,6 @@ const Index = () => {
                   </li>
                 ))}
               </ul>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-gold text-gold hover:bg-gold hover:text-primary font-semibold w-full bg-transparent"
-              >
-                <a href="#programs" onClick={() => trackEvent("cta_explore_programs_click")}>
-                  Explore Programs for Your Son
-                </a>
-              </Button>
             </Card>
           </div>
         </div>
@@ -182,15 +214,10 @@ const Index = () => {
       <section className="bg-[#0D1B2A] text-primary-foreground py-8 border-y border-gold/30">
         <div className="container mx-auto px-4">
           <h2 className="sr-only">Verified Credentials</h2>
-          <ul className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 text-sm md:text-base">
-            {proofItems.map((item, i) => (
-              <li key={item} className="flex items-center gap-3">
-                <span className="text-gold font-semibold">{item}</span>
-                {i < proofItems.length - 1 && (
-                  <span className="hidden md:inline text-gold/40" aria-hidden="true">
-                    •
-                  </span>
-                )}
+          <ul className="flex flex-col md:flex-row justify-center items-center gap-y-4 md:gap-x-8 text-sm md:text-base text-center">
+            {proofItems.map((item) => (
+              <li key={item} className="text-gold font-semibold">
+                {item}
               </li>
             ))}
           </ul>
@@ -240,7 +267,7 @@ const Index = () => {
                   asChild
                   className="bg-gold text-primary hover:bg-gold/90 font-semibold w-full"
                 >
-                  <Link to="/request-proposal" onClick={() => trackEvent(t.event)}>
+                  <Link to="/proposal" onClick={() => trackEvent(t.event)}>
                     Request a Proposal
                   </Link>
                 </Button>
@@ -248,7 +275,7 @@ const Index = () => {
             ))}
           </div>
           <p className="text-center text-sm text-muted-foreground mt-8">
-            We'll recommend the right tier after a short fit call.
+            We&apos;ll recommend the right tier after a short fit call.
           </p>
         </div>
       </section>
@@ -276,13 +303,16 @@ const Index = () => {
         </div>
       </section>
 
-      {/* INSTITUTIONAL CONVERSION BLOCK */}
+      {/* INSTITUTIONAL CONVERSION SECTION */}
       <section className="py-20 md:py-24 bg-background">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-heading font-bold text-primary">
-              Bring Poised Gentlemen to Your Setting
+              Bring Poised Gentlemen to Your School or Organization
             </h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto mt-4 leading-relaxed">
+              We partner with schools, youth organizations, and community programs to deliver character development that sticks. Our programs are structured, measurable, and built for the settings where boys actually are.
+            </p>
           </div>
 
           <ol className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
@@ -290,17 +320,17 @@ const Index = () => {
               {
                 n: "1",
                 title: "Tell us your setting",
-                desc: "Submit a proposal request describing your organization and population.",
+                desc: "You submit a proposal request describing your organization and population.",
               },
               {
                 n: "2",
                 title: "We recommend a program format",
-                desc: "We match you with the right program and delivery model.",
+                desc: "We match you with the right program track and delivery model.",
               },
               {
                 n: "3",
-                title: "We deliver and measure",
-                desc: "You receive clear progress reporting your stakeholders can use.",
+                title: "We deliver and measure progress",
+                desc: "You receive clear reporting your stakeholders can use.",
               },
             ].map((s) => (
               <li key={s.n} className="list-none">
@@ -315,41 +345,48 @@ const Index = () => {
             ))}
           </ol>
 
-          <div className="max-w-3xl mx-auto mb-10 space-y-6">
+          {/* Program Track Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {[
               {
-                q: "What ages do you serve?",
-                a: "Poised Young Gentlemen serves boys ages 10–13. Project Power serves youth ages 5–12, co-ed. Contact us if you have a population outside these ranges — we can discuss options.",
+                label: "Project Power",
+                body: "ADA-certified health & wellness programming. Ages 5–12. Co-ed. Per-cohort delivery.",
+                event: "cta_request_proposal_project_power",
+                cta: "Request a Proposal",
               },
               {
-                q: "How does licensing work?",
-                a: "We offer three tiers based on your organization type and scale. The proposal process identifies the right fit. No commitment required to start the conversation.",
+                label: "Poised Young Gentlemen (PYG)",
+                body: "12-week character development cohort. Boys 10–13. Maximum 12 participants per cohort.",
+                event: "cta_request_proposal_pyg",
+                cta: "Request a Proposal",
               },
               {
-                q: "How fast can we start?",
-                a: "Most programs launch 3–4 weeks after a signed agreement. Submit a proposal and we'll walk you through the timeline on our fit call.",
+                label: "Custom Partnership",
+                body: "Tailored programming designed around your organization's specific population, setting, and goals.",
+                event: "cta_request_proposal_custom",
+                cta: "Start a Conversation",
               },
-            ].map((f) => (
-              <div key={f.q} className="border-l-4 border-gold pl-5">
-                <h3 className="font-heading font-bold text-primary mb-1">{f.q}</h3>
-                <p className="text-sm text-foreground/80 leading-relaxed">{f.a}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Button
-              asChild
-              size="lg"
-              className="bg-gold text-primary hover:bg-gold/90 font-semibold"
-            >
-              <Link
-                to="/request-proposal"
-                onClick={() => trackEvent("cta_request_proposal_institutional_block")}
+            ].map((c) => (
+              <Card
+                key={c.label}
+                className="p-8 bg-primary text-primary-foreground border-2 border-gold/40 flex flex-col"
               >
-                Request a Program Proposal
-              </Link>
-            </Button>
+                <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-3">
+                  {c.label}
+                </p>
+                <p className="text-sm text-primary-foreground/85 mb-8 flex-1 leading-relaxed">
+                  {c.body}
+                </p>
+                <Button
+                  asChild
+                  className="bg-gold text-primary hover:bg-gold/90 font-semibold w-full"
+                >
+                  <Link to="/proposal" onClick={() => trackEvent(c.event)}>
+                    {c.cta}
+                  </Link>
+                </Button>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
