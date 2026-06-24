@@ -276,9 +276,138 @@ const Index = () => {
         </div>
       </section>
 
+      {/* INSTITUTIONAL CONVERSION BLOCK */}
+      <section className="py-20 md:py-24 bg-background">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-heading font-bold text-primary">
+              Bring Poised Gentlemen to Your Setting
+            </h2>
+          </div>
+
+          <ol className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            {[
+              {
+                n: "1",
+                title: "Tell us your setting",
+                desc: "Submit a proposal request describing your organization and population.",
+              },
+              {
+                n: "2",
+                title: "We recommend a program format",
+                desc: "We match you with the right program and delivery model.",
+              },
+              {
+                n: "3",
+                title: "We deliver and measure",
+                desc: "You receive clear progress reporting your stakeholders can use.",
+              },
+            ].map((s) => (
+              <li key={s.n} className="list-none">
+                <Card className="p-8 h-full border-2 border-border hover:border-gold transition-colors">
+                  <div className="w-10 h-10 rounded-full bg-gold text-primary font-heading font-bold flex items-center justify-center mb-4">
+                    {s.n}
+                  </div>
+                  <h3 className="text-lg font-heading font-bold mb-2 text-primary">{s.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                </Card>
+              </li>
+            ))}
+          </ol>
+
+          <div className="max-w-3xl mx-auto mb-10 space-y-6">
+            {[
+              {
+                q: "What ages do you serve?",
+                a: "Poised Young Gentlemen serves boys ages 10–13. Project Power serves youth ages 5–12, co-ed. Contact us if you have a population outside these ranges — we can discuss options.",
+              },
+              {
+                q: "How does licensing work?",
+                a: "We offer three tiers based on your organization type and scale. The proposal process identifies the right fit. No commitment required to start the conversation.",
+              },
+              {
+                q: "How fast can we start?",
+                a: "Most programs launch 3–4 weeks after a signed agreement. Submit a proposal and we'll walk you through the timeline on our fit call.",
+              },
+            ].map((f) => (
+              <div key={f.q} className="border-l-4 border-gold pl-5">
+                <h3 className="font-heading font-bold text-primary mb-1">{f.q}</h3>
+                <p className="text-sm text-foreground/80 leading-relaxed">{f.a}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Button
+              asChild
+              size="lg"
+              className="bg-gold text-primary hover:bg-gold/90 font-semibold"
+            >
+              <Link
+                to="/request-proposal"
+                onClick={() => trackEvent("cta_request_proposal_institutional_block")}
+              >
+                Request a Program Proposal
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* START HERE — INTERNAL HUB */}
+      <section className="py-20 md:py-24 bg-muted">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-heading font-bold text-primary">
+              Start Here
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Poised Young Gentlemen (PYG)",
+                desc: "Our 12-week character development cohort for boys ages 10–13. Built for small groups. Built for lasting change.",
+                to: "/pyg",
+                event: "hub_pyg_click",
+                label: "Explore PYG",
+              },
+              {
+                title: "The Poised Gentlemen Codex",
+                desc: "The foundational text behind the Poised Method. Available in print, ebook, and Audible.",
+                to: "/codex",
+                event: "hub_codex_click",
+                label: "Explore the Codex",
+              },
+              {
+                title: "The Essence Collection",
+                desc: "Grooming products built for the modern gentleman. Fragrance, skincare, and character in every product.",
+                to: "/essence",
+                event: "hub_essence_click",
+                label: "Explore Essence",
+              },
+            ].map((c) => (
+              <Card key={c.title} className="p-8 bg-background border-2 border-border hover:border-gold transition-colors flex flex-col">
+                <h3 className="text-xl font-heading font-bold mb-3 text-primary">{c.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">{c.desc}</p>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="border-gold text-primary hover:bg-gold hover:text-primary w-full"
+                >
+                  <Link to={c.to} onClick={() => trackEvent(c.event)}>
+                    {c.label}
+                  </Link>
+                </Button>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>
+
   );
 };
 
