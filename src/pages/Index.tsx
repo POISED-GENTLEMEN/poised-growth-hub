@@ -345,6 +345,34 @@ const Index = () => {
             ))}
           </ol>
 
+          {/* FAQ */}
+          <div className="max-w-3xl mx-auto mb-16">
+            <h3 className="text-2xl md:text-3xl font-heading font-bold text-primary text-center mb-8">
+              Frequently Asked Questions
+            </h3>
+            <dl className="space-y-6">
+              {[
+                {
+                  q: "What ages do you serve?",
+                  a: "Poised Young Gentlemen serves boys ages 10–13. Project Power serves youth ages 5–12, co-ed. Contact us if your population falls outside these ranges.",
+                },
+                {
+                  q: "How does licensing work?",
+                  a: "We offer three tiers based on your organization type and scale. The proposal process identifies the right fit. No commitment required to start the conversation.",
+                },
+                {
+                  q: "How fast can we start?",
+                  a: "Most programs launch 3–4 weeks after a signed agreement. Submit a proposal and we'll walk through the timeline on our fit call.",
+                },
+              ].map((item) => (
+                <div key={item.q} className="border-l-2 border-gold pl-5">
+                  <dt className="font-heading font-bold text-primary mb-2">{item.q}</dt>
+                  <dd className="text-sm text-muted-foreground leading-relaxed">{item.a}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
           {/* Program Track Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {[
