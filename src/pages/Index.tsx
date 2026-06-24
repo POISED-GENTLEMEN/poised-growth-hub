@@ -197,6 +197,23 @@ const Index = () => {
         </div>
       </section>
 
+      {/* PARTNER BANNER */}
+      <section className="py-10 bg-muted border-b border-border">
+        <div className="container mx-auto px-4">
+          <h2 className="sr-only">Trusted Partners</h2>
+          <p className="text-center text-xs uppercase tracking-widest text-muted-foreground font-semibold mb-4">
+            Trusted Partners
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-3 md:gap-x-16">
+            {partners.map((p) => (
+              <span key={p} className="text-sm md:text-base font-heading text-primary text-center">
+                {p}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* LICENSING OPTIONS */}
       <section id="programs" className="py-20 md:py-24 bg-background">
         <div className="container mx-auto px-4 max-w-6xl">
@@ -214,12 +231,10 @@ const Index = () => {
                 <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-3">
                   {t.label}
                 </p>
-                <p className="text-2xl font-heading font-bold mb-2">
-                  <span className="text-gold/70 text-xs uppercase tracking-wider block mb-1">
-                    [Confirm Pricing]
-                  </span>
-                  {t.price}
-                </p>
+                <p className="text-2xl font-heading font-bold mb-2">{t.price}</p>
+                {t.subline && (
+                  <p className="text-xs text-gold/90 mb-2">{t.subline}</p>
+                )}
                 <p className="text-sm text-primary-foreground/85 mb-8 flex-1">{t.line}</p>
                 <Button
                   asChild
@@ -237,6 +252,30 @@ const Index = () => {
           </p>
         </div>
       </section>
+
+      {/* FOUR PILLARS */}
+      <section className="py-20 md:py-24 bg-muted">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4 text-primary">
+              The Four Pillars
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              The framework that shapes every program we deliver.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {pillars.map(({ icon: Icon, title, desc }) => (
+              <Card key={title} className="p-8 border-2 hover:border-gold transition-colors text-center bg-background">
+                <Icon className="w-10 h-10 text-gold mx-auto mb-4" strokeWidth={1.5} />
+                <h3 className="text-xl font-heading font-bold mb-3 text-primary">{title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
       <Footer />
     </div>
