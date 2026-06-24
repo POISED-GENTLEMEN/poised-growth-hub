@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Check } from "lucide-react";
+import { Check, Shield, Dumbbell, Brain, Target } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCanonical } from "@/hooks/useCanonical";
