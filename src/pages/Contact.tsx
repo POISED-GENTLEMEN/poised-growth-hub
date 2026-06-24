@@ -19,6 +19,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { trackProposalOrInquirySubmit } from "@/lib/analytics";
+import { TurnstileWidget, resetTurnstile } from "@/components/TurnstileWidget";
 
 type Segment = "school" | "parent" | "press" | "other" | "";
 
@@ -36,6 +37,7 @@ const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   const [form, setForm] = useState({
     name: "",
@@ -119,8 +121,25 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
+    if (!captchaToken) {
+      setErrors({ submit: "Please complete the verification to continue." });
+      return;
+    }
 
     setSubmitting(true);
+
+    const { data: verify, error: verifyError } = await supabase.functions.invoke(
+      "verify-turnstile",
+      { body: { token: captchaToken } }
+    );
+    if (verifyError || !verify?.ok) {
+      setSubmitting(false);
+      setErrors({ submit: "Verification failed. Please try again." });
+      resetTurnstile();
+      setCaptchaToken(null);
+      return;
+    }
+
 
     const details: Record<string, string> = {};
     const extraFields: { label: string; value: string }[] = [];
@@ -166,6 +185,8 @@ const Contact = () => {
 
     if (error) {
       setErrors({ submit: "Something went wrong. Please try again or email us directly." });
+      resetTurnstile();
+      setCaptchaToken(null);
       return;
     }
 
@@ -211,7 +232,10 @@ const Contact = () => {
       outlet: "",
     });
     setSegment("");
+    setCaptchaToken(null);
+    resetTurnstile();
   };
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -605,13 +629,17 @@ const Contact = () => {
                   )}
                 </div>
 
+                <div className="flex justify-center">
+                  <TurnstileWidget onToken={setCaptchaToken} />
+                </div>
+
                 {errors.submit && (
                   <p className="text-sm text-destructive text-center">{errors.submit}</p>
                 )}
 
                 <Button
                   type="submit"
-                  disabled={submitting || !segment}
+                  disabled={submitting || !segment || !captchaToken}
                   className="w-full h-12 bg-gold text-gold-foreground hover:bg-gold/90 font-semibold"
                 >
                   {submitting ? "Sending..." : "Send Inquiry"}

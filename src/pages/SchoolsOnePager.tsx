@@ -21,6 +21,7 @@ import { toast } from "@/hooks/use-toast";
 import { trackProposalOrInquirySubmit, trackOnePagerDownload } from "@/lib/analytics";
 import { z } from "zod";
 import onePagerAsset from "@/assets/schools-one-pager.pdf.asset.json";
+import { TurnstileWidget, resetTurnstile } from "@/components/TurnstileWidget";
 
 const DESC =
   "Download a one-page overview of Poised Gentlemen programs for schools and youth organizations — featuring Project Power, ADA-certified and delivered at no cost to your organization.";
@@ -51,6 +52,7 @@ const SchoolsOnePager = () => {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   useEffect(() => {
     document.title = "Get the Poised Gentlemen One-Pager | Schools & Organizations";
@@ -71,8 +73,24 @@ const SchoolsOnePager = () => {
       });
       return;
     }
+    if (!captchaToken) {
+      toast({
+        title: "Please complete the verification",
+        description: "Confirm you're not a bot to continue.",
+        variant: "destructive",
+      });
+      return;
+    }
     setSubmitting(true);
     try {
+      const { data: verify, error: verifyError } = await supabase.functions.invoke(
+        "verify-turnstile",
+        { body: { token: captchaToken } }
+      );
+      if (verifyError || !verify?.ok) {
+        throw new Error("Verification failed, please try again.");
+      }
+
       const { error } = await supabase.from("email_submissions").insert({
         email: parsed.data.email,
         first_name: parsed.data.firstName,
@@ -125,9 +143,14 @@ const SchoolsOnePager = () => {
       console.error(err);
       toast({
         title: "Submission failed",
-        description: "Please try again or email david@risetopurpose.org directly.",
+        description:
+          err instanceof Error && err.message
+            ? err.message
+            : "Please try again or email david@risetopurpose.org directly.",
         variant: "destructive",
       });
+      resetTurnstile();
+      setCaptchaToken(null);
     } finally {
       setSubmitting(false);
     }
@@ -246,11 +269,14 @@ const SchoolsOnePager = () => {
                     </SelectContent>
                   </Select>
                 </div>
+                <div className="flex justify-center">
+                  <TurnstileWidget onToken={setCaptchaToken} />
+                </div>
                 <Button
                   type="submit"
                   size="lg"
                   className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
-                  disabled={submitting}
+                  disabled={submitting || !captchaToken}
                 >
                   {submitting ? "Sending..." : "Send Me the One-Pager"}
                 </Button>
