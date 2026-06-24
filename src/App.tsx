@@ -26,6 +26,7 @@ import CodexArticle, { codexArticleSlugs } from "./pages/CodexArticle";
 import Essence from "./pages/Essence";
 import Unsubscribe from "./pages/Unsubscribe";
 import NotFound from "./pages/NotFound";
+import LegalPage from "./pages/LegalPage.jsx";
 
 const queryClient = new QueryClient();
 
@@ -77,6 +78,8 @@ const App = () => {
           <Route path="/mockup-generator" element={<MockupGenerator />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/unsubscribe/" element={<Unsubscribe />} />
+          <Route path="/legal" element={<LegalPage />} />
+          <Route path="/legal/" element={<LegalPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
