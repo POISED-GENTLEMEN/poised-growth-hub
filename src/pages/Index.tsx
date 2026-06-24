@@ -57,21 +57,37 @@ const Index = () => {
     {
       label: "Organizations",
       price: "$2,500–$4,500 / year",
+      subline: null as string | null,
       line: "Youth orgs, libraries, community partners",
       event: "cta_request_proposal_org",
     },
     {
       label: "Schools",
       price: "$8,500–$12,000 / year",
+      subline: null as string | null,
       line: "School campuses and charter networks",
       event: "cta_request_proposal_school",
     },
     {
       label: "Individuals",
-      price: "$497–$997 / year",
+      price: "$600–$1,800",
+      subline: "$75/session · 2 sessions/week minimum",
       line: "Independent mentors and families",
       event: "cta_request_proposal_individual",
     },
+  ];
+
+  const partners = [
+    "United Way SELA",
+    "Son of a Saint",
+    "AmeriHealth Caritas Louisiana",
+  ];
+
+  const pillars = [
+    { icon: Shield, title: "Integrity", desc: "Character over convenience — doing right when no one is watching." },
+    { icon: Dumbbell, title: "Strength", desc: "Mental, emotional, and physical resilience built through practice." },
+    { icon: Brain, title: "Emotional Intelligence", desc: "Self-awareness, regulation, and the ability to lead from clarity." },
+    { icon: Target, title: "Discipline", desc: "Consistency over motivation — the daily rituals that build men." },
   ];
 
   return (
