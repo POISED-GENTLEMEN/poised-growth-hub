@@ -26,6 +26,7 @@ import CodexArticle, { codexArticleSlugs } from "./pages/CodexArticle";
 import Essence from "./pages/Essence";
 import Unsubscribe from "./pages/Unsubscribe";
 import NotFound from "./pages/NotFound";
+import LegalPage from "./pages/LegalPage.jsx";
 
 const queryClient = new QueryClient();
 
