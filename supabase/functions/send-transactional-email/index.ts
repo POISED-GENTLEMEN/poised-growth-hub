@@ -198,6 +198,24 @@ Deno.serve(async (req) => {
     )
   }
 
+  // Restrict templateData for non-service_role callers (public clients using the
+  // anon key) to prevent branded-email phishing/spam abuse.
+  const callerRole = getCallerRole(req)
+  if (callerRole !== 'service_role') {
+    const sanitized = sanitizeTemplateDataForPublic(templateName, templateData)
+    if (!sanitized.ok) {
+      console.warn('Rejected public send for restricted template', {
+        templateName,
+        callerRole,
+      })
+      return new Response(JSON.stringify({ error: sanitized.error }), {
+        status: 403,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
+    }
+    templateData = sanitized.data
+  }
+
   // 1. Look up template from registry (early — needed to resolve recipient)
   const template = TEMPLATES[templateName]
 
