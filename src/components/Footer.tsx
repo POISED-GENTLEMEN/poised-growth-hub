@@ -211,12 +211,41 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Homepage Quick Links */}
+        <div className="border-t border-primary-foreground/20 pt-6 mb-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm mb-4">
+            <Link to="/request-proposal" className="hover:text-gold transition-colors">
+              Schools & Organizations
+            </Link>
+            <span className="text-primary-foreground/30" aria-hidden="true">|</span>
+            <Link to="/#programs" className="hover:text-gold transition-colors">
+              Parents
+            </Link>
+            <span className="text-primary-foreground/30" aria-hidden="true">|</span>
+            <Link to="/contact" className="hover:text-gold transition-colors">
+              Contact
+            </Link>
+          </div>
+          <p className="text-center text-sm text-primary-foreground/80">
+            <a href="mailto:david@risetopurpose.org" className="hover:text-gold transition-colors">
+              david@risetopurpose.org
+            </a>
+            <span className="mx-2 text-primary-foreground/30">|</span>
+            <a href="tel:+15044849037" className="hover:text-gold transition-colors">
+              504-484-9037
+            </a>
+            <span className="mx-2 text-primary-foreground/30">|</span>
+            <span>poisedgentlemen.com</span>
+          </p>
+        </div>
+
         {/* Tagline Lockup */}
         <div className="text-center mb-6">
           <p className="font-heading font-bold text-gold text-lg tracking-wide">
             Refined standards. Grounded character. Generational impact.
           </p>
         </div>
+
 
         {/* Footer Bottom */}
         <div className="border-t border-primary-foreground/20 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
