@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Check, Loader2 } from "lucide-react";
 import { createShopifyCheckout } from "@/lib/shopify";
+import { shopifyUrl, trackShopClick } from "@/lib/shopifyLinks";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { newsletterSchema } from "@/lib/validations";
