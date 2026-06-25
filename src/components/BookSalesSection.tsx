@@ -257,6 +257,23 @@ const BookSalesSection = () => {
           </Button>
         </div>
 
+        <p className="mb-4">
+          <a
+            href={shopifyUrl(
+              "/products/the-poised-gentlemen-codex-paperback-founding-circle-edition",
+              "codex_cta"
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) =>
+              trackShopClick("codex_cta", (e.currentTarget as HTMLAnchorElement).href)
+            }
+            className="text-sm text-gold underline underline-offset-4 hover:text-gold/80"
+          >
+            View on Shopify →
+          </a>
+        </p>
+
         <p className="text-xs text-primary-foreground/50">
           Digital access delivered instantly. Physical copy ships by March 7, 2026.
         </p>
