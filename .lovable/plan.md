@@ -1,59 +1,40 @@
-# Add Cloudflare Turnstile CAPTCHA
+## Goal
+Find every misrouted button/link on the site, fix the unambiguous ones in-place, and flag the judgment calls for you before touching them.
 
-Gate the two public form submissions (Contact, Schools One-Pager) behind a Cloudflare Turnstile challenge so automated bots can't submit them.
+## Step 1 — Full link audit
+Scan every `<Link to=...>`, `<a href=...>`, `navigate(...)`, and `window.location` call across `src/pages` and `src/components`. For each, record:
+- File + line
+- Visible label
+- Current destination
+- Route status: ✅ resolves, 🔁 hits a redirect (still works), ❌ 404, ⚠️ resolves but likely wrong target
 
-## What you'll do once
-1. Create a Turnstile site at https://dash.cloudflare.com/?to=/:account/turnstile (Widget mode: **Managed**, domains: `poisedgentlemen.com` + `lovable.app`).
-2. Paste the **Site Key** in chat (public, goes in code).
-3. When prompted, paste the **Secret Key** into the secure secret prompt — it will be stored as `TURNSTILE_SECRET_KEY` for backend verification only.
+Cross-reference against `src/App.tsx` routes and `src/lib/redirects.ts`.
 
-## What I'll build
+## Step 2 — Auto-fix the obvious breaks
+Confirmed dead/wrong destinations found so far (will fix without asking):
 
-### Frontend
-- Add a tiny `<TurnstileWidget />` component (loads the Cloudflare script once, renders the widget, returns a token via callback).
-- Drop it into `src/pages/Contact.tsx` above the submit button.
-- Drop it into `src/pages/SchoolsOnePager.tsx` above the submit button.
-- Submit button stays disabled until a token is present. Token resets after submit (success or error) so re-submits get a fresh challenge.
-- Store the site key in `src/lib/turnstile.ts` as a public constant (safe to commit).
+| File | Link | Problem | Fix |
+|---|---|---|---|
+| `src/components/Footer.tsx:109` | `/faq` | No route, 404 | Remove link, or point at `/contact/#faq` if a FAQ block exists there |
+| `src/components/Footer.tsx:124` | `/accessibility` | No route, 404 | Remove link, or point at `/legal/#accessibility` |
+| `src/pages/Index.tsx:131,277,419` | `/proposal` | Works via redirect, but causes a flash + extra hop | Point directly at `/schools/#proposal-form` |
+| `src/pages/Index.tsx:196` | `/project-power` | Same — redirects | Point directly at `/schools/#project-power` |
+| `src/pages/Playbook.tsx:332`, `src/pages/PYG.tsx:78` | `/request-proposal` | Same — redirects | Point directly at `/schools/#proposal-form` |
+| `src/pages/Resources.tsx:169` | `/codex/poised-modern-masculinity` | Verify slug exists in `codexArticleSlugs`; if not, fall back to `/codex/` | Repoint to valid slug |
+| Hero "Get the Parent Playbook" button | `#parent-playbook` | Verify anchor id exists on `ParentPlaybookSection` | Add id if missing |
 
-### Backend
-- New edge function `verify-turnstile` (verify_jwt = false) that:
-  - Accepts `{ token, remoteip? }`.
-  - Calls `https://challenges.cloudflare.com/turnstile/v0/siteverify` with `TURNSTILE_SECRET_KEY`.
-  - Returns `{ ok: true }` or `{ ok: false, error }`.
-- Update `send-transactional-email` (`supabase/functions/send-transactional-email/index.ts`):
-  - For non-service_role callers, require a `captchaToken` in the body.
-  - Verify it inline (same siteverify call) before any send work.
-  - Reject with 403 if missing/invalid. Service-role calls skip this.
-- `Contact.tsx` and `SchoolsOnePager.tsx` pass the token through:
-  - In `supabase.functions.invoke("send-transactional-email", { body: { ..., captchaToken } })`.
-  - For the Contact direct DB insert path (`contact_submissions`) and the One-Pager `email_submissions` insert, call `verify-turnstile` first; abort the insert if it fails.
+Will also confirm `/codex/teen-grooming-routine/`, `/codex/how-to-build-discipline/`, `/codex/modern-masculinity/` (used on `Essence.tsx`) exist in `codexArticleSlugs`. Any that don't → repoint to `/codex/`.
 
-### Out of scope
-- No DB schema changes.
-- No RLS changes (RLS already restricts these tables; CAPTCHA is an additional spam gate).
-- No changes to other public endpoints (preview-email, unsubscribe, suppression) — those aren't user-submitted forms.
+## Step 3 — Flag, don't fix
+Anything where the *right* destination is a judgment call — e.g. a CTA whose label says "Shop X" but goes to a generic `/shop` instead of the specific product, or a "Learn more" that could equally point at two pages — will be reported with my recommendation, not auto-changed.
 
-## Technical details
+## Step 4 — Report
+Single summary with three lists:
+1. **Fixed** — file, link, before → after
+2. **Needs your call** — file, link, current target, my recommended target, why ambiguous
+3. **Verified correct** — count only, not the full list
 
-- Script: `https://challenges.cloudflare.com/turnstile/v0/api.js` (loaded async, deduped).
-- Widget render: `window.turnstile.render(el, { sitekey, callback, 'expired-callback', 'error-callback', theme: 'light' })`.
-- Token TTL is ~300s; we verify on the server immediately on submit, so expiry is rare. If it expires, the widget auto-resets and the user clicks again.
-- Verification call (server):
-  ```
-  POST https://challenges.cloudflare.com/turnstile/v0/siteverify
-  body: secret=<TURNSTILE_SECRET_KEY>&response=<token>
-  ```
-- Failure handling: on `success: false`, return 403 with `error-codes` for logging; surface a generic "Verification failed, please try again" in the UI.
-- Reset: call `window.turnstile.reset(widgetId)` after a submission attempt resolves.
-
-## Files touched
-- New: `src/components/TurnstileWidget.tsx`
-- New: `src/lib/turnstile.ts` (site key constant)
-- New: `supabase/functions/verify-turnstile/index.ts`
-- Edit: `src/pages/Contact.tsx`
-- Edit: `src/pages/SchoolsOnePager.tsx`
-- Edit: `supabase/functions/send-transactional-email/index.ts`
-
-## After approval
-I'll ask for the **Site Key** in chat and trigger the secure prompt for `TURNSTILE_SECRET_KEY`. Once both are in, I'll ship the code and the edge functions deploy automatically.
+## Technical notes
+- No new routes added in this pass (would be a separate task if you want pages for `/faq`, `/accessibility`, etc.).
+- `RedirectGate` already absorbs legacy paths, so removing redirect hops is a polish fix, not a functional one — included because you mentioned buttons going to "wrong places" which often means the redirect flash.
+- No brand-voice or styling changes.
