@@ -1,40 +1,52 @@
-## Goal
-Find every misrouted button/link on the site, fix the unambiguous ones in-place, and flag the judgment calls for you before touching them.
+# Add Direct Product Links to Shopify
 
-## Step 1 — Full link audit
-Scan every `<Link to=...>`, `<a href=...>`, `navigate(...)`, and `window.location` call across `src/pages` and `src/components`. For each, record:
-- File + line
-- Visible label
-- Current destination
-- Route status: ✅ resolves, 🔁 hits a redirect (still works), ❌ 404, ⚠️ resolves but likely wrong target
+Today every "Shop" button goes to a Shopify **collection** page. We'll add product-level links so users can land directly on the product they want, while checkout stays on Shopify (no embedded cart, no API sync).
 
-Cross-reference against `src/App.tsx` routes and `src/lib/redirects.ts`.
+## Scope
 
-## Step 2 — Auto-fix the obvious breaks
-Confirmed dead/wrong destinations found so far (will fix without asking):
+Three surfaces, all outbound (`target="_blank"`, GA4 tracked via existing `trackShopClick`):
 
-| File | Link | Problem | Fix |
-|---|---|---|---|
-| `src/components/Footer.tsx:109` | `/faq` | No route, 404 | Remove link, or point at `/contact/#faq` if a FAQ block exists there |
-| `src/components/Footer.tsx:124` | `/accessibility` | No route, 404 | Remove link, or point at `/legal/#accessibility` |
-| `src/pages/Index.tsx:131,277,419` | `/proposal` | Works via redirect, but causes a flash + extra hop | Point directly at `/schools/#proposal-form` |
-| `src/pages/Index.tsx:196` | `/project-power` | Same — redirects | Point directly at `/schools/#project-power` |
-| `src/pages/Playbook.tsx:332`, `src/pages/PYG.tsx:78` | `/request-proposal` | Same — redirects | Point directly at `/schools/#proposal-form` |
-| `src/pages/Resources.tsx:169` | `/codex/poised-modern-masculinity` | Verify slug exists in `codexArticleSlugs`; if not, fall back to `/codex/` | Repoint to valid slug |
-| Hero "Get the Parent Playbook" button | `#parent-playbook` | Verify anchor id exists on `ParentPlaybookSection` | Add id if missing |
+### 1. Essence product grid (`/essence/`)
+Add a 12-card grid of the Essence Collection scents under the hero. Each card = name, short scent family, "Shop on Shopify →" button linking to `https://poised-growth-hub-rfqhl.myshopify.com/products/<handle>` with UTMs.
 
-Will also confirm `/codex/teen-grooming-routine/`, `/codex/how-to-build-discipline/`, `/codex/modern-masculinity/` (used on `Essence.tsx`) exist in `codexArticleSlugs`. Any that don't → repoint to `/codex/`.
+Products to link (all 12, vendor "The Poised Gentlemen", "Cologne Balm" in title):
+- Admiral's Odyssey, Blue Harmony, Buoyant, Fighting Trim, First Impression, Hydra Sauvage, JSP, L.Y. Creed, Light Breeze, Poised Sauvage, Seven Figures, Urban Wisdom, Vigaros (Note: 13 found — confirm canonical 12 during build by checking the Essence collection in Shopify.)
 
-## Step 3 — Flag, don't fix
-Anything where the *right* destination is a judgment call — e.g. a CTA whose label says "Shop X" but goes to a generic `/shop` instead of the specific product, or a "Learn more" that could equally point at two pages — will be reported with my recommendation, not auto-changed.
+### 2. Young-G product grid (`/shop`, under the Young-G bridge card, OR new `/young-g/` hub — see Open Question)
+4 cards for the youth line:
+- Champion's Crest, Common Ground, Legacy Drive, Let's Geaux
+- Plus: Fresh Start Body Wash, Hydra Infusion, RSG Lotion (the kit components)
 
-## Step 4 — Report
-Single summary with three lists:
-1. **Fixed** — file, link, before → after
-2. **Needs your call** — file, link, current target, my recommended target, why ambiguous
-3. **Verified correct** — count only, not the full list
+### 3. Scent Quiz result
+Today the quiz CTA points at the Essence collection. Update the result screen so the recommended scent's CTA points at that **specific product** page. Quiz already knows which scent it picked; we just need a `scentId → productHandle` map.
 
-## Technical notes
-- No new routes added in this pass (would be a separate task if you want pages for `/faq`, `/accessibility`, etc.).
-- `RedirectGate` already absorbs legacy paths, so removing redirect hops is a polish fix, not a functional one — included because you mentioned buttons going to "wrong places" which often means the redirect flash.
-- No brand-voice or styling changes.
+## Technical details
+
+- New file `src/lib/shopifyProducts.ts` exports a typed map: `{ slug, title, handle, family, image }[]` for Essence + Young-G. Handles come from the Shopify Admin API during build (one lookup pass) and are committed as static data — no runtime API calls, no Storefront token wiring.
+- Extend `shopifyUrl()` placements: add `"essence_product_card"`, `"young_g_product_card"`, `"scent_quiz_product"`.
+- Reuse the existing `BridgeCard` styling for visual consistency; add a slimmer `ProductCard` variant for the grids.
+- Product images: pull image URLs from Shopify during the same build-time lookup, store the CDN URLs in the map (no asset copies into the repo).
+- No new routes. No Storefront API. No cart. No checkout code.
+- Keep all existing collection-level buttons as a secondary "Browse the full collection" link below each grid.
+
+## Out of scope
+
+- Live inventory/pricing display (would require Storefront API)
+- On-site cart or checkout
+- Pulling product descriptions onto the site (keep editorial copy)
+- Removing or restyling the existing bridge cards on `/shop`
+
+## Open question to resolve at build time
+
+Where should the **Young-G product grid** live?
+- **A.** Inline on `/shop` under the Young-G bridge card (fast, single page)
+- **B.** New `/young-g/` hub page mirroring the `/essence/` pattern (consistent, more work)
+
+I'll default to **A** unless you say otherwise.
+
+## Verification
+
+- Click each new product CTA → opens correct Shopify product page in new tab with UTMs
+- Scent Quiz result → recommended scent's "Shop" button opens that specific product
+- GA4 `shop_click` events fire with new placement labels
+- `npx tsgo --noEmit` passes
