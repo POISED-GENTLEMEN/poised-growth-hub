@@ -128,7 +128,7 @@ const Index = () => {
                   className="bg-gold text-primary hover:bg-gold/90 font-semibold w-full"
                 >
                   <Link
-                    to="/proposal"
+                    to="/schools/#proposal-form"
                     onClick={() => trackEvent("cta_request_proposal_hero")}
                   >
                     Request a Program Proposal
@@ -193,7 +193,7 @@ const Index = () => {
                   className="border-gold text-gold hover:bg-gold hover:text-primary font-semibold w-full bg-transparent"
                 >
                   <Link
-                    to="/project-power"
+                    to="/schools/#project-power"
                     onClick={() => trackEvent("cta_learn_project_power_hero")}
                   >
                     Learn About Project Power
@@ -274,7 +274,7 @@ const Index = () => {
                   asChild
                   className="bg-gold text-primary hover:bg-gold/90 font-semibold w-full"
                 >
-                  <Link to="/proposal" onClick={() => trackEvent(t.event)}>
+                  <Link to="/schools/#proposal-form" onClick={() => trackEvent(t.event)}>
                     Request a Proposal
                   </Link>
                 </Button>
@@ -416,7 +416,7 @@ const Index = () => {
                   asChild
                   className="bg-gold text-primary hover:bg-gold/90 font-semibold w-full"
                 >
-                  <Link to="/proposal" onClick={() => trackEvent(c.event)}>
+                  <Link to="/schools/#proposal-form" onClick={() => trackEvent(c.event)}>
                     {c.cta}
                   </Link>
                 </Button>
