@@ -245,6 +245,80 @@ const Shop = () => {
         </div>
       </section>
 
+      {/* Young-G individual products */}
+      <section id="young-g-products" className="py-16 md:py-20 px-4 bg-muted/30 scroll-mt-24">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-10">
+            <span className="inline-block text-[11px] uppercase tracking-widest font-semibold text-gold mb-3">
+              Young-G — Shop Individual Products
+            </span>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-3">
+              Built for boys 10–17
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Age-appropriate fragrance and skincare. Each product opens directly on our secure Shopify storefront.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { name: "Champion's Crest", family: "Youth Cologne Balm", notes: "Victory-fueled freshness — aquatic, clean.", color: "#1E90FF", handle: "champion-s-crest™-youth-cologne-balm-victory-fueled-freshness" },
+              { name: "Common Ground", family: "Unisex Youth Cologne Balm", notes: "Shared freshness — light, easy, every day.", color: "#7ED957", handle: "common-ground™-unisex-youth-cologne-balm-shared-freshness" },
+              { name: "Legacy Drive", family: "Youth Cologne Balm", notes: "Clean ambition — bright, focused, forward.", color: "#CFB040", handle: "legacy-drive™-youth-cologne-balm-clean-ambition" },
+              { name: "Let's Geaux", family: "Youth Cologne Balm", notes: "Fresh citrus — a Louisiana nod, ready to move.", color: "#D97E3A", handle: "lets-geaux" },
+              { name: "Hydra Infusion Body Wash", family: "Skincare", notes: "Creamy cleanse for hydrated, confident skin.", color: "#077DFE", handle: "hydra-infusion" },
+              { name: "Ready Set Go (RSG) Lotion", family: "Skincare", notes: "Everyday hydration for all generations.", color: "#4B2E5C", handle: "ready-set-go-rsg-lotion-everyday-hydration-for-all-generations-rsg-lotion" },
+            ].map((p) => {
+              const productUrl = shopifyUrl(`/products/${p.handle}`, "young_g_product_card");
+              return (
+                <Card key={p.handle} className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
+                  <div className="h-2" style={{ backgroundColor: p.color }} aria-hidden />
+                  <div className="p-6 flex flex-col flex-1">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
+                      {p.family}
+                    </p>
+                    <h3 className="font-heading font-bold text-xl mb-2">{p.name}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">
+                      {p.notes}
+                    </p>
+                    <Button
+                      asChild
+                      size="sm"
+                      className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                    >
+                      <a
+                        href={productUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackShopClick("young_g_product_card", productUrl)}
+                        aria-label={`Shop ${p.name} on Shopify`}
+                      >
+                        Shop {p.name}
+                        <ExternalLink className="ml-2 h-4 w-4" />
+                      </a>
+                    </Button>
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+
+          <div className="text-center mt-10">
+            <Button asChild variant="outline" size="lg">
+              <a
+                href={SHOP_LINKS.youngG}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackShopClick("shop_bridge_young_g", SHOP_LINKS.youngG)}
+              >
+                Browse the full Young-G Collection
+                <ExternalLink className="ml-2 h-4 w-4" />
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Scent Quiz launcher (re-homed from /shop/essence-collection) */}
       <section
         id="scent-quiz"
