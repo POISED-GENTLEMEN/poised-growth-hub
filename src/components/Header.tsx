@@ -130,7 +130,7 @@ const Header = () => {
                     <div className="p-5 border-t-2 border-gold">
                       <div className="space-y-3">
                         <Link 
-                          to="/shop"
+                          to="/essence/"
                           className="group block p-3 rounded-lg hover:border-l-4 hover:border-gold hover:pl-[11px] transition-all"
                         >
                           <div className="flex items-start gap-3">
@@ -276,7 +276,7 @@ const Header = () => {
               {shopMenuOpen && (
                 <div className="pl-4 space-y-2 border-l-2 border-gold/20">
                   <Link
-                    to="/shop"
+                    to="/essence/"
                     className="group flex items-start gap-2 text-sm text-foreground hover:text-gold transition-colors py-2"
                     onClick={() => setMobileMenuOpen(false)}
                   >
