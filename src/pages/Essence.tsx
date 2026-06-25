@@ -29,19 +29,19 @@ const setMeta = (selector: string, value: string) => {
   el.setAttribute("content", value);
 };
 
-const scents: { name: string; family: string; notes: string; color: string }[] = [
-  { name: "Buoyant", family: "Aquatic & Fresh", notes: "Marine Accord, Bergamot, Cedarwood.", color: "#077DFE" },
-  { name: "Admiral's Odyssey", family: "Aquatic & Fresh", notes: "Green Leaf, Apple, Mimosa.", color: "#1E90FF" },
-  { name: "Vigaros", family: "Aromatic & Spicy", notes: "Mint, Green Apple, Lemon.", color: "#4B2E5C" },
-  { name: "Urban Wisdom", family: "Aromatic & Spicy", notes: "Pear, Bergamot, Lavender.", color: "#6B3A8A" },
-  { name: "Poised Sauvage", family: "Aromatic & Spicy", notes: "Calabrian Bergamot, Sichuan Pepper.", color: "#8B5A8C" },
-  { name: "Light Breeze", family: "Citrus & Bright", notes: "Mandarin, Grapefruit, Juniper.", color: "#D97E3A" },
-  { name: "L.Y. Creed", family: "Citrus & Bright", notes: "Blackcurrant, Pineapple, Bergamot.", color: "#E8A838" },
-  { name: "Blue Harmony", family: "Woody & Earthy", notes: "Grapefruit, Cedar, Sandalwood.", color: "#CFB040" },
-  { name: "First Impression", family: "Woody & Earthy", notes: "Violet Leaf, Mandarin, Cedarwood.", color: "#B8960C" },
-  { name: "JSP (James Saint Patrick)", family: "Woody & Earthy", notes: "Bergamot, Apple, Sage.", color: "#8B7355" },
-  { name: "Fighting Trim", family: "Fresh & Green", notes: "Rosemary, Pineapple, Bergamot.", color: "#7ED957" },
-  { name: "Seven Figures", family: "Oriental & Warm", notes: "Grapefruit, Mint, Blood Mandarin.", color: "#FF0707" },
+const scents: { name: string; family: string; notes: string; color: string; handle: string }[] = [
+  { name: "Buoyant", family: "Aquatic & Fresh", notes: "Marine Accord, Bergamot, Cedarwood.", color: "#077DFE", handle: "buoyant-inspired-by-giorgio-armani" },
+  { name: "Admiral's Odyssey", family: "Aquatic & Fresh", notes: "Green Leaf, Apple, Mimosa.", color: "#1E90FF", handle: "admirals-odyssey-inspired-by-nautica-voyage" },
+  { name: "Vigaros", family: "Aromatic & Spicy", notes: "Mint, Green Apple, Lemon.", color: "#4B2E5C", handle: "vigaros-inspired-by-versace-eros" },
+  { name: "Urban Wisdom", family: "Aromatic & Spicy", notes: "Pear, Bergamot, Lavender.", color: "#6B3A8A", handle: "urban-wisdom-inspired-by-coach-for-men" },
+  { name: "Poised Sauvage", family: "Aromatic & Spicy", notes: "Calabrian Bergamot, Sichuan Pepper.", color: "#8B5A8C", handle: "poised-sauvage-inspired-by-dior-sauvage" },
+  { name: "Light Breeze", family: "Citrus & Bright", notes: "Mandarin, Grapefruit, Juniper.", color: "#D97E3A", handle: "light-breeze-inspired-by-dolce-gabbana-light-blue" },
+  { name: "L.Y. Creed", family: "Citrus & Bright", notes: "Blackcurrant, Pineapple, Bergamot.", color: "#E8A838", handle: "l-y-creed-inspired-by-creed-aventus" },
+  { name: "Blue Harmony", family: "Woody & Earthy", notes: "Grapefruit, Cedar, Sandalwood.", color: "#CFB040", handle: "blue-harmony-inspired-by-bleu-de-chanel" },
+  { name: "First Impression", family: "Woody & Earthy", notes: "Violet Leaf, Mandarin, Cedarwood.", color: "#B8960C", handle: "first-impression-inspired-by-bleu-de-chanel" },
+  { name: "JSP (James Saint Patrick)", family: "Woody & Earthy", notes: "Bergamot, Apple, Sage.", color: "#8B7355", handle: "james-saint-patrick-jsp-inspired-by-yves-saint-laurent" },
+  { name: "Fighting Trim", family: "Fresh & Green", notes: "Rosemary, Pineapple, Bergamot.", color: "#7ED957", handle: "fighting-trim-inspired-by-chrome-azzaro" },
+  { name: "Seven Figures", family: "Oriental & Warm", notes: "Grapefruit, Mint, Blood Mandarin.", color: "#FF0707", handle: "seven-figures-inspired-by-paco-rabanne-1-million" },
 ];
 
 const Essence = () => {
