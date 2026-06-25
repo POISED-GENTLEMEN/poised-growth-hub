@@ -1,52 +1,36 @@
-# Add Direct Product Links to Shopify
+# Verify GA4 click events on Essence + Young-G product cards
 
-Today every "Shop" button goes to a Shopify **collection** page. We'll add product-level links so users can land directly on the product they want, while checkout stays on Shopify (no embedded cart, no API sync).
+## Goal
+Confirm every product card on `/essence/` (12) and `/shop` (6) fires a GA4 `shop_click` event with the right `placement` and that the outbound URL carries the expected UTMs.
 
-## Scope
+## Approach — automated Playwright sweep against the live preview
 
-Three surfaces, all outbound (`target="_blank"`, GA4 tracked via existing `trackShopClick`):
+Run a single headless Playwright script that:
 
-### 1. Essence product grid (`/essence/`)
-Add a 12-card grid of the Essence Collection scents under the hero. Each card = name, short scent family, "Shop on Shopify →" button linking to `https://poised-growth-hub-rfqhl.myshopify.com/products/<handle>` with UTMs.
+1. **Stubs GA4** before any page script runs: injects `window.dataLayer = []` and a `window.gtag` shim that pushes every call into `dataLayer`. The existing `trackEvent` helper in `src/lib/analytics.ts` will hit this shim instead of the real GA endpoint.
+2. **Intercepts outbound navigations** so we capture the `href` without actually opening a new tab. Override `window.open` to record URL + return null, and add `preventDefault` on `click` for `a[target="_blank"]` after recording `event.currentTarget.href`.
+3. **Visits `/essence/`**, finds every `Shop <name>` button by `aria-label="Shop <name> on Shopify"`, clicks it, then asserts:
+   - A `gtag('event', 'shop_click', {...})` call landed in `dataLayer` with `placement === "essence_product_card"` and `section === "essence_product_card"`.
+   - The captured `href` host is `poised-growth-hub-rfqhl.myshopify.com`, path is `/products/<expected-handle>`, and query string contains `utm_source=poisedgentlemen.com`, `utm_medium=referral`, `utm_campaign=shop_bridge`, `utm_content=essence_product_card`.
+4. **Visits `/shop#young-g-products`**, repeats the same assertion loop for the 6 Young-G cards with `placement === "young_g_product_card"` and `utm_content=young_g_product_card`.
+5. **Prints a pass/fail table** (one row per card) and exits non-zero if any row fails. Screenshots the section once per page for visual confirmation.
 
-Products to link (all 12, vendor "The Poised Gentlemen", "Cologne Balm" in title):
-- Admiral's Odyssey, Blue Harmony, Buoyant, Fighting Trim, First Impression, Hydra Sauvage, JSP, L.Y. Creed, Light Breeze, Poised Sauvage, Seven Figures, Urban Wisdom, Vigaros (Note: 13 found — confirm canonical 12 during build by checking the Essence collection in Shopify.)
+## Expected URL list (handles to assert against)
 
-### 2. Young-G product grid (`/shop`, under the Young-G bridge card, OR new `/young-g/` hub — see Open Question)
-4 cards for the youth line:
-- Champion's Crest, Common Ground, Legacy Drive, Let's Geaux
-- Plus: Fresh Start Body Wash, Hydra Infusion, RSG Lotion (the kit components)
+Essence (12): `buoyant-inspired-by-giorgio-armani`, `admirals-odyssey-inspired-by-nautica-voyage`, `vigaros-inspired-by-versace-eros`, `urban-wisdom-inspired-by-coach-for-men`, `poised-sauvage-inspired-by-dior-sauvage`, `light-breeze-inspired-by-dolce-gabbana-light-blue`, `l-y-creed-inspired-by-creed-aventus`, `blue-harmony-inspired-by-bleu-de-chanel`, `first-impression-inspired-by-bleu-de-chanel`, `james-saint-patrick-jsp-inspired-by-yves-saint-laurent`, `fighting-trim-inspired-by-chrome-azzaro`, `seven-figures-inspired-by-paco-rabanne-1-million`.
 
-### 3. Scent Quiz result
-Today the quiz CTA points at the Essence collection. Update the result screen so the recommended scent's CTA points at that **specific product** page. Quiz already knows which scent it picked; we just need a `scentId → productHandle` map.
+Young-G (6): `champion-s-crest™-...`, `common-ground™-...`, `legacy-drive™-...`, `lets-geaux`, `hydra-infusion`, `ready-set-go-rsg-lotion-...`. The `™` characters will URL-encode to `%E2%84%A2` — the assertion will decode the path before comparing.
 
-## Technical details
+## What I will NOT do
 
-- New file `src/lib/shopifyProducts.ts` exports a typed map: `{ slug, title, handle, family, image }[]` for Essence + Young-G. Handles come from the Shopify Admin API during build (one lookup pass) and are committed as static data — no runtime API calls, no Storefront token wiring.
-- Extend `shopifyUrl()` placements: add `"essence_product_card"`, `"young_g_product_card"`, `"scent_quiz_product"`.
-- Reuse the existing `BridgeCard` styling for visual consistency; add a slimmer `ProductCard` variant for the grids.
-- Product images: pull image URLs from Shopify during the same build-time lookup, store the CDN URLs in the map (no asset copies into the repo).
-- No new routes. No Storefront API. No cart. No checkout code.
-- Keep all existing collection-level buttons as a secondary "Browse the full collection" link below each grid.
+- Hit GA4 / Google's collection endpoint. The shim is the verification target; if `gtag` is invoked correctly here, GA4 receives it in production.
+- Modify any product / tracking code (read-only verification).
+- Touch the real Shopify store.
 
-## Out of scope
+## Pass criteria
 
-- Live inventory/pricing display (would require Storefront API)
-- On-site cart or checkout
-- Pulling product descriptions onto the site (keep editorial copy)
-- Removing or restyling the existing bridge cards on `/shop`
+- 18 / 18 cards fire exactly one `shop_click` event with correct placement.
+- 18 / 18 captured URLs match expected handle + full UTM set.
+- No console errors during the run.
 
-## Open question to resolve at build time
-
-Where should the **Young-G product grid** live?
-- **A.** Inline on `/shop` under the Young-G bridge card (fast, single page)
-- **B.** New `/young-g/` hub page mirroring the `/essence/` pattern (consistent, more work)
-
-I'll default to **A** unless you say otherwise.
-
-## Verification
-
-- Click each new product CTA → opens correct Shopify product page in new tab with UTMs
-- Scent Quiz result → recommended scent's "Shop" button opens that specific product
-- GA4 `shop_click` events fire with new placement labels
-- `npx tsgo --noEmit` passes
+If any row fails I'll report the specific card, expected vs. actual, and propose a fix in a follow-up.
