@@ -1,36 +1,38 @@
-# Verify GA4 click events on Essence + Young-G product cards
+# Why product links don't open product pages
 
-## Goal
-Confirm every product card on `/essence/` (12) and `/shop` (6) fires a GA4 `shop_click` event with the right `placement` and that the outbound URL carries the expected UTMs.
+## Root cause (verified)
 
-## Approach — automated Playwright sweep against the live preview
+The outbound URLs in our code are **correct**. I probed four representative ones (Buoyant, Champion's Crest™, Let's Geaux, RSG Lotion) directly against `poised-growth-hub-rfqhl.myshopify.com` and every URL returned HTTP 200 with no redirect — meaning the handles in `Essence.tsx`, `Shop.tsx`, and `RelatedProducts.tsx` match the live Shopify handles exactly (including the `™` characters and the long RSG slug).
 
-Run a single headless Playwright script that:
+The problem is what Shopify actually serves at those URLs: a **storefront password page**. The HTML response contains `password`, `Enter using password`, and `Sorry`. Until the password gate is lifted in Shopify, every product link from poisedgentlemen.com will land on the same locked splash instead of the product page.
 
-1. **Stubs GA4** before any page script runs: injects `window.dataLayer = []` and a `window.gtag` shim that pushes every call into `dataLayer`. The existing `trackEvent` helper in `src/lib/analytics.ts` will hit this shim instead of the real GA endpoint.
-2. **Intercepts outbound navigations** so we capture the `href` without actually opening a new tab. Override `window.open` to record URL + return null, and add `preventDefault` on `click` for `a[target="_blank"]` after recording `event.currentTarget.href`.
-3. **Visits `/essence/`**, finds every `Shop <name>` button by `aria-label="Shop <name> on Shopify"`, clicks it, then asserts:
-   - A `gtag('event', 'shop_click', {...})` call landed in `dataLayer` with `placement === "essence_product_card"` and `section === "essence_product_card"`.
-   - The captured `href` host is `poised-growth-hub-rfqhl.myshopify.com`, path is `/products/<expected-handle>`, and query string contains `utm_source=poisedgentlemen.com`, `utm_medium=referral`, `utm_campaign=shop_bridge`, `utm_content=essence_product_card`.
-4. **Visits `/shop#young-g-products`**, repeats the same assertion loop for the 6 Young-G cards with `placement === "young_g_product_card"` and `utm_content=young_g_product_card`.
-5. **Prints a pass/fail table** (one row per card) and exits non-zero if any row fails. Screenshots the section once per page for visual confirmation.
+## What needs to happen (you, in Shopify admin)
 
-## Expected URL list (handles to assert against)
+This is a Shopify setting, not a code fix. In Shopify admin:
 
-Essence (12): `buoyant-inspired-by-giorgio-armani`, `admirals-odyssey-inspired-by-nautica-voyage`, `vigaros-inspired-by-versace-eros`, `urban-wisdom-inspired-by-coach-for-men`, `poised-sauvage-inspired-by-dior-sauvage`, `light-breeze-inspired-by-dolce-gabbana-light-blue`, `l-y-creed-inspired-by-creed-aventus`, `blue-harmony-inspired-by-bleu-de-chanel`, `first-impression-inspired-by-bleu-de-chanel`, `james-saint-patrick-jsp-inspired-by-yves-saint-laurent`, `fighting-trim-inspired-by-chrome-azzaro`, `seven-figures-inspired-by-paco-rabanne-1-million`.
+1. Go to **Online Store → Preferences**.
+2. Scroll to **Password protection**.
+3. Uncheck **"Restrict access to visitors with the password"**.
+4. Save.
 
-Young-G (6): `champion-s-crest™-...`, `common-ground™-...`, `legacy-drive™-...`, `lets-geaux`, `hydra-infusion`, `ready-set-go-rsg-lotion-...`. The `™` characters will URL-encode to `%E2%84%A2` — the assertion will decode the path before comparing.
+Within a minute the same `/products/<handle>` URLs we already link to will render the real product pages — no code change required.
 
-## What I will NOT do
+## What I will do on the code side
 
-- Hit GA4 / Google's collection endpoint. The shim is the verification target; if `gtag` is invoked correctly here, GA4 receives it in production.
-- Modify any product / tracking code (read-only verification).
-- Touch the real Shopify store.
+Nothing structural — the links and UTMs are correct and don't need editing.
 
-## Pass criteria
+I'll do two small verification passes once you've lifted the password:
 
-- 18 / 18 cards fire exactly one `shop_click` event with correct placement.
-- 18 / 18 captured URLs match expected handle + full UTM set.
-- No console errors during the run.
+1. **Smoke-test the 18 product links** (12 Essence + 6 Young-G) by `curl`-ing each `/products/<handle>` and asserting the response is the product page (contains `"product":` JSON-LD) rather than the password gate. Any handle that 404s after the gate comes down gets flagged with the closest Shopify handle so we can correct it.
+2. **Re-run the existing Playwright `e2e/shop-tracking.spec.ts`** to confirm GA4 `shop_click` still fires with the correct `placement` and UTMs after any handle corrections.
 
-If any row fails I'll report the specific card, expected vs. actual, and propose a fix in a follow-up.
+## Out of scope
+
+- Building internal `/product/:handle` pages — you chose to keep the outbound-to-Shopify flow, so I will not add a new route or Storefront-API product detail UI.
+- Touching cart/checkout logic, pricing, or product data in Shopify.
+
+## Technical details
+
+- Verified files: `src/lib/shopifyLinks.ts` (URL builder + UTMs are correct), `src/pages/Essence.tsx` lines 33–45 (12 Essence handles), `src/pages/Shop.tsx` lines 265–272 (6 Young-G handles), `src/components/RelatedProducts.tsx` line 82 (Codex related-product handles).
+- Verified handles via `shopify--get_product` for sample IDs 9204763001090, 9209414582530, 9204762280194 — all three match what we link to.
+- Verification probe used: `curl -sL https://poised-growth-hub-rfqhl.myshopify.com/products/<handle>` → returns the password-gate HTML for every product.
