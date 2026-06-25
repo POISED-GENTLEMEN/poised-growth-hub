@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Check, Loader2 } from "lucide-react";
 import { createShopifyCheckout } from "@/lib/shopify";
+import { shopifyUrl, trackShopClick } from "@/lib/shopifyLinks";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { newsletterSchema } from "@/lib/validations";
@@ -255,6 +256,23 @@ const BookSalesSection = () => {
             Order Hardcover — $29.99
           </Button>
         </div>
+
+        <p className="mb-4">
+          <a
+            href={shopifyUrl(
+              "/products/the-poised-gentlemen-codex-paperback-founding-circle-edition",
+              "codex_cta"
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) =>
+              trackShopClick("codex_cta", (e.currentTarget as HTMLAnchorElement).href)
+            }
+            className="text-sm text-gold underline underline-offset-4 hover:text-gold/80"
+          >
+            View on Shopify →
+          </a>
+        </p>
 
         <p className="text-xs text-primary-foreground/50">
           Digital access delivered instantly. Physical copy ships by March 7, 2026.
