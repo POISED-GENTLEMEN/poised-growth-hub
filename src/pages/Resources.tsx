@@ -166,7 +166,7 @@ const Resources = () => {
       {/* Featured Article */}
       <section className="py-12 bg-background">
         <div className="container mx-auto px-4">
-          <Link to="/codex/poised-modern-masculinity" className="block group">
+          <Link to="/codex/modern-masculinity" className="block group">
             <div className="relative overflow-hidden rounded-lg hover-scale">
               <img
                 src={articleFeatured}

@@ -75,7 +75,7 @@ const PYG = () => {
             className="bg-gold text-primary hover:bg-gold/90 font-semibold"
           >
             <Link
-              to="/request-proposal"
+              to="/schools/#proposal-form"
               onClick={() => trackEvent("cta_request_proposal_pyg")}
             >
               Request a Program Proposal

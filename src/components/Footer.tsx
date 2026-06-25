@@ -106,11 +106,6 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/faq" className="hover:text-gold transition-colors">
-                  FAQ
-                </Link>
-              </li>
-              <li>
                 <Link to="/legal#s11" className="hover:text-gold transition-colors">
                   Privacy Policy
                 </Link>
@@ -121,8 +116,8 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/accessibility" className="hover:text-gold transition-colors">
-                  Accessibility
+                <Link to="/contact" className="hover:text-gold transition-colors">
+                  Contact Support
                 </Link>
               </li>
             </ul>

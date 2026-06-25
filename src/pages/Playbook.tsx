@@ -329,7 +329,7 @@ const Playbook = () => {
               className="bg-primary text-gold hover:bg-primary/90 font-semibold"
             >
               <Link
-                to="/request-proposal"
+                to="/schools/#proposal-form"
                 onClick={() => trackEvent("cta_request_proposal_playbook")}
               >
                 Bring Poised Gentlemen to Your School or Org →
