@@ -10,6 +10,7 @@ import {
   Layers,
 } from "lucide-react";
 import { codexArticles, getCodexArticleBySlug } from "@/lib/codexArticles";
+import { shopifyUrl } from "@/lib/shopifyLinks";
 
 type Variant = "programs" | "schools" | "codex-article" | "essence";
 
