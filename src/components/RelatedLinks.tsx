@@ -109,7 +109,7 @@ const buildLinks = (
   ].filter((l): l is RelatedLink => l !== null);
   return [
     {
-      to: "https://poised-growth-hub-rfqhl.myshopify.com/collections/essence-collection?utm_source=poisedgentlemen.com&utm_medium=referral&utm_campaign=shop_bridge&utm_content=essence_hub",
+      to: shopifyUrl("/collections/essence-collection", "essence_hub"),
       external: true,
       eyebrow: "Shop the collection",
       title: "Visit the Essence Collection on Shopify",

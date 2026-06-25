@@ -262,12 +262,10 @@ const Shop = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { name: "Champion's Crest", family: "Youth Cologne Balm", notes: "Victory-fueled freshness — aquatic, clean.", color: "#1E90FF", handle: "champion-s-crest™-youth-cologne-balm-victory-fueled-freshness" },
-              { name: "Common Ground", family: "Unisex Youth Cologne Balm", notes: "Shared freshness — light, easy, every day.", color: "#7ED957", handle: "common-ground™-unisex-youth-cologne-balm-shared-freshness" },
-              { name: "Legacy Drive", family: "Youth Cologne Balm", notes: "Clean ambition — bright, focused, forward.", color: "#CFB040", handle: "legacy-drive™-youth-cologne-balm-clean-ambition" },
               { name: "Let's Geaux", family: "Youth Cologne Balm", notes: "Fresh citrus — a Louisiana nod, ready to move.", color: "#D97E3A", handle: "lets-geaux" },
-              { name: "Hydra Infusion Body Wash", family: "Skincare", notes: "Creamy cleanse for hydrated, confident skin.", color: "#077DFE", handle: "hydra-infusion" },
-              { name: "Ready Set Go (RSG) Lotion", family: "Skincare", notes: "Everyday hydration for all generations.", color: "#4B2E5C", handle: "ready-set-go-rsg-lotion-everyday-hydration-for-all-generations-rsg-lotion" },
+              { name: "Champion's Crest", family: "Youth Cologne Balm", notes: "Victory-fueled freshness — aquatic, clean.", color: "#1E90FF", handle: "champions-crest" },
+              { name: "Legacy Drive", family: "Youth Cologne Balm", notes: "Clean ambition — bright, focused, forward.", color: "#CFB040", handle: "legacy-drive" },
+              { name: "Common Ground", family: "Unisex Youth Cologne Balm", notes: "Shared freshness — light, easy, every day.", color: "#7ED957", handle: "common-ground" },
             ].map((p) => {
               const productUrl = shopifyUrl(`/products/${p.handle}`, "young_g_product_card");
               return (
