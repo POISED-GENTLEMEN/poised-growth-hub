@@ -1,47 +1,43 @@
-# Resolve Lovable Preview Token → Shopify Theme
+## Routing-only update — replace all outbound Shopify product links
 
-Add a small Node script that takes a `go.to.lovable.app/?t=…` URL (or bare token) and prints which Shopify theme the preview is actually rendering, so theme mismatches can be debugged the same way as the existing per-product audit.
+No design, copy, layout, or analytics changes. Every link keeps `target="_blank" rel="noopener noreferrer"` and continues to flow through `shopifyUrl()` (preserves UTMs + GA4 tracking).
 
-## What it does
+### 1. Essence Collection — `src/pages/Essence.tsx`
+All 12 handles in the `scents[]` array already match the URLs you provided. **No change needed**, but I will verify each one byte-for-byte during the pass and report.
 
-1. Accept input as either a full URL or a raw token:
-   - `node scripts/resolve-preview-token.mjs "https://go.to.lovable.app/?t=YjpkYjg2NTk..."`
-   - `node scripts/resolve-preview-token.mjs YjpkYjg2NTk...`
-2. Follow the redirect chain from `go.to.lovable.app` with `redirect: "manual"` in a loop, capturing every `Location` header. The Lovable shortener forwards to a Shopify storefront URL that carries Shopify's own theme-preview params (`preview_theme_id=…` and/or `_ab=0&_fd=0&_sc=1&preview_theme_id=…`).
-3. From the final Shopify URL, extract `preview_theme_id` (the numeric Shopify theme ID).
-4. Fetch that URL once with redirects followed and parse `Shopify.theme = {"name":"…","id":…,"role":"…"}` out of the returned HTML (same regex already used in `scripts/audit-product-themes.mjs`).
-5. Print a report:
-   - Original short URL / token
-   - Full redirect chain (status + Location at each hop)
-   - Resolved storefront URL
-   - `preview_theme_id` from the URL
-   - Theme `name`, `id`, and `role` parsed from `Shopify.theme`
-   - A mismatch warning if the URL's `preview_theme_id` and the HTML's `Shopify.theme.id` disagree
-6. Support `--json` for machine-readable output and exit non-zero on failure to resolve.
+### 2. Young-G Collection — `src/pages/Shop.tsx`
+Replace the current 6-tile inline array with **only the 4 cologne tiles** using the new clean handles. The 2 skincare tiles (Hydra Infusion, RSG Lotion) will be removed because they are not in the list you provided.
 
-## Technical details
+| Card | Old handle | New handle |
+|---|---|---|
+| Let's Geaux | `lets-geaux` | `lets-geaux` (unchanged) |
+| Champion's Crest | `champion-s-crest™-youth-cologne-balm-victory-fueled-freshness` | `champions-crest` |
+| Legacy Drive | `legacy-drive™-youth-cologne-balm-clean-ambition` | `legacy-drive` |
+| Common Ground | `common-ground™-unisex-youth-cologne-balm-shared-freshness` | `common-ground` |
+| Hydra Infusion Body Wash | `hydra-infusion` | **REMOVED** |
+| Ready Set Go (RSG) Lotion | `ready-set-go-rsg-lotion-…-rsg-lotion` | **REMOVED** |
 
-- File: `scripts/resolve-preview-token.mjs`, ESM, no new dependencies (uses global `fetch`).
-- Reuse the `.env` loader pattern from `scripts/audit-product-themes.mjs` so `SHOPIFY_DOMAIN` defaults to `poised-growth-hub-rfqhl.myshopify.com` (used only to sanity-check the resolved host).
-- Redirect handling: manual loop, max 10 hops, abort on non-3xx with no `Location`. Resolve relative `Location` values against the previous URL.
-- Theme parsing regex: `/Shopify\.theme\s*=\s*(\{[^}]+\})/` then `JSON.parse`, with a fallback to the name-only regex already in the audit script.
-- No changes to app code, edge functions, or the existing audit script. Pure additive devtool.
+### 3. Codex book product URL
+You provided one Codex URL: `…/products/the-poised-gentlemen-codex-paperback-founding-circle-edition`. **I need to know where to wire it** — the current Codex surface uses Shopify checkout via variant IDs in `src/components/BookSalesSection.tsx`, not an outbound product-page URL. Three options:
 
-## Usage examples
+- **A.** Add it as a "View on Shopify" secondary link under the existing Buy buttons in `BookSalesSection.tsx`.
+- **B.** Replace the `RelatedProducts` widget content on Codex article pages so each article links to this Codex book instead of three Essence scents.
+- **C.** Both A and B.
 
-```
-node scripts/resolve-preview-token.mjs "https://go.to.lovable.app/?t=YjpkYjg2NTkuOTQ5NC41NDc0LjkzOWYuNDg4NDQxMWU5OGUy"
-node scripts/resolve-preview-token.mjs --json YjpkYjg2NTk...
-```
+I'll wait for your pick before touching Codex.
 
-Sample (abridged) output:
+### 4. Cleanup of stale/placeholder links
+- `src/components/RelatedLinks.tsx:112` — hardcoded absolute Essence-collection URL with inline UTMs. Refactor to use `shopifyUrl("/collections/essence-collection", "essence_hub")` so the helper stays the single source of truth. Same destination, no visible change.
 
-```
-Token:        YjpkYjg2NTk...
-Hop 1: 302  https://go.to.lovable.app/?t=YjpkYjg2NTk...
-        → https://poised-growth-hub-rfqhl.myshopify.com/?preview_theme_id=149...
-Hop 2: 200  https://poised-growth-hub-rfqhl.myshopify.com/?preview_theme_id=149...
-URL preview_theme_id: 149xxxxxxxxx
-Shopify.theme:        { id: 149xxxxxxxxx, name: "Lovable Redirect", role: "unpublished" }
-✅ IDs match — preview is rendering theme "Lovable Redirect" (149xxxxxxxxx)
-```
+### 5. Verification
+After edits I will:
+- Re-grep the repo for `™`, `myshopify`, and `/products/` to confirm no stale or placeholder handles remain.
+- Run `scripts/audit-product-themes.mjs` against the 4 Young-G handles + Codex book handle to confirm the new URLs resolve on the storefront.
+- Return a complete before/after table for every product link on the site and an explicit "no .lovable or placeholder destinations remain" confirmation.
+
+### Files touched
+- `src/pages/Shop.tsx` (Young-G array)
+- `src/components/RelatedLinks.tsx` (refactor only)
+- *(Codex location TBD per your answer above)*
+
+**Please confirm option A, B, or C for the Codex book link and I'll execute the full pass in one go.**
