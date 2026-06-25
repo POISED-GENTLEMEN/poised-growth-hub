@@ -176,7 +176,7 @@ const MockupGenerator = () => {
               <div className="mt-8 p-4 bg-muted/30 rounded-lg">
                 <h3 className="font-semibold text-foreground mb-2">Design Specifications:</h3>
                 <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• Navy background (#1a1a2e) with gold accents (#d4af37)</li>
+                  <li>• Navy background (#1a1a2e) with gold accents (#C9A84C)</li>
                   <li>• 4-tab navigation: Boys, Men, Mentors, Parents</li>
                   <li>• 3 bundle cards with gradient headers and pricing</li>
                   <li>• Premium aesthetic matching the Poised Gentlemen brand</li>

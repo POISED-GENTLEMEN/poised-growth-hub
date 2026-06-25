@@ -74,7 +74,7 @@ serve(async (req) => {
 
 Design specifications:
 - Background: Dark navy (#1a1a2e) with subtle texture
-- Accent color: Rich gold (#d4af37)
+- Accent color: Rich gold (#C9A84C)
 - Section header: "Programs for Every Journey" in elegant serif font, centered, gold underline accent
 
 Tab Navigation (centered, horizontal):
