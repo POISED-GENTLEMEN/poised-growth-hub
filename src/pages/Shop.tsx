@@ -233,7 +233,7 @@ const Shop = () => {
                 "Subscribe & save on essentials",
                 "Auto-ship on your schedule",
               ]}
-              ctaLabel="Shop Bundles + Subscribe & Save"
+              ctaLabel="Shop Bundles"
               href={SHOP_LINKS.bundles}
               placement="shop_bridge_bundles"
               internalLink={{
