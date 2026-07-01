@@ -1,43 +1,74 @@
-## Routing-only update — replace all outbound Shopify product links
+## Goal
 
-No design, copy, layout, or analytics changes. Every link keeps `target="_blank" rel="noopener noreferrer"` and continues to flow through `shopifyUrl()` (preserves UTMs + GA4 tracking).
+Every URL on `poised-growth-hub-rfqhl.myshopify.com` that is **not** a `/products/*` page or `/checkout*` should 301-redirect to the matching page on `https://poisedgentlemen.com`. Product pages and checkout must continue to serve normally (Shopify checkout can't be redirected or purchases break).
 
-### 1. Essence Collection — `src/pages/Essence.tsx`
-All 12 handles in the `scents[]` array already match the URLs you provided. **No change needed**, but I will verify each one byte-for-byte during the pass and report.
+## Why this can't be a code change in this repo
 
-### 2. Young-G Collection — `src/pages/Shop.tsx`
-Replace the current 6-tile inline array with **only the 4 cologne tiles** using the new clean handles. The 2 skincare tiles (Hydra Infusion, RSG Lotion) will be removed because they are not in the list you provided.
+The pages you compared (`/pages/codex` etc.) are rendered by a **Shopify theme (Liquid)**, which lives in the Shopify admin — not in this React codebase. To change what those pages serve, we edit the "Lovable Redirect" theme in Shopify. This repo only holds a helper script; the theme edit itself has to be pasted into Shopify admin (I'll give you the exact snippet and where to paste it).
 
-| Card | Old handle | New handle |
-|---|---|---|
-| Let's Geaux | `lets-geaux` | `lets-geaux` (unchanged) |
-| Champion's Crest | `champion-s-crest™-youth-cologne-balm-victory-fueled-freshness` | `champions-crest` |
-| Legacy Drive | `legacy-drive™-youth-cologne-balm-clean-ambition` | `legacy-drive` |
-| Common Ground | `common-ground™-unisex-youth-cologne-balm-shared-freshness` | `common-ground` |
-| Hydra Infusion Body Wash | `hydra-infusion` | **REMOVED** |
-| Ready Set Go (RSG) Lotion | `ready-set-go-rsg-lotion-…-rsg-lotion` | **REMOVED** |
+## What I will do in this repo
 
-### 3. Codex book product URL
-You provided one Codex URL: `…/products/the-poised-gentlemen-codex-paperback-founding-circle-edition`. **I need to know where to wire it** — the current Codex surface uses Shopify checkout via variant IDs in `src/components/BookSalesSection.tsx`, not an outbound product-page URL. Three options:
+1. **Add `scripts/audit-shopify-redirects.mjs`** — a read-only probe that hits a representative set of non-product URLs and reports, for each one, whether it currently:
+   - 301-redirects to `poisedgentlemen.com/<matching-path>` ✅
+   - Renders a Shopify page (still needs redirecting) ❌
+   - Returns 404 (fine — nothing to do)
 
-- **A.** Add it as a "View on Shopify" secondary link under the existing Buy buttons in `BookSalesSection.tsx`.
-- **B.** Replace the `RelatedProducts` widget content on Codex article pages so each article links to this Codex book instead of three Essence scents.
-- **C.** Both A and B.
+   URLs probed:
+   ```text
+   /                       /pages/codex           /pages/essence
+   /pages/schools          /pages/about           /pages/contact
+   /collections/all        /collections/essence   /collections/young-g
+   /blogs/news             /blogs/news/<one-article>
+   /account                /search?q=cologne
+   ```
+   Plus a spot-check that `/products/<handle>` and `/checkout` still 200 (must NOT be redirected).
 
-I'll wait for your pick before touching Codex.
+2. **Extend `scripts/audit-product-themes.mjs` docs header** with a one-line pointer to the new redirect audit script (so future audits find both).
 
-### 4. Cleanup of stale/placeholder links
-- `src/components/RelatedLinks.tsx:112` — hardcoded absolute Essence-collection URL with inline UTMs. Refactor to use `shopifyUrl("/collections/essence-collection", "essence_hub")` so the helper stays the single source of truth. Same destination, no visible change.
+## What you paste into Shopify admin
 
-### 5. Verification
-After edits I will:
-- Re-grep the repo for `™`, `myshopify`, and `/products/` to confirm no stale or placeholder handles remain.
-- Run `scripts/audit-product-themes.mjs` against the 4 Young-G handles + Codex book handle to confirm the new URLs resolve on the storefront.
-- Return a complete before/after table for every product link on the site and an explicit "no .lovable or placeholder destinations remain" confirmation.
+I'll give you a Liquid snippet to drop at the very top of `layout/theme.liquid` in the **Lovable Redirect** theme. It maps common Shopify URL patterns to the Lovable equivalents and 301s everything else to the homepage. Sketch:
 
-### Files touched
-- `src/pages/Shop.tsx` (Young-G array)
-- `src/components/RelatedLinks.tsx` (refactor only)
-- *(Codex location TBD per your answer above)*
+```liquid
+{%- comment -%} Redirect all non-product traffic to poisedgentlemen.com {%- endcomment -%}
+{%- assign lovable_root = 'https://poisedgentlemen.com' -%}
+{%- assign path = request.path -%}
+{%- unless path contains '/products/'
+        or path contains '/cart'
+        or path contains '/checkout'
+        or path contains '/account'
+        or path contains '/policies/' -%}
+  {%- case template -%}
+    {%- when 'page.codex'      -%}{%- assign target = '/codex/'     -%}
+    {%- when 'page.essence'    -%}{%- assign target = '/essence/'   -%}
+    {%- when 'page.schools'    -%}{%- assign target = '/schools/'   -%}
+    {%- when 'page.about'      -%}{%- assign target = '/about/'     -%}
+    {%- when 'page.contact'    -%}{%- assign target = '/contact/'   -%}
+    {%- when 'article'         -%}{%- assign target = '/codex/' | append: article.handle | append: '/' -%}
+    {%- when 'blog'            -%}{%- assign target = '/codex/'     -%}
+    {%- when 'collection'      -%}{%- assign target = '/shop/'      -%}
+    {%- else                   -%}{%- assign target = '/'           -%}
+  {%- endcase -%}
+  <script>window.location.replace({{ lovable_root | append: target | json }});</script>
+  <meta http-equiv="refresh" content="0;url={{ lovable_root | append: target }}">
+{%- endunless -%}
+```
 
-**Please confirm option A, B, or C for the Codex book link and I'll execute the full pass in one go.**
+Exact steps (I'll spell these out in chat when the plan is approved):
+- Shopify admin → Online Store → Themes → **Lovable Redirect** → Actions → Edit code → `layout/theme.liquid` → paste snippet at the top → Save.
+
+## How we verify
+
+After you paste and save the snippet, run:
+
+```bash
+node scripts/audit-shopify-redirects.mjs
+```
+
+Every non-product URL should print ✅ (301 → poisedgentlemen.com/…), product/checkout URLs should print ✅ 200. Any ❌ tells us which template mapping to add.
+
+## Out of scope
+
+- No changes to `/products/*` URLs, checkout, cart, or the Storefront API.
+- No changes to the React app.
+- No visual rebuild of the Shopify theme — we're hiding it, not restyling it.
