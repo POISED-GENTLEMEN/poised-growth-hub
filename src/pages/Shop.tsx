@@ -78,7 +78,7 @@ const BridgeCard = ({
       <Button
         asChild
         size="lg"
-        className="w-full bg-primary text-primary-foreground hover:bg-primary/90 whitespace-normal text-center leading-tight px-4 h-auto min-h-[52px] py-3 text-xs sm:text-sm"
+        className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
       >
         <a
           href={href}
@@ -88,8 +88,8 @@ const BridgeCard = ({
           data-ga-event="shop_click"
           data-ga-label={placement}
         >
-          <span>{ctaLabel}</span>
-          <ExternalLink className="ml-2 h-4 w-4 shrink-0" />
+          {ctaLabel}
+          <ExternalLink className="ml-2 h-4 w-4" />
         </a>
       </Button>
       {internalLink && (
@@ -201,7 +201,7 @@ const Shop = () => {
                 "4–6 hours of lasting scent",
                 "Hydrating cologne balm format",
               ]}
-              ctaLabel="Shop the Essence Collection"
+              ctaLabel="Shop Essence"
               href={SHOP_LINKS.essence}
               placement="shop_bridge_essence"
               internalLink={{ to: "/essence/", label: "Read the story behind Essence" }}
@@ -216,7 +216,7 @@ const Shop = () => {
                 "Individual products from $14.99",
                 "Starter Kit $79.00",
               ]}
-              ctaLabel="Shop the Young-G Collection"
+              ctaLabel="Shop Young-G"
               href={SHOP_LINKS.youngG}
               placement="shop_bridge_young_g"
               internalLink={{
@@ -233,7 +233,7 @@ const Shop = () => {
                 "Subscribe & save on essentials",
                 "Auto-ship on your schedule",
               ]}
-              ctaLabel="Shop Bundles + Subscribe & Save"
+              ctaLabel="Shop Bundles"
               href={SHOP_LINKS.bundles}
               placement="shop_bridge_bundles"
               internalLink={{
