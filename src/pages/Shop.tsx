@@ -19,7 +19,7 @@ const DESC =
 
 const SHOP_LINKS = {
   essence: shopifyUrl("/collections/essence-collection", "shop_bridge_essence"),
-  youngG: shopifyUrl("/collections/young-g-collection", "shop_bridge_young_g"),
+  youngG: shopifyUrl("/collections/poised-young-gentlemen", "shop_bridge_young_g"),
   bundles: shopifyUrl("/collections/bundles-subscribe-save", "shop_bridge_bundles"),
 };
 
