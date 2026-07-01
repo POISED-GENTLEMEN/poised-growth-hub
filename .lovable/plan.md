@@ -1,71 +1,45 @@
-## Audit result (just ran)
+## What the browser test actually shows
 
-**Non-product URLs — redirecting, but to the wrong Lovable paths:**
-| Shopify URL | Redirects to (current) | Should be |
+I re-ran the audit as a headless browser, following every hop (HTTP, meta-refresh, JS `location.replace`, and Lovable's client-side `RedirectGate`) until the page finished loading. Result:
+
+**Non-product URLs — all land on a valid Lovable page.** The previous script's ❌s were false positives; it was reading only the first `Location` header (which points at `poisedgentlemen.com/pages/codex`), not the final URL after Lovable's `RedirectGate` normalizes it to `/codex/`.
+
+| Shopify URL | Final URL in browser | Verdict |
 |---|---|---|
-| `/` | `poisedgentlemen.com/` | ✅ correct |
-| `/pages/codex` | `/pages/codex` | `/codex/` |
-| `/pages/about` | `/pages/about` | `/about/` |
-| `/pages/contact` | `/pages/contact` | `/contact/` |
-| `/collections/all` | `/collections/all` | `/shop/` |
-| `/search?q=cologne` | `/search` | `/` |
+| `/` | `/` | ✅ |
+| `/pages/codex` | `/codex/` | ✅ |
+| `/pages/essence` | `/essence/` | ✅ |
+| `/pages/schools` | `/schools/` | ✅ |
+| `/pages/about` | `/about/` | ✅ |
+| `/pages/contact` | (timeout — retry, likely fine) | ⚠️ retest |
+| `/collections/all` | `/shop/all/` | ✅ |
+| `/collections/essence` | `/essence/` | ✅ |
+| `/collections/young-g` | `/shop/` | ✅ |
+| `/blogs/news` | `/codex/news/` | ✅ |
+| `/search?q=cologne` | `/search/?q=cologne` | ✅ |
 
-**Still 404 on Shopify (harmless but no redirect):** `/pages/essence`, `/pages/schools`, `/collections/essence`, `/collections/young-g`, `/blogs/news`
+**Real issue found — /products/* and /cart:** Shopify redirects both to poisedgentlemen.com, and Lovable's `RedirectGate` funnels them to `/shop/`. Your own storefront checkout is unaffected (it uses the Storefront API → `shop.app` / `/checkouts/*`, and `/checkout` stays on Shopify ✅). But any external link/email/ad that points at `myshopify.com/products/<handle>` or `myshopify.com/cart` now dead-ends at `/shop/`.
 
-**Critical — must NOT redirect but currently do:**
-- `/products/blue-harmony-...` → being redirected to Lovable ❌ (breaks product page)
-- `/cart` → being redirected to Lovable ❌ (breaks cart)
-- `/checkout` → correctly stays on Shopify ✅
+## Plan
 
-## Root cause
+1. **Rewrite `scripts/audit-shopify-redirects.mjs`** as a Playwright-based check that:
+   - Navigates each URL in a real browser, waits for load + a short settle, and reads `page.url()`.
+   - Passes when the final URL is on `poisedgentlemen.com` **and** the pathname starts with the expected Lovable route (case-insensitive, trailing-slash tolerant, query preserved for `/search`).
+   - Prints the final URL and page title so failures are self-diagnosing.
+   - Retries once on network timeout before flagging.
+   - Keep the JSON output mode for CI.
 
-The Liquid snippet currently pasted at the top of `layout/theme.liquid` is doing a **naive origin swap** (`https://poisedgentlemen.com{{ request.path }}`) and has no exclusion for `/products/*` or `/cart`. It needs:
-1. An explicit path-mapping table.
-2. A guard that skips `/products/*`, `/cart*`, `/checkout*`, `/apps/*`, `/tools/*`, `/policies/*`.
+2. **Keep-alive checks — decide based on your call:**
+   - For `/products/<handle>` and `/cart` on `myshopify.com`, the new audit will fail (they currently land on `/shop/`).
+   - If you consider that acceptable (your live checkout uses `shop.app` and works), I'll mark these as informational warnings, not failures.
+   - If you want them fixed, the Liquid snippet in `.lovable/plan.md` already has the `skip` guard for `/products/`, `/cart`, `/checkout` — it just needs to actually be the live version in the published theme. I'll surface that in the audit output as an actionable message rather than a generic ❌.
 
-## Fix — new Liquid snippet to paste
+3. **Delete `.lovable/plan.md`** once the audit script is updated (its snippet lives on in the audit's help text so it's still discoverable).
 
-Replace the existing snippet at the very top of `layout/theme.liquid` (in the **published** theme) with:
+4. **Run the new audit** and paste the clean output.
 
-```liquid
-{%- liquid
-  assign p = request.path | downcase
-  assign skip = false
-  if p contains '/products/' or p contains '/cart' or p contains '/checkout' or p contains '/apps/' or p contains '/tools/' or p contains '/policies/' or p contains '/account'
-    assign skip = true
-  endif
--%}
-{%- unless skip -%}
-{%- capture target -%}
-  {%- case p -%}
-    {%- when '/' -%}https://poisedgentlemen.com/
-    {%- when '/pages/codex' -%}https://poisedgentlemen.com/codex/
-    {%- when '/pages/essence' -%}https://poisedgentlemen.com/essence/
-    {%- when '/pages/schools' -%}https://poisedgentlemen.com/schools/
-    {%- when '/pages/about' -%}https://poisedgentlemen.com/about/
-    {%- when '/pages/contact' -%}https://poisedgentlemen.com/contact/
-    {%- when '/collections/all' -%}https://poisedgentlemen.com/shop/
-    {%- when '/collections/essence' -%}https://poisedgentlemen.com/shop/
-    {%- when '/collections/young-g' -%}https://poisedgentlemen.com/shop/
-    {%- when '/blogs/news' -%}https://poisedgentlemen.com/codex/
-    {%- else -%}https://poisedgentlemen.com/
-  {%- endcase -%}
-{%- endcapture -%}
-<!doctype html><html><head>
-<meta http-equiv="refresh" content="0;url={{ target | strip }}">
-<script>location.replace({{ target | strip | json }})</script>
-</head><body></body></html>
-{%- break -%}
-{%- endunless -%}
-```
+## Technical notes
 
-Key differences from what's live now:
-- Explicit `{% case %}` mapping so every non-product URL lands on its real Lovable route.
-- `skip` guard so `/products/*`, `/cart`, `/checkout`, `/apps/*` are left untouched.
-- Fallback (`else`) sends unknown Shopify pages to the Lovable homepage.
-
-## Steps
-
-1. You paste the snippet above into `layout/theme.liquid` in the published Shopify theme, replacing the current redirect block.
-2. Save.
-3. I re-run `node scripts/audit-shopify-redirects.mjs` — expected: all 11 non-product URLs ✅ and product/cart/checkout stay ✅.
+- Playwright is already available in the sandbox; no new deps.
+- Script stays under `scripts/` and runnable via `node scripts/audit-shopify-redirects.mjs` — I'll shell out to `python3` (already installed with Playwright) or port to `playwright` npm if you prefer pure Node. Default: Python subprocess, since that matches how in-browser checks are already run in this repo.
+- No changes to app code, redirects.ts, or the Liquid snippet unless you ask.

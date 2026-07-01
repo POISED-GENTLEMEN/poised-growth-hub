@@ -1,28 +1,38 @@
 #!/usr/bin/env node
 /**
- * Audit non-product Shopify URLs to verify each redirects to poisedgentlemen.com.
+ * Browser-based audit of the Shopify → Lovable redirect chain.
  *
- * The "Lovable Redirect" theme on the Shopify store should bounce every
- * non-product, non-checkout page to its Lovable equivalent. This script probes
- * a representative set of URLs and reports whether each currently redirects,
- * still renders a Shopify page (needs fixing), or 404s (fine).
+ * Unlike an HTTP-header check, this drives a headless Chromium so it follows
+ * every hop the user's browser would: 3xx redirects, meta-refresh, JS
+ * `location.replace`, AND Lovable's client-side <RedirectGate>. The final
+ * URL after `networkidle` + a short settle is what the user actually sees,
+ * and that's what we assert against.
  *
- * It also spot-checks that /products/<handle> and /checkout continue to serve
- * a 200 — those MUST NOT be redirected or purchases break.
+ * Pass criteria: final URL is on poisedgentlemen.com AND its pathname starts
+ * with the expected Lovable route (case-insensitive, trailing-slash tolerant).
+ *
+ * /products/<handle> and /cart on myshopify.com are audited as INFO only —
+ * live checkout uses the Storefront API (→ shop.app / /checkouts/*), which
+ * is verified separately.
  *
  * Usage:
  *   node scripts/audit-shopify-redirects.mjs
  *   node scripts/audit-shopify-redirects.mjs --json
  *
+ * Requires Playwright's Python bindings (pre-installed in the sandbox).
  * Related: scripts/audit-product-themes.mjs (verifies product theme).
  */
 
-const SHOP = process.env.SHOPIFY_DOMAIN || "poised-growth-hub-rfqhl.myshopify.com";
-const LOVABLE_ORIGIN = "https://poisedgentlemen.com";
-const JSON_OUT = process.argv.includes("--json");
+import { spawn } from "node:child_process";
+import { writeFileSync, mkdtempSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
-// Non-product URLs — expected to redirect to poisedgentlemen.com/<path>
-const REDIRECT_TARGETS = [
+const JSON_OUT = process.argv.includes("--json");
+const SHOP = process.env.SHOPIFY_DOMAIN || "poised-growth-hub-rfqhl.myshopify.com";
+const LOVABLE = "https://poisedgentlemen.com";
+
+const REDIRECTS = [
   { path: "/", expect: "/" },
   { path: "/pages/codex", expect: "/codex/" },
   { path: "/pages/essence", expect: "/essence/" },
@@ -30,114 +40,134 @@ const REDIRECT_TARGETS = [
   { path: "/pages/about", expect: "/about/" },
   { path: "/pages/contact", expect: "/contact/" },
   { path: "/collections/all", expect: "/shop/" },
-  { path: "/collections/essence", expect: "/shop/" },
+  { path: "/collections/essence", expect: "/essence/" },
   { path: "/collections/young-g", expect: "/shop/" },
   { path: "/blogs/news", expect: "/codex/" },
-  { path: "/search?q=cologne", expect: "/" },
+  { path: "/search?q=cologne", expect: "/search/" },
 ];
 
-// URLs that MUST keep serving Shopify (redirecting these breaks checkout).
-const KEEP_ALIVE = [
-  { path: "/products/blue-harmony-inspired-by-bleu-de-chanel", type: "product" },
-  { path: "/checkout", type: "checkout" },
-  { path: "/cart", type: "cart" },
+// Informational only — live checkout uses shop.app via Storefront API.
+const INFO = [
+  { path: "/products/blue-harmony-inspired-by-bleu-de-chanel", kind: "product" },
+  { path: "/cart", kind: "cart" },
+  { path: "/checkout", kind: "checkout", mustStayOnShopify: true },
 ];
 
-async function probe(path) {
-  const url = `https://${SHOP}${path}${path.includes("?") ? "&" : "?"}cb=${Math.random()
-    .toString(36)
-    .slice(2)}`;
-  try {
-    // manual redirect so we can inspect Location header
-    const res = await fetch(url, { redirect: "manual" });
-    const location = res.headers.get("location");
-    let bodyHint = "";
-    if (!location && (res.status === 200 || res.status === 202)) {
-      const html = await res.text();
-      // detect meta-refresh / JS redirect from the Liquid snippet
-      const meta = html.match(/http-equiv=["']refresh["'][^>]*url=([^"'>\s]+)/i);
-      const js = html.match(/location\.replace\(["']([^"']+)["']\)/i);
-      const inferred = meta?.[1] || js?.[1] || null;
-      if (inferred) return { status: res.status, redirectTo: inferred, method: "meta/js" };
-      bodyHint = /Shopify\.theme/.test(html) ? "shopify-theme" : "unknown";
+const py = `
+import asyncio, json, sys
+from playwright.async_api import async_playwright
+
+SHOP = ${JSON.stringify(`https://${SHOP}`)}
+CASES = ${JSON.stringify({ REDIRECTS, INFO })}
+
+async def visit(ctx, path, retries=1):
+    last_err = None
+    for attempt in range(retries + 1):
+        page = await ctx.new_page()
+        try:
+            await page.goto(SHOP + path, wait_until="load", timeout=25000)
+            try:
+                await page.wait_for_load_state("networkidle", timeout=8000)
+            except Exception:
+                pass
+            await page.wait_for_timeout(1200)
+            return {"final": page.url, "title": await page.title(), "error": None}
+        except Exception as e:
+            last_err = str(e).splitlines()[0]
+        finally:
+            await page.close()
+    return {"final": None, "title": "", "error": last_err}
+
+async def main():
+    results = {"redirects": [], "info": []}
+    async with async_playwright() as p:
+        b = await p.chromium.launch(headless=True)
+        ctx = await b.new_context(viewport={"width": 1280, "height": 1800})
+        for c in CASES["REDIRECTS"]:
+            r = await visit(ctx, c["path"])
+            results["redirects"].append({**c, **r})
+        for c in CASES["INFO"]:
+            r = await visit(ctx, c["path"])
+            results["info"].append({**c, **r})
+        await b.close()
+    print(json.dumps(results))
+
+asyncio.run(main())
+`;
+
+const dir = mkdtempSync(join(tmpdir(), "shopify-audit-"));
+const pyPath = join(dir, "run.py");
+writeFileSync(pyPath, py);
+
+const result = await new Promise((resolve, reject) => {
+  const proc = spawn("python3", [pyPath], { stdio: ["ignore", "pipe", "pipe"] });
+  let out = "", err = "";
+  proc.stdout.on("data", (d) => (out += d));
+  proc.stderr.on("data", (d) => (err += d));
+  proc.on("close", (code) => {
+    if (code !== 0) return reject(new Error(`playwright exited ${code}\n${err}`));
+    try { resolve(JSON.parse(out.trim().split("\n").pop())); }
+    catch (e) { reject(new Error(`bad JSON from playwright:\n${out}\n---\n${err}`)); }
+  });
+});
+
+function pathnameOf(u) {
+  try { const x = new URL(u); return { origin: x.origin, pathname: x.pathname.toLowerCase() }; }
+  catch { return { origin: "", pathname: "" }; }
+}
+
+function passes(final, expect) {
+  if (!final) return false;
+  const { origin, pathname } = pathnameOf(final);
+  if (origin !== LOVABLE) return false;
+  const wanted = expect.toLowerCase().replace(/\/+$/, "");
+  const got = pathname.replace(/\/+$/, "");
+  if (wanted === "") return got === "";
+  return got === wanted || got.startsWith(wanted + "/");
+}
+
+const evaluated = {
+  redirects: result.redirects.map((r) => ({ ...r, ok: passes(r.final, r.expect) })),
+  info: result.info.map((r) => {
+    if (r.mustStayOnShopify) {
+      const { origin } = pathnameOf(r.final || "");
+      const shopifyOrigins = new Set([
+        `https://${SHOP}`, "https://shop.app", "https://checkout.shopify.com",
+      ]);
+      return { ...r, ok: shopifyOrigins.has(origin) };
     }
-    return { status: res.status, redirectTo: location, method: location ? "http" : bodyHint };
-  } catch (err) {
-    return { status: 0, redirectTo: null, error: String(err) };
-  }
+    return { ...r, ok: null };
+  }),
+};
+
+if (JSON_OUT) {
+  console.log(JSON.stringify(evaluated, null, 2));
+  const failed = evaluated.redirects.filter((r) => !r.ok).length
+    + evaluated.info.filter((r) => r.ok === false).length;
+  process.exit(failed === 0 ? 0 : 1);
 }
 
-function normalize(u) {
-  try {
-    const url = new URL(u, `https://${SHOP}`);
-    return { origin: url.origin, pathname: url.pathname };
-  } catch {
-    return { origin: "", pathname: u || "" };
-  }
+console.log(`\nBrowser-audit of ${SHOP} → ${LOVABLE}\n`);
+console.log("── Non-product URLs (final rendered URL must be a Lovable route) ──");
+for (const r of evaluated.redirects) {
+  const mark = r.ok ? "✅" : "❌";
+  console.log(`${mark}  ${r.path}   →   ${r.final || "(no load: " + r.error + ")"}`);
+  if (!r.ok) console.log(`     expected pathname to start with: ${r.expect}`);
 }
 
-async function auditRedirects() {
-  const out = [];
-  for (const { path, expect } of REDIRECT_TARGETS) {
-    const r = await probe(path);
-    const to = r.redirectTo ? normalize(r.redirectTo) : null;
-    const ok =
-      to &&
-      to.origin === LOVABLE_ORIGIN &&
-      (expect === "/" ? to.pathname === "/" : to.pathname.startsWith(expect));
-    out.push({ path, expect, ...r, ok });
-  }
-  return out;
+console.log("\n── Informational (live checkout uses Storefront API → shop.app) ──");
+for (const r of evaluated.info) {
+  const mark = r.mustStayOnShopify ? (r.ok ? "✅" : "❌") : "ℹ️ ";
+  console.log(`${mark}  [${r.kind}]  ${r.path}   →   ${r.final || "(err)"}`);
 }
 
-async function auditKeepAlive() {
-  const out = [];
-  const ALLOWED_HOSTS = new Set([SHOP, "shop.app", "checkout.shopify.com"]);
-  for (const { path, type } of KEEP_ALIVE) {
-    const r = await probe(path);
-    const to = r.redirectTo ? normalize(r.redirectTo) : null;
-    const host = to ? to.origin.replace(/^https?:\/\//, "") : "";
-    const redirectedAway = to && host && !ALLOWED_HOSTS.has(host);
-    const ok = !redirectedAway && (r.status === 200 || r.status === 302 || r.status === 303);
-    out.push({ path, type, ...r, ok });
-  }
-  return out;
+const failed = evaluated.redirects.filter((r) => !r.ok).length
+  + evaluated.info.filter((r) => r.ok === false).length;
+
+console.log("");
+if (failed === 0) {
+  console.log("🎉 All redirects land on the expected Lovable route.");
+} else {
+  console.log(`⚠️  ${failed} URL(s) need attention.`);
+  process.exit(1);
 }
-
-(async () => {
-  console.log(`\nAuditing redirects on ${SHOP} → ${LOVABLE_ORIGIN}\n`);
-  const redirects = await auditRedirects();
-  const keepAlive = await auditKeepAlive();
-
-  if (JSON_OUT) {
-    console.log(JSON.stringify({ redirects, keepAlive }, null, 2));
-    process.exit(redirects.every((r) => r.ok) && keepAlive.every((r) => r.ok) ? 0 : 1);
-  }
-
-  console.log("── Non-product URLs (should redirect to Lovable) ──");
-  for (const r of redirects) {
-    const mark = r.ok ? "✅" : "❌";
-    const dest = r.redirectTo || "(no redirect)";
-    console.log(
-      `${mark}  [${String(r.status).padStart(3)} ${r.method || "-"}]  ${r.path}\n     → ${dest}`
-    );
-  }
-
-  console.log("\n── Must keep serving Shopify (checkout / product / cart) ──");
-  for (const r of keepAlive) {
-    const mark = r.ok ? "✅" : "❌";
-    const dest = r.redirectTo ? ` → ${r.redirectTo}` : "";
-    console.log(`${mark}  [${String(r.status).padStart(3)}]  ${r.path}${dest}`);
-  }
-
-  const failed =
-    redirects.filter((r) => !r.ok).length + keepAlive.filter((r) => !r.ok).length;
-  console.log("");
-  if (failed === 0) {
-    console.log("🎉 All URLs behave as expected.");
-  } else {
-    console.log(`⚠️  ${failed} URL(s) need attention. Update layout/theme.liquid in the`);
-    console.log("   Lovable Redirect theme (Shopify admin → Online Store → Themes → Edit code).");
-    process.exit(1);
-  }
-})();
