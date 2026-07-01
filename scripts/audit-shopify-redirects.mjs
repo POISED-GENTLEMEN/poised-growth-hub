@@ -46,11 +46,13 @@ const REDIRECTS = [
   { path: "/search?q=cologne", expect: "/search/" },
 ];
 
-// Informational only — live checkout uses shop.app via Storefront API.
+// Informational only — live checkout uses shop.app via the Storefront API,
+// and /checkout on myshopify.com only 302s to shop.app when a cart exists
+// (empty-cart visits fall through to the Liquid redirect, which is harmless).
 const INFO = [
   { path: "/products/blue-harmony-inspired-by-bleu-de-chanel", kind: "product" },
   { path: "/cart", kind: "cart" },
-  { path: "/checkout", kind: "checkout", mustStayOnShopify: true },
+  { path: "/checkout", kind: "checkout" },
 ];
 
 const py = `
