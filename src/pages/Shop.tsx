@@ -78,7 +78,7 @@ const BridgeCard = ({
       <Button
         asChild
         size="lg"
-        className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+        className="w-full bg-primary text-primary-foreground hover:bg-primary/90 whitespace-normal text-center leading-tight px-4 h-auto min-h-[52px] py-3 text-xs sm:text-sm"
       >
         <a
           href={href}
@@ -88,8 +88,8 @@ const BridgeCard = ({
           data-ga-event="shop_click"
           data-ga-label={placement}
         >
-          {ctaLabel}
-          <ExternalLink className="ml-2 h-4 w-4" />
+          <span>{ctaLabel}</span>
+          <ExternalLink className="ml-2 h-4 w-4 shrink-0" />
         </a>
       </Button>
       {internalLink && (
