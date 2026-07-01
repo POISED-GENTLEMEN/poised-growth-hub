@@ -15,6 +15,9 @@
  * Env (optional overrides):
  *   SHOPIFY_DOMAIN           default: poised-growth-hub-rfqhl.myshopify.com
  *   SHOPIFY_STOREFRONT_TOKEN default: VITE_SHOPIFY_STOREFRONT_TOKEN from .env
+ *
+ * See also: scripts/audit-shopify-redirects.mjs — audits non-product URLs to
+ * confirm the Lovable Redirect theme bounces them to poisedgentlemen.com.
  */
 
 import { readFileSync } from "node:fs";
