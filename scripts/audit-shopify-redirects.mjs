@@ -92,11 +92,17 @@ async function auditRedirects() {
 
 async function auditKeepAlive() {
   const out = [];
+  const ALLOWED_HOSTS = new Set([SHOP, "shop.app", "checkout.shopify.com"]);
   for (const { path, type } of KEEP_ALIVE) {
     const r = await probe(path);
-    // checkout usually 302s to /checkouts/... on the same domain — that's fine.
     const to = r.redirectTo ? normalize(r.redirectTo) : null;
-    const redirectedAway = to && to.origin && to.origin !== `https://${SHOP}`;
+    const host = to ? to.origin.replace(/^https?:\/\//, "") : "";
+    const redirectedAway = to && host && !ALLOWED_HOSTS.has(host);
+    const ok = !redirectedAway && (r.status === 200 || r.status === 302 || r.status === 303);
+    out.push({ path, type, ...r, ok });
+  }
+  return out;
+}
     const ok = !redirectedAway && (r.status === 200 || r.status === 302 || r.status === 303);
     out.push({ path, type, ...r, ok });
   }
