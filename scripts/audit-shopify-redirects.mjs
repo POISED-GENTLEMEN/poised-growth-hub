@@ -58,7 +58,7 @@ import asyncio, json, sys
 from playwright.async_api import async_playwright
 
 SHOP = ${JSON.stringify(`https://${SHOP}`)}
-CASES = ${JSON.stringify({ REDIRECTS, INFO })}
+CASES = json.loads(${JSON.stringify(JSON.stringify({ REDIRECTS, INFO }))})
 
 async def visit(ctx, path, retries=1):
     last_err = None
