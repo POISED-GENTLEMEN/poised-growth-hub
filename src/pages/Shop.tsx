@@ -201,7 +201,7 @@ const Shop = () => {
                 "4–6 hours of lasting scent",
                 "Hydrating cologne balm format",
               ]}
-              ctaLabel="Shop the Essence Collection"
+              ctaLabel="Shop Essence"
               href={SHOP_LINKS.essence}
               placement="shop_bridge_essence"
               internalLink={{ to: "/essence/", label: "Read the story behind Essence" }}
