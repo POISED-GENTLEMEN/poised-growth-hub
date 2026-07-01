@@ -103,11 +103,6 @@ async function auditKeepAlive() {
   }
   return out;
 }
-    const ok = !redirectedAway && (r.status === 200 || r.status === 302 || r.status === 303);
-    out.push({ path, type, ...r, ok });
-  }
-  return out;
-}
 
 (async () => {
   console.log(`\nAuditing redirects on ${SHOP} → ${LOVABLE_ORIGIN}\n`);
