@@ -216,7 +216,7 @@ const Shop = () => {
                 "Individual products from $14.99",
                 "Starter Kit $79.00",
               ]}
-              ctaLabel="Shop the Young-G Collection"
+              ctaLabel="Shop Young-G"
               href={SHOP_LINKS.youngG}
               placement="shop_bridge_young_g"
               internalLink={{
