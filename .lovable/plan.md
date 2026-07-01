@@ -1,20 +1,37 @@
-## Problem
+## Issue
 
-The three CTA buttons on `/shop/` don't fit their labels. My previous attempt allowed text to wrap, which fixed the overflow but created ugly two-line buttons of uneven heights and broke the polished look.
+The "Shop Young-G" button links to:
+`/collections/young-g-collection`
 
-Root cause: the labels are simply too long for a 3-column layout at this viewport. Wrapping is a band-aid; shortening the labels + letting them scale is the real fix.
+But the actual Shopify collection handle is:
+`/collections/poised-young-gentlemen`
+
+Shopify is likely 301-ing the wrong handle to the storefront homepage (or a fallback), which is why the button doesn't land on the intended collection.
 
 ## Fix
 
-In `src/pages/Shop.tsx`, `BridgeCard` component:
+In `src/pages/Shop.tsx`, update the `SHOP_LINKS.youngG` entry to use the correct collection handle:
 
-1. **Revert the wrapping hack** — remove `whitespace-normal`, `h-auto`, `min-h-[52px]`, `py-3`, and the responsive text-size juggling I added last turn. Restore the clean single-line `size="lg"` button.
-2. **Shorten the three CTA labels** so they fit on one line at all viewports ≥ md:
-   - `"Shop the Essence Collection"` → `"Shop Essence"`
-   - `"Shop the Young-G Collection"` → `"Shop Young-G"`
-   - `"Shop Bundles + Subscribe & Save"` → `"Shop Bundles"`
-3. Keep the existing `ExternalLink` icon and all tracking/analytics attributes unchanged.
+```ts
+const SHOP_LINKS = {
+  essence: shopifyUrl("/collections/essence-collection", "shop_bridge_essence"),
+  youngG: shopifyUrl("/collections/poised-young-gentlemen", "shop_bridge_young_g"),
+  bundles: shopifyUrl("/collections/bundles-subscribe-save", "shop_bridge_bundles"),
+};
+```
 
-The card headings ("The Essence Collection", "The Young-G Collection", "Bundles + Subscribe & Save") already tell the user what they're buying — the button just needs to say "go."
+This one change updates every reference on `/shop/` that uses `SHOP_LINKS.youngG`:
+- The "Shop Young-G" bridge card CTA
+- The "Browse the full Young-G Collection" button below the individual product grid
+- The closing-CTA "Young-G Collection" button
 
-No other files change. No routing, tracking, or Shopify links change.
+## Verification
+
+- Also audit the other two collection handles while making the change:
+  - Confirm `essence-collection` resolves (currently in use, appears working)
+  - Confirm `bundles-subscribe-save` resolves
+- If either 404s on the Shopify domain, correct it in the same edit.
+- Grep the rest of the codebase for any other `young-g-collection` string (e.g., footer, header, other pages) and update those too so links are consistent site-wide.
+- After the edit, click through the Young-G button in the preview and confirm it lands on the products grid at `poised-young-gentlemen`.
+
+No styling, layout, or tracking changes — just correcting the destination handle.
